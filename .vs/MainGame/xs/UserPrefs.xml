@@ -1,0 +1,27 @@
+﻿<Properties StartupConfiguration="{E5B96A3A-0B81-46B9-9586-164C6471BEB0}|Default">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.ItemProperties.MainGame PreferredExecutionTarget="MonoDevelop.Default" />
+  <MultiItemStartupConfigurations />
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Game/Game1.cs">
+    <Files>
+      <File FileName="Game/Game1.cs" Line="6" Column="28" />
+      <File FileName="Game/SpriteHandlers/SpriteFactory.cs" />
+    </Files>
+    <Pads>
+      <Pad Id="ProjectPad">
+        <State name="__root__">
+          <Node name="MainGame" expanded="True">
+            <Node name="MainGame">
+              <Node name="SpriteHandlers" expanded="True" />
+              <Node name="Game1.cs" selected="True" />
+            </Node>
+          </Node>
+        </State>
+      </Pad>
+    </Pads>
+  </MonoDevelop.Ide.Workbench>
+</Properties>
