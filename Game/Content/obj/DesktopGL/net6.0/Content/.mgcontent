@@ -4,11 +4,11 @@
   <Platform>DesktopGL</Platform>
   <Config />
   <SourceFiles>
-    <File>/Users/cvo/Desktop/the_bucket/school_stuff/SP24/CSE 3902/CSE3902-Game/Game/Content/Fonts/Font.spritefont</File>
-    <File>/Users/cvo/Desktop/the_bucket/school_stuff/SP24/CSE 3902/CSE3902-Game/Game/Content/PlayerSprites/GengarAsleep.png</File>
-    <File>/Users/cvo/Desktop/the_bucket/school_stuff/SP24/CSE 3902/CSE3902-Game/Game/Content/PlayerSprites/GengarFloating.png</File>
-    <File>/Users/cvo/Desktop/the_bucket/school_stuff/SP24/CSE 3902/CSE3902-Game/Game/Content/PlayerSprites/GengarIdle.png</File>
-    <File>/Users/cvo/Desktop/the_bucket/school_stuff/SP24/CSE 3902/CSE3902-Game/Game/Content/PlayerSprites/GengarMoving.png</File>
+    <File>C:/Users/Jakec/Documents/game/Game/Content/Fonts/Font.spritefont</File>
+    <File>C:/Users/Jakec/Documents/game/Game/Content/PlayerSprites/GengarAsleep.png</File>
+    <File>C:/Users/Jakec/Documents/game/Game/Content/PlayerSprites/GengarFloating.png</File>
+    <File>C:/Users/Jakec/Documents/game/Game/Content/PlayerSprites/GengarIdle.png</File>
+    <File>C:/Users/Jakec/Documents/game/Game/Content/PlayerSprites/GengarMoving.png</File>
   </SourceFiles>
   <DestFiles>
     <File xsi:nil="true" />

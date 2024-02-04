@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PipelineBuildEvent xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-  <SourceFile>/Users/cvo/Desktop/the_bucket/school_stuff/SP24/CSE 3902/CSE3902-Game/Game/Content/PlayerSprites/GengarIdle.png</SourceFile>
-  <SourceTime>2024-01-27T16:28:56.6712295-05:00</SourceTime>
-  <DestFile>/Users/cvo/Desktop/the_bucket/school_stuff/SP24/CSE 3902/CSE3902-Game/Game/Content/bin/DesktopGL/Content/PlayerSprites/GengarIdle.xnb</DestFile>
-  <DestTime>2024-02-02T13:15:49.1279453-05:00</DestTime>
+  <SourceFile>C:/Users/Jakec/Documents/game/Game/Content/PlayerSprites/GengarIdle.png</SourceFile>
+  <SourceTime>2024-02-04T16:38:24.214293-05:00</SourceTime>
+  <DestFile>C:/Users/Jakec/Documents/game/Game/Content/bin/DesktopGL/Content/PlayerSprites/GengarIdle.xnb</DestFile>
+  <DestTime>2024-02-04T16:38:44.0610322-05:00</DestTime>
   <Importer>TextureImporter</Importer>
   <ImporterTime>2022-07-26T07:44:56-04:00</ImporterTime>
   <Processor>TextureProcessor</Processor>

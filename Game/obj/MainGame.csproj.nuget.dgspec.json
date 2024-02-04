@@ -1,25 +1,32 @@
 {
   "format": 1,
   "restore": {
-    "/Users/cvo/Desktop/the_bucket/school_stuff/SP24/CSE 3902/CSE3902-Game/Game/MainGame.csproj": {}
+    "C:\\Users\\Jakec\\Documents\\game\\Game\\MainGame.csproj": {}
   },
   "projects": {
-    "/Users/cvo/Desktop/the_bucket/school_stuff/SP24/CSE 3902/CSE3902-Game/Game/MainGame.csproj": {
+    "C:\\Users\\Jakec\\Documents\\game\\Game\\MainGame.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/Users/cvo/Desktop/the_bucket/school_stuff/SP24/CSE 3902/CSE3902-Game/Game/MainGame.csproj",
+        "projectUniqueName": "C:\\Users\\Jakec\\Documents\\game\\Game\\MainGame.csproj",
         "projectName": "MainGame",
-        "projectPath": "/Users/cvo/Desktop/the_bucket/school_stuff/SP24/CSE 3902/CSE3902-Game/Game/MainGame.csproj",
-        "packagesPath": "/Users/cvo/.nuget/packages/",
-        "outputPath": "/Users/cvo/Desktop/the_bucket/school_stuff/SP24/CSE 3902/CSE3902-Game/Game/obj/",
+        "projectPath": "C:\\Users\\Jakec\\Documents\\game\\Game\\MainGame.csproj",
+        "packagesPath": "C:\\Users\\Jakec\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Jakec\\Documents\\game\\Game\\obj\\",
         "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+        ],
         "configFilePaths": [
-          "/Users/cvo/.nuget/NuGet/NuGet.Config"
+          "C:\\Users\\Jakec\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
           "net6.0"
         ],
         "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "C:\\Program Files\\dotnet\\library-packs": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -63,7 +70,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/x64/sdk/6.0.418/RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.101\\RuntimeIdentifierGraph.json"
         }
       }
     }
