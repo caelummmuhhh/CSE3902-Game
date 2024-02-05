@@ -1,6 +1,0 @@
-Source File,Dest File,Processor Type,Content Type,Source File Size,Dest File Size,Build Seconds
-"C:/Users/Jakec/Documents/game/Game/Content/Fonts/Font.spritefont","C:/Users/Jakec/Documents/game/Game/Content/bin/DesktopGL/Content/Fonts/Font.xnb","FontDescriptionProcessor","SpriteFontContent",2068,21535,0.2210511
-"C:/Users/Jakec/Documents/game/Game/Content/PlayerSprites/GengarAsleep.png","C:/Users/Jakec/Documents/game/Game/Content/bin/DesktopGL/Content/PlayerSprites/GengarAsleep.xnb","TextureProcessor","Texture2DContent",3147,3333,0.0184485
-"C:/Users/Jakec/Documents/game/Game/Content/PlayerSprites/GengarFloating.png","C:/Users/Jakec/Documents/game/Game/Content/bin/DesktopGL/Content/PlayerSprites/GengarFloating.xnb","TextureProcessor","Texture2DContent",3305,3333,0.0017673
-"C:/Users/Jakec/Documents/game/Game/Content/PlayerSprites/GengarIdle.png","C:/Users/Jakec/Documents/game/Game/Content/bin/DesktopGL/Content/PlayerSprites/GengarIdle.xnb","TextureProcessor","Texture2DContent",3978,9157,0.0018195
-"C:/Users/Jakec/Documents/game/Game/Content/PlayerSprites/GengarMoving.png","C:/Users/Jakec/Documents/game/Game/Content/bin/DesktopGL/Content/PlayerSprites/GengarMoving.xnb","TextureProcessor","Texture2DContent",4136,7213,0.001467
