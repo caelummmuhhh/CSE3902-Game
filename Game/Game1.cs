@@ -17,6 +17,7 @@ public class Game1 : Game
 
     private ISprite textSprite;
     public Player Player;
+    // test comment, having issues with git
 
     public Game1()
     {
