@@ -17,6 +17,7 @@
     <None Remove="Commands\" />
     <None Remove="Controllers\" />
     <None Remove="Players\" />
+    <None Remove="SpriteHandlers\PlayerSprites\" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Icon.ico" />
@@ -31,6 +32,7 @@
     <Folder Include="Commands\" />
     <Folder Include="Controllers\" />
     <Folder Include="Players\" />
+    <Folder Include="SpriteHandlers\PlayerSprites\" />
   </ItemGroup>
   <Target Name="RestoreDotnetTools" BeforeTargets="Restore">
     <Message Text="Restoring dotnet tools" Importance="High" />
