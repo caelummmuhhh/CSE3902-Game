@@ -39,11 +39,11 @@ public class Game1 : Game
         SpriteFactory.LoadAllTextures(Content);
         SpriteFactory.SpriteBatch = spriteBatch;
 
-        textSprite = SpriteFactory.CreateTextSprite("Credits\nProgram Made By: Caelum Vo\nSprites from:\nhttps://www.spriters-resource.com/ds_dsi/pokemonmysterydungeonexplorersoftimedarkness/sheet/21635/");
+   
         Player = new Player(
             new Vector2(GraphicsManager.PreferredBackBufferWidth / 2,
                 GraphicsManager.PreferredBackBufferHeight / 2),
-            SpriteFactory.CreatePlayerStaticIdleSprite(),
+            SpriteFactory.CreateLinkDownSprite(GraphicsManager.GraphicsDevice),
             this
         );
 
@@ -69,7 +69,6 @@ public class Game1 : Game
         GraphicsDevice.Clear(Color.Indigo);
 
         Player.Draw();
-        textSprite.Draw(10, GraphicsManager.PreferredBackBufferHeight - 100, Color.Black);
 
         base.Draw(gameTime);
     }

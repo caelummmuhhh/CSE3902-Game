@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Content;
+using Microsoft.Xna.Framework;
 
 namespace MainGame.SpriteHandlers
 {
@@ -13,11 +14,7 @@ namespace MainGame.SpriteHandlers
 
 		public static void LoadAllTextures(ContentManager contents)
 		{
-			TextureMap.Add("GengarIdle", contents.Load<Texture2D>("PlayerSprites/GengarIdle"));
-            TextureMap.Add("GengarFloating", contents.Load<Texture2D>("PlayerSprites/GengarFloating"));
-            TextureMap.Add("GengarMoving", contents.Load<Texture2D>("PlayerSprites/GengarMoving"));
-            TextureMap.Add("GengarAsleep", contents.Load<Texture2D>("PlayerSprites/GengarAsleep"));
-            Font = contents.Load<SpriteFont>("Fonts/Font");
+			TextureMap.Add("linkSpriteSheet", contents.Load<Texture2D>("PlayerSprites/linkSpriteSheet"));
         }
 
 
@@ -27,28 +24,75 @@ namespace MainGame.SpriteHandlers
             return new TextSprite(SpriteBatch, Font, text);
         }
 
-
-        public static ISprite CreatePlayerAnimatedIdleSprite()
-		{
-			return new PlayerAnimatedIdleSprite(TextureMap["GengarIdle"], SpriteBatch, 1, 3);
-		}
-
-        public static ISprite CreatePlayerAnimatedWalkingSprite()
+        public static ISprite CreateLinkUpSprite(GraphicsDevice graphicsDevice)
         {
-            return new PlayerAnimatedWalkingSprite(TextureMap["GengarMoving"], SpriteBatch, 1, 3);
+            int x = 0, y = 16;
+            int height = 15; 
+            int width = 30;
+            // Get the smaller section of the link texture specifically for up animation
+            Texture2D texture = CreateSmallerTexture(TextureMap["linkSpriteSheet"], graphicsDevice, x, y, width, height);
+
+            return new LinkSprite(texture, SpriteBatch, 1, 2);
+        }
+
+        public static ISprite CreateLinkDownSprite(GraphicsDevice graphicsDevice)
+        {
+            int x = 0, y = 0;
+            int height = 15;
+            int width = 30;
+            // Get the smaller section of the link texture specifically for up animation
+            Texture2D texture = CreateSmallerTexture(TextureMap["linkSpriteSheet"], graphicsDevice, x, y, width, height);
+
+            return new LinkSprite(texture, SpriteBatch, 1, 2);
+        }
+
+        public static ISprite CreateLinkLeftSprite(GraphicsDevice graphicsDevice)
+        {
+            int x = 0, y = 32;
+            int height = 15;
+            int width = 30;
+            // Get the smaller section of the link texture specifically for up animation
+            Texture2D texture = CreateSmallerTexture(TextureMap["linkSpriteSheet"], graphicsDevice, x, y, width, height);
+
+            return new LinkSprite(texture, SpriteBatch, 1, 2);
+        }
+
+        public static ISprite CreateLinkRightSprite(GraphicsDevice graphicsDevice)
+        {
+            int x = 0, y = 32;
+            int height = 15;
+            int width = 30;
+            // Get the smaller section of the link texture specifically for up animation
+            Texture2D texture = CreateSmallerTexture(TextureMap["linkSpriteSheet"], graphicsDevice, x, y, width, height);
+
+            return new LinkSprite(texture, SpriteBatch, 1, 2);
         }
 
 
-        public static ISprite CreatePlayerStaticFallingSprite()
+
+        // Function to create a smaller texture from a specific region of the original texture
+        private static Texture2D CreateSmallerTexture(Texture2D originalTexture, GraphicsDevice graphicsDevice, int x, int y, int width, int height)
         {
-            return new PlayerStaticFallingSprite(TextureMap["GengarFloating"], SpriteBatch);
+            Color[] data = new Color[originalTexture.Width * originalTexture.Height];
+            originalTexture.GetData(data);
+
+            Color[] newData = new Color[width * height];
+
+            for (int i = 0; i < height; i++)
+            {
+                for (int j = 0; j < width; j++)
+                {
+                    int index = (y + i) * originalTexture.Width + (x + j);
+                    newData[i * width + j] = data[index];
+                }
+            }
+
+            Texture2D smallerTexture = new Texture2D(graphicsDevice, width, height);
+            smallerTexture.SetData(newData);
+
+            return smallerTexture;
         }
 
-
-        public static ISprite CreatePlayerStaticIdleSprite()
-        {
-            return new PlayerStaticIdleSprite(TextureMap["GengarAsleep"], SpriteBatch);
-        }
     }
 }
 

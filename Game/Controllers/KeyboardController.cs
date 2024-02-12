@@ -23,12 +23,11 @@ namespace MainGame.Controllers
 
 			keyCommands = new()
 			{
-                { Keys.D0, new QuitGameCommand(game) },
-                { Keys.D1, new StationaryStaticSpriteCommand(game, player) },
-                { Keys.D2, new StationaryAnimatedSpriteCommand(game, player) },
-                { Keys.D3, new MovingStaticSpriteCommand(game, player) },
-                { Keys.D4, new MovingAnimatedSpriteCommand(game, player) }
-
+                { Keys.Q, new QuitGameCommand(game) },
+                { Keys.W, new linkMovingUpCommand(game, player) },
+                { Keys.S, new linkMovingDownCommand(game, player) },
+                { Keys.D, new linkMovingRightCommand(game, player) },
+                { Keys.A, new linkMovingLeftCommand(game, player) }
             };
         }
 
@@ -41,6 +40,10 @@ namespace MainGame.Controllers
                 if (keyState.IsKeyDown(key))
                 {
                     keyCommands[key].Execute();
+                }
+                else
+                {
+                    keyCommands[key].UnExecute();
                 }
             }
         }

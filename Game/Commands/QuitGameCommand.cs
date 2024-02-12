@@ -20,7 +20,7 @@ namespace MainGame.Commands
         public void UnExecute()
         {
             // not needed
-            throw new NotImplementedException("QuitGameCommand UnExecute not implemented.");
+            // throw new NotImplementedException("QuitGameCommand UnExecute not implemented.");
         }
     }
 }

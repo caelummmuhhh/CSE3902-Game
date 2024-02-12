@@ -1,6 +1,7 @@
 ﻿using System;
 using Microsoft.Xna.Framework;
 using MainGame.SpriteHandlers;
+using MainGame.Commands;
 
 namespace MainGame.Players
 {
@@ -12,11 +13,10 @@ namespace MainGame.Players
 		public float HorizontalSpeed = 4f;
 
 		private readonly Game game;
-		private bool movingLeft;
-		private bool movingDown;
-
-		public bool VerticalMotionOn;
-		public bool HorizontalMotionOn;
+		public bool movingUp;
+		public bool movingDown;
+		public bool movingLeft;
+		public bool movingRight;
 
         public Player(Vector2 position, ISprite sprite, Game game)
 		{
@@ -25,17 +25,21 @@ namespace MainGame.Players
 			this.game = game;
 
 			movingLeft = false;
+			movingRight = false;
+			movingUp = false;
 			movingDown = false;
-			VerticalMotionOn = false;
-			HorizontalMotionOn = false;
         }
 
 		public void Update()
 		{
-			Sprite.Update();
-
-			if (VerticalMotionOn) { InfiniteFall(); }
-			if (HorizontalMotionOn) { HorizontalBounce(); }
+			if (movingLeft || movingDown || movingRight || movingUp)
+			{
+                Sprite.Update();
+            }
+			if(movingLeft) { MoveLeft(); }
+			if(movingRight) { MoveRight(); }
+			if(movingUp) { MoveUp(); }
+			if(movingDown) { MoveDown(); }
 		}
 
 		public void Draw()
@@ -47,9 +51,8 @@ namespace MainGame.Players
 		{
 			Position = new Vector2(Position.X, Position.Y - VerticalSpeed);
 		}
-
-		public void MoveDown()
-		{
+        public void MoveDown()
+        {
             Position = new Vector2(Position.X, Position.Y + VerticalSpeed);
         }
 
@@ -61,31 +64,6 @@ namespace MainGame.Players
         public void MoveRight()
         {
             Position = new Vector2(Position.X + HorizontalSpeed, Position.Y);
-        }
-
-		public void HorizontalBounce()
-		{
-            if (Position.X < 27)
-            {
-                movingLeft = false;
-            }
-            else if (Position.X > game.GraphicsDevice.Viewport.Width - 27)
-            {
-                movingLeft = true;
-            }
-
-            if (movingLeft) { MoveLeft(); }
-            else { MoveRight(); }
-		}
-
-        public void InfiniteFall()
-		{
-			movingDown = true;
-            MoveDown();
-            if (Position.Y > game.GraphicsDevice.Viewport.Height + 14)
-            {
-                Position = new Vector2(Position.X, 0);
-            }
         }
     }
 }

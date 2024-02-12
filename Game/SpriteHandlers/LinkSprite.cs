@@ -1,12 +1,15 @@
-﻿using System;
-using System.Data.Common;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace MainGame.SpriteHandlers
 {
-	public class PlayerAnimatedWalkingSprite : ISprite
-	{
+    public class LinkSprite : ISprite
+    {
         public readonly Texture2D Texture;
         private readonly SpriteBatch spriteBatch;
         private int currentFrame;
@@ -19,23 +22,23 @@ namespace MainGame.SpriteHandlers
         private readonly int height;
         private readonly int scale;
 
-        public PlayerAnimatedWalkingSprite(Texture2D texture, SpriteBatch spriteBatch, int rows, int columns)
-		{
-			Texture = texture;
-			this.spriteBatch = spriteBatch;
+        public LinkSprite(Texture2D texture, SpriteBatch spriteBatch, int rows, int columns)
+        {
+            Texture = texture;
+            this.spriteBatch = spriteBatch;
             width = Texture.Width / columns;
             height = Texture.Height / rows;
             totalFrames = rows * columns;
-			this.rows = rows;
-			this.columns = columns;
-			frameRateDivider = 10;
-			currentUpdateVersion = 0;
+            this.rows = rows;
+            this.columns = columns;
+            frameRateDivider = 10;
+            currentUpdateVersion = 0;
             scale = 2;
         }
 
-		public void Update()
-		{
-			currentUpdateVersion++;
+        public void Update()
+        {
+            currentUpdateVersion++;
 
             if (currentUpdateVersion == frameRateDivider)
             {
@@ -71,4 +74,3 @@ namespace MainGame.SpriteHandlers
         }
     }
 }
-
