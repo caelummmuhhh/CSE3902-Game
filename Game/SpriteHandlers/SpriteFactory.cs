@@ -14,11 +14,6 @@ namespace MainGame.SpriteHandlers
 
 		public static void LoadAllTextures(ContentManager contents)
 		{
-			TextureMap.Add("GengarIdle", contents.Load<Texture2D>("PlayerSprites/GengarIdle"));
-            TextureMap.Add("GengarFloating", contents.Load<Texture2D>("PlayerSprites/GengarFloating"));
-            TextureMap.Add("GengarMoving", contents.Load<Texture2D>("PlayerSprites/GengarMoving"));
-            TextureMap.Add("GengarAsleep", contents.Load<Texture2D>("PlayerSprites/GengarAsleep"));
-
             TextureMap.Add("LinkSprites", contents.Load<Texture2D>("LinkSprites"));
 
             Font = contents.Load<SpriteFont>("Fonts/Font");

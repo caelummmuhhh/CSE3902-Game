@@ -21,11 +21,8 @@ namespace MainGame.Commands
 
         public void Execute()
         {
-            if (player.Sprite is not PlayerStaticFallingSprite)
-            {
-                player.Sprite = SpriteFactory.CreatePlayerStaticFallingSprite();
-                UnExecute();
-            }
+            player.Sprite = SpriteFactory.CreatePlayerStaticFallingSprite();
+            UnExecute();
             player.HorizontalMotionOn = false;
             player.VerticalMotionOn = true;
         }
