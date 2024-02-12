@@ -54,7 +54,7 @@ namespace MainGame.SpriteHandlers
             // Get the smaller section of the link texture specifically for up animation
             Texture2D texture = CreateSmallerTexture(TextureMap["linkSpriteSheet"], graphicsDevice, x, y, width, height);
 
-            return new LinkSprite(texture, SpriteBatch, 1, 2);
+            return new LinkSprite(FlipTextureHorizontally(texture), SpriteBatch, 1, 2);
         }
 
         public static ISprite CreateLinkRightSprite(GraphicsDevice graphicsDevice)
@@ -91,6 +91,28 @@ namespace MainGame.SpriteHandlers
             smallerTexture.SetData(newData);
 
             return smallerTexture;
+        }
+
+        // Function to flip a Texture2D horizontally
+        private static Texture2D FlipTextureHorizontally(Texture2D originalTexture)
+        {
+            Color[] data = new Color[originalTexture.Width * originalTexture.Height];
+            originalTexture.GetData(data);
+
+            Color[] newData = new Color[data.Length];
+
+            for (int y = 0; y < originalTexture.Height; y++)
+            {
+                for (int x = 0; x < originalTexture.Width; x++)
+                {
+                    newData[y * originalTexture.Width + (originalTexture.Width - 1 - x)] = data[y * originalTexture.Width + x];
+                }
+            }
+
+            Texture2D flippedTexture = new Texture2D(originalTexture.GraphicsDevice, originalTexture.Width, originalTexture.Height);
+            flippedTexture.SetData(newData);
+
+            return flippedTexture;
         }
 
     }
