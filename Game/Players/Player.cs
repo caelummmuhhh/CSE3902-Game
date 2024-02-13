@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework;
 using MainGame.SpriteHandlers;
 using MainGame.Commands;
+using System.Diagnostics;
 
 namespace MainGame.Players
 {
@@ -32,7 +33,7 @@ namespace MainGame.Players
 
 		public void Update()
 		{
-			if (movingLeft || movingDown || movingRight || movingUp)
+			if (movingLeft || movingDown || movingRight || movingUp) // If link isn't currently moving dont update sprite
 			{
                 Sprite.Update();
             }

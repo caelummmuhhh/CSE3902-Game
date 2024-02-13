@@ -22,12 +22,15 @@ namespace MainGame.Commands
 
         public void Execute()
         {
-            player.movingDown = false;
-            player.movingLeft = false;
-            player.movingRight = false;
-            player.movingUp = true;
+            if (!player.movingUp) // If the player was already moving in this direction dont reassign everything
+            {
+                player.movingDown = false;
+                player.movingLeft = false;
+                player.movingRight = false;
+                player.movingUp = true;
 
-            player.Sprite = SpriteFactory.CreateLinkUpSprite(game.GraphicsDevice);
+                player.Sprite = SpriteFactory.CreateLinkUpSprite(game.GraphicsDevice);
+            }
         }
 
         public void UnExecute()
