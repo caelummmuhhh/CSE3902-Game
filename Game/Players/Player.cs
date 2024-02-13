@@ -18,6 +18,7 @@ namespace MainGame.Players
 		public bool movingDown;
 		public bool movingLeft;
 		public bool movingRight;
+		public bool usingSword;
 
         public Player(Vector2 position, ISprite sprite, Game game)
 		{
@@ -29,6 +30,7 @@ namespace MainGame.Players
 			movingRight = false;
 			movingUp = false;
 			movingDown = false;
+			usingSword = false;
         }
 
 		public void Update()

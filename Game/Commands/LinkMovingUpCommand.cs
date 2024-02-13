@@ -2,9 +2,8 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
-
-using MainGame.SpriteHandlers;
 using MainGame.Players;
+using MainGame.SpriteHandlers;
 
 namespace MainGame.Commands
 {
@@ -29,7 +28,7 @@ namespace MainGame.Commands
                 player.movingRight = false;
                 player.movingUp = true;
 
-                player.Sprite = SpriteFactory.CreateLinkUpSprite(game.GraphicsDevice);
+                player.Sprite = SpriteFactory.getSprite("LinkUpSprite", game.GraphicsDevice);
             }
         }
 

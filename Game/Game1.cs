@@ -43,7 +43,7 @@ public class Game1 : Game
         Player = new Player(
             new Vector2(GraphicsManager.PreferredBackBufferWidth / 2,
                 GraphicsManager.PreferredBackBufferHeight / 2),
-            SpriteFactory.CreateLinkDownSprite(GraphicsManager.GraphicsDevice),
+            SpriteFactory.getSprite("LinkDownSprite", GraphicsManager.GraphicsDevice),
             this
         );
 
