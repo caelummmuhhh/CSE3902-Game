@@ -166,6 +166,40 @@ namespace MainGame.SpriteHandlers
                 scale: UniversalScaleMultiplier);
         }
 
+        public static ISprite CreatePlayerIdleDownSprite()
+        {
+            return new PlayerSprites.PlayerIdleDownSprite(
+                TextureMap["LinkSprites"], SpriteBatch,
+                textureStartingY: 0,
+                scale: UniversalScaleMultiplier);
+        }
+
+        public static ISprite CreatePlayerIdleUpSprite()
+        {
+            return new PlayerSprites.PlayerIdleUpSprite(
+                TextureMap["LinkSprites"], SpriteBatch,
+                textureStartingY: 16,
+                scale: UniversalScaleMultiplier);
+        }
+
+
+        public static ISprite CreatePlayerIdleLeftSprite()
+        {
+            return new PlayerSprites.PlayerIdleLeftSprite(
+                TextureMap["LinkSprites"], SpriteBatch,
+                textureStartingY: 32,
+                scale: UniversalScaleMultiplier);
+        }
+
+
+        public static ISprite CreatePlayerIdleRightSprite()
+        {
+            return new PlayerSprites.PlayerIdleRightSprite(
+                TextureMap["LinkSprites"], SpriteBatch,
+                textureStartingY: 32,
+                scale: UniversalScaleMultiplier);
+        }
+
 
         /* Enemy Sprites */
         public static ISprite CreateKeeseFlightSprite()
@@ -417,24 +451,24 @@ namespace MainGame.SpriteHandlers
 
         public static ISprite CreatePlayerStaticIdleSprite()
 		{
-			return CreatePlayerHoldingTriforceSprite();
+			return CreatePlayerIdleLeftSprite();
 		}
 
         public static ISprite CreatePlayerAnimatedIdleSprite()
         {
-            return CreatePlayerAttackingDownSprite();
+            return CreatePlayerIdleUpSprite();
         }
 
 
         public static ISprite CreatePlayerStaticFallingSprite()
         {
-            return CreatePlayerWalkingDownSprite();
+            return CreatePlayerIdleDownSprite();
         }
 
 
         public static ISprite CreatePlayerAnimatedWalkingSprite()
         {
-            return CreatePlayerWalkingRightSprite();
+            return CreatePlayerIdleRightSprite();
         }
     }
 }
