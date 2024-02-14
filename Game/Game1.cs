@@ -39,7 +39,7 @@ public class Game1 : Game
         SpriteFactory.LoadAllTextures(Content);
         SpriteFactory.SpriteBatch = spriteBatch;
 
-        textSprite = SpriteFactory.CreateTextSprite("Credits\nProgram Made By: Caelum Vo\nSprites from:\nhttps://www.spriters-resource.com/ds_dsi/pokemonmysterydungeonexplorersoftimedarkness/sheet/21635/");
+        textSprite = SpriteFactory.CreateTextSprite("hello world!");
         Player = new Player(
             new Vector2(GraphicsManager.PreferredBackBufferWidth / 2,
                 GraphicsManager.PreferredBackBufferHeight / 2),
