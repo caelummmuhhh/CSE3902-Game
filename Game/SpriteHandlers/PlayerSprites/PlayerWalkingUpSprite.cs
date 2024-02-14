@@ -4,7 +4,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace MainGame.SpriteHandlers.PlayerSprites
 {
-    public class PlayerWalkingUpSprite : AnimatedSpriteWithYOffset
+    public class PlayerWalkingUpSprite : AnimatedSpriteWithOffset
     {
         private readonly SpriteBatch spriteBatch;
         private int spriteDisplayTimeLapse;

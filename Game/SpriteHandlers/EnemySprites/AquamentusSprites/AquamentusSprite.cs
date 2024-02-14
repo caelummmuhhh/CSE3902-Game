@@ -2,9 +2,9 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace MainGame.SpriteHandlers.PlayerSprites
+namespace MainGame.SpriteHandlers.EnemySprites
 {
-    public class PlayerAttackingLeftSprite : AnimatedSpriteWithOffset
+    public class AquamentusSprite : AnimatedSpriteWithOffset
     {
         private readonly SpriteBatch spriteBatch;
         private int spriteDisplayTimeLapse;
@@ -15,7 +15,7 @@ namespace MainGame.SpriteHandlers.PlayerSprites
         /// </summary>
         private Dictionary<int, int> frameDisplayTimeMap;
 
-        public PlayerAttackingLeftSprite(
+        public AquamentusSprite(
             Texture2D texture,
             SpriteBatch spriteBatch,
             int numRows,
@@ -33,10 +33,8 @@ namespace MainGame.SpriteHandlers.PlayerSprites
             spriteDisplayTimeLapse = 0;
             frameDisplayTimeMap = new()
             {
-                { 0, 4 },
-                { 1, 8 },
-                { 2, 1 },
-                { 3, 1 }
+                { 0, 16 },
+                { 1, 16 },
             };
         }
 
@@ -62,14 +60,7 @@ namespace MainGame.SpriteHandlers.PlayerSprites
                 FrameHeight * Scale
             );
             spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, SamplerState.PointClamp);
-            spriteBatch.Draw(Texture,
-                destRectangle,
-                srcRectangle,
-                color,
-                0f,
-                new Vector2(0, 0),
-                SpriteEffects.FlipHorizontally,
-                0f);
+            spriteBatch.Draw(Texture, destRectangle, srcRectangle, color);
             spriteBatch.End();
         }
     }

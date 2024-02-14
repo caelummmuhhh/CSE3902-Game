@@ -2,12 +2,13 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace MainGame.SpriteHandlers.PlayerSprites
+namespace MainGame.SpriteHandlers.EnemySprites
 {
-    public class PlayerAttackingLeftSprite : AnimatedSpriteWithOffset
+    public class GoriyaWalkingDownSprite : AnimatedSpriteWithOffset
     {
         private readonly SpriteBatch spriteBatch;
         private int spriteDisplayTimeLapse;
+        bool spriteFlip;
 
         /// <summary>
         /// The key is the current frame (starting at 0) and corresponds with currentFrame.
@@ -15,7 +16,7 @@ namespace MainGame.SpriteHandlers.PlayerSprites
         /// </summary>
         private Dictionary<int, int> frameDisplayTimeMap;
 
-        public PlayerAttackingLeftSprite(
+        public GoriyaWalkingDownSprite(
             Texture2D texture,
             SpriteBatch spriteBatch,
             int numRows,
@@ -31,29 +32,34 @@ namespace MainGame.SpriteHandlers.PlayerSprites
         {
             this.spriteBatch = spriteBatch;
             spriteDisplayTimeLapse = 0;
+            spriteFlip = false;
             frameDisplayTimeMap = new()
             {
-                { 0, 4 },
+                { 0, 8 },
                 { 1, 8 },
-                { 2, 1 },
-                { 3, 1 }
             };
         }
 
 
         public override void Update()
         {
-            if (spriteDisplayTimeLapse == frameDisplayTimeMap[currentFrame])
+            if (spriteDisplayTimeLapse != frameDisplayTimeMap[currentFrame])
             {
-                spriteDisplayTimeLapse = 0;
-                GetNextFrame();
+                spriteDisplayTimeLapse++;
+                return;
             }
-
-            spriteDisplayTimeLapse++;
+            spriteFlip = !spriteFlip;
+            spriteDisplayTimeLapse = 0;
         }
 
         public override void Draw(float x, float y, Color color)
         {
+            var spriteEffect = SpriteEffects.None;
+            if (spriteFlip)
+            {
+                spriteEffect = SpriteEffects.FlipHorizontally;
+            }
+
             Rectangle srcRectangle = GetSourceRectangle();
             Rectangle destRectangle = new Rectangle(
                 (int)(x - FrameWidth),
@@ -68,7 +74,7 @@ namespace MainGame.SpriteHandlers.PlayerSprites
                 color,
                 0f,
                 new Vector2(0, 0),
-                SpriteEffects.FlipHorizontally,
+                spriteEffect,
                 0f);
             spriteBatch.End();
         }

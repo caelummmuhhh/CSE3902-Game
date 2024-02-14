@@ -2,10 +2,11 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace MainGame.SpriteHandlers.PlayerSprites
+namespace MainGame.SpriteHandlers.EnemySprites
 {
-    public class PlayerAttackingLeftSprite : AnimatedSpriteWithOffset
+    public class GoriyaWalkingLeftSprite : AnimatedSpriteWithOffset
     {
+
         private readonly SpriteBatch spriteBatch;
         private int spriteDisplayTimeLapse;
 
@@ -15,7 +16,7 @@ namespace MainGame.SpriteHandlers.PlayerSprites
         /// </summary>
         private Dictionary<int, int> frameDisplayTimeMap;
 
-        public PlayerAttackingLeftSprite(
+        public GoriyaWalkingLeftSprite(
             Texture2D texture,
             SpriteBatch spriteBatch,
             int numRows,
@@ -33,10 +34,8 @@ namespace MainGame.SpriteHandlers.PlayerSprites
             spriteDisplayTimeLapse = 0;
             frameDisplayTimeMap = new()
             {
-                { 0, 4 },
-                { 1, 8 },
-                { 2, 1 },
-                { 3, 1 }
+                { 0, 6 },
+                { 1, 6 },
             };
         }
 
@@ -73,4 +72,7 @@ namespace MainGame.SpriteHandlers.PlayerSprites
             spriteBatch.End();
         }
     }
+
+
+
 }

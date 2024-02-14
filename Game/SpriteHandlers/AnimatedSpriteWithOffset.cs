@@ -3,14 +3,14 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace MainGame.SpriteHandlers
 {
-	public abstract class AnimatedSpriteWithYOffset : AnimatedSprite
+	public abstract class AnimatedSpriteWithOffset : AnimatedSprite
 	{
 		public readonly int StartXPosition;
 		public readonly int StartYPosition;
 		public readonly int FrameWidth;
 		public readonly int FrameHeight;
 
-		public AnimatedSpriteWithYOffset(
+		public AnimatedSpriteWithOffset(
 			Texture2D texture,
 			int numRows,
 			int numColumns,
@@ -32,7 +32,7 @@ namespace MainGame.SpriteHandlers
 		public override Rectangle GetSourceRectangle()
 		{
             return new Rectangle(
-                currentFrame * FrameWidth,
+                currentFrame * FrameWidth + StartXPosition,
 				StartYPosition,
                 FrameWidth,
 				FrameHeight);
