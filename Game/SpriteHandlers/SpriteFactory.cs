@@ -9,6 +9,7 @@ namespace MainGame.SpriteHandlers
 		public static SpriteBatch SpriteBatch { get; set; }
 		public static Dictionary<string, Texture2D> TextureMap = new();
         public static SpriteFont Font;
+        public static int UniversalScaleMultiplier;
 
 		public static void LoadAllTextures(ContentManager contents)
 		{
@@ -17,6 +18,7 @@ namespace MainGame.SpriteHandlers
             TextureMap.Add("BlocksSprites", contents.Load<Texture2D>("BlocksSprites"));
 
             Font = contents.Load<SpriteFont>("Fonts/Font");
+            UniversalScaleMultiplier = 3;
         }
 
         public static ISprite CreatePlayerAttackingDownSprite()
@@ -28,9 +30,8 @@ namespace MainGame.SpriteHandlers
                 frameHeight: 27,
                 frameWidth: 16,
                 numberOfFrames: 4,
-                textureStartingX: 0,
                 textureStartingY: 48,
-                scale: 2);
+                scale: UniversalScaleMultiplier);
         }
 
         public static ISprite CreatePlayerAttackingUpSprite()
@@ -42,9 +43,8 @@ namespace MainGame.SpriteHandlers
                 frameHeight: 27,
                 frameWidth: 16,
                 numberOfFrames: 4,
-                textureStartingX: 0,
                 textureStartingY: 84,
-                scale: 2);
+                scale: UniversalScaleMultiplier);
         }
 
         public static ISprite CreatePlayerAttackingRightSprite()
@@ -56,9 +56,8 @@ namespace MainGame.SpriteHandlers
                 frameHeight: 16,
                 frameWidth: 27,
                 numberOfFrames: 4,
-                textureStartingX: 0,
                 textureStartingY: 112,
-                scale: 2);
+                scale: UniversalScaleMultiplier);
         }
 
         public static ISprite CreatePlayerAttackingLeftSprite()
@@ -70,9 +69,8 @@ namespace MainGame.SpriteHandlers
                 frameHeight: 16,
                 frameWidth: 27,
                 numberOfFrames: 4,
-                textureStartingX: 0,
                 textureStartingY: 112,
-                scale: 2);
+                scale: UniversalScaleMultiplier);
         }
 
         public static ISprite CreatePlayerWalkingDownSprite()
@@ -81,12 +79,9 @@ namespace MainGame.SpriteHandlers
                 TextureMap["LinkSprites"], SpriteBatch,
                 numRows: 1,
                 numColumns: 4,
-                frameHeight: 16,
-                frameWidth: 16,
                 numberOfFrames: 2,
-                textureStartingX: 0,
                 textureStartingY: 0,
-                scale: 2);
+                scale: UniversalScaleMultiplier);
         }
 
         public static ISprite CreatePlayerWalkingUpSprite()
@@ -95,12 +90,9 @@ namespace MainGame.SpriteHandlers
                 TextureMap["LinkSprites"], SpriteBatch,
                 numRows: 1,
                 numColumns: 4,
-                frameHeight: 16,
-                frameWidth: 16,
                 numberOfFrames: 2,
-                textureStartingX: 0,
                 textureStartingY: 16,
-                scale: 2);
+                scale: UniversalScaleMultiplier);
         }
 
 
@@ -110,12 +102,9 @@ namespace MainGame.SpriteHandlers
                 TextureMap["LinkSprites"], SpriteBatch,
                 numRows: 1,
                 numColumns: 4,
-                frameHeight: 16,
-                frameWidth: 16,
                 numberOfFrames: 2,
-                textureStartingX: 0,
                 textureStartingY: 32,
-                scale: 2);
+                scale: UniversalScaleMultiplier);
         }
 
         public static ISprite CreatePlayerWalkingRightSprite()
@@ -124,78 +113,57 @@ namespace MainGame.SpriteHandlers
                 TextureMap["LinkSprites"], SpriteBatch,
                 numRows: 1,
                 numColumns: 4,
-                frameHeight: 16,
-                frameWidth: 16,
                 numberOfFrames: 2,
-                textureStartingX: 0,
                 textureStartingY: 32,
-                scale: 2);
+                scale: UniversalScaleMultiplier);
         }
 
         public static ISprite CreatePlayerHoldingItemSprite()
         {
             return new PlayerSprites.PlayerHoldingItemSprite(
                 TextureMap["LinkSprites"], SpriteBatch,
-                spriteHeight: 16,
-                spriteWidth: 16,
-                textureStartingX: 0,
                 textureStartingY: 128,
-                scale: 2);
+                scale: UniversalScaleMultiplier);
         }
 
         public static ISprite CreatePlayerHoldingTriforceSprite()
         {
             return new PlayerSprites.PlayerHoldingItemSprite(
                 TextureMap["LinkSprites"], SpriteBatch,
-                spriteHeight: 16,
-                spriteWidth: 16,
-                textureStartingX: 0,
                 textureStartingY: 144,
-                scale: 2);
+                scale: UniversalScaleMultiplier);
         }
 
         public static ISprite CreatePlayerInteractingDownSprite()
         {
             return new PlayerSprites.PlayerInteractingDownSprite(
                 TextureMap["LinkSprites"], SpriteBatch,
-                spriteHeight: 16,
-                spriteWidth: 16,
-                textureStartingX: 0,
                 textureStartingY: 48,
-                scale: 2);
+                scale: UniversalScaleMultiplier);
         }
 
         public static ISprite CreatePlayerInteractingUpSprite()
         {
             return new PlayerSprites.PlayerInteractingUpSprite(
                 TextureMap["LinkSprites"], SpriteBatch,
-                spriteHeight: 16,
-                spriteWidth: 16,
-                textureStartingX: 0,
                 textureStartingY: 96,
-                scale: 2);
+                scale: UniversalScaleMultiplier);
         }
 
         public static ISprite CreatePlayerInteractingLeftSprite()
         {
             return new PlayerSprites.PlayerInteractingLeftSprite(
                 TextureMap["LinkSprites"], SpriteBatch,
-                spriteHeight: 16,
-                spriteWidth: 16,
-                textureStartingX: 0,
                 textureStartingY: 112,
-                scale: 2);
+                scale: UniversalScaleMultiplier);
         }
 
         public static ISprite CreatePlayerInteractingRightSprite()
         {
             return new PlayerSprites.PlayerInteractingRightSprite(
                 TextureMap["LinkSprites"], SpriteBatch,
-                spriteHeight: 16,
-                spriteWidth: 16,
-                textureStartingX: 0,
                 textureStartingY: 112,
-                scale: 2);
+                scale: UniversalScaleMultiplier);
         }
 
 
@@ -206,12 +174,8 @@ namespace MainGame.SpriteHandlers
                 TextureMap["EnemiesSprites"], SpriteBatch,
                 numRows: 1,
                 numColumns: 2,
-                frameHeight: 16,
-                frameWidth: 16,
                 numberOfFrames: 2,
-                textureStartingX: 0,
-                textureStartingY: 0,
-                scale: 2);
+                scale: UniversalScaleMultiplier);
         }
 
         public static ISprite CreateStalfosSprite()
@@ -220,12 +184,9 @@ namespace MainGame.SpriteHandlers
                 TextureMap["EnemiesSprites"], SpriteBatch,
                 numRows: 1,
                 numColumns: 1,
-                frameHeight: 16,
-                frameWidth: 16,
                 numberOfFrames: 1,
-                textureStartingX: 0,
                 textureStartingY: 16,
-                scale: 2);
+                scale: UniversalScaleMultiplier);
         }
 
         public static ISprite CreateGelSprite()
@@ -234,12 +195,9 @@ namespace MainGame.SpriteHandlers
                 TextureMap["EnemiesSprites"], SpriteBatch,
                 numRows: 1,
                 numColumns: 2,
-                frameHeight: 16,
-                frameWidth: 16,
                 numberOfFrames: 2,
-                textureStartingX: 0,
                 textureStartingY: 32,
-                scale: 2);
+                scale: UniversalScaleMultiplier);
         }
 
         public static ISprite CreateWallMasterSprite()
@@ -248,34 +206,26 @@ namespace MainGame.SpriteHandlers
                 TextureMap["EnemiesSprites"], SpriteBatch,
                 numRows: 1,
                 numColumns: 2,
-                frameHeight: 16,
-                frameWidth: 16,
                 numberOfFrames: 2,
-                textureStartingX: 0,
                 textureStartingY: 96,
-                scale: 2);
+                scale: UniversalScaleMultiplier);
         }
 
         public static ISprite CreateOldManSprite()
         {
             return new EnemySprites.OldManSprite(
                 TextureMap["EnemiesSprites"], SpriteBatch,
-                spriteHeight: 16,
-                spriteWidth: 16,
                 textureStartingX: 0,
                 textureStartingY: 112,
-                scale: 2);
+                scale: UniversalScaleMultiplier);
         }
 
         public static ISprite CreateSpikeCrossSprite()
         {
             return new EnemySprites.SpikeCrossSprite(
                 TextureMap["EnemiesSprites"], SpriteBatch,
-                spriteHeight: 16,
-                spriteWidth: 16,
-                textureStartingX: 0,
                 textureStartingY: 128,
-                scale: 2);
+                scale: UniversalScaleMultiplier);
         }
 
         public static ISprite CreateAquamentusSprite()
@@ -287,9 +237,8 @@ namespace MainGame.SpriteHandlers
                 frameHeight: 32,
                 frameWidth: 24,
                 numberOfFrames: 2,
-                textureStartingX: 0,
                 textureStartingY: 144,
-                scale: 2);
+                scale: UniversalScaleMultiplier);
         }
 
         public static ISprite CreateAquamentusAttackingSprite()
@@ -303,7 +252,7 @@ namespace MainGame.SpriteHandlers
                 numberOfFrames: 2,
                 textureStartingX: 48,
                 textureStartingY: 144,
-                scale: 2);
+                scale: UniversalScaleMultiplier);
         }
 
         public static ISprite CreateGoriyaWalkingUpSprite()
@@ -312,12 +261,9 @@ namespace MainGame.SpriteHandlers
                 TextureMap["EnemiesSprites"], SpriteBatch,
                 numRows: 1,
                 numColumns: 1,
-                frameHeight: 16,
-                frameWidth: 16,
                 numberOfFrames: 1,
-                textureStartingX: 0,
                 textureStartingY: 64,
-                scale: 2);
+                scale: UniversalScaleMultiplier);
         }
 
         public static ISprite CreateGoriyaWalkingDownSprite()
@@ -326,12 +272,9 @@ namespace MainGame.SpriteHandlers
                 TextureMap["EnemiesSprites"], SpriteBatch,
                 numRows: 1,
                 numColumns: 2,
-                frameHeight: 16,
-                frameWidth: 16,
                 numberOfFrames: 2,
-                textureStartingX: 0,
                 textureStartingY: 48,
-                scale: 2);
+                scale: UniversalScaleMultiplier);
         }
 
         public static ISprite CreateGoriyaWalkingLeftSprite()
@@ -340,12 +283,9 @@ namespace MainGame.SpriteHandlers
                 TextureMap["EnemiesSprites"], SpriteBatch,
                 numRows: 1,
                 numColumns: 2,
-                frameHeight: 16,
-                frameWidth: 16,
                 numberOfFrames: 2,
-                textureStartingX: 0,
                 textureStartingY: 80,
-                scale: 2);
+                scale: UniversalScaleMultiplier);
         }
 
         public static ISprite CreateGoriyaWalkingRightSprite()
@@ -354,12 +294,9 @@ namespace MainGame.SpriteHandlers
                 TextureMap["EnemiesSprites"], SpriteBatch,
                 numRows: 1,
                 numColumns: 2,
-                frameHeight: 16,
-                frameWidth: 16,
                 numberOfFrames: 2,
-                textureStartingX: 0,
                 textureStartingY: 80,
-                scale: 2);
+                scale: UniversalScaleMultiplier);
         }
 
 
@@ -368,9 +305,6 @@ namespace MainGame.SpriteHandlers
         {
             return new BlockSprites.BlueFloorSprite(
                 TextureMap["BlocksSprites"], SpriteBatch,
-                spriteHeight: 16,
-                spriteWidth: 16,
-                textureStartingX: 0,
                 textureStartingY: 0,
                 scale: 2
                 );
@@ -380,9 +314,6 @@ namespace MainGame.SpriteHandlers
         {
             return new BlockSprites.SquareBlockSprite(
                 TextureMap["BlocksSprites"], SpriteBatch,
-                spriteHeight: 16,
-                spriteWidth: 16,
-                textureStartingX: 0,
                 textureStartingY: 16,
                 scale: 2
                 );
@@ -392,9 +323,6 @@ namespace MainGame.SpriteHandlers
         {
             return new BlockSprites.StatueOneEntranceSprite(
                 TextureMap["BlocksSprites"], SpriteBatch,
-                spriteHeight: 16,
-                spriteWidth: 16,
-                textureStartingX: 0,
                 textureStartingY: 32,
                 scale: 2
                 );
@@ -404,9 +332,6 @@ namespace MainGame.SpriteHandlers
         {
             return new BlockSprites.StatueTwoEntranceSprite(
                 TextureMap["BlocksSprites"], SpriteBatch,
-                spriteHeight: 16,
-                spriteWidth: 16,
-                textureStartingX: 0,
                 textureStartingY: 48,
                 scale: 2
                 );
@@ -416,9 +341,6 @@ namespace MainGame.SpriteHandlers
         {
             return new BlockSprites.StatueOneEndSprite(
                 TextureMap["BlocksSprites"], SpriteBatch,
-                spriteHeight: 16,
-                spriteWidth: 16,
-                textureStartingX: 0,
                 textureStartingY: 64,
                 scale: 2
                 );
@@ -428,9 +350,6 @@ namespace MainGame.SpriteHandlers
         {
             return new BlockSprites.StatueTwoEndSprite(
                 TextureMap["BlocksSprites"], SpriteBatch,
-                spriteHeight: 16,
-                spriteWidth: 16,
-                textureStartingX: 0,
                 textureStartingY: 80,
                 scale: 2
                 );
@@ -440,9 +359,6 @@ namespace MainGame.SpriteHandlers
         {
             return new BlockSprites.BlackSquareSprite(
                 TextureMap["BlocksSprites"], SpriteBatch,
-                spriteHeight: 16,
-                spriteWidth: 16,
-                textureStartingX: 0,
                 textureStartingY: 96,
                 scale: 2
                 );
@@ -452,9 +368,6 @@ namespace MainGame.SpriteHandlers
         {
             return new BlockSprites.BlueSandSprite(
                 TextureMap["BlocksSprites"], SpriteBatch,
-                spriteHeight: 16,
-                spriteWidth: 16,
-                textureStartingX: 0,
                 textureStartingY: 112,
                 scale: 2
                 );
@@ -464,9 +377,6 @@ namespace MainGame.SpriteHandlers
         {
             return new BlockSprites.BlueGapSprite(
                 TextureMap["BlocksSprites"], SpriteBatch,
-                spriteHeight: 16,
-                spriteWidth: 16,
-                textureStartingX: 0,
                 textureStartingY: 128,
                 scale: 2
                 );
@@ -476,9 +386,6 @@ namespace MainGame.SpriteHandlers
         {
             return new BlockSprites.StairsSprite(
                 TextureMap["BlocksSprites"], SpriteBatch,
-                spriteHeight: 16,
-                spriteWidth: 16,
-                textureStartingX: 0,
                 textureStartingY: 144,
                 scale: 2
                 );
@@ -488,9 +395,6 @@ namespace MainGame.SpriteHandlers
         {
             return new BlockSprites.WhiteBrickSprite(
                 TextureMap["BlocksSprites"], SpriteBatch,
-                spriteHeight: 16,
-                spriteWidth: 16,
-                textureStartingX: 0,
                 textureStartingY: 160,
                 scale: 2
                 );
@@ -500,9 +404,6 @@ namespace MainGame.SpriteHandlers
         {
             return new BlockSprites.WhiteLadderSprite(
                 TextureMap["BlocksSprites"], SpriteBatch,
-                spriteHeight: 16,
-                spriteWidth: 16,
-                textureStartingX: 0,
                 textureStartingY: 176,
                 scale: 2
                 );
@@ -516,24 +417,24 @@ namespace MainGame.SpriteHandlers
 
         public static ISprite CreatePlayerStaticIdleSprite()
 		{
-			return CreateBlueGapSprite();
+			return CreatePlayerHoldingTriforceSprite();
 		}
 
         public static ISprite CreatePlayerAnimatedIdleSprite()
         {
-            return CreateStairsSprite();
+            return CreatePlayerAttackingDownSprite();
         }
 
 
         public static ISprite CreatePlayerStaticFallingSprite()
         {
-            return CreateWhiteBrickSprite();
+            return CreatePlayerWalkingDownSprite();
         }
 
 
         public static ISprite CreatePlayerAnimatedWalkingSprite()
         {
-            return CreateWhiteLadderSprite();
+            return CreatePlayerWalkingRightSprite();
         }
     }
 }

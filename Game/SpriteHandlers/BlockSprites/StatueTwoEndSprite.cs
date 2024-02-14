@@ -10,8 +10,8 @@ namespace MainGame.SpriteHandlers.BlockSprites
         public StatueTwoEndSprite(
             Texture2D texture,
             SpriteBatch spriteBatch,
-            int spriteHeight,
-            int spriteWidth,
+            int spriteHeight = 16,
+            int spriteWidth = 16,
             int textureStartingX = 0,
             int textureStartingY = 0,
             int scale = 1) : base(texture, spriteHeight, spriteWidth,
