@@ -1,8 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Content;
-using MainGame.SpriteHandlers.PlayerSprites;
 
 namespace MainGame.SpriteHandlers
 {
@@ -16,13 +14,14 @@ namespace MainGame.SpriteHandlers
 		{
             TextureMap.Add("LinkSprites", contents.Load<Texture2D>("LinkSprites"));
             TextureMap.Add("EnemiesSprites", contents.Load<Texture2D>("EnemiesSprites"));
+            TextureMap.Add("BlocksSprites", contents.Load<Texture2D>("BlocksSprites"));
 
             Font = contents.Load<SpriteFont>("Fonts/Font");
         }
 
         public static ISprite CreatePlayerAttackingDownSprite()
         {
-            return new PlayerAttackingDownSprite(
+            return new PlayerSprites.PlayerAttackingDownSprite(
                 TextureMap["LinkSprites"], SpriteBatch,
                 numRows: 1,
                 numColumns: 4,
@@ -36,7 +35,7 @@ namespace MainGame.SpriteHandlers
 
         public static ISprite CreatePlayerAttackingUpSprite()
         {
-            return new PlayerAttackingUpSprite(
+            return new PlayerSprites.PlayerAttackingUpSprite(
                 TextureMap["LinkSprites"], SpriteBatch,
                 numRows: 1,
                 numColumns: 4,
@@ -50,7 +49,7 @@ namespace MainGame.SpriteHandlers
 
         public static ISprite CreatePlayerAttackingRightSprite()
         {
-            return new PlayerAttackingRightSprite(
+            return new PlayerSprites.PlayerAttackingRightSprite(
                 TextureMap["LinkSprites"], SpriteBatch,
                 numRows: 1,
                 numColumns: 4,
@@ -64,7 +63,7 @@ namespace MainGame.SpriteHandlers
 
         public static ISprite CreatePlayerAttackingLeftSprite()
         {
-            return new PlayerAttackingLeftSprite(
+            return new PlayerSprites.PlayerAttackingLeftSprite(
                 TextureMap["LinkSprites"], SpriteBatch,
                 numRows: 1,
                 numColumns: 4,
@@ -78,7 +77,7 @@ namespace MainGame.SpriteHandlers
 
         public static ISprite CreatePlayerWalkingDownSprite()
         {
-            return new PlayerWalkingDownSprite(
+            return new PlayerSprites.PlayerWalkingDownSprite(
                 TextureMap["LinkSprites"], SpriteBatch,
                 numRows: 1,
                 numColumns: 4,
@@ -92,7 +91,7 @@ namespace MainGame.SpriteHandlers
 
         public static ISprite CreatePlayerWalkingUpSprite()
         {
-            return new PlayerWalkingUpSprite(
+            return new PlayerSprites.PlayerWalkingUpSprite(
                 TextureMap["LinkSprites"], SpriteBatch,
                 numRows: 1,
                 numColumns: 4,
@@ -107,7 +106,7 @@ namespace MainGame.SpriteHandlers
 
         public static ISprite CreatePlayerWalkingLeftSprite()
         {
-            return new PlayerWalkingLeftSprite(
+            return new PlayerSprites.PlayerWalkingLeftSprite(
                 TextureMap["LinkSprites"], SpriteBatch,
                 numRows: 1,
                 numColumns: 4,
@@ -121,7 +120,7 @@ namespace MainGame.SpriteHandlers
 
         public static ISprite CreatePlayerWalkingRightSprite()
         {
-            return new PlayerWalkingRightSprite(
+            return new PlayerSprites.PlayerWalkingRightSprite(
                 TextureMap["LinkSprites"], SpriteBatch,
                 numRows: 1,
                 numColumns: 4,
@@ -135,7 +134,7 @@ namespace MainGame.SpriteHandlers
 
         public static ISprite CreatePlayerHoldingItemSprite()
         {
-            return new PlayerHoldingItemSprite(
+            return new PlayerSprites.PlayerHoldingItemSprite(
                 TextureMap["LinkSprites"], SpriteBatch,
                 spriteHeight: 16,
                 spriteWidth: 16,
@@ -146,7 +145,7 @@ namespace MainGame.SpriteHandlers
 
         public static ISprite CreatePlayerHoldingTriforceSprite()
         {
-            return new PlayerHoldingItemSprite(
+            return new PlayerSprites.PlayerHoldingItemSprite(
                 TextureMap["LinkSprites"], SpriteBatch,
                 spriteHeight: 16,
                 spriteWidth: 16,
@@ -157,7 +156,7 @@ namespace MainGame.SpriteHandlers
 
         public static ISprite CreatePlayerInteractingDownSprite()
         {
-            return new PlayerInteractingDownSprite(
+            return new PlayerSprites.PlayerInteractingDownSprite(
                 TextureMap["LinkSprites"], SpriteBatch,
                 spriteHeight: 16,
                 spriteWidth: 16,
@@ -168,7 +167,7 @@ namespace MainGame.SpriteHandlers
 
         public static ISprite CreatePlayerInteractingUpSprite()
         {
-            return new PlayerInteractingUpSprite(
+            return new PlayerSprites.PlayerInteractingUpSprite(
                 TextureMap["LinkSprites"], SpriteBatch,
                 spriteHeight: 16,
                 spriteWidth: 16,
@@ -179,7 +178,7 @@ namespace MainGame.SpriteHandlers
 
         public static ISprite CreatePlayerInteractingLeftSprite()
         {
-            return new PlayerInteractingLeftSprite(
+            return new PlayerSprites.PlayerInteractingLeftSprite(
                 TextureMap["LinkSprites"], SpriteBatch,
                 spriteHeight: 16,
                 spriteWidth: 16,
@@ -190,7 +189,7 @@ namespace MainGame.SpriteHandlers
 
         public static ISprite CreatePlayerInteractingRightSprite()
         {
-            return new PlayerInteractingRightSprite(
+            return new PlayerSprites.PlayerInteractingRightSprite(
                 TextureMap["LinkSprites"], SpriteBatch,
                 spriteHeight: 16,
                 spriteWidth: 16,
@@ -364,34 +363,177 @@ namespace MainGame.SpriteHandlers
         }
 
 
+        /* Block Sprites */
+        public static ISprite CreateBlueFloorSprite()
+        {
+            return new BlockSprites.BlueFloorSprite(
+                TextureMap["BlocksSprites"], SpriteBatch,
+                spriteHeight: 16,
+                spriteWidth: 16,
+                textureStartingX: 0,
+                textureStartingY: 0,
+                scale: 2
+                );
+        }
 
-        // TODO: Make this less hard-coded and maybe make a factory interface?
+        public static ISprite CreateSquareBlockSprite()
+        {
+            return new BlockSprites.SquareBlockSprite(
+                TextureMap["BlocksSprites"], SpriteBatch,
+                spriteHeight: 16,
+                spriteWidth: 16,
+                textureStartingX: 0,
+                textureStartingY: 16,
+                scale: 2
+                );
+        }
+
+        public static ISprite CreateStatueOneEntranceSprite()
+        {
+            return new BlockSprites.StatueOneEntranceSprite(
+                TextureMap["BlocksSprites"], SpriteBatch,
+                spriteHeight: 16,
+                spriteWidth: 16,
+                textureStartingX: 0,
+                textureStartingY: 32,
+                scale: 2
+                );
+        }
+
+        public static ISprite CreateStatueTwoEntranceSprite()
+        {
+            return new BlockSprites.StatueTwoEntranceSprite(
+                TextureMap["BlocksSprites"], SpriteBatch,
+                spriteHeight: 16,
+                spriteWidth: 16,
+                textureStartingX: 0,
+                textureStartingY: 48,
+                scale: 2
+                );
+        }
+
+        public static ISprite CreateStatueOneEndSprite()
+        {
+            return new BlockSprites.StatueOneEndSprite(
+                TextureMap["BlocksSprites"], SpriteBatch,
+                spriteHeight: 16,
+                spriteWidth: 16,
+                textureStartingX: 0,
+                textureStartingY: 64,
+                scale: 2
+                );
+        }
+
+        public static ISprite CreateStatueTwoEndSprite()
+        {
+            return new BlockSprites.StatueTwoEndSprite(
+                TextureMap["BlocksSprites"], SpriteBatch,
+                spriteHeight: 16,
+                spriteWidth: 16,
+                textureStartingX: 0,
+                textureStartingY: 80,
+                scale: 2
+                );
+        }
+
+        public static ISprite CreateBlackSquareSprite()
+        {
+            return new BlockSprites.BlackSquareSprite(
+                TextureMap["BlocksSprites"], SpriteBatch,
+                spriteHeight: 16,
+                spriteWidth: 16,
+                textureStartingX: 0,
+                textureStartingY: 96,
+                scale: 2
+                );
+        }
+
+        public static ISprite CreateBlueSandSprite()
+        {
+            return new BlockSprites.BlueSandSprite(
+                TextureMap["BlocksSprites"], SpriteBatch,
+                spriteHeight: 16,
+                spriteWidth: 16,
+                textureStartingX: 0,
+                textureStartingY: 112,
+                scale: 2
+                );
+        }
+
+        public static ISprite CreateBlueGapSprite()
+        {
+            return new BlockSprites.BlueGapSprite(
+                TextureMap["BlocksSprites"], SpriteBatch,
+                spriteHeight: 16,
+                spriteWidth: 16,
+                textureStartingX: 0,
+                textureStartingY: 128,
+                scale: 2
+                );
+        }
+
+        public static ISprite CreateStairsSprite()
+        {
+            return new BlockSprites.StairsSprite(
+                TextureMap["BlocksSprites"], SpriteBatch,
+                spriteHeight: 16,
+                spriteWidth: 16,
+                textureStartingX: 0,
+                textureStartingY: 144,
+                scale: 2
+                );
+        }
+
+        public static ISprite CreateWhiteBrickSprite()
+        {
+            return new BlockSprites.WhiteBrickSprite(
+                TextureMap["BlocksSprites"], SpriteBatch,
+                spriteHeight: 16,
+                spriteWidth: 16,
+                textureStartingX: 0,
+                textureStartingY: 160,
+                scale: 2
+                );
+        }
+
+        public static ISprite CreateWhiteLadderSprite()
+        {
+            return new BlockSprites.WhiteLadderSprite(
+                TextureMap["BlocksSprites"], SpriteBatch,
+                spriteHeight: 16,
+                spriteWidth: 16,
+                textureStartingX: 0,
+                textureStartingY: 176,
+                scale: 2
+                );
+        }
+
+
         public static ISprite CreateTextSprite(string text)
         {
             return new TextSprite(SpriteBatch, Font, text);
         }
 
-
-        public static ISprite CreatePlayerAnimatedIdleSprite()
+        public static ISprite CreatePlayerStaticIdleSprite()
 		{
-			return CreateGoriyaWalkingUpSprite();
+			return CreateBlueGapSprite();
 		}
 
-        public static ISprite CreatePlayerAnimatedWalkingSprite()
+        public static ISprite CreatePlayerAnimatedIdleSprite()
         {
-            return CreateGoriyaWalkingDownSprite();
+            return CreateStairsSprite();
         }
 
 
         public static ISprite CreatePlayerStaticFallingSprite()
         {
-            return CreateGoriyaWalkingLeftSprite();
+            return CreateWhiteBrickSprite();
         }
 
 
-        public static ISprite CreatePlayerStaticIdleSprite()
+        public static ISprite CreatePlayerAnimatedWalkingSprite()
         {
-            return CreateGoriyaWalkingRightSprite();
+            return CreateWhiteLadderSprite();
         }
     }
 }
