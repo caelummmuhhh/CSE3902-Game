@@ -37,6 +37,21 @@ namespace MainGame.SpriteHandlers
                 case "LinkLeftSprite":
                     factorySprite = new LinkLeftSprite(TextureMap, SpriteBatch);
                     break;
+                case "LinkUpSpriteWithSword":
+                    factorySprite = new LinkUpSpriteWithSword(TextureMap, SpriteBatch);
+                    break;
+
+                case "LinkDownSpriteWithSword":
+                    factorySprite = new LinkDownSpriteWithSword(TextureMap, SpriteBatch);
+                    break;
+
+                case "LinkRightSpriteWithSword":
+                    factorySprite = new LinkRightSpriteWithSword(TextureMap, SpriteBatch);
+                    break;
+
+                case "LinkLeftSpriteWithSword":
+                    factorySprite = new LinkLeftSpriteWithSword(TextureMap, SpriteBatch);
+                    break;
             }
 
             return factorySprite.createSprite(graphicsDevice);

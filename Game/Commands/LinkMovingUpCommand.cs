@@ -21,12 +21,9 @@ namespace MainGame.Commands
 
         public void Execute()
         {
-            if (!player.movingUp) // If the player was already moving in this direction dont reassign everything
+            if (player.direction != MovementDirection.UP) // If the player was already moving in this direction dont reassign everything
             {
-                player.movingDown = false;
-                player.movingLeft = false;
-                player.movingRight = false;
-                player.movingUp = true;
+                player.direction = MovementDirection.UP;
 
                 player.Sprite = SpriteFactory.getSprite("LinkUpSprite", game.GraphicsDevice);
             }
@@ -34,7 +31,10 @@ namespace MainGame.Commands
 
         public void UnExecute()
         {
-            player.movingUp = false;
+            if (player.direction == MovementDirection.UP)
+            {
+                player.direction = MovementDirection.NONE;
+            }
         }
     }
 }

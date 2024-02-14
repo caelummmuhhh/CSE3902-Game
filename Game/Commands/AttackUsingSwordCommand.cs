@@ -11,23 +11,39 @@ namespace MainGame.Commands
     {
         private Game game;
         private Player player;
+        private int ticksSinceStart;
 
         public AttackUsingSwordCommand(Game game, Player player)
         {
             this.game = game;
             this.player = player;
+            ticksSinceStart = 0;
         }
 
         public void Execute()
         {
             player.usingSword = true;
-            player.Sprite = SpriteFactory.getSprite("LinkDownSprite", game.GraphicsDevice);
-            
+            // Select the sprite based on the direction of movment
+            switch (player.direction){
+                case MovementDirection.UP: player.Sprite = SpriteFactory.getSprite("LinkUpSpriteWithSword", game.GraphicsDevice); break;
+                case MovementDirection.DOWN: player.Sprite = SpriteFactory.getSprite("LinkDownSpriteWithSword", game.GraphicsDevice); break;
+                case MovementDirection.LEFT: player.Sprite = SpriteFactory.getSprite("LinkLeftSpriteWithSword", game.GraphicsDevice); break;
+                case MovementDirection.RIGHT: player.Sprite = SpriteFactory.getSprite("LinkRightSpriteWithSword", game.GraphicsDevice); break;
+                default: break;
+            }
         }
 
         public void UnExecute()
         {
-            player.usingSword = false;
+            if(ticksSinceStart > 4)
+            {
+                player.usingSword = false;
+                ticksSinceStart = 0;
+            }
+            else
+            {
+                ticksSinceStart++;
+            }
         }
     }
 }

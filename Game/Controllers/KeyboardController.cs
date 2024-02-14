@@ -27,7 +27,8 @@ namespace MainGame.Controllers
                 { Keys.W, new linkMovingUpCommand(game, player) },
                 { Keys.S, new linkMovingDownCommand(game, player) },
                 { Keys.D, new linkMovingRightCommand(game, player) },
-                { Keys.A, new linkMovingLeftCommand(game, player) }
+                { Keys.A, new linkMovingLeftCommand(game, player) },
+                { Keys.V, new AttackUsingSwordCommand(game, player) }
             };
         }
 

@@ -6,6 +6,11 @@ using System.Diagnostics;
 
 namespace MainGame.Players
 {
+	public enum MovementDirection
+	{
+		UP, DOWN, LEFT, RIGHT, NONE
+	}
+
 	public class Player
 	{
 		public ISprite Sprite;
@@ -14,35 +19,33 @@ namespace MainGame.Players
 		public float HorizontalSpeed = 4f;
 
 		private readonly Game game;
-		public bool movingUp;
-		public bool movingDown;
-		public bool movingLeft;
-		public bool movingRight;
-		public bool usingSword;
-
+        public bool usingSword;
+        public MovementDirection direction;
+		
         public Player(Vector2 position, ISprite sprite, Game game)
 		{
 			Position = position;
 			Sprite = sprite;
 			this.game = game;
 
-			movingLeft = false;
-			movingRight = false;
-			movingUp = false;
-			movingDown = false;
-			usingSword = false;
+			direction = MovementDirection.NONE; 
+            usingSword = false;
         }
 
 		public void Update()
 		{
-			if (movingLeft || movingDown || movingRight || movingUp) // If link isn't currently moving dont update sprite
+			if (direction != MovementDirection.NONE) // If link isn't currently moving dont update sprite
 			{
                 Sprite.Update();
             }
-			if(movingLeft) { MoveLeft(); }
-			if(movingRight) { MoveRight(); }
-			if(movingUp) { MoveUp(); }
-			if(movingDown) { MoveDown(); }
+			switch (direction)
+			{
+				case MovementDirection.UP: MoveUp(); break;
+				case MovementDirection.DOWN: MoveDown(); break;
+				case MovementDirection.LEFT: MoveLeft(); break;
+				case MovementDirection.RIGHT: MoveRight(); break;
+				default: break;
+			}
 		}
 
 		public void Draw()
