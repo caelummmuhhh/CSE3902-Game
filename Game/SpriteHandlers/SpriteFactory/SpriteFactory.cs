@@ -7,18 +7,19 @@ namespace MainGame.SpriteHandlers
 	public static partial class SpriteFactory
 	{
 		public static SpriteBatch SpriteBatch { get; set; }
-		public static Dictionary<string, Texture2D> TextureMap = new();
+		public static readonly Dictionary<string, Texture2D> TextureMap = new();
         public static SpriteFont Font;
-        public static int UniversalScaleMultiplier;
+        public static readonly int UniversalScaleMultiplier = 3;
 
 		public static void LoadAllTextures(ContentManager contents)
 		{
             TextureMap.Add("LinkSprites", contents.Load<Texture2D>("LinkSprites"));
             TextureMap.Add("EnemiesSprites", contents.Load<Texture2D>("EnemiesSprites"));
             TextureMap.Add("BlocksSprites", contents.Load<Texture2D>("BlocksSprites"));
+            TextureMap.Add("ProjectilesSprites", contents.Load<Texture2D>("ProjectilesSprites"));
+            TextureMap.Add("ItemsSprites", contents.Load<Texture2D>("ItemsSprites"));
 
             Font = contents.Load<SpriteFont>("Fonts/Font");
-            UniversalScaleMultiplier = 3;
         }
 
         public static ISprite CreateTextSprite(string text)
@@ -28,24 +29,24 @@ namespace MainGame.SpriteHandlers
 
         public static ISprite CreatePlayerStaticIdleSprite()
 		{
-			return CreatePlayerIdleLeftSprite();
+			return CreateWoodenBoomerangSprite();
 		}
 
         public static ISprite CreatePlayerAnimatedIdleSprite()
         {
-            return CreatePlayerIdleUpSprite();
+            return CreateAquamentusAttackSprite();
         }
 
 
         public static ISprite CreatePlayerStaticFallingSprite()
         {
-            return CreatePlayerIdleDownSprite();
+            return CreateBombSprite();
         }
 
 
         public static ISprite CreatePlayerAnimatedWalkingSprite()
         {
-            return CreatePlayerIdleRightSprite();
+            return CreateGelSprite();
         }
     }
 }

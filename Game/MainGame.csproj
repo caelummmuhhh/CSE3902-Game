@@ -24,6 +24,10 @@
     <None Remove="SpriteHandlers\EnemySprites\GoriyaSprites\" />
     <None Remove="SpriteHandlers\BlockSprites\" />
     <None Remove="SpriteHandlers\SpriteFactory\" />
+    <None Remove="SpriteHandlers\ItemSprites\" />
+    <None Remove="SpriteHandlers\ProjectileSprites\" />
+    <None Remove="SpriteHandlers\ProjectileSprites\ArrowProjectileSprites\" />
+    <None Remove="SpriteHandlers\ProjectileSprites\SwordBeamProjectileSprites\" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Icon.ico" />
@@ -45,6 +49,10 @@
     <Folder Include="SpriteHandlers\EnemySprites\GoriyaSprites\" />
     <Folder Include="SpriteHandlers\BlockSprites\" />
     <Folder Include="SpriteHandlers\SpriteFactory\" />
+    <Folder Include="SpriteHandlers\ItemSprites\" />
+    <Folder Include="SpriteHandlers\ProjectileSprites\" />
+    <Folder Include="SpriteHandlers\ProjectileSprites\ArrowProjectileSprites\" />
+    <Folder Include="SpriteHandlers\ProjectileSprites\SwordBeamProjectileSprites\" />
   </ItemGroup>
   <Target Name="RestoreDotnetTools" BeforeTargets="Restore">
     <Message Text="Restoring dotnet tools" Importance="High" />
