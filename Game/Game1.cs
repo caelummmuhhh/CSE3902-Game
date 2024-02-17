@@ -14,6 +14,8 @@ public class Game1 : Game
     public readonly GraphicsDeviceManager GraphicsManager;
     private SpriteBatch spriteBatch;
     private List<IController> controllers;
+    private List<ISprite> items;
+    private List<ISprite> blocks;
 
     private ISprite textSprite;
     public Player Player;
@@ -28,6 +30,36 @@ public class Game1 : Game
     protected override void Initialize()
     {
         controllers = new List<IController>();
+        items = new List<ISprite>();
+        blocks = new List<ISprite>();
+        items.Add(MainGame.SpriteHandlers.SpriteFactory.CreateHeartItemSprite());
+        items.Add(MainGame.SpriteHandlers.SpriteFactory.CreateHeartContainerItemSprite());
+        items.Add(MainGame.SpriteHandlers.SpriteFactory.CreateClockItemSprite());
+        items.Add(MainGame.SpriteHandlers.SpriteFactory.CreateFiveRupeesItemSprite());
+        items.Add(MainGame.SpriteHandlers.SpriteFactory.CreateRupeeItemSprite());
+        items.Add(MainGame.SpriteHandlers.SpriteFactory.CreateMapItemSprite());
+        items.Add(MainGame.SpriteHandlers.SpriteFactory.CreateWoodenBoomerangItemSprite());
+        items.Add(MainGame.SpriteHandlers.SpriteFactory.CreateBombItemSprite());
+        items.Add(MainGame.SpriteHandlers.SpriteFactory.CreateBowItemSprite());
+        items.Add(MainGame.SpriteHandlers.SpriteFactory.CreateArrowItemSprite());
+        items.Add(MainGame.SpriteHandlers.SpriteFactory.CreateKeyItemSprite());
+        items.Add(MainGame.SpriteHandlers.SpriteFactory.CreateCompassItemSprite());
+        items.Add(MainGame.SpriteHandlers.SpriteFactory.CreateTriforcePieceItemSprite());
+        items.Add(MainGame.SpriteHandlers.SpriteFactory.CreateFairyItemSprite());
+        items.Add(MainGame.SpriteHandlers.SpriteFactory.CreateFireSprite());
+
+        blocks.Add(MainGame.SpriteHandlers.SpriteFactory.CreateBlueFloorSprite());
+        blocks.Add(MainGame.SpriteHandlers.SpriteFactory.CreateSquareBlockSprite());
+        blocks.Add(MainGame.SpriteHandlers.SpriteFactory.CreateStatueOneEntranceSprite());
+        blocks.Add(MainGame.SpriteHandlers.SpriteFactory.CreateStatueTwoEntranceSprite());
+        blocks.Add(MainGame.SpriteHandlers.SpriteFactory.CreateStatueOneEndSprite());
+        blocks.Add(MainGame.SpriteHandlers.SpriteFactory.CreateStatueTwoEndSprite());
+        blocks.Add(MainGame.SpriteHandlers.SpriteFactory.CreateBlackSquareSprite());
+        blocks.Add(MainGame.SpriteHandlers.SpriteFactory.CreateBlueSandSprite());
+        blocks.Add(MainGame.SpriteHandlers.SpriteFactory.CreateBlueGapSprite());
+        blocks.Add(MainGame.SpriteHandlers.SpriteFactory.CreateStairsSprite());
+        blocks.Add(MainGame.SpriteHandlers.SpriteFactory.CreateWhiteBrickSprite());
+        blocks.Add(MainGame.SpriteHandlers.SpriteFactory.CreateWhiteLadderSprite());
 
         base.Initialize();
     }
@@ -47,7 +79,7 @@ public class Game1 : Game
             this
         );
 
-        controllers.Add(new KeyboardController(this, Player));
+        controllers.Add(new KeyboardController(this, Player, blocks, items));
         controllers.Add(new MouseController(this, Player));
     }
 
@@ -74,4 +106,3 @@ public class Game1 : Game
         base.Draw(gameTime);
     }
 }
-
