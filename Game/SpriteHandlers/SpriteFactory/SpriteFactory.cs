@@ -29,24 +29,24 @@ namespace MainGame.SpriteHandlers
 
         public static ISprite CreatePlayerStaticIdleSprite()
 		{
-			return CreateWoodenBoomerangSprite();
+			return CreateHeartItemSprite();
 		}
 
         public static ISprite CreatePlayerAnimatedIdleSprite()
         {
-            return CreateAquamentusAttackSprite();
+            return CreateTriforcePieceItemSprite();
         }
 
 
         public static ISprite CreatePlayerStaticFallingSprite()
         {
-            return CreateBombSprite();
+            return CreateRupeeItemSprite();
         }
 
 
         public static ISprite CreatePlayerAnimatedWalkingSprite()
         {
-            return CreateGelSprite();
+            return CreateFireSprite();
         }
     }
 }

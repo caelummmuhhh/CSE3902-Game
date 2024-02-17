@@ -1,5 +1,4 @@
-﻿using System;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using MainGame.SpriteHandlers;
 
 namespace MainGame.Players
