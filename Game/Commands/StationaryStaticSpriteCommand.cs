@@ -21,11 +21,8 @@ namespace MainGame.Commands
 
 		public void Execute()
 		{
-            if (player.Sprite is not PlayerStaticIdleSprite)
-            {
-                player.Sprite = SpriteFactory.CreatePlayerStaticIdleSprite();
-                UnExecute();
-            }
+            player.Sprite = SpriteFactory.CreatePlayerStaticIdleSprite();
+            UnExecute();
             player.HorizontalMotionOn = false;
             player.VerticalMotionOn = false;
         }

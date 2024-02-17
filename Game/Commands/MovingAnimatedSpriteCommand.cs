@@ -23,11 +23,8 @@ namespace MainGame.Commands
 
         public void Execute()
         {
-            if (player.Sprite is not PlayerAnimatedWalkingSprite)
-            {
-                player.Sprite = SpriteFactory.CreatePlayerAnimatedWalkingSprite();
-                UnExecute();
-            }
+            player.Sprite = SpriteFactory.CreatePlayerAnimatedWalkingSprite();
+            UnExecute();
             player.HorizontalMotionOn = true;
             player.VerticalMotionOn = false;
 
