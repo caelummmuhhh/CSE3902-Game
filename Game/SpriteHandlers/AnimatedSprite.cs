@@ -47,7 +47,9 @@ namespace MainGame.SpriteHandlers
 
         public virtual void GetNextFrame()
         {
+
             currentFrame++;
+            
             if (currentFrame >= totalFrameCount)
             {
                 currentFrame = 0;

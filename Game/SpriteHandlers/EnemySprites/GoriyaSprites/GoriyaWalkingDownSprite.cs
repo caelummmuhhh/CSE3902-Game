@@ -35,8 +35,8 @@ namespace MainGame.SpriteHandlers.EnemySprites
             spriteFlip = false;
             frameDisplayTimeMap = new()
             {
-                { 0, 8 },
-                { 1, 8 },
+                { 0, 6 },
+                { 1, 6 },
             };
         }
 
