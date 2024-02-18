@@ -6,6 +6,7 @@ using MainGame.SpriteHandlers;
 using MainGame.Controllers;
 using MainGame.Players;
 using System.Collections.Generic;
+using MainGame.Enemies;
 
 namespace MainGame;
 
@@ -17,6 +18,7 @@ public class Game1 : Game
 
     private ISprite textSprite;
     public Player Player;
+    public Enemy Enemy;
     // test comment, having issues with git
 
     public Game1()
@@ -47,6 +49,8 @@ public class Game1 : Game
             SpriteFactory.CreatePlayerStaticIdleSprite(),
             this
         );
+        Enemy = new Enemy(new Vector2(GraphicsManager.PreferredBackBufferWidth / 4,
+                GraphicsManager.PreferredBackBufferHeight / 4), SpriteFactory.CreateKeeseFlightSprite(), this);
 
         controllers.Add(new KeyboardController(this, Player));
         controllers.Add(new MouseController(this, Player));
@@ -61,6 +65,7 @@ public class Game1 : Game
         }
 
         Player.Update();
+        Enemy.Update();
 
         base.Update(gameTime);
     }
@@ -70,6 +75,7 @@ public class Game1 : Game
         GraphicsDevice.Clear(Color.Indigo);
 
         Player.Draw();
+        Enemy.Draw();
         textSprite.Draw(10, GraphicsManager.PreferredBackBufferHeight - 100, Color.Black);
 
         base.Draw(gameTime);
