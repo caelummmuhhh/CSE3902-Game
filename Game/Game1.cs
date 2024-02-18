@@ -5,7 +5,12 @@ using Microsoft.Xna.Framework.Input;
 using MainGame.SpriteHandlers;
 using MainGame.Controllers;
 using MainGame.Players;
+using MainGame.Blocks;
+using MainGame.Items;
 using System.Collections.Generic;
+
+
+using MainGame.Managers;
 
 namespace MainGame;
 
@@ -14,11 +19,15 @@ public class Game1 : Game
     public readonly GraphicsDeviceManager GraphicsManager;
     private SpriteBatch spriteBatch;
     private List<IController> controllers;
-    private List<ISprite> items;
-    private List<ISprite> blocks;
 
     private ISprite textSprite;
     public Player Player;
+
+    public Block Block;
+    public Item Item;
+
+    private BlockManager blockManager;
+    private ItemManager itemManager;
 
     public Game1()
     {
@@ -30,36 +39,8 @@ public class Game1 : Game
     protected override void Initialize()
     {
         controllers = new List<IController>();
-        items = new List<ISprite>();
-        blocks = new List<ISprite>();
-        items.Add(MainGame.SpriteHandlers.SpriteFactory.CreateHeartItemSprite());
-        items.Add(MainGame.SpriteHandlers.SpriteFactory.CreateHeartContainerItemSprite());
-        items.Add(MainGame.SpriteHandlers.SpriteFactory.CreateClockItemSprite());
-        items.Add(MainGame.SpriteHandlers.SpriteFactory.CreateFiveRupeesItemSprite());
-        items.Add(MainGame.SpriteHandlers.SpriteFactory.CreateRupeeItemSprite());
-        items.Add(MainGame.SpriteHandlers.SpriteFactory.CreateMapItemSprite());
-        items.Add(MainGame.SpriteHandlers.SpriteFactory.CreateWoodenBoomerangItemSprite());
-        items.Add(MainGame.SpriteHandlers.SpriteFactory.CreateBombItemSprite());
-        items.Add(MainGame.SpriteHandlers.SpriteFactory.CreateBowItemSprite());
-        items.Add(MainGame.SpriteHandlers.SpriteFactory.CreateArrowItemSprite());
-        items.Add(MainGame.SpriteHandlers.SpriteFactory.CreateKeyItemSprite());
-        items.Add(MainGame.SpriteHandlers.SpriteFactory.CreateCompassItemSprite());
-        items.Add(MainGame.SpriteHandlers.SpriteFactory.CreateTriforcePieceItemSprite());
-        items.Add(MainGame.SpriteHandlers.SpriteFactory.CreateFairyItemSprite());
-        items.Add(MainGame.SpriteHandlers.SpriteFactory.CreateFireSprite());
-
-        blocks.Add(MainGame.SpriteHandlers.SpriteFactory.CreateBlueFloorSprite());
-        blocks.Add(MainGame.SpriteHandlers.SpriteFactory.CreateSquareBlockSprite());
-        blocks.Add(MainGame.SpriteHandlers.SpriteFactory.CreateStatueOneEntranceSprite());
-        blocks.Add(MainGame.SpriteHandlers.SpriteFactory.CreateStatueTwoEntranceSprite());
-        blocks.Add(MainGame.SpriteHandlers.SpriteFactory.CreateStatueOneEndSprite());
-        blocks.Add(MainGame.SpriteHandlers.SpriteFactory.CreateStatueTwoEndSprite());
-        blocks.Add(MainGame.SpriteHandlers.SpriteFactory.CreateBlackSquareSprite());
-        blocks.Add(MainGame.SpriteHandlers.SpriteFactory.CreateBlueSandSprite());
-        blocks.Add(MainGame.SpriteHandlers.SpriteFactory.CreateBlueGapSprite());
-        blocks.Add(MainGame.SpriteHandlers.SpriteFactory.CreateStairsSprite());
-        blocks.Add(MainGame.SpriteHandlers.SpriteFactory.CreateWhiteBrickSprite());
-        blocks.Add(MainGame.SpriteHandlers.SpriteFactory.CreateWhiteLadderSprite());
+        blockManager = new BlockManager();
+        itemManager = new ItemManager();
 
         base.Initialize();
     }
@@ -78,8 +59,24 @@ public class Game1 : Game
             SpriteFactory.CreatePlayerStaticIdleSprite(),
             this
         );
+        
 
-        controllers.Add(new KeyboardController(this, Player, blocks, items));
+        blockManager.LoadBlocks();
+        itemManager.LoadItems();
+        Block =  new Block(
+            new Vector2(GraphicsManager.PreferredBackBufferWidth / 3,
+                GraphicsManager.PreferredBackBufferHeight / 3),
+            blockManager.GetBlocks()[0],
+            this
+        );
+        Item = new Item(
+            new Vector2(GraphicsManager.PreferredBackBufferWidth / 3*2,
+                GraphicsManager.PreferredBackBufferHeight / 3),
+            itemManager.GetItems()[0],
+            this
+        );
+
+        controllers.Add(new KeyboardController(this, Player, Block, blockManager.GetBlocks(), Item, itemManager.GetItems()));
         controllers.Add(new MouseController(this, Player));
     }
 
@@ -92,6 +89,8 @@ public class Game1 : Game
         }
 
         Player.Update();
+        Block.Update();
+        Item.Update();
 
         base.Update(gameTime);
     }
@@ -102,6 +101,8 @@ public class Game1 : Game
 
         Player.Draw();
         textSprite.Draw(10, GraphicsManager.PreferredBackBufferHeight - 100, Color.Black);
+        Block.Draw();
+        Item.Draw();
 
         base.Draw(gameTime);
     }

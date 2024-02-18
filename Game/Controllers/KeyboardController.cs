@@ -6,6 +6,9 @@ using Microsoft.Xna.Framework.Input;
 
 using MainGame.Commands;
 using MainGame.Players;
+using MainGame.Blocks;
+using MainGame.Items;
+
 using MainGame.SpriteHandlers;
 
 namespace MainGame.Controllers
@@ -16,7 +19,7 @@ namespace MainGame.Controllers
 		private readonly Player player;
 		private readonly Game game;
 
-        public KeyboardController(Game game, Player player, List<ISprite> items, List<ISprite> blocks)
+        public KeyboardController(Game game, Player player, Block block, List<ISprite> blocks, Item item, List<ISprite> items)
 		{
 			this.game = game;
 			this.player = player;
@@ -28,10 +31,10 @@ namespace MainGame.Controllers
                 { Keys.D2, new StationaryAnimatedSpriteCommand(game, player) },
                 { Keys.D3, new MovingStaticSpriteCommand(game, player) },
                 { Keys.D4, new MovingAnimatedSpriteCommand(game, player) },
-                { Keys.T, new PreviousBlockCommand(game, player, blocks) },
-                { Keys.Y, new NextBlockCommand(game, player, blocks) },
-                { Keys.U, new PreviousItemCommand(game,player, blocks,items) },
-                { Keys.I, new NextItemCommand(game, player, blocks, items) }
+                { Keys.T, new PreviousBlockCommand(game, player, block, blocks) },
+                { Keys.Y, new NextBlockCommand(game, player, block, blocks) },
+                { Keys.U, new PreviousItemCommand(game, player, block, blocks, item, items) },
+                { Keys.I, new NextItemCommand(game, player, block, blocks, item, items) }
             };
         }
 

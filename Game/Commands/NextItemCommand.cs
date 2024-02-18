@@ -7,6 +7,8 @@ using System.Collections.Generic;
 
 using MainGame.SpriteHandlers;
 using MainGame.Players;
+using MainGame.Blocks;
+using MainGame.Items;
 
 namespace MainGame.Commands
 {
@@ -16,10 +18,13 @@ namespace MainGame.Commands
         private Player player;
         private int currentItemIndex;
         private List<ISprite> items;
+        private Item item;
 
-        public NextItemCommand(Game game, Player player, List<ISprite> blocks,List<ISprite> items)
+
+        public NextItemCommand(Game game, Player player, Block block, List<ISprite> blocks, Item item, List<ISprite> items)
         {
             this.game = game;
+            this.item = item;
             this.items = items;
             currentItemIndex = 0;
         }
@@ -27,12 +32,16 @@ namespace MainGame.Commands
         public void Execute()
         {
             currentItemIndex = (currentItemIndex + 1) % items.Count;
+            item.Sprite = items[currentItemIndex];
+            UnExecute();
         }
 
         public void UnExecute()
         {
-            currentItemIndex = (currentItemIndex - 1 + items.Count) % items.Count;
-        }
+            item.Position = new Vector2(
+                game.GraphicsDevice.Viewport.Width / 3*2,
+                game.GraphicsDevice.Viewport.Height / 3
+            );        }
 
         public ISprite GetCurrentBlock()
         {
