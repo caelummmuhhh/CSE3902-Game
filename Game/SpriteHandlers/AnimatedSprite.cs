@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using System.Xml.Schema;
 
 namespace MainGame.SpriteHandlers
 {
@@ -32,7 +33,7 @@ namespace MainGame.SpriteHandlers
 
         public abstract void Update();
 
-        public abstract void Draw(float x, float y, Color color);
+        public abstract void Draw(float x, float y, Color color, float xMax, float yMax);
 
         public virtual Rectangle GetSourceRectangle()
         {

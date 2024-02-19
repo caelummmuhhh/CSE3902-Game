@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
@@ -15,7 +16,20 @@ namespace MainGame.SpriteHandlers.EnemySprites
         /// The value is how many game seconds the frame should be displayed.
         /// </summary>
         private Dictionary<int, int> frameDisplayTimeMap;
-
+        Random rnd = new Random();
+        public float VerticalSpeed = 5f;
+        public float HorizontalSpeed = 4f;
+        int dir = 0;
+        bool changedir = true;
+        bool increment = true;
+        public int count = 0;
+        public int moveCount = 0;
+        public int threshold = 16;
+        public int subThreshold = 1;
+        public float posX = 0;
+        public float posY = 0;
+        Boolean on = true;
+        public int flip = 0;
         public GelSprite(
             Texture2D texture,
             SpriteBatch spriteBatch,
@@ -51,8 +65,128 @@ namespace MainGame.SpriteHandlers.EnemySprites
             spriteDisplayTimeLapse++;
         }
 
-        public override void Draw(float x, float y, Color color)
+        public override void Draw(float x, float y, Color color, float xMax, float yMax)
         {
+
+
+            if (count % 16 == 0)
+            {
+                dir = rnd.Next(1, 9);
+                if (on)
+                {
+                    on = false;
+                } else
+                {
+                    on = true;
+                }
+            }
+
+            if (on)
+            {
+
+
+
+                //up
+                if (dir == 1)
+                {
+                    posY -= VerticalSpeed;
+
+                }
+                // diagonal up right
+                if (dir == 2)
+                {
+                    posY -= VerticalSpeed;
+                    posX += HorizontalSpeed;
+
+                }
+                // right
+                if (dir == 3)
+                {
+                    posX += HorizontalSpeed;
+                }
+                // diagonal down right
+                if (dir == 4)
+                {
+                    posY += VerticalSpeed;
+                    posX += HorizontalSpeed;
+
+                }
+                // down
+                if (dir == 5)
+                {
+                    posY += VerticalSpeed;
+
+                }
+                // diagonal down left
+                if (dir == 6)
+                {
+                    posX -= HorizontalSpeed;
+                    posY += VerticalSpeed;
+
+                }
+                // left
+                if (dir == 7)
+                {
+                    posX -= HorizontalSpeed;
+
+                }
+                // diagonal up left
+                if (dir == 8)
+                {
+                    posX -= HorizontalSpeed;
+                    posY -= VerticalSpeed;
+
+                }
+
+
+
+
+            }
+            count++;
+
+            if ((posX + HorizontalSpeed < (xMax / 2)) && ((x + posX + HorizontalSpeed) > 0))
+                {
+                    x = x + posX;
+
+                }
+                else
+                {
+                    if ((posX + x > xMax))
+                    {
+                        posX = (xMax / 2) - HorizontalSpeed;
+                        x = xMax - HorizontalSpeed;
+                    }
+                    else
+                    {
+                        posX += HorizontalSpeed;
+                        x = 0 + HorizontalSpeed;
+                    }
+                }
+                if ((posY + VerticalSpeed < (yMax / 2)) && ((y + posY + VerticalSpeed) > 0))
+                {
+                    y = y + posY;
+                }
+                else
+                {
+                    if ((posY > (yMax / 2)))
+                    {
+                    posY = (yMax / 2) - VerticalSpeed;
+                    x = xMax - VerticalSpeed;
+                }
+                    else
+                    {
+                        posY += VerticalSpeed * 2;
+                        y = 0 + VerticalSpeed;
+                    }
+                }
+               
+
+            
+
+            
+
+
+
             Rectangle srcRectangle = GetSourceRectangle();
             Rectangle destRectangle = new Rectangle(
                 (int)(x - FrameWidth),
@@ -60,12 +194,14 @@ namespace MainGame.SpriteHandlers.EnemySprites
                 FrameWidth * Scale,
                 FrameHeight * Scale
             );
+
             spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, SamplerState.PointClamp);
             spriteBatch.Draw(Texture, destRectangle, srcRectangle, color);
             spriteBatch.End();
         }
     }
-
-
-    
 }
+
+
+
+

@@ -115,15 +115,6 @@ namespace MainGame.SpriteHandlers
         }
 
 
-        public static ISprite CreateAquamentusAttackSprite()
-        {
-            return new AquamentusAttackProjectileSprite(
-                TextureMap["ProjectilesSprites"], SpriteBatch,
-                numRows: 1,
-                numColumns: 4,
-                numberOfFrames: 4,
-                textureStartingY: 64,
-                scale: UniversalScaleMultiplier);
-        }
+        
     }
 }

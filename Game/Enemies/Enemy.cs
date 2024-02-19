@@ -3,8 +3,11 @@ using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
+using System.Transactions;
+using MainGame.SpriteHandlers.EnemySprites;
 
 namespace MainGame.Enemies
 {
@@ -14,6 +17,10 @@ namespace MainGame.Enemies
         public Vector2 Position;
         public float VerticalSpeed = 5f;
         public float HorizontalSpeed = 4f;
+        public static bool cd = true;
+        public static int dir = 0;
+        public float xMax;
+        public float yMax;
 
         private readonly Game game;
         private bool movingLeft;
@@ -21,6 +28,7 @@ namespace MainGame.Enemies
 
         public bool VerticalMotionOn;
         public bool HorizontalMotionOn;
+       
 
         public Enemy(Vector2 position, ISprite sprite, Game game)
         {
@@ -32,19 +40,21 @@ namespace MainGame.Enemies
             movingDown = false;
             VerticalMotionOn = false;
             HorizontalMotionOn = false;
+            xMax = game.GraphicsDevice.Viewport.Width;
+            yMax = game.GraphicsDevice.Viewport.Height;
         }
 
         public void Update()
         {
             Sprite.Update();
-
-            if (VerticalMotionOn) { InfiniteFall(); }
+            
+                if (VerticalMotionOn) { InfiniteFall(); }
             if (HorizontalMotionOn) { HorizontalBounce(); }
         }
 
         public void Draw()
         {
-            Sprite.Draw(Position.X, Position.Y, Color.White);
+            Sprite.Draw(Position.X, Position.Y, Color.White, xMax, yMax);
         }
 
         public void MoveUp()
@@ -86,7 +96,7 @@ namespace MainGame.Enemies
         {
             movingDown = true;
             MoveDown();
-            if (Position.Y > game.GraphicsDevice.Viewport.Height + 14)
+            if (Position.Y > game.GraphicsDevice.Viewport.Height +14)
             {
                 Position = new Vector2(Position.X, 0);
             }

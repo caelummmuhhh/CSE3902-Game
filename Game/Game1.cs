@@ -12,6 +12,8 @@ namespace MainGame;
 
 public class Game1 : Game
 {
+    // i will explain...
+    public int counter;
     public readonly GraphicsDeviceManager GraphicsManager;
     private SpriteBatch spriteBatch;
     private List<IController> controllers;
@@ -49,8 +51,8 @@ public class Game1 : Game
             SpriteFactory.CreatePlayerStaticIdleSprite(),
             this
         );
-        Enemy = new Enemy(new Vector2(GraphicsManager.PreferredBackBufferWidth / 4,
-                GraphicsManager.PreferredBackBufferHeight / 4), SpriteFactory.CreateKeeseFlightSprite(), this);
+        Enemy = new Enemy(new Vector2(GraphicsManager.PreferredBackBufferWidth / 2,
+                GraphicsManager.PreferredBackBufferHeight / 2), SpriteFactory.CreateAquamentusSprite(), this);;
 
         controllers.Add(new KeyboardController(this, Player));
         controllers.Add(new MouseController(this, Player));
@@ -76,7 +78,7 @@ public class Game1 : Game
 
         Player.Draw();
         Enemy.Draw();
-        textSprite.Draw(10, GraphicsManager.PreferredBackBufferHeight - 100, Color.Black);
+        textSprite.Draw(10, GraphicsManager.PreferredBackBufferHeight - 100, Color.Black, GraphicsManager.GraphicsDevice.Viewport.Width - 27, GraphicsManager.GraphicsDevice.Viewport.Height + 14);
 
         base.Draw(gameTime);
     }

@@ -39,7 +39,7 @@ namespace MainGame.Players
 
 		public void Draw()
 		{
-			Sprite.Draw(Position.X, Position.Y, Color.White);
+			Sprite.Draw(Position.X, Position.Y, Color.White, game.GraphicsDevice.Viewport.Width - 27, game.GraphicsDevice.Viewport.Height + 14);
 		}
 
 		public void MoveUp()

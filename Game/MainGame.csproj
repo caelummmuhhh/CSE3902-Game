@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
     <TargetFramework>net6.0</TargetFramework>
@@ -38,14 +38,11 @@
     <PackageReference Include="MonoGame.Content.Builder.Task" Version="3.8.1.303" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="SpriteHandlers\" />
     <Folder Include="Commands\" />
     <Folder Include="Controllers\" />
     <Folder Include="Players\" />
     <Folder Include="SpriteHandlers\PlayerSprites\" />
-    <Folder Include="SpriteHandlers\EnemySprites\" />
     <Folder Include="SpriteHandlers\EnemySprites\KeeseSprites\" />
-    <Folder Include="SpriteHandlers\EnemySprites\AquamentusSprites\" />
     <Folder Include="SpriteHandlers\EnemySprites\GoriyaSprites\" />
     <Folder Include="SpriteHandlers\BlockSprites\" />
     <Folder Include="SpriteHandlers\SpriteFactory\" />
