@@ -60,22 +60,18 @@ namespace MainGame.SpriteHandlers.ItemSprites
                 spriteEffect = SpriteEffects.FlipHorizontally;
             }
 
+            Vector2 origin = new(FrameWidth - 8f, FrameHeight / 2f);
+            float rotation = 0f;
+
             Rectangle srcRectangle = GetSourceRectangle();
-            Rectangle destRectangle = new Rectangle(
-                (int)(x - FrameWidth),
-                (int)(y - FrameHeight),
+            Rectangle destRectangle = new(
+                (int)(x - origin.X),
+                (int)(y - origin.Y),
                 FrameWidth * Scale,
-                FrameHeight * Scale
-            );
+                FrameHeight * Scale);
+
             spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, SamplerState.PointClamp);
-            spriteBatch.Draw(Texture,
-                destRectangle,
-                srcRectangle,
-                color,
-                0f,
-                new Vector2(0, 0),
-                spriteEffect,
-                0f);
+            spriteBatch.Draw(Texture, destRectangle, srcRectangle, color, rotation, origin, spriteEffect, 0f);
             spriteBatch.End();
         }
     }

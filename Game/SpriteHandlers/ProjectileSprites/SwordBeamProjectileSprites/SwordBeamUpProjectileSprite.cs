@@ -54,22 +54,18 @@ namespace MainGame.SpriteHandlers.ProjectileSprites
 
         public override void Draw(float x, float y, Color color)
         {
+            Vector2 origin = new(FrameWidth / 2f, FrameHeight / 2f);
+            float rotation = MathHelper.ToRadians(270f);
+
             Rectangle srcRectangle = GetSourceRectangle();
-            Rectangle destRectangle = new Rectangle(
-                (int)(x - FrameWidth),
-                (int)(y - FrameHeight),
+            Rectangle destRectangle = new(
+                (int)(x - origin.X),
+                (int)(y - origin.Y),
                 FrameWidth * Scale,
-                FrameHeight * Scale
-            );
+                FrameHeight * Scale);
+
             spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, SamplerState.PointClamp);
-            spriteBatch.Draw(Texture,
-                destRectangle,
-                srcRectangle,
-                color,
-                MathHelper.ToRadians(270f),
-                new Vector2(FrameWidth / 2, FrameHeight / 2),
-                SpriteEffects.FlipHorizontally,
-                0f);
+            spriteBatch.Draw(Texture, destRectangle, srcRectangle, color, rotation, origin, SpriteEffects.None, 0f);
             spriteBatch.End();
         }
     }

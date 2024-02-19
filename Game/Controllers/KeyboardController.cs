@@ -33,12 +33,12 @@ namespace MainGame.Controllers
                 { Keys.D, new PlayerMoveRightCommand(player) },
 
                 { Keys.N, new PlayerUseSwordCommand(player) },
+                { Keys.Z, new PlayerUseSwordBeamCommand(player) },
 
                 { Keys.D1, new PlayerUseBombCommand(player) },
                 { Keys.D2, new PlayerUseArrowCommand(player) },
                 { Keys.D3, new PlayerUseBoomerangCommand(player) },
                 { Keys.D4, new PlayerUseFireCommand(player) },
-                { Keys.D5, new PlayerUseSwordBeamCommand(player) },
             };
         }
 
