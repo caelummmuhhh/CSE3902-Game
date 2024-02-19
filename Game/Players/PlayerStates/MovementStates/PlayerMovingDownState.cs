@@ -34,11 +34,11 @@ namespace MainGame.Players.PlayerStates
 
         public void UseSword() => player.CurrentState = new PlayerUsingSwordDownState(player);
 
-        public void UseArrow() { }
-        public void UseBoomerang() { }
-        public void UseFire() { }
-        public void UseBomb() { }
-        public void UseSwordBeam() { }
+        public void UseArrow() => player.CurrentState = new PlayerUsingItemDownState(player);
+        public void UseBoomerang() => player.CurrentState = new PlayerUsingItemDownState(player);
+        public void UseFire() => player.CurrentState = new PlayerUsingItemDownState(player);
+        public void UseBomb() => player.CurrentState = new PlayerUsingItemDownState(player);
+        public void UseSwordBeam() => player.CurrentState = new PlayerUsingSwordDownState(player);
     }
 }
 

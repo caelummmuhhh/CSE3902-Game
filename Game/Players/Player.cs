@@ -11,6 +11,7 @@ namespace MainGame.Players
 		public ISprite CurrentSprite;
 		public bool IsMoving;
 		public static readonly float Speed = 5f;
+		public static readonly int UsingItemsSpeed = 10;
 
         private IPlayerState currentState;
         public IPlayerState CurrentState
@@ -39,11 +40,19 @@ namespace MainGame.Players
 		}
 
         public void Stop() => currentState.Stop();
+
         public void MoveUp() => currentState.MoveUp();
 		public void MoveDown() => currentState.MoveDown();
 		public void MoveLeft() => currentState.MoveLeft();
 		public void MoveRight() => currentState.MoveRight();
+
 		public void UseSword() => currentState.UseSword();
-	}
+
+		public void UseBoomerang() => currentState.UseBoomerang();
+		public void UseFire() => currentState.UseFire();
+		public void UseArrow() => currentState.UseArrow();
+		public void UseBomb() => currentState.UseBomb();
+		public void UseSwordBeam() => currentState.UseSword();
+    }
 }
 
