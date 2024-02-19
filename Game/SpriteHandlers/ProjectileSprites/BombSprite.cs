@@ -1,70 +1,48 @@
-﻿using System.Collections.Generic;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
 namespace MainGame.SpriteHandlers.ProjectileSprites
 {
-    public class BombSprite : AnimatedSpriteWithOffset
+	public class BombSprite : StaticSpriteWithOffset
     {
         private readonly SpriteBatch spriteBatch;
-        private int spriteDisplayTimeLapse;
-
-        /// <summary>
-        /// The key is the current frame (starting at 0) and corresponds with currentFrame.
-        /// The value is how many game seconds the frame should be displayed.
-        /// </summary>
-        private Dictionary<int, int> frameDisplayTimeMap;
 
         public BombSprite(
             Texture2D texture,
             SpriteBatch spriteBatch,
-            int numRows,
-            int numColumns,
-            int numberOfFrames,
-            int frameHeight = 16,
-            int frameWidth = 16,
+            int spriteHeight = 16,
+            int spriteWidth = 16,
             int textureStartingX = 0,
             int textureStartingY = 0,
-            int scale = 1) : base(texture, numRows, numColumns, frameWidth,
-                                  frameHeight, numberOfFrames, textureStartingX,
-                                  textureStartingY, scale)
+            int scale = 1) : base(texture, spriteHeight, spriteWidth,
+                                  textureStartingX, textureStartingY, scale)
         {
             this.spriteBatch = spriteBatch;
-            spriteDisplayTimeLapse = 0;
-            frameDisplayTimeMap = new()
-            {
-                { 0, 48 },
-                { 1, 8 },
-                { 2, 4 },
-                { 3, 2 }
-            };
         }
 
-
-        public override void Update()
-        {
-            if (spriteDisplayTimeLapse == frameDisplayTimeMap[currentFrame])
-            {
-                spriteDisplayTimeLapse = 0;
-                GetNextFrame();
-            }
-
-            spriteDisplayTimeLapse++;
-        }
+        public override void Update() { /* not needed here */ }
 
         public override void Draw(float x, float y, Color color)
         {
             Rectangle srcRectangle = GetSourceRectangle();
             Rectangle destRectangle = new Rectangle(
-                (int)(x - FrameWidth),
-                (int)(y - FrameHeight),
+                (int)(x - (FrameHeight * Scale) / 2),
+                (int)(y - (FrameWidth * Scale) / 2),
                 FrameWidth * Scale,
-                FrameHeight * Scale
-            );
+                FrameHeight * Scale);
+
             spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, SamplerState.PointClamp);
-            spriteBatch.Draw(Texture, destRectangle, srcRectangle, color);
+            spriteBatch.Draw(Texture,
+                destRectangle,
+                srcRectangle,
+                color,
+                0f,
+                new Vector2(FrameHeight / 2f, FrameHeight / 2f),
+                SpriteEffects.None,
+                0f);
             spriteBatch.End();
         }
+
     }
 }
 

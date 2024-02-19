@@ -7,18 +7,16 @@ namespace MainGame.Projectiles
 	public class BoomerangProjectile : IProjectile
 	{
 		public Vector2 Position { get => position; }
-		public int Duration { get => existenceDuration; }
 		public bool IsActive { get => isActive; }
 
-		private ISprite sprite;
+		private readonly ISprite sprite;
 		private Vector2 position;
 		private Vector2 startingPosition;
-		private int existenceDuration;
 		private bool isActive = true;
         private int timeLeft = 0;
-		private float speed = 2f;
-		private float maxTravelDistance = 20f;
-		private Direction direction;
+		private readonly float speed = 2f;
+		private readonly float maxTravelDistance = 20f;
+		private readonly Direction direction;
 
 		public BoomerangProjectile(Vector2 startingPosition, Direction direction)
 		{
@@ -26,7 +24,6 @@ namespace MainGame.Projectiles
             position = startingPosition;
 			sprite = SpriteFactory.CreateWoodenBoomerangSprite();
 			this.direction = direction;
-			existenceDuration = 100;
 		}
 
 		public void Update()

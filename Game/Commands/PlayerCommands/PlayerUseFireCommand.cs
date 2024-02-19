@@ -12,7 +12,7 @@ namespace MainGame.Commands.PlayerCommands
 
         public void Execute()
         {
-            player.UseFire();
+            player.CurrentState.UseFire();
         }
 
         public void UnExecute() { /* not needed */ }

@@ -12,7 +12,7 @@ namespace MainGame.Commands.PlayerCommands
 
         public void Execute()
         {
-            player.UseArrow();
+            player.CurrentState.UseArrow();
         }
 
         public void UnExecute() { /* not needed */ }

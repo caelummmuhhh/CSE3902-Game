@@ -35,7 +35,11 @@ namespace MainGame.Players.PlayerStates
 
         public void UseSword() => player.CurrentState = new PlayerUsingSwordDownState(player);
 
-        public void UseArrow() => player.CurrentState = new PlayerUsingItemDownState(player);
+        public void UseArrow()
+        {
+            player.UseArrow(Direction.Down);
+            player.CurrentState = new PlayerUsingItemDownState(player);
+        }
 
         public void UseBoomerang()
         {
@@ -43,9 +47,23 @@ namespace MainGame.Players.PlayerStates
             player.CurrentState = new PlayerUsingItemDownState(player);
         }
 
-        public void UseFire() => player.CurrentState = new PlayerUsingItemDownState(player);
-        public void UseBomb() => player.CurrentState = new PlayerUsingItemDownState(player);
-        public void UseSwordBeam() => player.CurrentState = new PlayerUsingSwordDownState(player);
+        public void UseFire()
+        {
+            player.UseFire(Direction.Down);
+            player.CurrentState = new PlayerUsingItemDownState(player);
+        }
+
+        public void UseBomb()
+        {
+            player.UseBomb(Direction.Down);
+            player.CurrentState = new PlayerUsingItemDownState(player);
+        }
+
+        public void UseSwordBeam()
+        {
+            player.UseSwordBeam(Direction.Down);
+            player.CurrentState = new PlayerUsingSwordDownState(player);
+        }
     }
 }
 
