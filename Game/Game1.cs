@@ -40,12 +40,7 @@ public class Game1 : Game
         SpriteFactory.SpriteBatch = spriteBatch;
 
         textSprite = SpriteFactory.CreateTextSprite("hello world!");
-        Player = new Player(
-            new Vector2(GraphicsManager.PreferredBackBufferWidth / 2,
-                GraphicsManager.PreferredBackBufferHeight / 2),
-            SpriteFactory.CreatePlayerStaticIdleSprite(),
-            this
-        );
+        Player = new Player(this);
 
         controllers.Add(new KeyboardController(this, Player));
         controllers.Add(new MouseController(this, Player));

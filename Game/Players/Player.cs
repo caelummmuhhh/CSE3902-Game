@@ -1,91 +1,48 @@
-﻿using Microsoft.Xna.Framework;
+﻿using System;
+using Microsoft.Xna.Framework;
 using MainGame.SpriteHandlers;
+using MainGame.Players.PlayerStates;
 
 namespace MainGame.Players
 {
-	public class Player
+	public class Player : IPlayer
 	{
-		public ISprite Sprite;
-		public Vector2 Position;
-        public float VerticalSpeed = 5f;
-		public float HorizontalSpeed = 4f;
+        public Vector2 Position;
+		public ISprite CurrentSprite;
+		public bool IsMoving;
+		public static readonly float Speed = 5f;
+
+        private IPlayerState currentState;
+        public IPlayerState CurrentState
+		{
+			get { return currentState; }
+			set { currentState = value; }
+		}
 
 		private readonly Game game;
-		private bool movingLeft;
-		private bool movingDown;
 
-		public bool VerticalMotionOn;
-		public bool HorizontalMotionOn;
-
-        public Player(Vector2 position, ISprite sprite, Game game)
+		public Player(Game game)
 		{
-			Position = position;
-			Sprite = sprite;
+			Position = new Vector2(0, 0);
+			currentState = new PlayerIdleState(this, Directions.Up);
 			this.game = game;
-
-			movingLeft = false;
-			movingDown = false;
-			VerticalMotionOn = false;
-			HorizontalMotionOn = false;
-        }
+		}
 
 		public void Update()
 		{
-			Sprite.Update();
-
-			if (VerticalMotionOn) { InfiniteFall(); }
-			if (HorizontalMotionOn) { HorizontalBounce(); }
+			currentState.Update();
 		}
 
 		public void Draw()
 		{
-			Sprite.Draw(Position.X, Position.Y, Color.White);
+			currentState.Draw();
 		}
 
-		public void MoveUp()
-		{
-			Position = new Vector2(Position.X, Position.Y - VerticalSpeed);
-		}
-
-		public void MoveDown()
-		{
-            Position = new Vector2(Position.X, Position.Y + VerticalSpeed);
-        }
-
-		public void MoveLeft()
-        {
-            Position = new Vector2(Position.X - HorizontalSpeed, Position.Y);
-        }
-
-        public void MoveRight()
-        {
-            Position = new Vector2(Position.X + HorizontalSpeed, Position.Y);
-        }
-
-		public void HorizontalBounce()
-		{
-            if (Position.X < 27)
-            {
-                movingLeft = false;
-            }
-            else if (Position.X > game.GraphicsDevice.Viewport.Width - 27)
-            {
-                movingLeft = true;
-            }
-
-            if (movingLeft) { MoveLeft(); }
-            else { MoveRight(); }
-		}
-
-        public void InfiniteFall()
-		{
-			movingDown = true;
-            MoveDown();
-            if (Position.Y > game.GraphicsDevice.Viewport.Height + 14)
-            {
-                Position = new Vector2(Position.X, 0);
-            }
-        }
-    }
+		public void MoveUp() { currentState.MoveUp(); }
+		public void MoveDown() { currentState.MoveDown(); }
+		public void MoveLeft() { currentState.MoveLeft(); }
+		public void MoveRight() { currentState.MoveRight(); }
+		public void Stop() { currentState.Stop(); }
+	}
 }
 
