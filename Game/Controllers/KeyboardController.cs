@@ -14,7 +14,7 @@ namespace MainGame.Controllers
 	public class KeyboardController : IController
 	{
         private Dictionary<Keys, ICommand> keyCommands;
-        private ICommand currentCommand;
+        private List<ICommand> executingCommands;
 		private readonly Player player;
 		private readonly Game game;
 
@@ -22,14 +22,17 @@ namespace MainGame.Controllers
 		{
 			this.game = game;
 			this.player = player;
-            currentCommand = null;
+            executingCommands = new();
             keyCommands = new()
             {
                 { Keys.D0, new QuitGameCommand(game) },
+
                 { Keys.W, new PlayerMoveUpCommand(player) },
                 { Keys.A, new PlayerMoveLeftCommand(player) },
                 { Keys.S, new PlayerMoveDownCommand(player) },
-                { Keys.D, new PlayerMoveRightCommand(player) }
+                { Keys.D, new PlayerMoveRightCommand(player) },
+
+                { Keys.N, new PlayerUseSwordCommand(player) }
             };
         }
 
@@ -39,15 +42,24 @@ namespace MainGame.Controllers
 
             foreach (Keys key in keyCommands.Keys)
             {
-                if (keyState.IsKeyDown(key))
+                if (keyState.IsKeyDown(key) && !executingCommands.Contains(keyCommands[key]))
                 {
-                    currentCommand = keyCommands[key];
-                    keyCommands[key].Execute();
+                    executingCommands.Add(keyCommands[key]);
                 }
-                else if (currentCommand == keyCommands[key])
+                else if (!keyState.IsKeyDown(key) && executingCommands.Contains(keyCommands[key]))
                 {
-                    currentCommand.UnExecute();
+                    keyCommands[key].UnExecute();
+                    executingCommands.Remove(keyCommands[key]);
                 }
+            }
+            ExecuteCommands();
+        }
+
+        private void ExecuteCommands()
+        {
+            if (executingCommands.Count > 0)
+            {
+                executingCommands[^1].Execute();
             }
         }
     }

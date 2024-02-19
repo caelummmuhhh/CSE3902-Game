@@ -6,6 +6,7 @@ using MainGame.SpriteHandlers;
 using MainGame.Controllers;
 using MainGame.Players;
 using System.Collections.Generic;
+using System;
 
 namespace MainGame;
 
@@ -23,6 +24,7 @@ public class Game1 : Game
         GraphicsManager = new GraphicsDeviceManager(this);
         Content.RootDirectory = "Content";
         IsMouseVisible = true;
+        TargetElapsedTime = TimeSpan.FromSeconds(1d / 30d);
     }
 
     protected override void Initialize()

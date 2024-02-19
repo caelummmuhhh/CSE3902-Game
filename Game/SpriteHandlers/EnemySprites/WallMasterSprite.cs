@@ -6,14 +6,13 @@ namespace MainGame.SpriteHandlers.EnemySprites
 {
     public class WallMasterSprite : AnimatedSpriteWithOffset
     {
-        private readonly SpriteBatch spriteBatch;
-        private int spriteDisplayTimeLapse;
-
         /// <summary>
         /// The key is the current frame (starting at 0) and corresponds with currentFrame.
         /// The value is how many game seconds the frame should be displayed.
         /// </summary>
         private Dictionary<int, int> frameDisplayTimeMap;
+        private readonly SpriteBatch spriteBatch;
+        private int spriteDisplayTimeLapse;
 
         public WallMasterSprite(
             Texture2D texture,

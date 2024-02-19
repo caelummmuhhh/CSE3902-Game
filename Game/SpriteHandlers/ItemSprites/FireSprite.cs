@@ -6,15 +6,15 @@ namespace MainGame.SpriteHandlers.ItemSprites
 {
     public class FireSprite : AnimatedSpriteWithOffset
     {
-        private readonly SpriteBatch spriteBatch;
-        private int spriteDisplayTimeLapse;
-        bool spriteFlip;
-
         /// <summary>
-        /// The key is the current frame (starting at 0) and corresponds with currentFrame.
+        /// The key is the current animationframe (starting at 0).
         /// The value is how many game seconds the frame should be displayed.
         /// </summary>
         private Dictionary<int, int> frameDisplayTimeMap;
+        private readonly SpriteBatch spriteBatch;
+        private int spriteDisplayTimeLapse;
+        private bool spriteFlip;
+        public override int AnimationFrameDuration => frameDisplayTimeMap.Count;
 
         public FireSprite(
             Texture2D texture,

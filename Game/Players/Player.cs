@@ -24,7 +24,7 @@ namespace MainGame.Players
 		public Player(Game game)
 		{
 			Position = new Vector2(0, 0);
-			currentState = new PlayerIdleState(this, Directions.Up);
+			currentState = new PlayerIdleDownState(this);
 			this.game = game;
 		}
 
@@ -38,11 +38,12 @@ namespace MainGame.Players
 			currentState.Draw();
 		}
 
-		public void MoveUp() { currentState.MoveUp(); }
-		public void MoveDown() { currentState.MoveDown(); }
-		public void MoveLeft() { currentState.MoveLeft(); }
-		public void MoveRight() { currentState.MoveRight(); }
-		public void Stop() { currentState.Stop(); }
+        public void Stop() => currentState.Stop();
+        public void MoveUp() => currentState.MoveUp();
+		public void MoveDown() => currentState.MoveDown();
+		public void MoveLeft() => currentState.MoveLeft();
+		public void MoveRight() => currentState.MoveRight();
+		public void UseSword() => currentState.UseSword();
 	}
 }
 

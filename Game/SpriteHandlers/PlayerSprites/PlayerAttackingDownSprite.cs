@@ -6,14 +6,26 @@ namespace MainGame.SpriteHandlers.PlayerSprites
 {
     public class PlayerAttackingDownSprite : AnimatedSpriteWithOffset
     {
-        private readonly SpriteBatch spriteBatch;
-        private int spriteDisplayTimeLapse;
+        public override int AnimationFrameDuration
+        {
+            get
+            {
+                int totalDuration = 0;
+                foreach (int duration in frameDisplayTimeMap.Values)
+                {
+                    totalDuration += duration;
+                }
+                return totalDuration;
+            }
+        }
 
         /// <summary>
         /// The key is the current frame (starting at 0) and corresponds with currentFrame.
         /// The value is how many game seconds the frame should be displayed.
         /// </summary>
         private Dictionary<int, int> frameDisplayTimeMap;
+        private readonly SpriteBatch spriteBatch;
+        private int spriteDisplayTimeLapse;
 
         public PlayerAttackingDownSprite(
             Texture2D texture,

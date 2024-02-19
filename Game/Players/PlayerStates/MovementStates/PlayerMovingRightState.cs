@@ -14,12 +14,10 @@ namespace MainGame.Players.PlayerStates
 			this.player.CurrentSprite = SpriteFactory.CreatePlayerWalkingRightSprite();
 		}
 
-        public void Update() { player.CurrentSprite.Update(); }
         public void Draw()
 		{
 			player.CurrentSprite.Draw(player.Position.X, player.Position.Y, Color.White);
 		}
-        public void Stop() { player.CurrentState = new PlayerIdleState(player, Directions.Right); }
 
         public void MoveRight()
 		{
@@ -27,11 +25,14 @@ namespace MainGame.Players.PlayerStates
 			player.Position = new(player.Position.X + Player.Speed, player.Position.Y);
 		}
 
-		public void MoveUp() { player.CurrentState = new PlayerMovingUpState(player); }
-		public void MoveDown() { player.CurrentState = new PlayerMovingDownState(player); }
-		public void MoveLeft() { player.CurrentState = new PlayerMovingLeftState(player); }
+        public void Update() => player.CurrentSprite.Update();
+        public void Stop() => player.CurrentState = new PlayerIdleRightState(player);
 
-        public void UseSword() { }
+        public void MoveUp() => player.CurrentState = new PlayerMovingUpState(player);
+		public void MoveDown() => player.CurrentState = new PlayerMovingDownState(player);
+		public void MoveLeft() => player.CurrentState = new PlayerMovingLeftState(player);
+
+        public void UseSword() => player.CurrentState = new PlayerUsingSwordRightState(player);
 
         public void UseArrow() { }
         public void UseBoomerang() { }

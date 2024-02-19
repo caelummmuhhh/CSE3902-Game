@@ -11,7 +11,7 @@ namespace MainGame.SpriteHandlers
         public readonly int Scale;
         public readonly int SpriteFrameWidth;
         public readonly int SpriteFrameHeight;
-
+        public virtual int AnimationFrameDuration { get { return totalFrameCount; } }
 
         protected int totalFrameCount;
         protected int currentFrame;
