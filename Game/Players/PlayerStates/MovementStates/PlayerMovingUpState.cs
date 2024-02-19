@@ -1,6 +1,7 @@
 ﻿using System;
 using Microsoft.Xna.Framework;
 using MainGame.SpriteHandlers;
+using MainGame.Projectiles;
 
 namespace MainGame.Players.PlayerStates
 {
@@ -35,7 +36,11 @@ namespace MainGame.Players.PlayerStates
         public void UseSword() => player.CurrentState = new PlayerUsingSwordUpState(player);
 
         public void UseArrow() => player.CurrentState = new PlayerUsingItemUpState(player);
-        public void UseBoomerang() => player.CurrentState = new PlayerUsingItemUpState(player);
+        public void UseBoomerang()
+        {
+            player.UseBoomerang(Direction.Up);
+            player.CurrentState = new PlayerUsingItemUpState(player);
+        }
         public void UseFire() => player.CurrentState = new PlayerUsingItemUpState(player);
         public void UseBomb() => player.CurrentState = new PlayerUsingItemUpState(player);
         public void UseSwordBeam() => player.CurrentState = new PlayerUsingSwordUpState(player);

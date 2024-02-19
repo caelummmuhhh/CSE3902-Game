@@ -12,7 +12,7 @@ namespace MainGame.Commands.PlayerCommands
 
         public void Execute()
         {
-            player.UseBoomerang();
+            player.CurrentState.UseBoomerang();
         }
 
         public void UnExecute() { /* not needed */ }

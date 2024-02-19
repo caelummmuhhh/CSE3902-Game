@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using MainGame.SpriteHandlers;
+using MainGame.Projectiles;
 
 namespace MainGame.Players.PlayerStates
 {
@@ -31,7 +32,7 @@ namespace MainGame.Players.PlayerStates
             player.CurrentSprite.Draw(player.Position.X, player.Position.Y, Color.White);
         }
 
-        public void Stop() => player.CurrentState = new PlayerIdleRightState(player);
+        public void Stop() => player.CurrentState = new PlayerIdleDownState(player);
 
         /* Not useable in this state, therefore not implemented. */
         public void MoveUp() { }

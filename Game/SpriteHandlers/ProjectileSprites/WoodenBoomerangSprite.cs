@@ -40,7 +40,7 @@ namespace MainGame.SpriteHandlers.ProjectileSprites
             this.spriteBatch = spriteBatch;
             spriteDisplayTimeLapse = 0;
             currentAnimationFrame = 0;
-            frameDisplayTime = 5;
+            frameDisplayTime = 2;
             currentAnimationFrameData = new()
             {
                 /* For some reason SpriteEffects appears a frame delayed  */

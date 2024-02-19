@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework;
 using MainGame.SpriteHandlers;
 using MainGame.Players.PlayerStates;
+using MainGame.Projectiles;
 
 namespace MainGame.Players
 {
@@ -13,18 +14,21 @@ namespace MainGame.Players
 		public static readonly float Speed = 5f;
 		public static readonly int UsingItemsSpeed = 10;
 
+		private PlayerProjectilesManager projectilesManager;
+
         private IPlayerState currentState;
         public IPlayerState CurrentState
 		{
-			get { return currentState; }
-			set { currentState = value; }
+			get => currentState;
+			set => currentState = value;
 		}
 
 		private readonly Game game;
 
 		public Player(Game game)
 		{
-			Position = new Vector2(0, 0);
+			projectilesManager = new(this);
+            Position = new Vector2(0, 0);
 			currentState = new PlayerIdleDownState(this);
 			this.game = game;
 		}
@@ -32,11 +36,13 @@ namespace MainGame.Players
 		public void Update()
 		{
 			currentState.Update();
+			projectilesManager.Update();
 		}
 
 		public void Draw()
 		{
 			currentState.Draw();
+			projectilesManager.Draw();
 		}
 
         public void Stop() => currentState.Stop();
@@ -48,7 +54,12 @@ namespace MainGame.Players
 
 		public void UseSword() => currentState.UseSword();
 
-		public void UseBoomerang() => currentState.UseBoomerang();
+		public void UseBoomerang(Direction direction)
+		{
+			currentState = new PlayerUsingItemDownState(this);
+			projectilesManager.AddProjectile(new BoomerangProjectile(Position, direction));
+		}
+
 		public void UseFire() => currentState.UseFire();
 		public void UseArrow() => currentState.UseArrow();
 		public void UseBomb() => currentState.UseBomb();
