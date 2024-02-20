@@ -14,7 +14,7 @@ namespace MainGame.SpriteHandlers
             Scale = scale;
         }
 
-        public abstract void Draw(float x, float y, Color color);
+        public abstract void Draw(float x, float y, Color color, float xMax, float yMax);
 
         public virtual void Update() { /* generally not needed */ }
 

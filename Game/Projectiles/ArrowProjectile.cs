@@ -59,7 +59,7 @@ namespace MainGame.Projectiles
 
         public void Draw()
         {
-            sprite.Draw(Position.X, Position.Y, Color.White);
+            sprite.Draw(Position.X, Position.Y, Color.White, maxDistanceTravel, maxDistanceTravel);
         }
 
         private void Move()

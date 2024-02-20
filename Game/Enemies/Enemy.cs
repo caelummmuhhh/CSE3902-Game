@@ -52,7 +52,7 @@ namespace MainGame.Enemies
 
         public void Draw()
         {
-            Sprite.Draw(Position.X, Position.Y, Color.White);
+            Sprite.Draw(Position.X, Position.Y, Color.White, VerticalSpeed, VerticalSpeed);
         }
 
         public void MoveUp()

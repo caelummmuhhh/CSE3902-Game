@@ -22,7 +22,7 @@ namespace MainGame.SpriteHandlers.PlayerSprites
 
         public override void Update() { /* not needed here */ }
 
-        public override void Draw(float x, float y, Color color)
+        public override void Draw(float x, float y, Color color, float xMax, float yMax)
         {
             Vector2 origin = new(FrameWidth / 2f, FrameHeight / 2f);
             float rotation = 0f;

@@ -16,7 +16,7 @@ namespace MainGame.Players.PlayerStates
 
         public void Draw()
         {
-            player.Sprite.Draw(player.Position.X, player.Position.Y, Color.White);
+            player.Sprite.Draw(player.Position.X, player.Position.Y, Color.White, TODO, TODO);
         }
         public void Update() => player.Sprite.Update();
         public void Stop() { }

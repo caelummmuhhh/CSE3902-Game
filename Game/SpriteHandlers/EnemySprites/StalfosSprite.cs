@@ -12,6 +12,7 @@ namespace MainGame.SpriteHandlers.EnemySprites
         /// The value is how many game seconds the frame should be displayed.
         /// </summary>
         private Dictionary<int, int> frameDisplayTimeMap;
+<<<<<<< HEAD
         Random rnd = new Random();
         public float VerticalSpeed = 5f;
         public float HorizontalSpeed = 4f;
@@ -24,11 +25,12 @@ namespace MainGame.SpriteHandlers.EnemySprites
         public int subThreshold = 2;
         public float posX = 0;
         public float posY = 0;
-
+=======
         private readonly SpriteBatch spriteBatch;
         private int spriteDisplayTimeLapse;
         private bool spriteFlip;
         public override int AnimationFrameDuration => frameDisplayTimeMap.Count;
+>>>>>>> main
 
         public StalfosSprite(
             Texture2D texture,
@@ -66,7 +68,7 @@ namespace MainGame.SpriteHandlers.EnemySprites
             spriteDisplayTimeLapse = 0;
         }
 
-        public override void Draw(float x, float y, Color color)
+        public override void Draw(float x, float y, Color color, float xMax, float yMax)
         {
             var spriteEffect = SpriteEffects.None;
             if (spriteFlip)

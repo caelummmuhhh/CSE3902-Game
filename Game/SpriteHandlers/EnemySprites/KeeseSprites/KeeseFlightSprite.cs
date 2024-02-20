@@ -113,7 +113,7 @@ namespace MainGame.SpriteHandlers.EnemySprites
            
         }
 
-        public override void Draw(float x, float y, Color color)
+        public override void Draw(float x, float y, Color color, float xMax, float yMax)
         {
 
             // fuckit doing it the scuffed way for now or else ill kill myself

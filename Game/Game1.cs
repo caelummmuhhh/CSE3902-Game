@@ -12,6 +12,7 @@ using MainGame.Enemies;
 
 
 using MainGame.Managers;
+using System;
 
 namespace MainGame;
 
@@ -28,6 +29,8 @@ public class Game1 : Game
 
     public Block Block;
     public Item Item;
+
+    public Enemy Enemy;
 
     private BlockManager blockManager;
     private ItemManager itemManager;
@@ -101,7 +104,7 @@ public class Game1 : Game
 
         Player.Draw();
         Enemy.Draw();
-        textSprite.Draw(10, GraphicsManager.PreferredBackBufferHeight - 100, Color.Black);
+        textSprite.Draw(10, GraphicsManager.PreferredBackBufferHeight - 100, Color.Black, counter, counter);
         Block.Draw();
         Item.Draw();
 

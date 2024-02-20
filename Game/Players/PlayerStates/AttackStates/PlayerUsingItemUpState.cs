@@ -28,7 +28,7 @@ namespace MainGame.Players.PlayerStates
         public void Draw()
         {
             currentFrame++;
-            player.Sprite.Draw(player.Position.X, player.Position.Y, Color.White);
+            player.Sprite.Draw(player.Position.X, player.Position.Y, Color.White, stateDuration, stateDuration);
         }
 
         public void TakeDamage() => player.CurrentState = new PlayerDamagedUpState(player);
