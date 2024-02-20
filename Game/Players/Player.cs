@@ -25,7 +25,7 @@ namespace MainGame.Players
 		public Player(Game1 game)
 		{
 			projectilesManager = new(this);
-            Position = new Vector2(0, 0);
+            Position = new Vector2(100, 100);
 			CurrentState = new PlayerIdleDownState(this);
 			this.game = game;
 		}
