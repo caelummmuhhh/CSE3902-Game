@@ -1,5 +1,7 @@
 ﻿using System;
+using MainGame.Enemies;
 using Microsoft.Xna.Framework;
+
 
 namespace MainGame.SpriteHandlers
 {

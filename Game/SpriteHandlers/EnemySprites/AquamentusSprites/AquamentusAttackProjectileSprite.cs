@@ -2,7 +2,7 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace MainGame.SpriteHandlers.ProjectileSprites
+namespace MainGame.SpriteHandlers.EnemySprites.AquamentusSprites
 {
     public class AquamentusAttackProjectileSprite : AnimatedSpriteWithOffset
     {
@@ -40,6 +40,7 @@ namespace MainGame.SpriteHandlers.ProjectileSprites
             };
         }
 
+        
 
         public override void Update()
         {
