@@ -17,27 +17,39 @@ namespace MainGame.Controllers
 	public class KeyboardController : IController
 	{
         private Dictionary<Keys, ICommand> keyCommands;
+        private List<ICommand> executingCommands;
         private KeyboardState previousKeyState;
         private readonly IPlayer player;
 		private readonly Game game;
 
-        public KeyboardController(Game game, Player player, Block block, List<ISprite> blocks, Item item, List<ISprite> items)
+        public KeyboardController(Game game, IPlayer player, Block block, List<ISprite> blocks, Item item, List<ISprite> items)
         {
 			this.game = game;
 			this.player = player;
             executingCommands = new();
             keyCommands = new()
             {
-                { Keys.D0, new QuitGameCommand(game) },
-                { Keys.D1, new StationaryStaticSpriteCommand(game, player) },
-                { Keys.D2, new StationaryAnimatedSpriteCommand(game, player) },
-                { Keys.D3, new MovingStaticSpriteCommand(game, player) },
-                { Keys.D4, new MovingAnimatedSpriteCommand(game, player) }
+                { Keys.W, new PlayerMoveUpCommand(player) },
+                { Keys.A, new PlayerMoveLeftCommand(player) },
+                { Keys.S, new PlayerMoveDownCommand(player) },
+                { Keys.D, new PlayerMoveRightCommand(player) },
+
+                { Keys.N, new PlayerUseSwordCommand(player) },
+                { Keys.Z, new PlayerUseSwordBeamCommand(player) },
+
+                { Keys.E, new PlayerDamageCommand(player) },
+
+                { Keys.D1, new PlayerUseBombCommand(player) },
+                { Keys.D2, new PlayerUseArrowCommand(player) },
+                { Keys.D3, new PlayerUseBoomerangCommand(player) },
+                { Keys.D4, new PlayerUseFireCommand(player) },
+
                 { Keys.T, new PreviousBlockCommand(game, player, block, blocks) },
                 { Keys.Y, new NextBlockCommand(game, player, block, blocks) },
                 { Keys.U, new PreviousItemCommand(game, player, block, blocks, item, items) },
-                { Keys.I, new NextItemCommand(game, player, block, blocks, item, items) }
+                { Keys.I, new NextItemCommand(game, player, block, blocks, item, items) },
 
+                { Keys.Q, new QuitGameCommand(game) }
             };
             previousKeyState = Keyboard.GetState();
         }

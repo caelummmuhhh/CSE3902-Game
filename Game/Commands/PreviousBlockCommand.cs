@@ -19,7 +19,7 @@ namespace MainGame.Commands
 
         private Block block;
 
-        public PreviousBlockCommand(Game game, Player player, Block block, List<ISprite> blocks)
+        public PreviousBlockCommand(Game game, IPlayer player, Block block, List<ISprite> blocks)
         {
             this.game = game;
             this.block = block;

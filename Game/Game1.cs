@@ -22,7 +22,7 @@ public class Game1 : Game
     private List<IController> controllers;
 
     private ISprite textSprite;
-    public IPlayer Player;
+    public IPlayer player;
 
     public Block Block;
     public Item Item;
@@ -54,8 +54,7 @@ public class Game1 : Game
         SpriteFactory.LoadAllTextures(Content);
         SpriteFactory.SpriteBatch = spriteBatch;
 
-        textSprite = SpriteFactory.CreateTextSprite("hello world!");
-        Player = new Player(this);
+        player = new Player(this);
         blockManager.LoadBlocks();
         itemManager.LoadItems();
         Block = new Block(
@@ -71,11 +70,7 @@ public class Game1 : Game
             this
         );
 
-        controllers.Add(new KeyboardController(this, Player, Block, blockManager.GetBlocks(), Item, itemManager.GetItems()));
-
-
-        controllers.Add(new KeyboardController(this, Player));
-        controllers.Add(new MouseController(this, Player));
+        controllers.Add(new KeyboardController(this, player, Block, blockManager.GetBlocks(), Item, itemManager.GetItems()));
     }
 
     protected override void Update(GameTime gameTime)
@@ -86,7 +81,7 @@ public class Game1 : Game
             controller.Update();
         }
 
-        Player.Update();
+        player.Update();
         Block.Update();
         Item.Update();
 
@@ -97,8 +92,7 @@ public class Game1 : Game
     {
         GraphicsDevice.Clear(Color.Indigo);
 
-        Player.Draw();
-        textSprite.Draw(10, GraphicsManager.PreferredBackBufferHeight - 100, Color.Black);
+        player.Draw();
         Block.Draw();
         Item.Draw();
 

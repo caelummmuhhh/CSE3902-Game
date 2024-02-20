@@ -47,7 +47,7 @@ namespace MainGame.Players
 		public void TakeDamage()
         {
 			CurrentState.TakeDamage();
-			game.Player = new DamagedPlayer(this, game);
+			game.player = new DamagedPlayer(this, game);
         }
 
         public void MoveUp() => CurrentState.MoveUp();
