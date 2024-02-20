@@ -28,7 +28,7 @@ namespace MainGame.SpriteHandlers.EnemySprites
         public int flip = 0;
 
         private readonly SpriteBatch spriteBatch;
-        private int spriteDisplayTimeLaps
+        private int spriteDisplayTimeLapse;
         public GelSprite(
             Texture2D texture,
             SpriteBatch spriteBatch,

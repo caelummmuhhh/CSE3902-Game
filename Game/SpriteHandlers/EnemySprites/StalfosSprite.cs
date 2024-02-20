@@ -28,7 +28,7 @@ namespace MainGame.SpriteHandlers.EnemySprites
         private readonly SpriteBatch spriteBatch;
         private int spriteDisplayTimeLapse;
         private bool spriteFlip;
-        public override int AnimationFrameDuration => frameDisplayTimeMap.Count
+        public override int AnimationFrameDuration => frameDisplayTimeMap.Count;
         public StalfosSprite(
             Texture2D texture,
             SpriteBatch spriteBatch,
