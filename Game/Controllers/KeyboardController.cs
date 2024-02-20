@@ -18,15 +18,11 @@ namespace MainGame.Controllers
 	{
         private Dictionary<Keys, ICommand> keyCommands;
         private KeyboardState previousKeyState;
-        private readonly Player player;
-		private readonly Game game;
-
-        public KeyboardController(Game game, Player player, Block block, List<ISprite> blocks, Item item, List<ISprite> items)
         private List<ICommand> executingCommands;
 		private readonly IPlayer player;
 		private readonly Game game;
 
-        public KeyboardController(Game game, IPlayer player)
+        public KeyboardController(Game game, IPlayer player, Block block, List<ISprite> blocks, Item item, List<ISprite> items)
 		{
 			this.game = game;
 			this.player = player;
@@ -34,10 +30,10 @@ namespace MainGame.Controllers
             keyCommands = new()
             {
                 { Keys.D0, new QuitGameCommand(game) },
-                { Keys.T, new PreviousBlockCommand(game, player, block, blocks) },
-                { Keys.Y, new NextBlockCommand(game, player, block, blocks) },
-                { Keys.U, new PreviousItemCommand(game, player, block, blocks, item, items) },
-                { Keys.I, new NextItemCommand(game, player, block, blocks, item, items) }
+                { Keys.T, new PreviousBlockCommand(game, block, blocks) },
+                { Keys.Y, new NextBlockCommand(game, block, blocks) },
+                { Keys.U, new PreviousItemCommand(game, block, blocks, item, items) },
+                { Keys.I, new NextItemCommand(game, block, blocks, item, items) },
 
                 { Keys.W, new PlayerMoveUpCommand(player) },
                 { Keys.A, new PlayerMoveLeftCommand(player) },
