@@ -2,7 +2,7 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace MainGame.SpriteHandlers.ProjectileSprites
+namespace MainGame.SpriteHandlers.EnemySprites.AquamentusSprites
 {
     public class AquamentusAttackProjectileSprite : AnimatedSpriteWithOffset
     {
@@ -40,6 +40,7 @@ namespace MainGame.SpriteHandlers.ProjectileSprites
             };
         }
 
+        
 
         public override void Update()
         {
@@ -52,7 +53,7 @@ namespace MainGame.SpriteHandlers.ProjectileSprites
             spriteDisplayTimeLapse++;
         }
 
-        public override void Draw(float x, float y, Color color)
+        public override void Draw(float x, float y, Color color, float xMax, float yMax)
         {
             Vector2 origin = new(FrameWidth / 2f, FrameHeight / 2f);
             float rotation = 0f;

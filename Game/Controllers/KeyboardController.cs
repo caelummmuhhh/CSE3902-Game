@@ -22,14 +22,15 @@ namespace MainGame.Controllers
 		private readonly IPlayer player;
 		private readonly Game game;
 
-        public KeyboardController(Game game, IPlayer player, Block block, List<ISprite> blocks, Item item, List<ISprite> items)
+        public KeyboardController(Game1 game, IPlayer player, Block block, List<ISprite> blocks, Item item, List<ISprite> items)
 		{
 			this.game = game;
 			this.player = player;
             executingCommands = new();
             keyCommands = new()
             {
-                { Keys.D0, new QuitGameCommand(game) },
+                { Keys.Q, new QuitGameCommand(game) },
+                { Keys.R, new ResetGameCommand(game) },
                 { Keys.T, new PreviousBlockCommand(game, block, blocks) },
                 { Keys.Y, new NextBlockCommand(game, block, blocks) },
                 { Keys.U, new PreviousItemCommand(game, block, blocks, item, items) },

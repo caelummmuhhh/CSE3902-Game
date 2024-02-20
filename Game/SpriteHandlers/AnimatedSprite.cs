@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using System.Xml.Schema;
 
 namespace MainGame.SpriteHandlers
 {
@@ -11,7 +12,12 @@ namespace MainGame.SpriteHandlers
         public readonly int Scale;
         public readonly int SpriteFrameWidth;
         public readonly int SpriteFrameHeight;
+
+        public readonly int xMax;
+        public readonly int yMax;
+
         public virtual int AnimationFrameDuration { get { return totalFrameCount; } }
+
 
         protected int totalFrameCount;
         protected int currentFrame;
@@ -28,11 +34,14 @@ namespace MainGame.SpriteHandlers
 
             totalFrameCount = numColumns * numRows;
             currentFrame = 0;
+
+            xMax = 500;
+            yMax = 500;
         }
 
         public abstract void Update();
 
-        public abstract void Draw(float x, float y, Color color);
+        public abstract void Draw(float x, float y, Color color, float xMax, float yMax);
 
         public virtual Rectangle GetSourceRectangle()
         {
@@ -47,7 +56,9 @@ namespace MainGame.SpriteHandlers
 
         public virtual void GetNextFrame()
         {
+
             currentFrame++;
+            
             if (currentFrame >= totalFrameCount)
             {
                 currentFrame = 0;

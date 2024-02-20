@@ -8,27 +8,31 @@ using MainGame.Players;
 using MainGame.Blocks;
 using MainGame.Items;
 using System.Collections.Generic;
-using System;
+using MainGame.Enemies;
 
 
 using MainGame.Managers;
+using System;
 
 namespace MainGame;
 
 public class Game1 : Game
 {
+    // i will explain...
+    public int counter;
     public readonly GraphicsDeviceManager GraphicsManager;
     private SpriteBatch spriteBatch;
-    private List<IController> controllers;
+    public List<IController> controllers;
 
-    private ISprite textSprite;
     public IPlayer Player;
 
     public Block Block;
     public Item Item;
 
-    private BlockManager blockManager;
-    private ItemManager itemManager;
+    public Enemy Enemy;
+
+    public BlockManager blockManager;
+    public ItemManager itemManager;
 
     public Game1()
     {
@@ -54,7 +58,7 @@ public class Game1 : Game
         SpriteFactory.LoadAllTextures(Content);
         SpriteFactory.SpriteBatch = spriteBatch;
 
-        textSprite = SpriteFactory.CreateTextSprite("hello world!");
+
         Player = new Player(this);
 
         blockManager.LoadBlocks();
@@ -71,6 +75,8 @@ public class Game1 : Game
             itemManager.GetItems()[0],
             this
         );
+        Enemy = new Enemy(new Vector2(GraphicsManager.PreferredBackBufferWidth / 2,
+                GraphicsManager.PreferredBackBufferHeight / 2), SpriteFactory.CreateGelSprite(), this);;
 
         controllers.Add(new KeyboardController(this, Player, Block, blockManager.GetBlocks(), Item, itemManager.GetItems()));
         controllers.Add(new MouseController(this, Player));
@@ -78,10 +84,9 @@ public class Game1 : Game
 
     protected override void Update(GameTime gameTime)
     {
-
-        foreach (IController controller in controllers)
+        for (int i = 0; i < controllers.Count; i++)
         {
-            controller.Update();
+            controllers[i].Update();
         }
 
         Player.Update();
@@ -96,7 +101,7 @@ public class Game1 : Game
         GraphicsDevice.Clear(Color.Indigo);
 
         Player.Draw();
-        textSprite.Draw(10, GraphicsManager.PreferredBackBufferHeight - 100, Color.Black);
+        Enemy.Draw();
         Block.Draw();
         Item.Draw();
 
