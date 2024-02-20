@@ -12,12 +12,12 @@ namespace MainGame.Controllers
 {
 	public class MouseController : IController
 	{
-        private readonly Player player;
+        private readonly IPlayer player;
         private readonly Game game;
         private readonly int screenWidth;
         private readonly int screenHeight;
         
-        public MouseController(Game game, Player player)
+        public MouseController(Game game, IPlayer player)
 		{
             this.game = game;
             this.player = player;

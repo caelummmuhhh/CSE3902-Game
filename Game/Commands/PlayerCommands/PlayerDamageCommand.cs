@@ -2,22 +2,21 @@
 
 namespace MainGame.Commands.PlayerCommands
 {
-    public class PlayerMoveDownCommand : ICommand
+    public class PlayerDamageCommand : ICommand
     {
         private readonly IPlayer player;
-        public PlayerMoveDownCommand(IPlayer player)
+        public PlayerDamageCommand(IPlayer player)
         {
             this.player = player;
         }
 
         public void Execute()
         {
-            player.MoveDown();
+            player.TakeDamage();
         }
 
         public void UnExecute()
         {
-            player.Stop();
         }
     }
 }

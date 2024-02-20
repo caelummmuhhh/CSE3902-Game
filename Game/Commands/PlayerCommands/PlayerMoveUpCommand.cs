@@ -4,8 +4,8 @@ namespace MainGame.Commands.PlayerCommands
 {
 	public class PlayerMoveUpCommand : ICommand
 	{
-		private readonly Player player;
-		public PlayerMoveUpCommand(Player player)
+		private readonly IPlayer player;
+		public PlayerMoveUpCommand(IPlayer player)
 		{
 			this.player = player;
 		}

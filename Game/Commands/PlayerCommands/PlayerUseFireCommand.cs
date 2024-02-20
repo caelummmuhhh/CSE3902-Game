@@ -4,8 +4,8 @@ namespace MainGame.Commands.PlayerCommands
 {
 	public class PlayerUseFireCommand : ICommand
     {
-        private readonly Player player;
-        public PlayerUseFireCommand(Player player)
+        private readonly IPlayer player;
+        public PlayerUseFireCommand(IPlayer player)
         {
             this.player = player;
         }

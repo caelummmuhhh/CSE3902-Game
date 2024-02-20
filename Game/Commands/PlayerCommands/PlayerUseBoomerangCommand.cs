@@ -4,8 +4,8 @@ namespace MainGame.Commands.PlayerCommands
 {
 	public class PlayerUseBoomerangCommand : ICommand
     {
-        private readonly Player player;
-        public PlayerUseBoomerangCommand(Player player)
+        private readonly IPlayer player;
+        public PlayerUseBoomerangCommand(IPlayer player)
         {
             this.player = player;
         }

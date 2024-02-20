@@ -15,10 +15,10 @@ namespace MainGame.Controllers
 	{
         private Dictionary<Keys, ICommand> keyCommands;
         private List<ICommand> executingCommands;
-		private readonly Player player;
+		private readonly IPlayer player;
 		private readonly Game game;
 
-        public KeyboardController(Game game, Player player)
+        public KeyboardController(Game game, IPlayer player)
 		{
 			this.game = game;
 			this.player = player;
@@ -34,6 +34,8 @@ namespace MainGame.Controllers
 
                 { Keys.N, new PlayerUseSwordCommand(player) },
                 { Keys.Z, new PlayerUseSwordBeamCommand(player) },
+
+                { Keys.E, new PlayerDamageCommand(player) },
 
                 { Keys.D1, new PlayerUseBombCommand(player) },
                 { Keys.D2, new PlayerUseArrowCommand(player) },

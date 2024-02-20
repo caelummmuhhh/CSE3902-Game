@@ -17,7 +17,7 @@ public class Game1 : Game
     private List<IController> controllers;
 
     private ISprite textSprite;
-    public Player Player;
+    public IPlayer Player;
 
     public Game1()
     {

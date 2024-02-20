@@ -12,6 +12,7 @@
 		public void Update();
 		public void Draw();
 		public void Stop();
+		public void TakeDamage();
 
 		// sprint2 specific
 		public void UseArrow();

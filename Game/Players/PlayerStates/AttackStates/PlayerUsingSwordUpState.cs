@@ -6,15 +6,15 @@ namespace MainGame.Players.PlayerStates
 {
     public class PlayerUsingSwordUpState : IPlayerState
     {
-        private readonly Player player;
+        private readonly IPlayer player;
         private readonly int stateDuration;
         private int currentFrame = 0;
 
-        public PlayerUsingSwordUpState(Player player)
+        public PlayerUsingSwordUpState(IPlayer player)
         {
             this.player = player;
-            this.player.CurrentSprite = SpriteFactory.CreatePlayerAttackingUpSprite();
-            AnimatedSprite newSprite = (AnimatedSprite)this.player.CurrentSprite;
+            this.player.Sprite = SpriteFactory.CreatePlayerAttackingUpSprite();
+            AnimatedSprite newSprite = (AnimatedSprite)this.player.Sprite;
             stateDuration = newSprite.AnimationFrameDuration;
         }
 
@@ -24,15 +24,16 @@ namespace MainGame.Players.PlayerStates
             {
                 Stop();
             }
-            player.CurrentSprite.Update();
+            player.Sprite.Update();
         }
 
         public void Draw()
         {
             currentFrame++;
-            player.CurrentSprite.Draw(player.Position.X, player.Position.Y, Color.White);
+            player.Sprite.Draw(player.Position.X, player.Position.Y, Color.White);
         }
 
+        public void TakeDamage() => player.CurrentState = new PlayerDamagedUpState(player);
         public void Stop() => player.CurrentState = new PlayerIdleUpState(player);
 
         /* Not useable in this state, therefore not implemented. */

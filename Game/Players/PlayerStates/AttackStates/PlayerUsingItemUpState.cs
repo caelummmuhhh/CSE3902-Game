@@ -5,14 +5,14 @@ namespace MainGame.Players.PlayerStates
 {
 	public class PlayerUsingItemUpState : IPlayerState
 	{
-        private readonly Player player;
+        private readonly IPlayer player;
         private readonly int stateDuration;
         private int currentFrame = 0;
 
-        public PlayerUsingItemUpState(Player player)
+        public PlayerUsingItemUpState(IPlayer player)
 		{
             this.player = player;
-            this.player.CurrentSprite = SpriteFactory.CreatePlayerInteractingUpSprite();
+            this.player.Sprite = SpriteFactory.CreatePlayerInteractingUpSprite();
             stateDuration = Player.UsingItemsSpeed;
         }
 
@@ -22,15 +22,16 @@ namespace MainGame.Players.PlayerStates
             {
                 Stop();
             }
-            player.CurrentSprite.Update();
+            player.Sprite.Update();
         }
 
         public void Draw()
         {
             currentFrame++;
-            player.CurrentSprite.Draw(player.Position.X, player.Position.Y, Color.White);
+            player.Sprite.Draw(player.Position.X, player.Position.Y, Color.White);
         }
 
+        public void TakeDamage() => player.CurrentState = new PlayerDamagedUpState(player);
         public void Stop() => player.CurrentState = new PlayerIdleUpState(player);
 
         /* Not useable in this state, therefore not implemented. */

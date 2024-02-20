@@ -6,20 +6,22 @@ namespace MainGame.Players.PlayerStates
 {
     public class PlayerIdleDownState : IPlayerState
     {
-        private readonly Player player;
+        private readonly IPlayer player;
 
-        public PlayerIdleDownState(Player player)
+        public PlayerIdleDownState(IPlayer player)
         {
             this.player = player;
-            this.player.CurrentSprite = SpriteFactory.CreatePlayerIdleDownSprite();
+            this.player.Sprite = SpriteFactory.CreatePlayerIdleDownSprite();
         }
 
         public void Draw()
         {
-            player.CurrentSprite.Draw(player.Position.X, player.Position.Y, Color.White);
+            player.Sprite.Draw(player.Position.X, player.Position.Y, Color.White);
         }
-        public void Update() => player.CurrentSprite.Update();
+        public void Update() => player.Sprite.Update();
         public void Stop() { }
+
+        public void TakeDamage() => player.CurrentState = new PlayerDamagedDownState(player);
 
         public void MoveUp() => player.CurrentState = new PlayerMovingUpState(player);
         public void MoveDown() => player.CurrentState = new PlayerMovingDownState(player);

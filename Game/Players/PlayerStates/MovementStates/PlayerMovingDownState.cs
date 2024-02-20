@@ -7,17 +7,17 @@ namespace MainGame.Players.PlayerStates
 {
     public class PlayerMovingDownState : IPlayerState
     {
-		private readonly Player player;
+		private readonly IPlayer player;
 
-		public PlayerMovingDownState(Player player)
+		public PlayerMovingDownState(IPlayer player)
 		{
 			this.player = player;
-			this.player.CurrentSprite = SpriteFactory.CreatePlayerWalkingDownSprite();
+			this.player.Sprite = SpriteFactory.CreatePlayerWalkingDownSprite();
 		}
 
         public void Draw()
 		{
-            player.CurrentSprite.Draw(player.Position.X, player.Position.Y, Color.White);
+            player.Sprite.Draw(player.Position.X, player.Position.Y, Color.White);
         }
 
         public void MoveDown()
@@ -26,8 +26,10 @@ namespace MainGame.Players.PlayerStates
 			player.Position = new Vector2(player.Position.X, player.Position.Y + Player.Speed);
 		}
 
-        public void Update() => player.CurrentSprite.Update();
+        public void Update() => player.Sprite.Update();
         public void Stop() => player.CurrentState = new PlayerIdleDownState(player);
+
+        public void TakeDamage() => player.CurrentState = new PlayerDamagedDownState(player);
 
         public void MoveUp() { player.CurrentState = new PlayerMovingUpState(player); }
 		public void MoveRight() { player.CurrentState = new PlayerMovingRightState(player); }

@@ -8,51 +8,54 @@ namespace MainGame.Players
 {
 	public class Player : IPlayer
 	{
-        public Vector2 Position;
-		public ISprite CurrentSprite;
-		public bool IsMoving;
 		public static readonly float Speed = 5f;
 		public static readonly int UsingItemsSpeed = 10;
+		public static readonly int KnockedBackDuration = 10;
+		public static readonly float KnockedBackSpeed = 10f;
 
-		private PlayerProjectilesManager projectilesManager;
+		private readonly PlayerProjectilesManager projectilesManager;
 
-        private IPlayerState currentState;
-        public IPlayerState CurrentState
-		{
-			get => currentState;
-			set => currentState = value;
-		}
+        public bool IsMoving { get; set; }
+        public ISprite Sprite { get; set; }
+        public IPlayerState CurrentState { get; set; }
+        public Vector2 Position { get; set; }
 
-		private readonly Game game;
+        private readonly Game1 game;
 
-		public Player(Game game)
+		public Player(Game1 game)
 		{
 			projectilesManager = new(this);
             Position = new Vector2(0, 0);
-			currentState = new PlayerIdleDownState(this);
+			CurrentState = new PlayerIdleDownState(this);
 			this.game = game;
 		}
 
 		public void Update()
 		{
-			currentState.Update();
+			CurrentState.Update();
 			projectilesManager.Update();
 		}
 
 		public void Draw()
 		{
-			currentState.Draw();
+			CurrentState.Draw();
 			projectilesManager.Draw();
 		}
 
-        public void Stop() => currentState.Stop();
+        public void Stop() => CurrentState.Stop();
 
-        public void MoveUp() => currentState.MoveUp();
-		public void MoveDown() => currentState.MoveDown();
-		public void MoveLeft() => currentState.MoveLeft();
-		public void MoveRight() => currentState.MoveRight();
+		public void TakeDamage()
+        {
+			CurrentState.TakeDamage();
+			game.Player = new DamagedPlayer(this, game);
+        }
 
-		public void UseSword() => currentState.UseSword();
+        public void MoveUp() => CurrentState.MoveUp();
+		public void MoveDown() => CurrentState.MoveDown();
+		public void MoveLeft() => CurrentState.MoveLeft();
+		public void MoveRight() => CurrentState.MoveRight();
+
+		public void UseSword() => CurrentState.UseSword();
 
 		public void UseBoomerang(Direction direction) => projectilesManager.AddProjectile(new BoomerangProjectile(Position, direction));
         public void UseArrow(Direction direction) => projectilesManager.AddProjectile(new ArrowProjectile(Position, direction));
