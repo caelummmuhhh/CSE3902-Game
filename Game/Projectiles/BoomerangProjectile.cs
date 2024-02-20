@@ -58,7 +58,7 @@ namespace MainGame.Projectiles
 
 		public void Draw()
 		{
-			sprite.Draw(Position.X, Position.Y, Color.White, timeLeft, timeLeft);
+			sprite.Draw(Position.X, Position.Y, Color.White, 0, 0);
 		}
 		
 		private float CurrentMovementSpeed()

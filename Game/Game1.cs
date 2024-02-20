@@ -104,7 +104,7 @@ public class Game1 : Game
 
         Player.Draw();
         Enemy.Draw();
-        textSprite.Draw(10, GraphicsManager.PreferredBackBufferHeight - 100, Color.Black, counter, counter);
+        textSprite.Draw(10, GraphicsManager.PreferredBackBufferHeight - 100, Color.Black, 0, 0);
         Block.Draw();
         Item.Draw();
 

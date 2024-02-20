@@ -25,7 +25,7 @@ namespace MainGame.Items
 
 		public void Draw()
 		{
-			Sprite.Draw(Position.X, Position.Y, Color.White, TODO, TODO);
+			Sprite.Draw(Position.X, Position.Y, Color.White, 0, 0);
 		}
 
     }

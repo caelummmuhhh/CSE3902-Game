@@ -46,7 +46,7 @@ namespace MainGame.Players
                 color = Color.IndianRed;
             }
             undecoratedPlayer.Draw();
-            undecoratedPlayer.Sprite.Draw(undecoratedPlayer.Position.X, undecoratedPlayer.Position.Y, color, debounceTimer, debounceTimer);
+            undecoratedPlayer.Sprite.Draw(undecoratedPlayer.Position.X, undecoratedPlayer.Position.Y, color, 0, 0);
         }
 
         public void Update()

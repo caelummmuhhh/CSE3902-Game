@@ -40,6 +40,9 @@ namespace MainGame.Enemies
             movingDown = false;
             VerticalMotionOn = false;
             HorizontalMotionOn = false;
+
+            xMax = game.GraphicsDevice.Viewport.Width;
+            yMax = game.GraphicsDevice.Viewport.Height;
         }
 
         public void Update()
@@ -52,7 +55,7 @@ namespace MainGame.Enemies
 
         public void Draw()
         {
-            Sprite.Draw(Position.X, Position.Y, Color.White, VerticalSpeed, VerticalSpeed);
+            Sprite.Draw(Position.X, Position.Y, Color.White, xMax, yMax);
         }
 
         public void MoveUp()

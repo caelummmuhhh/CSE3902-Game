@@ -12,7 +12,7 @@ namespace MainGame.SpriteHandlers.EnemySprites
         /// The value is how many game seconds the frame should be displayed.
         /// </summary>
         private Dictionary<int, int> frameDisplayTimeMap;
-<<<<<<< HEAD
+
         Random rnd = new Random();
         public float VerticalSpeed = 5f;
         public float HorizontalSpeed = 4f;
@@ -27,11 +27,10 @@ namespace MainGame.SpriteHandlers.EnemySprites
         public float posY = 0;
         Boolean on = true;
         public int flip = 0;
-=======
+
         private readonly SpriteBatch spriteBatch;
         private int spriteDisplayTimeLapse;
 
->>>>>>> main
         public GelSprite(
             Texture2D texture,
             SpriteBatch spriteBatch,

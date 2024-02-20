@@ -12,13 +12,12 @@ namespace MainGame.SpriteHandlers
         public readonly int Scale;
         public readonly int SpriteFrameWidth;
         public readonly int SpriteFrameHeight;
-<<<<<<< HEAD
 
         public readonly int xMax;
         public readonly int yMax;
-=======
+
         public virtual int AnimationFrameDuration { get { return totalFrameCount; } }
->>>>>>> main
+
 
         protected int totalFrameCount;
         protected int currentFrame;
