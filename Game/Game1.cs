@@ -22,9 +22,8 @@ public class Game1 : Game
     public int counter;
     public readonly GraphicsDeviceManager GraphicsManager;
     private SpriteBatch spriteBatch;
-    private List<IController> controllers;
+    public List<IController> controllers;
 
-    private ISprite textSprite;
     public IPlayer Player;
 
     public Block Block;
@@ -32,8 +31,8 @@ public class Game1 : Game
 
     public Enemy Enemy;
 
-    private BlockManager blockManager;
-    private ItemManager itemManager;
+    public BlockManager blockManager;
+    public ItemManager itemManager;
 
     public Game1()
     {
@@ -59,7 +58,7 @@ public class Game1 : Game
         SpriteFactory.LoadAllTextures(Content);
         SpriteFactory.SpriteBatch = spriteBatch;
 
-        textSprite = SpriteFactory.CreateTextSprite("hello world!");
+
         Player = new Player(this);
 
         blockManager.LoadBlocks();
@@ -85,10 +84,9 @@ public class Game1 : Game
 
     protected override void Update(GameTime gameTime)
     {
-
-        foreach (IController controller in controllers)
+        for (int i = 0; i < controllers.Count; i++)
         {
-            controller.Update();
+            controllers[i].Update();
         }
 
         Player.Update();
@@ -104,7 +102,6 @@ public class Game1 : Game
 
         Player.Draw();
         Enemy.Draw();
-        textSprite.Draw(10, GraphicsManager.PreferredBackBufferHeight - 100, Color.Black, 0, 0);
         Block.Draw();
         Item.Draw();
 
