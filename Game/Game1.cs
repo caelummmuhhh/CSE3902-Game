@@ -78,7 +78,7 @@ public class Game1 : Game
 
         Player.Draw();
         Enemy.Draw();
-        textSprite.Draw(10, GraphicsManager.PreferredBackBufferHeight - 100, Color.Black, GraphicsManager.GraphicsDevice.Viewport.Width - 27, GraphicsManager.GraphicsDevice.Viewport.Height + 14);
+        textSprite.Draw(10, GraphicsManager.PreferredBackBufferHeight - 100, Color.Black);
 
         base.Draw(gameTime);
     }

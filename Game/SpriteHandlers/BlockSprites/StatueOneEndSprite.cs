@@ -22,7 +22,7 @@ namespace MainGame.SpriteHandlers.BlockSprites
 
         public override void Update() { /* not needed here */ }
 
-        public override void Draw(float x, float y, Color color, float xMax, float yMax)
+        public override void Draw(float x, float y, Color color)
         {
             Rectangle srcRectangle = GetSourceRectangle();
             Rectangle destRectangle = new Rectangle(

@@ -65,7 +65,7 @@ namespace MainGame.SpriteHandlers.EnemySprites
             spriteDisplayTimeLapse = 0;
         }
 
-        public override void Draw(float x, float y, Color color, float xMax, float yMax)
+        public override void Draw(float x, float y, Color color)
         {
 
             y += VerticalSpeed;

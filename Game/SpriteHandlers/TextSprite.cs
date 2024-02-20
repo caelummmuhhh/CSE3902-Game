@@ -24,7 +24,7 @@ namespace MainGame.SpriteHandlers
             // not needed
         }
 
-        public void Draw(float x, float y, Color color, float xMax, float yMax)
+        public void Draw(float x, float y, Color color)
         {
             spriteBatch.Begin();
             spriteBatch.DrawString(font, Text, new Vector2(x, y), color);

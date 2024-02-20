@@ -52,7 +52,7 @@ namespace MainGame.SpriteHandlers.ItemSprites
             spriteDisplayTimeLapse = 0;
         }
 
-        public override void Draw(float x, float y, Color color, float xMax, float yMax)
+        public override void Draw(float x, float y, Color color)
         {
             var spriteEffect = SpriteEffects.None;
             if (spriteFlip)

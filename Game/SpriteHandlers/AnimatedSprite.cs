@@ -13,6 +13,8 @@ namespace MainGame.SpriteHandlers
         public readonly int SpriteFrameWidth;
         public readonly int SpriteFrameHeight;
 
+        public readonly int xMax;
+        public readonly int yMax;
 
         protected int totalFrameCount;
         protected int currentFrame;
@@ -29,11 +31,14 @@ namespace MainGame.SpriteHandlers
 
             totalFrameCount = numColumns * numRows;
             currentFrame = 0;
+
+            xMax = 500;
+            yMax = 500;
         }
 
         public abstract void Update();
 
-        public abstract void Draw(float x, float y, Color color, float xMax, float yMax);
+        public abstract void Draw(float x, float y, Color color);
 
         public virtual Rectangle GetSourceRectangle()
         {
