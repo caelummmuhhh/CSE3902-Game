@@ -7,6 +7,9 @@ using Microsoft.Xna.Framework.Input;
 using MainGame.Commands;
 using MainGame.Commands.PlayerCommands;
 using MainGame.Players;
+using MainGame.Blocks;
+using MainGame.Items;
+
 using MainGame.SpriteHandlers;
 
 namespace MainGame.Controllers
@@ -14,11 +17,12 @@ namespace MainGame.Controllers
 	public class KeyboardController : IController
 	{
         private Dictionary<Keys, ICommand> keyCommands;
+        private KeyboardState previousKeyState;
         private List<ICommand> executingCommands;
 		private readonly IPlayer player;
 		private readonly Game game;
 
-        public KeyboardController(Game game, IPlayer player)
+        public KeyboardController(Game game, IPlayer player, Block block, List<ISprite> blocks, Item item, List<ISprite> items)
 		{
 			this.game = game;
 			this.player = player;
@@ -26,6 +30,10 @@ namespace MainGame.Controllers
             keyCommands = new()
             {
                 { Keys.D0, new QuitGameCommand(game) },
+                { Keys.T, new PreviousBlockCommand(game, block, blocks) },
+                { Keys.Y, new NextBlockCommand(game, block, blocks) },
+                { Keys.U, new PreviousItemCommand(game, block, blocks, item, items) },
+                { Keys.I, new NextItemCommand(game, block, blocks, item, items) },
 
                 { Keys.W, new PlayerMoveUpCommand(player) },
                 { Keys.A, new PlayerMoveLeftCommand(player) },
@@ -42,9 +50,10 @@ namespace MainGame.Controllers
                 { Keys.D3, new PlayerUseBoomerangCommand(player) },
                 { Keys.D4, new PlayerUseFireCommand(player) },
             };
+            previousKeyState = Keyboard.GetState();
         }
 
-		public void Update()
+        public void Update()
 		{
             KeyboardState keyState = Keyboard.GetState();
 
@@ -72,4 +81,3 @@ namespace MainGame.Controllers
         }
     }
 }
-

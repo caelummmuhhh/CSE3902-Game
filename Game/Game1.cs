@@ -5,8 +5,13 @@ using Microsoft.Xna.Framework.Input;
 using MainGame.SpriteHandlers;
 using MainGame.Controllers;
 using MainGame.Players;
+using MainGame.Blocks;
+using MainGame.Items;
 using System.Collections.Generic;
 using System;
+
+
+using MainGame.Managers;
 
 namespace MainGame;
 
@@ -19,6 +24,12 @@ public class Game1 : Game
     private ISprite textSprite;
     public IPlayer Player;
 
+    public Block Block;
+    public Item Item;
+
+    private BlockManager blockManager;
+    private ItemManager itemManager;
+
     public Game1()
     {
         GraphicsManager = new GraphicsDeviceManager(this);
@@ -30,6 +41,8 @@ public class Game1 : Game
     protected override void Initialize()
     {
         controllers = new List<IController>();
+        blockManager = new BlockManager();
+        itemManager = new ItemManager();
 
         base.Initialize();
     }
@@ -44,7 +57,22 @@ public class Game1 : Game
         textSprite = SpriteFactory.CreateTextSprite("hello world!");
         Player = new Player(this);
 
-        controllers.Add(new KeyboardController(this, Player));
+        blockManager.LoadBlocks();
+        itemManager.LoadItems();
+        Block =  new Block(
+            new Vector2(GraphicsManager.PreferredBackBufferWidth / 3,
+                GraphicsManager.PreferredBackBufferHeight / 3),
+            blockManager.GetBlocks()[0],
+            this
+        );
+        Item = new Item(
+            new Vector2(GraphicsManager.PreferredBackBufferWidth / 3*2,
+                GraphicsManager.PreferredBackBufferHeight / 3),
+            itemManager.GetItems()[0],
+            this
+        );
+
+        controllers.Add(new KeyboardController(this, Player, Block, blockManager.GetBlocks(), Item, itemManager.GetItems()));
         controllers.Add(new MouseController(this, Player));
     }
 
@@ -57,6 +85,8 @@ public class Game1 : Game
         }
 
         Player.Update();
+        Block.Update();
+        Item.Update();
 
         base.Update(gameTime);
     }
@@ -67,8 +97,9 @@ public class Game1 : Game
 
         Player.Draw();
         textSprite.Draw(10, GraphicsManager.PreferredBackBufferHeight - 100, Color.Black);
+        Block.Draw();
+        Item.Draw();
 
         base.Draw(gameTime);
     }
 }
-
