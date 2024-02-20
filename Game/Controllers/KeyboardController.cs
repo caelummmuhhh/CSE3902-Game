@@ -5,6 +5,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 
 using MainGame.Commands;
+using MainGame.Commands.PlayerCommands;
 using MainGame.Players;
 using MainGame.Blocks;
 using MainGame.Items;
@@ -21,21 +22,37 @@ namespace MainGame.Controllers
 		private readonly Game game;
 
         public KeyboardController(Game game, Player player, Block block, List<ISprite> blocks, Item item, List<ISprite> items)
+        private List<ICommand> executingCommands;
+		private readonly IPlayer player;
+		private readonly Game game;
+
+        public KeyboardController(Game game, IPlayer player)
 		{
 			this.game = game;
 			this.player = player;
-
-			keyCommands = new()
-			{
+            executingCommands = new();
+            keyCommands = new()
+            {
                 { Keys.D0, new QuitGameCommand(game) },
-                { Keys.D1, new StationaryStaticSpriteCommand(game, player) },
-                { Keys.D2, new StationaryAnimatedSpriteCommand(game, player) },
-                { Keys.D3, new MovingStaticSpriteCommand(game, player) },
-                { Keys.D4, new MovingAnimatedSpriteCommand(game, player) },
                 { Keys.T, new PreviousBlockCommand(game, player, block, blocks) },
                 { Keys.Y, new NextBlockCommand(game, player, block, blocks) },
                 { Keys.U, new PreviousItemCommand(game, player, block, blocks, item, items) },
                 { Keys.I, new NextItemCommand(game, player, block, blocks, item, items) }
+
+                { Keys.W, new PlayerMoveUpCommand(player) },
+                { Keys.A, new PlayerMoveLeftCommand(player) },
+                { Keys.S, new PlayerMoveDownCommand(player) },
+                { Keys.D, new PlayerMoveRightCommand(player) },
+
+                { Keys.N, new PlayerUseSwordCommand(player) },
+                { Keys.Z, new PlayerUseSwordBeamCommand(player) },
+
+                { Keys.E, new PlayerDamageCommand(player) },
+
+                { Keys.D1, new PlayerUseBombCommand(player) },
+                { Keys.D2, new PlayerUseArrowCommand(player) },
+                { Keys.D3, new PlayerUseBoomerangCommand(player) },
+                { Keys.D4, new PlayerUseFireCommand(player) },
             };
             previousKeyState = Keyboard.GetState();
         }
@@ -46,12 +63,25 @@ namespace MainGame.Controllers
 
             foreach (Keys key in keyCommands.Keys)
             {
-                if (keyState.IsKeyDown(key) && previousKeyState.IsKeyUp(key))
+                if (keyState.IsKeyDown(key) && !executingCommands.Contains(keyCommands[key]))
                 {
-                    keyCommands[key].Execute();
+                    executingCommands.Add(keyCommands[key]);
+                }
+                else if (!keyState.IsKeyDown(key) && executingCommands.Contains(keyCommands[key]))
+                {
+                    keyCommands[key].UnExecute();
+                    executingCommands.Remove(keyCommands[key]);
                 }
             }
-            previousKeyState = keyState;
+            ExecuteCommands();
+        }
+
+        private void ExecuteCommands()
+        {
+            if (executingCommands.Count > 0)
+            {
+                executingCommands[^1].Execute();
+            }
         }
     }
 }

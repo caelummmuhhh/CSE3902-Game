@@ -1,91 +1,67 @@
-﻿using Microsoft.Xna.Framework;
+﻿using System;
+using Microsoft.Xna.Framework;
 using MainGame.SpriteHandlers;
+using MainGame.Players.PlayerStates;
+using MainGame.Projectiles;
 
 namespace MainGame.Players
 {
-	public class Player
+	public class Player : IPlayer
 	{
-		public ISprite Sprite;
-		public Vector2 Position;
-        public float VerticalSpeed = 5f;
-		public float HorizontalSpeed = 4f;
+		public static readonly float Speed = 5f;
+		public static readonly int UsingItemsSpeed = 10;
+		public static readonly int KnockedBackDuration = 10;
+		public static readonly float KnockedBackSpeed = 10f;
 
-		private readonly Game game;
-		private bool movingLeft;
-		private bool movingDown;
+		private readonly PlayerProjectilesManager projectilesManager;
 
-		public bool VerticalMotionOn;
-		public bool HorizontalMotionOn;
+        public bool IsMoving { get; set; }
+        public ISprite Sprite { get; set; }
+        public IPlayerState CurrentState { get; set; }
+        public Vector2 Position { get; set; }
 
-        public Player(Vector2 position, ISprite sprite, Game game)
+        private readonly Game1 game;
+
+		public Player(Game1 game)
 		{
-			Position = position;
-			Sprite = sprite;
+			projectilesManager = new(this);
+            Position = new Vector2(0, 0);
+			CurrentState = new PlayerIdleDownState(this);
 			this.game = game;
-
-			movingLeft = false;
-			movingDown = false;
-			VerticalMotionOn = false;
-			HorizontalMotionOn = false;
-        }
+		}
 
 		public void Update()
 		{
-			Sprite.Update();
-
-			if (VerticalMotionOn) { InfiniteFall(); }
-			if (HorizontalMotionOn) { HorizontalBounce(); }
+			CurrentState.Update();
+			projectilesManager.Update();
 		}
 
 		public void Draw()
 		{
-			Sprite.Draw(Position.X, Position.Y, Color.White);
+			CurrentState.Draw();
+			projectilesManager.Draw();
 		}
 
-		public void MoveUp()
-		{
-			Position = new Vector2(Position.X, Position.Y - VerticalSpeed);
-		}
+        public void Stop() => CurrentState.Stop();
 
-		public void MoveDown()
-		{
-            Position = new Vector2(Position.X, Position.Y + VerticalSpeed);
-        }
-
-		public void MoveLeft()
+		public void TakeDamage()
         {
-            Position = new Vector2(Position.X - HorizontalSpeed, Position.Y);
+			CurrentState.TakeDamage();
+			game.Player = new DamagedPlayer(this, game);
         }
 
-        public void MoveRight()
-        {
-            Position = new Vector2(Position.X + HorizontalSpeed, Position.Y);
-        }
+        public void MoveUp() => CurrentState.MoveUp();
+		public void MoveDown() => CurrentState.MoveDown();
+		public void MoveLeft() => CurrentState.MoveLeft();
+		public void MoveRight() => CurrentState.MoveRight();
 
-		public void HorizontalBounce()
-		{
-            if (Position.X < 27)
-            {
-                movingLeft = false;
-            }
-            else if (Position.X > game.GraphicsDevice.Viewport.Width - 27)
-            {
-                movingLeft = true;
-            }
+		public void UseSword() => CurrentState.UseSword();
 
-            if (movingLeft) { MoveLeft(); }
-            else { MoveRight(); }
-		}
-
-        public void InfiniteFall()
-		{
-			movingDown = true;
-            MoveDown();
-            if (Position.Y > game.GraphicsDevice.Viewport.Height + 14)
-            {
-                Position = new Vector2(Position.X, 0);
-            }
-        }
+		public void UseBoomerang(Direction direction) => projectilesManager.AddProjectile(new BoomerangProjectile(Position, direction));
+        public void UseArrow(Direction direction) => projectilesManager.AddProjectile(new ArrowProjectile(Position, direction));
+        public void UseFire(Direction direction) => projectilesManager.AddProjectile(new FireBallProjectile(Position, direction));
+		public void UseBomb(Direction direction) => projectilesManager.AddProjectile(new BombProjectile(Position, direction));
+		public void UseSwordBeam(Direction direction) => projectilesManager.AddProjectile(new SwordBeamProjectile(Position, direction));
     }
 }
 

@@ -8,6 +8,7 @@ using MainGame.Players;
 using MainGame.Blocks;
 using MainGame.Items;
 using System.Collections.Generic;
+using System;
 
 
 using MainGame.Managers;
@@ -21,7 +22,7 @@ public class Game1 : Game
     private List<IController> controllers;
 
     private ISprite textSprite;
-    public Player Player;
+    public IPlayer Player;
 
     public Block Block;
     public Item Item;
@@ -34,6 +35,7 @@ public class Game1 : Game
         GraphicsManager = new GraphicsDeviceManager(this);
         Content.RootDirectory = "Content";
         IsMouseVisible = true;
+        TargetElapsedTime = TimeSpan.FromSeconds(1d / 30d);
     }
 
     protected override void Initialize()
@@ -53,13 +55,7 @@ public class Game1 : Game
         SpriteFactory.SpriteBatch = spriteBatch;
 
         textSprite = SpriteFactory.CreateTextSprite("hello world!");
-        Player = new Player(
-            new Vector2(GraphicsManager.PreferredBackBufferWidth / 2,
-                GraphicsManager.PreferredBackBufferHeight / 2),
-            SpriteFactory.CreatePlayerStaticIdleSprite(),
-            this
-        );
-        
+        Player = new Player(this);
 
         blockManager.LoadBlocks();
         itemManager.LoadItems();
