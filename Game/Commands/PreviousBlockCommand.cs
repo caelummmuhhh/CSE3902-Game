@@ -30,8 +30,8 @@ namespace MainGame.Commands
 
         public void Execute()
         {
-            currentBlockIndex = (currentBlockIndex - 1 + blocks.Count) % blocks.Count;
-            block.Sprite = blocks[currentBlockIndex];
+            GlobalCounters.CurrentBlockIndex = (GlobalCounters.CurrentBlockIndex - 1 + blocks.Count) % blocks.Count;
+            block.Sprite = blocks[GlobalCounters.CurrentBlockIndex];
             UnExecute();
         }
 
@@ -44,7 +44,7 @@ namespace MainGame.Commands
 
         public ISprite GetCurrentBlock()
         {
-            return blocks[currentBlockIndex];
+            return blocks[GlobalCounters.CurrentBlockIndex];
         }
     }
 }

@@ -31,8 +31,8 @@ namespace MainGame.Commands
 
         public void Execute()
         {
-            currentItemIndex = (currentItemIndex + 1) % items.Count;
-            item.Sprite = items[currentItemIndex];
+            GlobalCounters.CurrentItemIndex = (GlobalCounters.CurrentItemIndex + 1) % items.Count;
+            item.Sprite = items[GlobalCounters.CurrentItemIndex];
             UnExecute();
         }
 
@@ -45,7 +45,7 @@ namespace MainGame.Commands
 
         public ISprite GetCurrentBlock()
         {
-            return items[currentItemIndex];
+            return items[GlobalCounters.CurrentItemIndex];
         }
     }
 }
