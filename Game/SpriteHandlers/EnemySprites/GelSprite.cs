@@ -7,10 +7,6 @@ namespace MainGame.SpriteHandlers.EnemySprites
 {
     public class GelSprite : AnimatedSpriteWithOffset
     {
-
-        private readonly SpriteBatch spriteBatch;
-        private int spriteDisplayTimeLapse;
-
         /// <summary>
         /// The key is the current frame (starting at 0) and corresponds with currentFrame.
         /// The value is how many game seconds the frame should be displayed.
@@ -30,6 +26,10 @@ namespace MainGame.SpriteHandlers.EnemySprites
         public float posY = 0;
         Boolean on = true;
         public int flip = 0;
+
+        private readonly SpriteBatch spriteBatch;
+        private int spriteDisplayTimeLapse;
+
         public GelSprite(
             Texture2D texture,
             SpriteBatch spriteBatch,

@@ -6,15 +6,15 @@ namespace MainGame.SpriteHandlers.ItemSprites
 {
     public class FireSprite : AnimatedSpriteWithOffset
     {
-        private readonly SpriteBatch spriteBatch;
-        private int spriteDisplayTimeLapse;
-        bool spriteFlip;
-
         /// <summary>
-        /// The key is the current frame (starting at 0) and corresponds with currentFrame.
+        /// The key is the current animationframe (starting at 0).
         /// The value is how many game seconds the frame should be displayed.
         /// </summary>
         private Dictionary<int, int> frameDisplayTimeMap;
+        private readonly SpriteBatch spriteBatch;
+        private int spriteDisplayTimeLapse;
+        private bool spriteFlip;
+        public override int AnimationFrameDuration => frameDisplayTimeMap.Count;
 
         public FireSprite(
             Texture2D texture,
@@ -60,22 +60,18 @@ namespace MainGame.SpriteHandlers.ItemSprites
                 spriteEffect = SpriteEffects.FlipHorizontally;
             }
 
+            Vector2 origin = new(FrameWidth - 8f, FrameHeight / 2f);
+            float rotation = 0f;
+
             Rectangle srcRectangle = GetSourceRectangle();
-            Rectangle destRectangle = new Rectangle(
-                (int)(x - FrameWidth),
-                (int)(y - FrameHeight),
+            Rectangle destRectangle = new(
+                (int)(x - origin.X),
+                (int)(y - origin.Y),
                 FrameWidth * Scale,
-                FrameHeight * Scale
-            );
+                FrameHeight * Scale);
+
             spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, SamplerState.PointClamp);
-            spriteBatch.Draw(Texture,
-                destRectangle,
-                srcRectangle,
-                color,
-                0f,
-                new Vector2(0, 0),
-                spriteEffect,
-                0f);
+            spriteBatch.Draw(Texture, destRectangle, srcRectangle, color, rotation, origin, spriteEffect, 0f);
             spriteBatch.End();
         }
     }

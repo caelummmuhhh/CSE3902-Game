@@ -103,9 +103,9 @@ namespace MainGame.SpriteHandlers
 
         }
 
-        public static ISprite CreateBombSprite()
+        public static ISprite CreateBombExplodingSprite()
         {
-            return new BombSprite(
+            return new BombExplodingSprite(
                 TextureMap["ProjectilesSprites"], SpriteBatch,
                 numRows: 1,
                 numColumns: 4,
@@ -114,6 +114,13 @@ namespace MainGame.SpriteHandlers
                 scale: UniversalScaleMultiplier);
         }
 
+        public static ISprite CreateBombSprite()
+        {
+            return new BombSprite(
+                TextureMap["ProjectilesSprites"], SpriteBatch,
+                textureStartingY: 32,
+                scale: UniversalScaleMultiplier);
+        }
 
         
     }

@@ -28,6 +28,10 @@
     <None Remove="SpriteHandlers\ProjectileSprites\" />
     <None Remove="SpriteHandlers\ProjectileSprites\ArrowProjectileSprites\" />
     <None Remove="SpriteHandlers\ProjectileSprites\SwordBeamProjectileSprites\" />
+    <None Remove="Players\PlayerStates\AttackStates\" />
+    <None Remove="Commands\PlayerCommands\" />
+    <None Remove="Projectiles\" />
+    <None Remove="Players\PlayerStates\DamagedStates\" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Icon.ico" />
@@ -50,6 +54,10 @@
     <Folder Include="SpriteHandlers\ProjectileSprites\" />
     <Folder Include="SpriteHandlers\ProjectileSprites\ArrowProjectileSprites\" />
     <Folder Include="SpriteHandlers\ProjectileSprites\SwordBeamProjectileSprites\" />
+    <Folder Include="Players\PlayerStates\AttackStates\" />
+    <Folder Include="Commands\PlayerCommands\" />
+    <Folder Include="Projectiles\" />
+    <Folder Include="Players\PlayerStates\DamagedStates\" />
   </ItemGroup>
   <Target Name="RestoreDotnetTools" BeforeTargets="Restore">
     <Message Text="Restoring dotnet tools" Importance="High" />

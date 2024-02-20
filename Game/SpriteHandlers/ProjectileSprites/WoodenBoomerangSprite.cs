@@ -40,7 +40,7 @@ namespace MainGame.SpriteHandlers.ProjectileSprites
             this.spriteBatch = spriteBatch;
             spriteDisplayTimeLapse = 0;
             currentAnimationFrame = 0;
-            frameDisplayTime = 5;
+            frameDisplayTime = 2;
             currentAnimationFrameData = new()
             {
                 /* For some reason SpriteEffects appears a frame delayed  */
@@ -74,22 +74,20 @@ namespace MainGame.SpriteHandlers.ProjectileSprites
 
         public override void Draw(float x, float y, Color color)
         {
+            Vector2 origin = new(FrameWidth / 2f, FrameHeight / 2f);
+            float rotation = 0f;
+
             Rectangle srcRectangle = GetSourceRectangle();
-            Rectangle destRectangle = new Rectangle(
-                (int)(x - FrameWidth),
-                (int)(y - FrameHeight),
+            Rectangle destRectangle = new(
+                (int)(x - origin.X),
+                (int)(y - origin.Y),
                 FrameWidth * Scale,
-                FrameHeight * Scale
-            );
-            spriteBatch.Begin(SpriteSortMode.Deferred, null, SamplerState.PointClamp);
-            spriteBatch.Draw(Texture,
-                destRectangle,
-                srcRectangle,
-                color,
-                0f,
-                new Vector2(FrameWidth / 2, FrameHeight / 2),
-                currentAnimationFrameData[currentAnimationFrame].spriteEffects,
-                0f);
+                FrameHeight * Scale);
+
+            spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, SamplerState.PointClamp);
+            spriteBatch.Draw(
+                Texture, destRectangle, srcRectangle, color, rotation, origin,
+                currentAnimationFrameData[currentAnimationFrame].spriteEffects, 0f);
             spriteBatch.End();
         }
     }

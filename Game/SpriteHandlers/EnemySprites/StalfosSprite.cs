@@ -7,12 +7,8 @@ namespace MainGame.SpriteHandlers.EnemySprites
 {
     public class StalfosSprite : AnimatedSpriteWithOffset
     {
-        private readonly SpriteBatch spriteBatch;
-        private int spriteDisplayTimeLapse;
-        bool spriteFlip;
-
         /// <summary>
-        /// The key is the current frame (starting at 0) and corresponds with currentFrame.
+        /// The key is the current animationframe (starting at 0).
         /// The value is how many game seconds the frame should be displayed.
         /// </summary>
         private Dictionary<int, int> frameDisplayTimeMap;
@@ -28,6 +24,11 @@ namespace MainGame.SpriteHandlers.EnemySprites
         public int subThreshold = 2;
         public float posX = 0;
         public float posY = 0;
+
+        private readonly SpriteBatch spriteBatch;
+        private int spriteDisplayTimeLapse;
+        private bool spriteFlip;
+        public override int AnimationFrameDuration => frameDisplayTimeMap.Count;
 
         public StalfosSprite(
             Texture2D texture,

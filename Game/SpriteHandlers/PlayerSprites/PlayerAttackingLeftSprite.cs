@@ -6,14 +6,26 @@ namespace MainGame.SpriteHandlers.PlayerSprites
 {
     public class PlayerAttackingLeftSprite : AnimatedSpriteWithOffset
     {
-        private readonly SpriteBatch spriteBatch;
-        private int spriteDisplayTimeLapse;
+        public override int AnimationFrameDuration
+        {
+            get
+            {
+                int totalDuration = 0;
+                foreach (int duration in frameDisplayTimeMap.Values)
+                {
+                    totalDuration += duration;
+                }
+                return totalDuration;
+            }
+        }
 
         /// <summary>
         /// The key is the current frame (starting at 0) and corresponds with currentFrame.
         /// The value is how many game seconds the frame should be displayed.
         /// </summary>
         private Dictionary<int, int> frameDisplayTimeMap;
+        private readonly SpriteBatch spriteBatch;
+        private int spriteDisplayTimeLapse;
 
         public PlayerAttackingLeftSprite(
             Texture2D texture,
@@ -54,22 +66,18 @@ namespace MainGame.SpriteHandlers.PlayerSprites
 
         public override void Draw(float x, float y, Color color)
         {
+            Vector2 origin = new(FrameWidth - 8f, FrameHeight / 2f);
+            float rotation = 0f;
+
             Rectangle srcRectangle = GetSourceRectangle();
-            Rectangle destRectangle = new Rectangle(
-                (int)(x - FrameWidth),
-                (int)(y - FrameHeight),
+            Rectangle destRectangle = new(
+                (int)(x - origin.X),
+                (int)(y - origin.Y),
                 FrameWidth * Scale,
-                FrameHeight * Scale
-            );
+                FrameHeight * Scale);
+
             spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, SamplerState.PointClamp);
-            spriteBatch.Draw(Texture,
-                destRectangle,
-                srcRectangle,
-                color,
-                0f,
-                new Vector2(0, 0),
-                SpriteEffects.FlipHorizontally,
-                0f);
+            spriteBatch.Draw(Texture, destRectangle, srcRectangle, color, rotation, origin, SpriteEffects.FlipHorizontally, 0f);
             spriteBatch.End();
         }
     }
