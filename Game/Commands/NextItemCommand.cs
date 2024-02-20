@@ -16,7 +16,6 @@ namespace MainGame.Commands
     {
         private Game game;
         private Player player;
-        private int currentItemIndex;
         private List<ISprite> items;
         private Item item;
 
@@ -26,7 +25,6 @@ namespace MainGame.Commands
             this.game = game;
             this.item = item;
             this.items = items;
-            currentItemIndex = 0;
         }
 
         public void Execute()

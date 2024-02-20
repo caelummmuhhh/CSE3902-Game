@@ -15,7 +15,6 @@ namespace MainGame.Commands
     {
         private Game game;
         private Player player;
-        private int currentBlockIndex;
         private List<ISprite> blocks;
 
         private Block block;
@@ -25,7 +24,6 @@ namespace MainGame.Commands
             this.game = game;
             this.block = block;
             this.blocks = blocks;
-            currentBlockIndex = 0;
         }
 
         public void Execute()
