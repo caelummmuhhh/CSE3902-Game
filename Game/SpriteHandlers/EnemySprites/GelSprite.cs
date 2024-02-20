@@ -144,46 +144,46 @@ namespace MainGame.SpriteHandlers.EnemySprites
             }
             count++;
 
-            if ((posX + HorizontalSpeed < (xMax / 2)) && ((x + posX + HorizontalSpeed) > 0))
-                {
-                    x = x + posX;
+            if ((x + posX + HorizontalSpeed < (xMax)) && ((x + posX + HorizontalSpeed) > 0))
+            {
+                x = x + posX;
 
+            }
+            else
+            {
+                if ((HorizontalSpeed + posX + x) >= xMax)
+                {
+                    posX -= (HorizontalSpeed * 2);
+                    x = xMax - HorizontalSpeed * 2;
                 }
                 else
                 {
-                    if ((posX + x > xMax))
-                    {
-                        posX = (xMax / 2) - HorizontalSpeed;
-                        x = xMax - HorizontalSpeed;
-                    }
-                    else
-                    {
-                        posX += HorizontalSpeed;
-                        x = 0 + HorizontalSpeed;
-                    }
+                    posX += HorizontalSpeed;
+                    x = 0 + HorizontalSpeed;
                 }
-                if ((posY + VerticalSpeed < (yMax / 2)) && ((y + posY + VerticalSpeed) > 0))
+            }
+            if ((y + posY + VerticalSpeed < (yMax)) && ((y + posY + VerticalSpeed) > 0))
+            {
+                y = y + posY;
+            }
+            else
+            {
+                if ((posY + y + VerticalSpeed) >= yMax)
                 {
-                    y = y + posY;
+                    posY -= VerticalSpeed * 2;
+                    y = yMax - VerticalSpeed * 2;
                 }
                 else
                 {
-                    if ((posY > (yMax / 2)))
-                    {
-                    posY = (yMax / 2) - VerticalSpeed;
-                    x = xMax - VerticalSpeed;
+                    posY += VerticalSpeed * 2;
+                    y = 0 + VerticalSpeed;
                 }
-                    else
-                    {
-                        posY += VerticalSpeed * 2;
-                        y = 0 + VerticalSpeed;
-                    }
-                }
-               
+            }
 
-            
 
-            
+
+
+
 
 
 

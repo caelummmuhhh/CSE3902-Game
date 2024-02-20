@@ -69,6 +69,25 @@ namespace MainGame.SpriteHandlers.EnemySprites
         {
 
             y += VerticalSpeed;
+
+          
+            if ((y + posY + VerticalSpeed < (yMax)) && ((y + posY + VerticalSpeed) > 0))
+            {
+                y = y + posY;
+            }
+            else
+            {
+                if ((posY + y + VerticalSpeed) >= yMax)
+                {
+                    posY -= VerticalSpeed * 2;
+                    y = yMax - VerticalSpeed * 2;
+                }
+                else
+                {
+                    posY += VerticalSpeed * 2;
+                    y = 0 + VerticalSpeed;
+                }
+            }
             var spriteEffect = SpriteEffects.None;
             if (spriteFlip)
             {

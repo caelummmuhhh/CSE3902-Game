@@ -52,7 +52,7 @@ public class Game1 : Game
             this
         );
         Enemy = new Enemy(new Vector2(GraphicsManager.PreferredBackBufferWidth / 2,
-                GraphicsManager.PreferredBackBufferHeight / 2), SpriteFactory.CreateAquamentusSprite(), this);;
+                GraphicsManager.PreferredBackBufferHeight / 2), SpriteFactory.CreateGelSprite(), this);;
 
         controllers.Add(new KeyboardController(this, Player));
         controllers.Add(new MouseController(this, Player));

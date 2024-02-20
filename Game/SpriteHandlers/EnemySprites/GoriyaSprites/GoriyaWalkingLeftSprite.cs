@@ -68,17 +68,17 @@ namespace MainGame.SpriteHandlers.EnemySprites
         {
 
             x -= HorizontalSpeed;
-            if ((posX + HorizontalSpeed < (xMax / 2)) && ((x + posX + HorizontalSpeed) > 0))
+            if ((x + posX + HorizontalSpeed < (xMax)) && ((x + posX + HorizontalSpeed) > 0))
             {
                 x = x + posX;
 
             }
             else
             {
-                if ((posX + x > xMax))
+                if ((HorizontalSpeed + posX + x) >= xMax)
                 {
-                    posX = (xMax / 2) - HorizontalSpeed;
-                    x = xMax - HorizontalSpeed;
+                    posX -= (HorizontalSpeed * 2);
+                    x = xMax - HorizontalSpeed * 2;
                 }
                 else
                 {
@@ -86,6 +86,7 @@ namespace MainGame.SpriteHandlers.EnemySprites
                     x = 0 + HorizontalSpeed;
                 }
             }
+            
             Rectangle srcRectangle = GetSourceRectangle();
             Rectangle destRectangle = new Rectangle(
                 (int)(x - FrameWidth),

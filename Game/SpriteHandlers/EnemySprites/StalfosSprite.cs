@@ -73,7 +73,6 @@ namespace MainGame.SpriteHandlers.EnemySprites
                 spriteEffect = SpriteEffects.FlipHorizontally;
             }
 
-
             
 
             if (count == threshold)
@@ -156,17 +155,17 @@ namespace MainGame.SpriteHandlers.EnemySprites
             moveCount++;
             count++;
 
-            if ((posX + HorizontalSpeed < (xMax / 2)) && ((x + posX + HorizontalSpeed) > 0))
+            if ((x + posX + HorizontalSpeed < (xMax)) && ((x + posX + HorizontalSpeed) > 0))
             {
                 x = x + posX;
 
             }
             else
             {
-                if ((posX + x > xMax))
+                if ((HorizontalSpeed + posX + x) >= xMax)
                 {
-                    posX = (xMax / 2) - HorizontalSpeed;
-                    x = xMax - HorizontalSpeed;
+                    posX -= (HorizontalSpeed * 2);
+                    x = xMax - HorizontalSpeed * 2;
                 }
                 else
                 {
@@ -174,16 +173,16 @@ namespace MainGame.SpriteHandlers.EnemySprites
                     x = 0 + HorizontalSpeed;
                 }
             }
-            if ((posY + VerticalSpeed < (yMax / 2)) && ((y + posY + VerticalSpeed) > 0))
+            if ((y + posY + VerticalSpeed < (yMax)) && ((y + posY + VerticalSpeed) > 0))
             {
                 y = y + posY;
             }
             else
             {
-                if ((posY > (yMax / 2)))
+                if ((posY + y + VerticalSpeed) >= yMax)
                 {
-                    posY = (yMax / 2) - VerticalSpeed;
-                    x = xMax - VerticalSpeed;
+                    posY -= VerticalSpeed * 2;
+                    y = yMax - VerticalSpeed * 2;
                 }
                 else
                 {

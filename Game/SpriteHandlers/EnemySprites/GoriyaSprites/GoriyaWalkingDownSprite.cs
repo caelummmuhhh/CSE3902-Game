@@ -74,16 +74,17 @@ namespace MainGame.SpriteHandlers.EnemySprites
             }
 
             y += VerticalSpeed;
-            if ((posY + VerticalSpeed < (yMax / 2)) && ((y + posY + VerticalSpeed) > 0))
+            
+            if ((y + posY + VerticalSpeed < (yMax)) && ((y + posY + VerticalSpeed) > 0))
             {
                 y = y + posY;
             }
             else
             {
-                if ((posY > (yMax / 2)))
+                if ((posY + y + VerticalSpeed) >= yMax)
                 {
-                    posY = (yMax / 2) - VerticalSpeed;
-                    x = xMax - VerticalSpeed;
+                    posY -= VerticalSpeed * 2;
+                    y = yMax - VerticalSpeed * 2;
                 }
                 else
                 {
