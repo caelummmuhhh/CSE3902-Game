@@ -3,11 +3,11 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace MainGame.SpriteHandlers.BlockSprites
 {
-	public class BlueGapSprite : StaticSpriteWithOffset
+    public class BlockSprite : StaticSpriteWithOffset
     {
         private readonly SpriteBatch spriteBatch;
 
-        public BlueGapSprite(
+        public BlockSprite(
             Texture2D texture,
             SpriteBatch spriteBatch,
             int spriteHeight = 16,
