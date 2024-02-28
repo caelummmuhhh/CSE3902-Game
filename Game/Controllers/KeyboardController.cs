@@ -1,7 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 
 using MainGame.Commands;
@@ -16,9 +14,8 @@ namespace MainGame.Controllers
 {
 	public class KeyboardController : IController
 	{
-        private Dictionary<Keys, ICommand> keyCommands;
-        private KeyboardState previousKeyState;
-        private List<ICommand> executingCommands;
+        private readonly Dictionary<Keys, ICommand> keyCommands;
+        private readonly List<ICommand> executingCommands;
 		private readonly IPlayer player;
 		private readonly Game game;
 
@@ -51,12 +48,12 @@ namespace MainGame.Controllers
                 { Keys.D3, new PlayerUseBoomerangCommand(player) },
                 { Keys.D4, new PlayerUseFireCommand(player) },
             };
-            previousKeyState = Keyboard.GetState();
         }
 
         public void Update()
 		{
             KeyboardState keyState = Keyboard.GetState();
+            List<ICommand> unexecuteCommands = new();
 
             foreach (Keys key in keyCommands.Keys)
             {
@@ -66,10 +63,17 @@ namespace MainGame.Controllers
                 }
                 else if (!keyState.IsKeyDown(key) && executingCommands.Contains(keyCommands[key]))
                 {
-                    keyCommands[key].UnExecute();
                     executingCommands.Remove(keyCommands[key]);
+                    unexecuteCommands.Add(keyCommands[key]);
                 }
             }
+
+            if (executingCommands.Count == 0)
+            {
+                // it is only necessary to stop commands/unexecute when there are no commands to execute
+                UnExecuteCommands(unexecuteCommands);
+            }
+
             ExecuteCommands();
         }
 
@@ -78,6 +82,14 @@ namespace MainGame.Controllers
             if (executingCommands.Count > 0)
             {
                 executingCommands[^1].Execute();
+            }
+        }
+
+        private static void UnExecuteCommands(List<ICommand> commands)
+        {
+            foreach (ICommand command in commands)
+            {
+                command.UnExecute();
             }
         }
     }
