@@ -3,11 +3,11 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace MainGame.SpriteHandlers.ItemSprites
 {
-	public class ArrowItemSprite : StaticSpriteWithOffset
+    public class StaticItemSprite : StaticSpriteWithOffset
     {
         private readonly SpriteBatch spriteBatch;
 
-        public ArrowItemSprite(
+        public StaticItemSprite(
             Texture2D texture,
             SpriteBatch spriteBatch,
             int spriteHeight = 16,

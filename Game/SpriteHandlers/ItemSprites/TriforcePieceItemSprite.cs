@@ -53,7 +53,7 @@ namespace MainGame.SpriteHandlers.ItemSprites
         public override void Draw(float x, float y, Color color, float xMax, float yMax)
         {
             Rectangle srcRectangle = GetSourceRectangle();
-            Rectangle destRectangle = new Rectangle(
+            Rectangle destRectangle = new(
                 (int)(x - FrameWidth),
                 (int)(y - FrameHeight),
                 FrameWidth * Scale,
