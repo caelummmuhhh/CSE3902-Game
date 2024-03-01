@@ -48,7 +48,6 @@
     <Folder Include="SpriteHandlers\EnemySprites\KeeseSprites\" />
     <Folder Include="SpriteHandlers\EnemySprites\GoriyaSprites\" />
     <Folder Include="SpriteHandlers\BlockSprites\" />
-    <Folder Include="SpriteHandlers\SpriteFactory\" />
     <Folder Include="SpriteHandlers\ItemSprites\" />
     <Folder Include="SpriteHandlers\ProjectileSprites\" />
     <Folder Include="SpriteHandlers\ProjectileSprites\ArrowProjectileSprites\" />
