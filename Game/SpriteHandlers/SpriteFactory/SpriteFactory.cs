@@ -18,6 +18,7 @@ namespace MainGame.SpriteHandlers
             TextureMap.Add("BlocksSprites", contents.Load<Texture2D>("BlocksSprites"));
             TextureMap.Add("ProjectilesSprites", contents.Load<Texture2D>("ProjectilesSprites"));
             TextureMap.Add("ItemsSprites", contents.Load<Texture2D>("ItemsSprites"));
+            TextureMap.Add("RoomSprites", contents.Load<Texture2D>("RoomSprites"));
 
             Font = contents.Load<SpriteFont>("Fonts/Font");
         }
