@@ -1,0 +1,9 @@
+dungeonNormal,,,,,,,,,,,
+wallNormal,wallDestructible,keyDoor,openDoor,,,,,,,,
+-,-,-,goriya,-,-,-,-,-,-,-,-
+-,-,-,-,-,-,woodenBoomerang,-,-,-,-,-
+-,-,squareBlock,-,-,-,-,-,-,squareBlock,-,-
+-,-,-,-,-,-,-,-,-,-,-,goriya
+-,-,squareBlock,-,-,-,-,-,-,squareBlock,-,-
+-,-,-,-,-,-,-,-,-,-,goriya,-
+-,-,-,-,-,-,-,-,-,-,-,-

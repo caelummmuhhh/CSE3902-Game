@@ -1,0 +1,9 @@
+dungeonNormal,,,,,,,,,,,
+wallNormal,keyDoor,keyDoor,wallNormal,,,,,,,,
+-,-,-,goriya,-,-,-,-,-,-,-,-
+-,blueGap,blueGap,blueGap,-,-,key,-,blueGap,blueGap,blueGap,-
+-,blueGap,-,-,goriya,-,-,-,-,-,blueGap,-
+-,blueGap,-,blueGap,blueGap,blueGap,blueGap,blueGap,blueGap,-,blueGap,-
+-,blueGap,-,goriya,-,-,-,-,-,-,blueGap,-
+-,blueGap,blueGap,blueGap,-,-,-,-,blueGap,blueGap,blueGap,-
+-,-,-,-,-,-,-,-,-,-,-,-

@@ -1,0 +1,9 @@
+dungeonNormal,,,,,,,,,,,
+wallNormal,wallNormal,wallNormal,keyDoor,,,,,,,,
+spikeCross,-,-,-,-,-,-,-,-,-,-,spikeCross
+-,-,-,-,-,-,squareBlock,-,-,-,-,-
+-,-,-,-,-,squareBlock,-,squareBlock,-,-,-,-
+-,-,-,-,pushableBlock,-,stairs,-,squareBlock,-,-,-
+-,-,-,-,-,squareBlock,-,squareBlock,-,-,-,-
+-,-,-,-,-,-,squareBlock,-,-,-,-,-
+spikeCross,-,-,-,-,-,-,-,-,-,-,spikeCross
