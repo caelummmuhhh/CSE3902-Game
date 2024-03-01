@@ -27,28 +27,6 @@ namespace MainGame.SpriteHandlers
         {
             return new TextSprite(SpriteBatch, Font, text);
         }
-
-        public static ISprite CreatePlayerStaticIdleSprite()
-		{
-			return CreateHeartItemSprite();
-		}
-
-        public static ISprite CreatePlayerAnimatedIdleSprite()
-        {
-            return CreateTriforcePieceItemSprite();
-        }
-
-
-        public static ISprite CreatePlayerStaticFallingSprite()
-        {
-            return CreateRupeeItemSprite();
-        }
-
-
-        public static ISprite CreatePlayerAnimatedWalkingSprite()
-        {
-            return CreateFireSprite();
-        }
     }
 }
 

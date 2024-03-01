@@ -1,13 +1,13 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace MainGame.SpriteHandlers.BlockSprites
+namespace MainGame.SpriteHandlers.ItemSprites
 {
-	public class BlueGapSprite : StaticSpriteWithOffset
+    public class StaticItemSprite : StaticSpriteWithOffset
     {
         private readonly SpriteBatch spriteBatch;
 
-        public BlueGapSprite(
+        public StaticItemSprite(
             Texture2D texture,
             SpriteBatch spriteBatch,
             int spriteHeight = 16,
@@ -25,16 +25,11 @@ namespace MainGame.SpriteHandlers.BlockSprites
         public override void Draw(float x, float y, Color color, float xMax, float yMax)
         {
             Rectangle srcRectangle = GetSourceRectangle();
-            Rectangle destRectangle = new Rectangle(
-                (int)(x - (FrameHeight * Scale) / 2),
-                (int)(y - (FrameWidth * Scale) / 2),
-                FrameWidth * Scale,
-                FrameHeight * Scale);
+            Rectangle destRectangle = GetDestinationRectangle(x, y);
 
             spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, SamplerState.PointClamp);
-            spriteBatch.Draw(Texture, destRectangle, srcRectangle, color);
+            spriteBatch.Draw(Texture, destRectangle, srcRectangle, color, rotation, origin, SpriteEffects.None, 0f);
             spriteBatch.End();
         }
     }
 }
-

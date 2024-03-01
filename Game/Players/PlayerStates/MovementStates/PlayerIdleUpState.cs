@@ -24,7 +24,7 @@ namespace MainGame.Players.PlayerStates
         public void TakeDamage() => player.CurrentState = new PlayerDamagedUpState(player);
 
         public void MoveUp() => player.CurrentState = new PlayerMovingUpState(player);
-        public void MoveDown() => player.CurrentState = new PlayerUsingItemRightState(player);
+        public void MoveDown() => player.CurrentState = new PlayerMovingDownState(player);
         public void MoveRight() => player.CurrentState = new PlayerMovingRightState(player);
         public void MoveLeft() => player.CurrentState = new PlayerMovingLeftState(player);
         public void UseSword() => player.CurrentState = new PlayerUsingSwordUpState(player);
