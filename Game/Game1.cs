@@ -5,6 +5,8 @@ using Microsoft.Xna.Framework.Input;
 using MainGame.SpriteHandlers;
 using MainGame.Controllers;
 using MainGame.Players;
+using MainGame.Rooms;
+using MainGame.Doors;
 using MainGame.Blocks;
 using MainGame.Items;
 using System.Collections.Generic;
@@ -26,6 +28,15 @@ public class Game1 : Game
 
     public IPlayer Player;
 
+    public Room Room;
+    public Room Room2;
+    public Room Room3;
+
+    public Door NorthDoor;
+    public Door WestDoor;
+    public Door EastDoor;
+    public Door SouthDoor;
+
     public Block Block;
     public Item Item;
 
@@ -37,6 +48,10 @@ public class Game1 : Game
     public Game1()
     {
         GraphicsManager = new GraphicsDeviceManager(this);
+
+        GraphicsManager.PreferredBackBufferWidth = 768;
+        GraphicsManager.PreferredBackBufferHeight = 528;  //768 in sprint 4+
+
         Content.RootDirectory = "Content";
         IsMouseVisible = true;
         TargetElapsedTime = TimeSpan.FromSeconds(1d / 30d);
@@ -60,6 +75,49 @@ public class Game1 : Game
 
 
         Player = new Player(this);
+
+        Room = new Room(
+            SpriteFactory.CreateRoomOuterBorderSprite(),
+            this
+        );
+        Room2 = new Room(
+            SpriteFactory.CreateRoomInnerBorderSprite(),
+            this
+        );
+        Room3 = new Room(
+            SpriteFactory.CreateDungeonTilesSprite(),
+            this
+        );
+
+        NorthDoor = new Door(
+            new Vector2(336, 0),
+            SpriteFactory.CreateDoorTopNorthSouth("North", "wallNormal"),
+            SpriteFactory.CreateDoorBottomNorthSouth("North", "wallNormal"),
+            "North",
+            this
+        );
+        SouthDoor = new Door(
+            new Vector2(336, 480),
+            SpriteFactory.CreateDoorTopNorthSouth("South", "diamondDoor"),
+            SpriteFactory.CreateDoorBottomNorthSouth("South", "diamondDoor"),
+            "South",
+            this
+        );
+        WestDoor = new Door(
+            new Vector2(0, 216),
+            SpriteFactory.CreateDoorTopWestEast("West", "destroyedWall"),
+            SpriteFactory.CreateDoorBottomWestEast("West", "destroyedWall"),
+            "West",
+            this
+        );
+        EastDoor = new Door(
+            new Vector2(720, 216),
+            SpriteFactory.CreateDoorTopWestEast("East", "openDoor"),
+            SpriteFactory.CreateDoorBottomWestEast("East", "openDoor"),
+            "East",
+            this
+        );
+
 
         blockManager.LoadBlocks();
         itemManager.LoadItems();
@@ -98,9 +156,20 @@ public class Game1 : Game
 
     protected override void Draw(GameTime gameTime)
     {
-        GraphicsDevice.Clear(Color.Indigo);
+        GraphicsDevice.Clear(Color.Black);
+
+        NorthDoor.Draw();
+        SouthDoor.Draw();
+        WestDoor.Draw();
+        EastDoor.Draw();
+
+        Room2.Draw();
+        Room3.Draw();
 
         Player.Draw();
+
+        Room.Draw();
+
         Enemy.Draw();
         Block.Draw();
         Item.Draw();
