@@ -52,14 +52,9 @@ namespace MainGame.SpriteHandlers.ItemSprites
             spriteDisplayTimeLapse = 0;
         }
 
-        public override void Draw(float x, float y, Color color, float xMax, float yMax)
+        public override void Draw(float x, float y, Color color, float layerDepth = 0f)
         {
-            var spriteEffect = SpriteEffects.None;
-            if (spriteFlip)
-            {
-                spriteEffect = SpriteEffects.FlipHorizontally;
-            }
-
+            SpriteEffects spriteEffect = spriteFlip ? SpriteEffects.FlipHorizontally : SpriteEffects.None;
             Rectangle srcRectangle = GetSourceRectangle();
             Rectangle destRectangle = GetDestinationRectangle(x, y);
 

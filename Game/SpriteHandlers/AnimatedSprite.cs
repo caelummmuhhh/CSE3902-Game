@@ -41,7 +41,7 @@ namespace MainGame.SpriteHandlers
 
         public abstract void Update();
 
-        public abstract void Draw(float x, float y, Color color, float xMax, float yMax);
+        public abstract void Draw(float x, float y, Color color, float layerDepth = 0f);
 
         protected virtual Rectangle GetSourceRectangle()
         {

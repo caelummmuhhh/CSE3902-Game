@@ -10,7 +10,6 @@ using MainGame.Items;
 using System.Collections.Generic;
 using MainGame.Enemies;
 
-
 using MainGame.Managers;
 using System;
 
@@ -18,8 +17,6 @@ namespace MainGame;
 
 public class Game1 : Game
 {
-    // i will explain...
-    public int counter;
     public readonly GraphicsDeviceManager GraphicsManager;
     private SpriteBatch spriteBatch;
     public List<IController> controllers;
@@ -28,9 +25,6 @@ public class Game1 : Game
 
     public Block Block;
     public Item Item;
-
-    public Enemy Enemy;
-
     public BlockManager blockManager;
     public ItemManager itemManager;
 
@@ -58,7 +52,6 @@ public class Game1 : Game
         SpriteFactory.LoadAllTextures(Content);
         SpriteFactory.SpriteBatch = spriteBatch;
 
-
         Player = new Player(this);
 
         blockManager.LoadBlocks();
@@ -75,8 +68,6 @@ public class Game1 : Game
             itemManager.GetItems()[0],
             this
         );
-        Enemy = new Enemy(new Vector2(GraphicsManager.PreferredBackBufferWidth / 2,
-                GraphicsManager.PreferredBackBufferHeight / 2), SpriteFactory.CreateGelSprite(), this);;
 
         controllers.Add(new KeyboardController(this, Player, Block, blockManager.GetBlocks(), Item, itemManager.GetItems()));
         controllers.Add(new MouseController(this, Player));
@@ -101,7 +92,6 @@ public class Game1 : Game
         GraphicsDevice.Clear(Color.Indigo);
 
         Player.Draw();
-        Enemy.Draw();
         Block.Draw();
         Item.Draw();
 

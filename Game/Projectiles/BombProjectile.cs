@@ -51,7 +51,7 @@ namespace MainGame.Projectiles
 
         public void Draw()
         {
-            sprite.Draw(position.X, position.Y, Color.White, 0, 0);
+            sprite.Draw(position.X, position.Y, Color.White);
         }
 
         private void DetonateBomb()

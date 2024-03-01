@@ -20,7 +20,7 @@ namespace MainGame.Players.PlayerStates
         {
             if (currentFrame == stateDuration)
             {
-                Stop();
+                player.CurrentState = new PlayerIdleRightState(player);
             }
             player.Sprite.Update();
         }
@@ -28,13 +28,13 @@ namespace MainGame.Players.PlayerStates
         public void Draw()
         {
             currentFrame++;
-            player.Sprite.Draw(player.Position.X, player.Position.Y, Color.White, 0, 0);
+            player.Sprite.Draw(player.Position.X, player.Position.Y, Color.White);
         }
 
         public void TakeDamage() => player.CurrentState = new PlayerDamagedRightState(player);
-        public void Stop() => player.CurrentState = new PlayerIdleRightState(player);
 
         /* Not useable in this state, therefore not implemented. */
+        public void Stop() { }
         public void MoveUp() { }
         public void MoveDown() { }
         public void MoveLeft() { }
