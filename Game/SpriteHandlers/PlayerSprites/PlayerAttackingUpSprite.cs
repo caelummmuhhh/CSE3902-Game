@@ -42,6 +42,7 @@ namespace MainGame.SpriteHandlers.PlayerSprites
                                   textureStartingY, scale)
         {
             this.spriteBatch = spriteBatch;
+            origin = new(FrameWidth / 2f, FrameHeight - 8);
             spriteDisplayTimeLapse = 0;
             frameDisplayTimeMap = new()
             {
@@ -66,15 +67,8 @@ namespace MainGame.SpriteHandlers.PlayerSprites
 
         public override void Draw(float x, float y, Color color, float xMax, float yMax)
         {
-            Vector2 origin = new(FrameWidth / 2f, FrameHeight - 8);
-            float rotation = 0f;
-
             Rectangle srcRectangle = GetSourceRectangle();
-            Rectangle destRectangle = new(
-                (int)(x - origin.X),
-                (int)(y - origin.Y),
-                FrameWidth * Scale,
-                FrameHeight * Scale);
+            Rectangle destRectangle = GetDestinationRectangle(x, y);
 
             spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, SamplerState.PointClamp);
             spriteBatch.Draw(Texture, destRectangle, srcRectangle, color, rotation, origin, SpriteEffects.None, 0f);

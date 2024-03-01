@@ -18,7 +18,7 @@ namespace MainGame.SpriteHandlers
 
         public virtual void Update() { /* generally not needed */ }
 
-        public virtual Rectangle GetSourceRectangle()
+        protected virtual Rectangle GetSourceRectangle()
         {
             return new Rectangle(0, 0, Texture.Width, Texture.Height);
         }

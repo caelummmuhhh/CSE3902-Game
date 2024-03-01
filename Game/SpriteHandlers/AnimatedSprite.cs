@@ -43,7 +43,7 @@ namespace MainGame.SpriteHandlers
 
         public abstract void Draw(float x, float y, Color color, float xMax, float yMax);
 
-        public virtual Rectangle GetSourceRectangle()
+        protected virtual Rectangle GetSourceRectangle()
         {
             int currRow = currentFrame / ColumnCount;
             int currColumn = currentFrame % ColumnCount;
@@ -54,9 +54,8 @@ namespace MainGame.SpriteHandlers
                 SpriteFrameWidth, SpriteFrameHeight);
         }
 
-        public virtual void GetNextFrame()
+        protected virtual void GetNextFrame()
         {
-
             currentFrame++;
             
             if (currentFrame >= totalFrameCount)

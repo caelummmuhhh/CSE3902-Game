@@ -18,21 +18,15 @@ namespace MainGame.SpriteHandlers.ProjectileSprites
                                   textureStartingX, textureStartingY, scale)
         {
             this.spriteBatch = spriteBatch;
+            rotation = 0f;
         }
 
         public override void Update() { /* not needed here */ }
 
         public override void Draw(float x, float y, Color color, float xMax, float yMax)
         {
-            Vector2 origin = new(FrameWidth / 2f, FrameHeight / 2f);
-            float rotation = 0f;
-
             Rectangle srcRectangle = GetSourceRectangle();
-            Rectangle destRectangle = new(
-                (int)(x - origin.X),
-                (int)(y - origin.Y),
-                FrameWidth * Scale,
-                FrameHeight * Scale);
+            Rectangle destRectangle = GetDestinationRectangle(x, y);
 
             spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, SamplerState.PointClamp);
             spriteBatch.Draw(Texture, destRectangle, srcRectangle, color, rotation, origin, SpriteEffects.None, 0f);
