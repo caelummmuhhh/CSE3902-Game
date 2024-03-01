@@ -53,8 +53,8 @@ namespace MainGame.Doors
 
         public void Draw()
         {
-            SpriteTop.Draw(Position.X, Position.Y, Color.White);
-            SpriteBottom.Draw(Position.X + BottomXOffset, Position.Y + BottomYOffset, Color.White);  //ADD LAYER PARAMETER TO DRAW
+            SpriteTop.Draw(Position.X, Position.Y, Color.White, 0.0f);
+            SpriteBottom.Draw(Position.X + BottomXOffset, Position.Y + BottomYOffset, Color.White, 1.0f);
 
         }
 

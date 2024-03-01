@@ -22,7 +22,7 @@ namespace MainGame.SpriteHandlers.ItemSprites
 
         public override void Update() { /* not needed here */ }
 
-        public override void Draw(float x, float y, Color color, float layerDepth = 0f)
+        public override void Draw(float x, float y, Color color, float layerDepth)
         {
             Rectangle srcRectangle = GetSourceRectangle();
             Rectangle destRectangle = new Rectangle(
@@ -32,7 +32,7 @@ namespace MainGame.SpriteHandlers.ItemSprites
                 FrameHeight * Scale);
 
             spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, SamplerState.PointClamp);
-            spriteBatch.Draw(Texture, destRectangle, srcRectangle, color);
+            spriteBatch.Draw(Texture, destRectangle, srcRectangle, color, 0.0f, new Vector2(0, 0), SpriteEffects.None, layerDepth);
             spriteBatch.End();
         }
     }

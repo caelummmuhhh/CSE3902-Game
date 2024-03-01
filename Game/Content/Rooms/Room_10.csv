@@ -1,0 +1,9 @@
+dungeonNormal,,,,,,,,,,,
+openDoor,wallDestructible,openDoor,keyDoor,,,,,,,,
+-,-,-,gel,-,-,-,-,-,-,-,-
+-,squareBlock,squareBlock,-,-,-,-,-,-,squareBlock,squareBlock,-
+-,-,-,-,-,-,gel,-,-,-,-,-
+-,-,-,-,-,squareBlock,squareBlock,-,-,-,map,gel
+-,-,-,-,-,-,gel,-,-,-,-,-
+-,squareBlock,squareBlock,-,-,-,-,-,-,squareBlock,squareBlock,-
+-,-,-,gel,-,-,-,-,-,-,-,-

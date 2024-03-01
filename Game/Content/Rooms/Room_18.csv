@@ -1,0 +1,9 @@
+dungeonNormal,,,,,,,,,,,
+wallNormal,wallNormal,openDoor,wallNormal,,,,,,,,
+-,-,-,-,-,-,-,-,-,-,-,-
+-,squareBlock,squareBlock,squareBlock,squareBlock,squareBlock,squareBlock,squareBlock,squareBlock,squareBlock,squareBlock,-
+-,squareBlock,-,-,statueOneEnd,-,-,statueTwoEnd,-,-,squareBlock,-
+-,squareBlock,-,statueOneEnd,-,-,-,-,statueTwoEnd,-,squareBlock,-
+-,squareBlock,-,-,-,-,-,-,-,-,squareBlock,-
+-,squareBlock,squareBlock,squareBlock,squareBlock,-,-,squareBlock,squareBlock,squareBlock,squareBlock,-
+-,-,-,-,-,-,-,-,-,-,-,-

@@ -1,0 +1,9 @@
+dungeonNormal,,,,,,,,,,,
+keyDoor,openDoor,wallNormal,wallNormal,,,,,,,,
+blueGap,blueGap,blueGap,blueGap,blueGap,-,-,blueGap,blueGap,blueGap,blueGap,blueGap
+blueGap,-,-,-,blueGap,-,-,-,-,blueGap,-,blueGap
+blueGap,-,blueGap,-,blueGap,-,blueGap,blueGap,-,blueGap,-,blueGap
+-,-,blueGap,-,blueGap,-,stalfos,blueGap,-,blueGap,-,-
+blueGap,-,blueGap,keyStalfos,blueGap,blueGap,-,blueGap,stalfos,blueGap,-,blueGap
+blueGap,-,blueGap,-,-,-,-,blueGap,-,-,-,blueGap
+blueGap,blueGap,blueGap,blueGap,blueGap,-,-,blueGap,blueGap,blueGap,blueGap,blueGap
