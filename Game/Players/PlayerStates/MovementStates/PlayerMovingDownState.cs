@@ -17,7 +17,7 @@ namespace MainGame.Players.PlayerStates
 
         public void Draw()
 		{
-            player.Sprite.Draw(player.Position.X, player.Position.Y, Color.White, 0, 0);
+            player.Sprite.Draw(player.Position.X, player.Position.Y, Color.White);
         }
 
         public void MoveDown()

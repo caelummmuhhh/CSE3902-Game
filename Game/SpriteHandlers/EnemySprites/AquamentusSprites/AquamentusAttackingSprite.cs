@@ -6,14 +6,13 @@ namespace MainGame.SpriteHandlers.EnemySprites
 {
     public class AquamentusAttackingSprite : AnimatedSpriteWithOffset
     {
-        private readonly SpriteBatch spriteBatch;
-        private int spriteDisplayTimeLapse;
-
         /// <summary>
         /// The key is the current frame (starting at 0) and corresponds with currentFrame.
         /// The value is how many game seconds the frame should be displayed.
         /// </summary>
-        private Dictionary<int, int> frameDisplayTimeMap;
+        private readonly Dictionary<int, int> frameDisplayTimeMap;
+        private readonly SpriteBatch spriteBatch;
+        private int spriteDisplayTimeLapse;
 
         public AquamentusAttackingSprite(
             Texture2D texture,
@@ -38,7 +37,6 @@ namespace MainGame.SpriteHandlers.EnemySprites
             };
         }
 
-
         public override void Update()
         {
             if (spriteDisplayTimeLapse == frameDisplayTimeMap[currentFrame])
@@ -50,17 +48,13 @@ namespace MainGame.SpriteHandlers.EnemySprites
             spriteDisplayTimeLapse++;
         }
 
-        public override void Draw(float x, float y, Color color, float xMax, float yMax)
+        public override void Draw(float x, float y, Color color, float layerDepth = 0f)
         {
             Rectangle srcRectangle = GetSourceRectangle();
-            Rectangle destRectangle = new Rectangle(
-                (int)(x - FrameWidth),
-                (int)(y - FrameHeight),
-                FrameWidth * Scale,
-                FrameHeight * Scale
-            );
+            Rectangle destRectangle = GetDestinationRectangle(x, y);
+
             spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, SamplerState.PointClamp);
-            spriteBatch.Draw(Texture, destRectangle, srcRectangle, color);
+            spriteBatch.Draw(Texture, destRectangle, srcRectangle, color, rotation, origin, SpriteEffects.None, 0f);
             spriteBatch.End();
         }
     }

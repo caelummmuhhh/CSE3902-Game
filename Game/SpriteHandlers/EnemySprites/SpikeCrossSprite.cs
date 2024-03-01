@@ -22,17 +22,13 @@ namespace MainGame.SpriteHandlers.EnemySprites
 
         public override void Update() { /* not needed here */ }
 
-        public override void Draw(float x, float y, Color color, float xMax, float yMax)
+        public override void Draw(float x, float y, Color color, float layerDepth = 0f)
         {
             Rectangle srcRectangle = GetSourceRectangle();
-            Rectangle destRectangle = new Rectangle(
-                (int)(x - (FrameHeight * Scale) / 2),
-                (int)(y - (FrameWidth * Scale) / 2),
-                FrameWidth * Scale,
-                FrameHeight * Scale);
+            Rectangle destRectangle = GetDestinationRectangle(x, y);
 
             spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, SamplerState.PointClamp);
-            spriteBatch.Draw(Texture, destRectangle, srcRectangle, color);
+            spriteBatch.Draw(Texture, destRectangle, srcRectangle, color, rotation, origin, SpriteEffects.None, 0f);
             spriteBatch.End();
         }
     }

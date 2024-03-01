@@ -50,7 +50,7 @@ namespace MainGame.SpriteHandlers.PlayerSprites
             spriteDisplayTimeLapse++;
         }
 
-        public override void Draw(float x, float y, Color color, float xMax, float yMax)
+        public override void Draw(float x, float y, Color color, float layerDepth = 0f)
         {
             Rectangle srcRectangle = GetSourceRectangle();
             Rectangle destRectangle = GetDestinationRectangle(x, y);

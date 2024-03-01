@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
@@ -7,28 +6,13 @@ namespace MainGame.SpriteHandlers.EnemySprites
 {
     public class GoriyaWalkingRightSprite : AnimatedSpriteWithOffset
     {
-
-        private readonly SpriteBatch spriteBatch;
-        private int spriteDisplayTimeLapse;
-        Random rnd = new Random();
-        public float VerticalSpeed = 5f;
-        public float HorizontalSpeed = 4f;
-        int dir = 0;
-        bool changedir = true;
-        bool increment = true;
-        public int count = 0;
-        public int moveCount = 0;
-        public int threshold = 16;
-        public int subThreshold = 1;
-        public float posX = 0;
-        public float posY = 0;
-
-
         /// <summary>
         /// The key is the current frame (starting at 0) and corresponds with currentFrame.
         /// The value is how many game seconds the frame should be displayed.
         /// </summary>
-        private Dictionary<int, int> frameDisplayTimeMap;
+        private readonly Dictionary<int, int> frameDisplayTimeMap;
+        private readonly SpriteBatch spriteBatch;
+        private int spriteDisplayTimeLapse;
 
         public GoriyaWalkingRightSprite(
             Texture2D texture,
@@ -53,7 +37,6 @@ namespace MainGame.SpriteHandlers.EnemySprites
             };
         }
 
-
         public override void Update()
         {
             if (spriteDisplayTimeLapse == frameDisplayTimeMap[currentFrame])
@@ -65,43 +48,14 @@ namespace MainGame.SpriteHandlers.EnemySprites
             spriteDisplayTimeLapse++;
         }
 
-        public override void Draw(float x, float y, Color color, float xMax, float yMax)
+        public override void Draw(float x, float y, Color color, float layerDepth = 0f)
         {
-
-            x += HorizontalSpeed;
-
-            if ((x + posX + HorizontalSpeed < (xMax)) && ((x + posX + HorizontalSpeed) > 0))
-            {
-                x = x + posX;
-
-            }
-            else
-            {
-                if ((HorizontalSpeed + posX + x) >= xMax)
-                {
-                    posX -= (HorizontalSpeed * 2);
-                    x = xMax - HorizontalSpeed * 2;
-                }
-                else
-                {
-                    posX += HorizontalSpeed;
-                    x = 0 + HorizontalSpeed;
-                }
-            }
-            
             Rectangle srcRectangle = GetSourceRectangle();
-            Rectangle destRectangle = new Rectangle(
-                (int)(x - FrameWidth),
-                (int)(y - FrameHeight),
-                FrameWidth * Scale,
-                FrameHeight * Scale
-            );
+            Rectangle destRectangle = GetDestinationRectangle(x, y);
+
             spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, SamplerState.PointClamp);
-            spriteBatch.Draw(Texture, destRectangle, srcRectangle, color);
+            spriteBatch.Draw(Texture, destRectangle, srcRectangle, color, rotation, origin, SpriteEffects.None, 0f);
             spriteBatch.End();
         }
     }
-
-
-
 }

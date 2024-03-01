@@ -7,27 +7,14 @@ namespace MainGame.SpriteHandlers.EnemySprites
 {
     public class GoriyaWalkingUpSprite : AnimatedSpriteWithOffset
     {
-        private readonly SpriteBatch spriteBatch;
-        private int spriteDisplayTimeLapse;
-        bool spriteFlip;
-        Random rnd = new Random();
-        public float VerticalSpeed = 5f;
-        public float HorizontalSpeed = 4f;
-        int dir = 0;
-        bool changedir = true;
-        bool increment = true;
-        public int count = 0;
-        public int moveCount = 0;
-        public int threshold = 16;
-        public int subThreshold = 1;
-        public float posX = 0;
-        public float posY = 0;
-
         /// <summary>
         /// The key is the current frame (starting at 0) and corresponds with currentFrame.
         /// The value is how many game seconds the frame should be displayed.
         /// </summary>
-        private Dictionary<int, int> frameDisplayTimeMap;
+        private readonly Dictionary<int, int> frameDisplayTimeMap;
+        private readonly SpriteBatch spriteBatch;
+        private int spriteDisplayTimeLapse;
+        bool spriteFlip;
 
         public GoriyaWalkingUpSprite(
             Texture2D texture,
@@ -53,7 +40,6 @@ namespace MainGame.SpriteHandlers.EnemySprites
             };
         }
 
-
         public override void Update()
         {
             if (spriteDisplayTimeLapse != frameDisplayTimeMap[currentFrame])
@@ -65,51 +51,14 @@ namespace MainGame.SpriteHandlers.EnemySprites
             spriteDisplayTimeLapse = 0;
         }
 
-        public override void Draw(float x, float y, Color color, float xMax, float yMax)
+        public override void Draw(float x, float y, Color color, float layerDepth = 0f)
         {
-
-            y += VerticalSpeed;
-
-          
-            if ((y + posY + VerticalSpeed < (yMax)) && ((y + posY + VerticalSpeed) > 0))
-            {
-                y = y + posY;
-            }
-            else
-            {
-                if ((posY + y + VerticalSpeed) >= yMax)
-                {
-                    posY -= VerticalSpeed * 2;
-                    y = yMax - VerticalSpeed * 2;
-                }
-                else
-                {
-                    posY += VerticalSpeed * 2;
-                    y = 0 + VerticalSpeed;
-                }
-            }
-            var spriteEffect = SpriteEffects.None;
-            if (spriteFlip)
-            {
-                spriteEffect = SpriteEffects.FlipHorizontally;
-            }
-
+            SpriteEffects spriteEffect = spriteFlip ? SpriteEffects.FlipHorizontally : SpriteEffects.None;
             Rectangle srcRectangle = GetSourceRectangle();
-            Rectangle destRectangle = new Rectangle(
-                (int)(x - FrameWidth),
-                (int)(y - FrameHeight),
-                FrameWidth * Scale,
-                FrameHeight * Scale
-            );
+            Rectangle destRectangle = GetDestinationRectangle(x, y);
+
             spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, SamplerState.PointClamp);
-            spriteBatch.Draw(Texture,
-                destRectangle,
-                srcRectangle,
-                color,
-                0f,
-                new Vector2(0, 0),
-                spriteEffect,
-                0f);
+            spriteBatch.Draw(Texture, destRectangle, srcRectangle, color, rotation, origin, spriteEffect, 0f);
             spriteBatch.End();
         }
     }
