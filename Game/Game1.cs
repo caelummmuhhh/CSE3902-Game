@@ -161,7 +161,6 @@ public class Game1 : Game
 
         Room.Draw();
 
-        Enemy.Draw();
         Block.Draw();
         Item.Draw();
 
