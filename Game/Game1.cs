@@ -38,6 +38,7 @@ public class Game1 : Game
     public Item Item;
     public BlockManager blockManager;
     public ItemManager itemManager;
+    public RoomsAndDoorsManager roomsAndDoorsManager;
 
     public Game1()
     {
@@ -56,6 +57,7 @@ public class Game1 : Game
         controllers = new List<IController>();
         blockManager = new BlockManager();
         itemManager = new ItemManager();
+        roomsAndDoorsManager = new RoomsAndDoorsManager();
 
         base.Initialize();
     }
@@ -114,6 +116,7 @@ public class Game1 : Game
 
         blockManager.LoadBlocks();
         itemManager.LoadItems();
+        roomsAndDoorsManager.LoadRooms();
         Block =  new Block(
             new Vector2(GraphicsManager.PreferredBackBufferWidth / 3,
                 GraphicsManager.PreferredBackBufferHeight / 3),
@@ -128,7 +131,7 @@ public class Game1 : Game
         );
 
         controllers.Add(new KeyboardController(this, Player, Block, blockManager.GetBlocks(), Item, itemManager.GetItems()));
-        controllers.Add(new MouseController(this, Player));
+        controllers.Add(new MouseController(this, Player, Room, NorthDoor, SouthDoor, WestDoor, EastDoor));
     }
 
     protected override void Update(GameTime gameTime)
@@ -141,6 +144,7 @@ public class Game1 : Game
         Player.Update();
         Block.Update();
         Item.Update();
+        Room.Update();
 
         base.Update(gameTime);
     }
