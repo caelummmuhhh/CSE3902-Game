@@ -144,48 +144,48 @@ namespace MainGame.RoomsAndDoors
             if (doors[2] == "wallNormal") {
                 new_doors[2] = new Door(
             new Vector2(0, 216),
-            SpriteFactory.CreateDoorTopNorthSouth("West", "wallNormal"),
-            SpriteFactory.CreateDoorBottomNorthSouth("West", "wallNormal"),
+            SpriteFactory.CreateDoorTopWestEast("West", "wallNormal"),
+            SpriteFactory.CreateDoorBottomWestEast("West", "wallNormal"),
             "West",
             game
         );}
             if (doors[2] == "wallDestructible") {
                 new_doors[2] = new Door(
             new Vector2(0, 216),
-            SpriteFactory.CreateDoorTopNorthSouth("West", "wallDestructible"),
-            SpriteFactory.CreateDoorBottomNorthSouth("West", "wallDestructible"),
+            SpriteFactory.CreateDoorTopWestEast("West", "wallDestructible"),
+            SpriteFactory.CreateDoorBottomWestEast("West", "wallDestructible"),
             "West",
             game
         );}
             if (doors[2] == "destroyedWall") {
                 new_doors[2] = new Door(
             new Vector2(0, 216),
-            SpriteFactory.CreateDoorTopNorthSouth("West", "destroyedWall"),
-            SpriteFactory.CreateDoorBottomNorthSouth("West", "destroyedWall"),
+            SpriteFactory.CreateDoorTopWestEast("West", "destroyedWall"),
+            SpriteFactory.CreateDoorBottomWestEast("West", "destroyedWall"),
             "West",
             game
         );}
             if (doors[2] == "openDoor") {
                 new_doors[2] = new Door(
             new Vector2(0, 216),
-            SpriteFactory.CreateDoorTopNorthSouth("West", "openDoor"),
-            SpriteFactory.CreateDoorBottomNorthSouth("West", "openDoor"),
+            SpriteFactory.CreateDoorTopWestEast("West", "openDoor"),
+            SpriteFactory.CreateDoorBottomWestEast("West", "openDoor"),
             "West",
             game
         );}
             if (doors[2] == "keyDoor") {
                 new_doors[2] = new Door(
             new Vector2(0, 216),
-            SpriteFactory.CreateDoorTopNorthSouth("West", "keyDoor"),
-            SpriteFactory.CreateDoorBottomNorthSouth("West", "keyDoor"),
+            SpriteFactory.CreateDoorTopWestEast("West", "keyDoor"),
+            SpriteFactory.CreateDoorBottomWestEast("West", "keyDoor"),
             "West",
             game
         );}
             if (doors[2] == "diamondDoor") {
                 new_doors[2] = new Door(
             new Vector2(0, 216),
-            SpriteFactory.CreateDoorTopNorthSouth("West", "diamondDoor"),
-            SpriteFactory.CreateDoorBottomNorthSouth("West", "diamondDoor"),
+            SpriteFactory.CreateDoorTopWestEast("West", "diamondDoor"),
+            SpriteFactory.CreateDoorBottomWestEast("West", "diamondDoor"),
             "West",
             game
         );}
@@ -193,48 +193,48 @@ namespace MainGame.RoomsAndDoors
             if (doors[3] == "wallNormal") {
                 new_doors[3] = new Door(
             new Vector2(720, 216),
-            SpriteFactory.CreateDoorTopNorthSouth("East", "wallNormal"),
-            SpriteFactory.CreateDoorBottomNorthSouth("East", "wallNormal"),
+            SpriteFactory.CreateDoorTopWestEast("East", "wallNormal"),
+            SpriteFactory.CreateDoorBottomWestEast("East", "wallNormal"),
             "East",
             game
         );}
             if (doors[3] == "wallDestructible") {
                 new_doors[3] = new Door(
             new Vector2(720, 216),
-            SpriteFactory.CreateDoorTopNorthSouth("East", "wallDestructible"),
-            SpriteFactory.CreateDoorBottomNorthSouth("East", "wallDestructible"),
+            SpriteFactory.CreateDoorTopWestEast("East", "wallDestructible"),
+            SpriteFactory.CreateDoorBottomWestEast("East", "wallDestructible"),
             "East",
             game
         );
             if (doors[3] == "destroyedWall") {
                 new_doors[3] = new Door(
             new Vector2(720, 216),
-            SpriteFactory.CreateDoorTopNorthSouth("East", "destroyedWall"),
-            SpriteFactory.CreateDoorBottomNorthSouth("East", "destroyedWall"),
+            SpriteFactory.CreateDoorTopWestEast("East", "destroyedWall"),
+            SpriteFactory.CreateDoorBottomWestEast("East", "destroyedWall"),
             "East",
             game
         );}
             if (doors[3] == "openDoor") {
                 new_doors[3] = new Door(
             new Vector2(720, 216),
-            SpriteFactory.CreateDoorTopNorthSouth("East", "openDoor"),
-            SpriteFactory.CreateDoorBottomNorthSouth("East", "openDoor"),
+            SpriteFactory.CreateDoorTopWestEast("East", "openDoor"),
+            SpriteFactory.CreateDoorBottomWestEast("East", "openDoor"),
             "East",
             game
         );}
             if (doors[3] == "keyDoor") {
                 new_doors[3] = new Door(
             new Vector2(720, 216),
-            SpriteFactory.CreateDoorTopNorthSouth("East", "keyDoor"),
-            SpriteFactory.CreateDoorBottomNorthSouth("East", "keyDoor"),
+            SpriteFactory.CreateDoorTopWestEast("East", "keyDoor"),
+            SpriteFactory.CreateDoorBottomWestEast("East", "keyDoor"),
             "East",
             game
         );}
             if (doors[3] == "diamondDoor") {
                 new_doors[3] = new Door(
             new Vector2(720, 216),
-            SpriteFactory.CreateDoorTopNorthSouth("East", "diamondDoor"),
-            SpriteFactory.CreateDoorBottomNorthSouth("East", "diamondDoor"),
+            SpriteFactory.CreateDoorTopWestEast("East", "diamondDoor"),
+            SpriteFactory.CreateDoorBottomWestEast("East", "diamondDoor"),
             "East",
             game
         );}
