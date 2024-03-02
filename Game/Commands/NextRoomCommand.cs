@@ -48,7 +48,7 @@ namespace MainGame.Commands
             string room_type = room_var.Item1;
             string[] doors = room_var.Item2;
             string[][] roomArray = room_var.Item3;
-            writer.Room(room_type,room);
+            writer.Room(room_type,room, this.game);
 
 
             
