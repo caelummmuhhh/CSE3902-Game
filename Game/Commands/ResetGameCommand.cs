@@ -1,9 +1,11 @@
 ﻿using MainGame.Blocks;
 using MainGame.Controllers;
+using MainGame.Doors;
 using MainGame.Enemies;
 using MainGame.Items;
 using MainGame.Managers;
 using MainGame.Players;
+using MainGame.Rooms;
 using MainGame.SpriteHandlers;
 using Microsoft.Xna.Framework;
 using System;
@@ -29,7 +31,7 @@ namespace MainGame.Commands
             game.Player = new Player(game);
 
             game.controllers.Add(new KeyboardController(game, game.Player, game.Block, game.blockManager.GetBlocks(), game.Item, game.itemManager.GetItems()));
-            game.controllers.Add(new MouseController(game, game.Player));
+            game.controllers.Add(new MouseController(game, game.Player, game.Room, game.NorthDoor, game.SouthDoor, game.WestDoor, game.EastDoor));
         }
 
         public void UnExecute()

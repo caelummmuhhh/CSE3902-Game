@@ -42,16 +42,20 @@ namespace MainGame.Commands
             RoomsAndDoorsManager roomsAndDoorsManager = new RoomsAndDoorsManager();
             Reader reader = new Reader();
             Writer writer = new Writer();
-            RoomsAndDoorsManager.counter = (RoomsAndDoorsManager.counter + 1) % RoomsAndDoorsManager.total;
-            String file = roomsAndDoorsManager.GetRoom(RoomsAndDoorsManager.counter);
+            GlobalCounters.CurrentRoomIndex = (GlobalCounters.CurrentRoomIndex + 1) % RoomsAndDoorsManager.total;
+            roomsAndDoorsManager.LoadRooms();
+            String file = roomsAndDoorsManager.GetRoom(GlobalCounters.CurrentRoomIndex);
             var room_var = reader.read(file);
             string room_type = room_var.Item1;
             string[] doors = room_var.Item2;
             string[][] roomArray = room_var.Item3;
-            writer.Room(room_type,room, this.game);
-
-
-            
+            room = writer.writeRoom(room_type,room, this.game);
+            Door[] new_doors = new Door[4];
+            new_doors = writer.writeDoors(doors, this.game);
+            NorthDoor = new_doors[0];
+            SouthDoor = new_doors[1];
+            WestDoor = new_doors[2];
+            EastDoor = new_doors[3];
         }
 
         public void UnExecute()

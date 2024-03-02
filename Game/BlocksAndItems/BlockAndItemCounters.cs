@@ -4,5 +4,5 @@ namespace MainGame
     {
         public static int CurrentBlockIndex { get; set; } = 0;
         public static int CurrentItemIndex { get; set; } = 0;
-    }
+        public static int CurrentRoomIndex { get; set; } = 0;    }
 }
