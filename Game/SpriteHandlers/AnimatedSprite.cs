@@ -1,6 +1,6 @@
-﻿using Microsoft.Xna.Framework;
+﻿using System;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using System.Xml.Schema;
 
 namespace MainGame.SpriteHandlers
 {
@@ -9,39 +9,51 @@ namespace MainGame.SpriteHandlers
         public readonly Texture2D Texture;
         public readonly int RowCount;
         public readonly int ColumnCount;
-        public readonly int Scale;
-        public readonly int SpriteFrameWidth;
-        public readonly int SpriteFrameHeight;
 
-        public readonly int xMax;
-        public readonly int yMax;
-
-        public virtual int AnimationFrameDuration { get { return totalFrameCount; } }
-
+        public virtual int AnimationFrameDuration { get => totalFrameCount; }
+        public virtual int FrameWidth { get => frameWidth; }
+        public virtual int FrameHeight { get => frameHeight; }
+        public virtual int Scale { get => scale; }
+        public float LayerDepth
+        {
+            get => layer;
+            set
+            {
+                // Protect setter; SpriteBatch.Draw only allows [0, 1]f values
+                if (value < 0.0f || value > 1.0f)
+                {
+                    throw new ArgumentOutOfRangeException(
+                        nameof(value),
+                        "Value must be between 0 and 1, inclusive.");
+                }
+                layer = value;
+            }
+        }
 
         protected int totalFrameCount;
         protected int currentFrame;
+        protected int frameWidth;
+        protected int frameHeight;
+        protected int scale;
+        protected float layer;
 
         protected AnimatedSprite(Texture2D texture, int numRows, int numColumns, int scale = 1)
         {
             Texture = texture;
             RowCount = numRows;
             ColumnCount = numColumns;
-            Scale = scale;
+            this.scale = scale;
 
-            SpriteFrameWidth = Texture.Width / ColumnCount;
-            SpriteFrameHeight = Texture.Height / RowCount;
+            frameWidth = Texture.Width / ColumnCount;
+            frameHeight = Texture.Height / RowCount;
 
             totalFrameCount = numColumns * numRows;
             currentFrame = 0;
-
-            xMax = 500;
-            yMax = 500;
         }
 
         public abstract void Update();
 
-        public abstract void Draw(float x, float y, Color color, float layerDepth = 0f);
+        public abstract void Draw(float x, float y, Color color);
 
         protected virtual Rectangle GetSourceRectangle()
         {
@@ -49,9 +61,9 @@ namespace MainGame.SpriteHandlers
             int currColumn = currentFrame % ColumnCount;
 
             return new Rectangle(
-                SpriteFrameWidth * currColumn,
-                SpriteFrameHeight * currRow,
-                SpriteFrameWidth, SpriteFrameHeight);
+                frameWidth * currColumn,
+                frameHeight * currRow,
+                frameWidth, frameHeight);
         }
 
         protected virtual void GetNextFrame()

@@ -24,6 +24,9 @@ namespace MainGame.Rooms
             Tiles = tiles;
             this.game = game;
 
+            OuterBorder.LayerDepth = 0f;
+            InnerBorder.LayerDepth = 1.0f;
+            Tiles.LayerDepth = 1.0f;
         }
 
         public void Update()
@@ -36,9 +39,9 @@ namespace MainGame.Rooms
 
         public void Draw()
         {
-            OuterBorder.Draw(Position.X, Position.Y, Color.White, 0.0f);
-            InnerBorder.Draw(Position.X, Position.Y, Color.White, 1.0f);
-            Tiles.Draw(Position.X, Position.Y, Color.White, 1.0f);
+            OuterBorder.Draw(Position.X, Position.Y, Color.White);
+            InnerBorder.Draw(Position.X, Position.Y, Color.White);
+            Tiles.Draw(Position.X, Position.Y, Color.White);
         }
 
     }

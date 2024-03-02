@@ -17,11 +17,11 @@ namespace MainGame.SpriteHandlers.ProjectileSprites
         /// The value is all the information for the frame that will be displayed
         /// in that frame.
         /// </summary>
-        private List<CurrentSpriteInfo> currentAnimationFrameData;
+        private readonly List<CurrentSpriteInfo> currentAnimationFrameData;
         private readonly SpriteBatch spriteBatch;
+        private readonly int frameDisplayTime;
         private int spriteDisplayTimeLapse;
         private int currentAnimationFrame;
-        private int frameDisplayTime;
 
         public WoodenBoomerangSprite(
             Texture2D texture,
@@ -33,9 +33,10 @@ namespace MainGame.SpriteHandlers.ProjectileSprites
             int frameWidth = 16,
             int textureStartingX = 0,
             int textureStartingY = 0,
-            int scale = 1) : base(texture, numRows, numColumns, frameWidth,
-                                  frameHeight, numberOfFrames, textureStartingX,
-                                  textureStartingY, scale)
+            int scale = 1,
+            float layerDepth = 0.5f) :
+            base(texture, numRows, numColumns, frameWidth, frameHeight, numberOfFrames,
+                textureStartingX, textureStartingY, scale, layerDepth)
         {
             this.spriteBatch = spriteBatch;
             spriteDisplayTimeLapse = 0;
@@ -58,7 +59,6 @@ namespace MainGame.SpriteHandlers.ProjectileSprites
             totalFrameCount = currentAnimationFrameData.Count;
         }
 
-
         public override void Update()
         {
             if (spriteDisplayTimeLapse == frameDisplayTime)
@@ -72,16 +72,15 @@ namespace MainGame.SpriteHandlers.ProjectileSprites
             spriteDisplayTimeLapse++;
         }
 
-        public override void Draw(float x, float y, Color color, float layerDepth = 0f)
+        public override void Draw(float x, float y, Color color)
         {
             Rectangle srcRectangle = GetSourceRectangle();
             Rectangle destRectangle = GetDestinationRectangle(x, y);
 
-            spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, SamplerState.PointClamp);
             spriteBatch.Draw(
                 Texture, destRectangle, srcRectangle, color, rotation, origin,
-                currentAnimationFrameData[currentAnimationFrame].spriteEffects, 0f);
-            spriteBatch.End();
+                currentAnimationFrameData[currentAnimationFrame].spriteEffects, layer
+            );
         }
     }
 }

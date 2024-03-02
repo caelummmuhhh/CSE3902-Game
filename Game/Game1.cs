@@ -140,6 +140,7 @@ public class Game1 : Game
     protected override void Draw(GameTime gameTime)
     {
         GraphicsDevice.Clear(Color.Black);
+        spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, SamplerState.PointClamp);
 
         Room.Draw();
         NorthDoor.Draw();
@@ -151,6 +152,8 @@ public class Game1 : Game
 
         Block.Draw();
         Item.Draw();
+
+        spriteBatch.End();
 
         base.Draw(gameTime);
     }

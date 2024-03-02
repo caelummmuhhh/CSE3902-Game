@@ -26,6 +26,10 @@ namespace MainGame.Doors
             SpriteBottom = spriteBottom;
             Direction = (dir)Enum.Parse(typeof(dir), direction);
             this.game = game;
+
+            SpriteTop.LayerDepth = 0f;
+            SpriteBottom.LayerDepth = 1.0f;
+
             if (Direction == dir.North)
             {
                 BottomYOffset = 48;
@@ -53,10 +57,8 @@ namespace MainGame.Doors
 
         public void Draw()
         {
-            SpriteTop.Draw(Position.X, Position.Y, Color.White, 0.0f);
-            SpriteBottom.Draw(Position.X + BottomXOffset, Position.Y + BottomYOffset, Color.White, 1.0f);
-
+            SpriteTop.Draw(Position.X, Position.Y, Color.White);
+            SpriteBottom.Draw(Position.X + BottomXOffset, Position.Y + BottomYOffset, Color.White);
         }
-
     }
 }

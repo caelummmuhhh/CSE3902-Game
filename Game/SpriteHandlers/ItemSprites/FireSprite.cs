@@ -10,7 +10,7 @@ namespace MainGame.SpriteHandlers.ItemSprites
         /// The key is the current animationframe (starting at 0).
         /// The value is how many game seconds the frame should be displayed.
         /// </summary>
-        private Dictionary<int, int> frameDisplayTimeMap;
+        private readonly Dictionary<int, int> frameDisplayTimeMap;
         private readonly SpriteBatch spriteBatch;
         private int spriteDisplayTimeLapse;
         private bool spriteFlip;
@@ -26,9 +26,10 @@ namespace MainGame.SpriteHandlers.ItemSprites
             int frameWidth = 16,
             int textureStartingX = 0,
             int textureStartingY = 0,
-            int scale = 1) : base(texture, numRows, numColumns, frameWidth,
-                                  frameHeight, numberOfFrames, textureStartingX,
-                                  textureStartingY, scale)
+            int scale = 1,
+            float layerDepth = 0.5f)
+            : base(texture, numRows, numColumns, frameWidth, frameHeight, numberOfFrames,
+                  textureStartingX, textureStartingY, scale, layerDepth)
         {
             this.spriteBatch = spriteBatch;
             spriteDisplayTimeLapse = 0;
@@ -52,15 +53,13 @@ namespace MainGame.SpriteHandlers.ItemSprites
             spriteDisplayTimeLapse = 0;
         }
 
-        public override void Draw(float x, float y, Color color, float layerDepth = 0f)
+        public override void Draw(float x, float y, Color color)
         {
             SpriteEffects spriteEffect = spriteFlip ? SpriteEffects.FlipHorizontally : SpriteEffects.None;
             Rectangle srcRectangle = GetSourceRectangle();
             Rectangle destRectangle = GetDestinationRectangle(x, y);
 
-            spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, SamplerState.PointClamp);
-            spriteBatch.Draw(Texture, destRectangle, srcRectangle, color, rotation, origin, spriteEffect, 0f);
-            spriteBatch.End();
+            spriteBatch.Draw(Texture, destRectangle, srcRectangle, color, rotation, origin, spriteEffect, layer);
         }
     }
 }
