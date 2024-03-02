@@ -39,5 +39,14 @@ namespace MainGame.SpriteHandlers
                 scale: 3
                 );
         }
+
+        public static ISprite CreateEmptyRoomSprite()
+        {
+            return new EmptyRoomSprite(
+                TextureMap["RoomSprites"], SpriteBatch,
+                textureStartingY: 0,
+                scale: 3
+                );
+        }
     }
 }

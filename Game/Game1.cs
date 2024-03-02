@@ -26,8 +26,6 @@ public class Game1 : Game
     public IPlayer Player;
 
     public Room Room;
-    public Room Room2;
-    public Room Room3;
 
     public Door NorthDoor;
     public Door WestDoor;
@@ -73,13 +71,7 @@ public class Game1 : Game
 
         Room = new Room(
             SpriteFactory.CreateRoomOuterBorderSprite(),
-            this
-        );
-        Room2 = new Room(
             SpriteFactory.CreateRoomInnerBorderSprite(),
-            this
-        );
-        Room3 = new Room(
             SpriteFactory.CreateDungeonTilesSprite(),
             this
         );
@@ -153,17 +145,13 @@ public class Game1 : Game
     {
         GraphicsDevice.Clear(Color.Black);
 
+        Room.Draw();
         NorthDoor.Draw();
         SouthDoor.Draw();
         WestDoor.Draw();
         EastDoor.Draw();
 
-        Room2.Draw();
-        Room3.Draw();
-
         Player.Draw();
-
-        Room.Draw();
 
         Block.Draw();
         Item.Draw();
