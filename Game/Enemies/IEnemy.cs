@@ -14,24 +14,4 @@ namespace MainGame.Enemies
         public void Move();
         public void TakeDamage();
     }
-
-    public enum CardinalAndOrdinalDirection
-    {
-        North,
-        NorthEast,
-        East,
-        SouthEast,
-        South,
-        SouthWest,
-        West,
-        NorthWest
-    }
-
-    public enum CardinalDirections
-    {
-        North,
-        East,
-        South,
-        West
-    }
 }

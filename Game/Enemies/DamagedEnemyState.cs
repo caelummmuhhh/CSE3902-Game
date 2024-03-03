@@ -7,10 +7,10 @@ namespace MainGame.Enemies
 	public class DamagedEnemyState : IEnemyState
 	{
         private int debounceTimer = 50;
-		private readonly IEnemy entity;
+		private readonly GenericEnemy entity;
 		private readonly bool knockBack;
 
-        public DamagedEnemyState(IEnemy enemy, bool takeKnockBack)
+        public DamagedEnemyState(GenericEnemy enemy, bool takeKnockBack)
 		{
 			//throw new NotImplementedException();
 

@@ -4,11 +4,11 @@ namespace MainGame.Enemies
 {
 	public class KeeseEnemy : GenericEnemy
 	{
-        public static readonly int Speed = 1;
+        public override int MovementCoolDownFrame { get; protected set; } = 2;
 
-        public KeeseEnemy()
+        public KeeseEnemy(Vector2 spawnPosition)
         {
-            Position = new Vector2(400, 200);
+            Position = spawnPosition;
             State = new KeeseTakeOffState(this);
         }
 

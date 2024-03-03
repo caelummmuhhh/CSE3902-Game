@@ -3,10 +3,10 @@ namespace MainGame.Enemies
 {
 	public class GelIdleState : IEnemyState
 	{
-		private readonly IEnemy entity;
+		private readonly GenericEnemy entity;
 		private int stateDuration;
 
-		public GelIdleState(IEnemy enemy)
+		public GelIdleState(GenericEnemy enemy)
 		{
 			entity = enemy;
 			stateDuration = new Random().Next(0, 8) * 16;

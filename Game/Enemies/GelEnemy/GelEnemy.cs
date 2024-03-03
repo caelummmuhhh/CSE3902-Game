@@ -6,9 +6,11 @@ namespace MainGame.Enemies
 {
 	public class GelEnemy : GenericEnemy
 	{
-		public GelEnemy()
+        public override int MovementCoolDownFrame { get; protected set; } = 1;
+
+        public GelEnemy(Vector2 startingPosition)
 		{
-			Position = new Vector2(400, 200);
+			Position = startingPosition; 
 			Sprite = SpriteFactory.CreateGelSprite();
             State = new GelIdleState(this);
         }

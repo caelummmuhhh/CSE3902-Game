@@ -6,18 +6,16 @@ namespace MainGame.Enemies
 {
 	public class KeeseTakeOffState : IEnemyState
 	{
-		private readonly IEnemy entity;
+		private readonly GenericEnemy entity;
 		private readonly CardinalAndOrdinalDirection direction;
 		private readonly int stateDuration;
 		private int stateTimeRemaining;
 
-		public KeeseTakeOffState(IEnemy enemy)
+		public KeeseTakeOffState(GenericEnemy enemy)
 		{
-			Random random = new();
-			int directionInt = random.Next(0, Enum.GetNames(direction.GetType()).Length);
-			direction = (CardinalAndOrdinalDirection)directionInt;
+            direction = EnemyUtils.GetRandomCardinalAndOrdinalDirection();
 
-			entity = enemy;
+            entity = enemy;
 			entity.Sprite = SpriteFactory.CreateKeeseTakeOffSprite();
 
 			AnimatedSprite newSprite = (AnimatedSprite)entity.Sprite;
@@ -47,22 +45,7 @@ namespace MainGame.Enemies
 			{
 				return;
 			}
-
-			float x = entity.Position.X;
-			float y = entity.Position.Y;
-
-			entity.Position = direction switch
-			{
-				CardinalAndOrdinalDirection.North => new Vector2(x, y - KeeseEnemy.Speed),
-				CardinalAndOrdinalDirection.NorthEast => new Vector2(x + KeeseEnemy.Speed, y - KeeseEnemy.Speed),
-				CardinalAndOrdinalDirection.East => new Vector2(x + KeeseEnemy.Speed, y),
-				CardinalAndOrdinalDirection.SouthEast => new Vector2(x + KeeseEnemy.Speed, y + KeeseEnemy.Speed),
-				CardinalAndOrdinalDirection.South => new Vector2(x, y + KeeseEnemy.Speed),
-				CardinalAndOrdinalDirection.SouthWest => new Vector2(x - KeeseEnemy.Speed, y + KeeseEnemy.Speed),
-				CardinalAndOrdinalDirection.West => new Vector2(x - KeeseEnemy.Speed, y),
-				CardinalAndOrdinalDirection.NorthWest => new Vector2(x - KeeseEnemy.Speed, y - KeeseEnemy.Speed),
-				_ => new Vector2(x, y)
-			};
-		}
-	}
+            entity.Position = EnemyUtils.DirectionalMove(entity.Position, direction, entity.MovementSpeed);
+        }
+    }
 }

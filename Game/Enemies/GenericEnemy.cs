@@ -1,13 +1,16 @@
-﻿using System;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using MainGame.SpriteHandlers;
-using MainGame.Projectiles;
 
 namespace MainGame.Enemies
 {
 	public abstract class GenericEnemy : IEnemy
 	{
-		public virtual ISprite Sprite { get; set; }
+        /// <summary>
+        /// If moving, the entity can only move once every MovementCoolDownFrame.
+        /// </summary>
+        public abstract int MovementCoolDownFrame {  get; protected set; }
+        public virtual int MovementSpeed { get; protected set; } = UniversalConstants.Scale;
+        public virtual ISprite Sprite { get; set; }
         public virtual Vector2 Position { get; set; }
         public virtual IEnemyState State { get; set; }
 
@@ -24,15 +27,9 @@ namespace MainGame.Enemies
             Sprite.Draw(Position.X, Position.Y, Color.White);
         }
 
-        /// <summary>
-        /// Move enemy based on a movement pattern
-        /// </summary>
-        public virtual void Move() { }
+        public abstract void Move();
 
-        public virtual void TakeDamage()
-        {
-            
-        }
+        public virtual void TakeDamage() { }
     }
 }
 

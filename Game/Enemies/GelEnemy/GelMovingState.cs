@@ -1,21 +1,15 @@
-﻿using System;
-using Microsoft.Xna.Framework;
-
-namespace MainGame.Enemies
+﻿namespace MainGame.Enemies
 {
 	public class GelMovingState : IEnemyState
 	{
-        private readonly IEnemy entity;
-		private int stateDuration = 16;
-		private readonly CardinalDirections moveDirection;
+        private readonly GenericEnemy entity;
+        private readonly CardinalDirections moveDirection;
+        private int stateDuration = 15;
 
-        public GelMovingState(IEnemy enemy)
+        public GelMovingState(GenericEnemy enemy)
 		{
-			Random random = new();
-			entity = enemy;
-
-            int randDirectionInt = random.Next(0, Enum.GetNames(moveDirection.GetType()).Length);
-            moveDirection = (CardinalDirections)randDirectionInt;
+            entity = enemy;
+            moveDirection = EnemyUtils.GetRandomCardinalDirection();
         }
 
         public void Update()
@@ -24,7 +18,6 @@ namespace MainGame.Enemies
 			{
 				entity.State = new GelIdleState(entity);
 			}
-            Move();
 			stateDuration--;
 		}
 
@@ -32,17 +25,12 @@ namespace MainGame.Enemies
 
 		public void Move()
 		{
-            float x = entity.Position.X;
-            float y = entity.Position.Y;
-            entity.Position = moveDirection switch
-            {
-                CardinalDirections.North => new Vector2(x, y - KeeseEnemy.Speed),
-                CardinalDirections.East => new Vector2(x + KeeseEnemy.Speed, y),
-                CardinalDirections.South => new Vector2(x, y + KeeseEnemy.Speed),
-                CardinalDirections.West => new Vector2(x - KeeseEnemy.Speed, y),
-                _ => new Vector2(x, y)
-            };
+			if (stateDuration % entity.MovementCoolDownFrame == 0)
+			{
+				entity.Position = EnemyUtils.DirectionalMove(
+					entity.Position, moveDirection, entity.MovementSpeed
+				);
+            }
         }
     }
 }
-

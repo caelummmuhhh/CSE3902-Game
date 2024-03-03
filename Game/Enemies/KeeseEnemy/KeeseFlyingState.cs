@@ -1,19 +1,18 @@
 ﻿using System;
-using Microsoft.Xna.Framework;
 using MainGame.SpriteHandlers;
 
 namespace MainGame.Enemies
 {
     public class KeeseFlyingState : IEnemyState
     {
-        private readonly IEnemy entity;
+        private readonly GenericEnemy entity;
         private readonly Random random;
-        private CardinalAndOrdinalDirection direction;
+        private CardinalAndOrdinalDirection moveDirection;
 
         private int flightDurationTimer;
         private int directionChangeTimer;
 
-        public KeeseFlyingState(IEnemy enemy)
+        public KeeseFlyingState(GenericEnemy enemy)
         {
             entity = enemy;
             entity.Sprite = SpriteFactory.CreateKeeseFlightSprite();
@@ -42,27 +41,15 @@ namespace MainGame.Enemies
 
         public void Move()
         {
-            float x = entity.Position.X;
-            float y = entity.Position.Y;
-
-            entity.Position = direction switch
+            if (flightDurationTimer % entity.MovementCoolDownFrame == 0)
             {
-                CardinalAndOrdinalDirection.North => new Vector2(x, y - KeeseEnemy.Speed),
-                CardinalAndOrdinalDirection.NorthEast => new Vector2(x + KeeseEnemy.Speed, y - KeeseEnemy.Speed),
-                CardinalAndOrdinalDirection.East => new Vector2(x + KeeseEnemy.Speed, y),
-                CardinalAndOrdinalDirection.SouthEast => new Vector2(x + KeeseEnemy.Speed, y + KeeseEnemy.Speed),
-                CardinalAndOrdinalDirection.South => new Vector2(x, y + KeeseEnemy.Speed),
-                CardinalAndOrdinalDirection.SouthWest => new Vector2(x - KeeseEnemy.Speed, y + KeeseEnemy.Speed),
-                CardinalAndOrdinalDirection.West => new Vector2(x - KeeseEnemy.Speed, y),
-                CardinalAndOrdinalDirection.NorthWest => new Vector2(x - KeeseEnemy.Speed, y - KeeseEnemy.Speed),
-                _ => new Vector2(x, y)
-            };
+                entity.Position = EnemyUtils.DirectionalMove(entity.Position, moveDirection, entity.MovementSpeed);
+            }
         }
 
         private void ChangeDirection()
         {
-            int randDirectionInt = random.Next(0, Enum.GetNames(direction.GetType()).Length);
-            direction = (CardinalAndOrdinalDirection)randDirectionInt;
+            moveDirection = EnemyUtils.GetRandomCardinalAndOrdinalDirection();
             directionChangeTimer = random.Next(1, 16) * 4;
         }
     }
