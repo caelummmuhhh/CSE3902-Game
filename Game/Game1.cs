@@ -24,6 +24,7 @@ public class Game1 : Game
     public List<IController> controllers;
 
     public IPlayer Player;
+    public IEnemy Enemy;
 
     public Room Room;
 
@@ -39,14 +40,15 @@ public class Game1 : Game
 
     public Game1()
     {
-        GraphicsManager = new GraphicsDeviceManager(this);
-
-        GraphicsManager.PreferredBackBufferWidth = 768;
-        GraphicsManager.PreferredBackBufferHeight = 528;  //768 in sprint 4+
+        GraphicsManager = new GraphicsDeviceManager(this)
+        {
+            PreferredBackBufferWidth = 768,
+            PreferredBackBufferHeight = 528  //768 in sprint 4+
+        };
 
         Content.RootDirectory = "Content";
         IsMouseVisible = true;
-        TargetElapsedTime = TimeSpan.FromSeconds(1d / 30d);
+        //TargetElapsedTime = TimeSpan.FromSeconds(1d / 30d);
     }
 
     protected override void Initialize()
@@ -66,6 +68,7 @@ public class Game1 : Game
         SpriteFactory.SpriteBatch = spriteBatch;
 
         Player = new Player(this);
+        Enemy = new GelEnemy();
 
         Room = new Room(
             SpriteFactory.CreateRoomOuterBorderSprite(),
@@ -131,6 +134,7 @@ public class Game1 : Game
         }
 
         Player.Update();
+        Enemy.Update();
         Block.Update();
         Item.Update();
 
@@ -149,6 +153,7 @@ public class Game1 : Game
         EastDoor.Draw();
 
         Player.Draw();
+        Enemy.Draw();
 
         Block.Draw();
         Item.Draw();

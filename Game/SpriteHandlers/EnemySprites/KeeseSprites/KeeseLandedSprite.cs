@@ -3,11 +3,11 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace MainGame.SpriteHandlers.EnemySprites
 {
-	public class SpikeCrossSprite : StaticSpriteWithOffset
+    public class KeeseLandedSprite : StaticSpriteWithOffset
     {
         private readonly SpriteBatch spriteBatch;
 
-        public SpikeCrossSprite(
+        public KeeseLandedSprite(
             Texture2D texture,
             SpriteBatch spriteBatch,
             int spriteHeight = 16,
