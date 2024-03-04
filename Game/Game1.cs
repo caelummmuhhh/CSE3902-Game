@@ -68,7 +68,7 @@ public class Game1 : Game
         SpriteFactory.SpriteBatch = spriteBatch;
 
         Player = new Player(this);
-        Enemy = new SpikeCrossEnemy(new Vector2(465, 224), Player);
+        Enemy = new WallMasterEnemy(new Vector2(465, 224), Player);
 
         Room = new Room(
             SpriteFactory.CreateRoomOuterBorderSprite(),
