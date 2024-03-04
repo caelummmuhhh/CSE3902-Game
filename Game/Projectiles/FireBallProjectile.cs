@@ -16,9 +16,9 @@ namespace MainGame.Projectiles
         private bool isActive = true;
         private Vector2 position;
         private Vector2 startingPosition;
-        private readonly Direction direction;
+        private readonly CardinalDirections direction;
 
-        public FireBallProjectile(Vector2 startingPosition, Direction direction)
+        public FireBallProjectile(Vector2 startingPosition, CardinalDirections direction)
 		{
             this.direction = direction;
             this.startingPosition = startingPosition;
@@ -56,16 +56,16 @@ namespace MainGame.Projectiles
             float changeY = 0f;
             switch (direction)
             {
-                case Direction.Up:
+                case CardinalDirections.North:
                     changeY = -1f * speed;
                     break;
-                case Direction.Down:
+                case CardinalDirections.South:
                     changeY = speed;
                     break;
-                case Direction.Right:
+                case CardinalDirections.East:
                     changeX = speed;
                     break;
-                case Direction.Left:
+                case CardinalDirections.West:
                     changeX = -1f * speed;
                     break;
             }

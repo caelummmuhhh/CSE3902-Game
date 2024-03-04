@@ -1,7 +1,4 @@
-﻿using System;
-using Microsoft.Xna.Framework;
-using MainGame.SpriteHandlers;
-using MainGame.Players.PlayerStates;
+﻿using Microsoft.Xna.Framework;
 
 namespace MainGame.Projectiles
 {
@@ -12,7 +9,5 @@ namespace MainGame.Projectiles
 		public void Update();
 		public void Draw();
 	}
-
-	public enum Direction { Up, Down, Left, Right }
 }
 

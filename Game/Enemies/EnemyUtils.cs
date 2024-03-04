@@ -4,17 +4,6 @@ using Microsoft.Xna.Framework;
 namespace MainGame.Enemies
 {
     // TODO: Add a constants class or something to hold all the magic numbers
-
-    public enum CardinalAndOrdinalDirection
-    {
-        North, NorthEast, East, SouthEast, South, SouthWest, West, NorthWest
-    }
-
-    public enum CardinalDirections
-    {
-        North, East, South, West
-    }
-
     public static class EnemyUtils
 	{
         public static CardinalDirections GetRandomCardinalDirection()

@@ -35,6 +35,7 @@
     <None Remove="SpriteHandlers\EnemySprites\KeeseSprites\" />
     <None Remove="Enemies\GelEnemy\" />
     <None Remove="Enemies\StalfosEnemy\" />
+    <None Remove="Enemies\GoriyaEnemy\" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Icon.ico" />
@@ -63,6 +64,7 @@
     <Folder Include="SpriteHandlers\EnemySprites\KeeseSprites\" />
     <Folder Include="Enemies\GelEnemy\" />
     <Folder Include="Enemies\StalfosEnemy\" />
+    <Folder Include="Enemies\GoriyaEnemy\" />
   </ItemGroup>
   <Target Name="RestoreDotnetTools" BeforeTargets="Restore">
     <Message Text="Restoring dotnet tools" Importance="High" />

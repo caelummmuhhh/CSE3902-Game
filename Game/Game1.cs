@@ -17,11 +17,6 @@ using System;
 
 namespace MainGame;
 
-public static class UniversalConstants
-{
-    public static readonly int Scale = 3;
-}
-
 public class Game1 : Game
 {
     public readonly GraphicsDeviceManager GraphicsManager;
@@ -73,7 +68,7 @@ public class Game1 : Game
         SpriteFactory.SpriteBatch = spriteBatch;
 
         Player = new Player(this);
-        Enemy = new StalfosEnemy(new Vector2(416, 220));
+        Enemy = new GelEnemy(new Vector2(465, 224));
 
         Room = new Room(
             SpriteFactory.CreateRoomOuterBorderSprite(),
