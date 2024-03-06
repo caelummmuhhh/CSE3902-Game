@@ -3,6 +3,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Reflection.Metadata;
 using System.Xml.Linq;
+using MainGame.Doors;
 using MainGame.Rooms;
 using MainGame.SpriteHandlers;
 using Microsoft.Xna.Framework;
@@ -25,6 +26,7 @@ namespace MainGame.RoomsAndDoors
             else
             {
                 ParseRoomType(lines[0], game); // Parse and set game.room to room
+                ParseDoors(lines[1], game);
             }
         }
 
@@ -45,9 +47,9 @@ namespace MainGame.RoomsAndDoors
         /*
          * Method for setting the game.Room parameter to the correct room style based on the inputted line
          */
-        private static void ParseRoomType(string line1, Game1 game)
+        private static void ParseRoomType(string line, Game1 game)
         {
-            switch (line1)
+            switch (line)
             {
                 case "dungeonNormal,,,,,,,,,,,":
                     Debug.WriteLine("Room Created");
@@ -74,6 +76,77 @@ namespace MainGame.RoomsAndDoors
                         game
                         );
                     break;
+            }
+        }
+
+        /* 
+         * Method for setting the doors of the room based on csv
+         */
+        private static void ParseDoors(string line, Game1 game)
+        {
+            // Parse raw csv line into 4 doors names
+            string[] doors = line.Split(',');
+
+            // Create each door
+            Debug.WriteLine(doors[0]);
+            if (!doors[0].Equals("-"))
+            {
+                game.NorthDoor = new Door(
+                    new Vector2(336, 0),
+                    SpriteFactory.CreateDoorTopNorthSouth("North", doors[0]),
+                    SpriteFactory.CreateDoorBottomNorthSouth("North", doors[0]),
+                    "North",
+                    game
+                );
+            }
+            else
+            {
+                game.NorthDoor = new BlankDoor();
+            }
+
+            if (!doors[1].Equals("-"))
+            {
+                game.SouthDoor = new Door(
+                new Vector2(336, 480),
+                SpriteFactory.CreateDoorTopNorthSouth("South", doors[1]),
+                SpriteFactory.CreateDoorBottomNorthSouth("South", doors[1]),
+                "South",
+                game
+                );
+            }
+            else
+            {
+                game.SouthDoor = new BlankDoor();
+            }
+
+            if (!doors[2].Equals("-"))
+            {
+                game.EastDoor = new Door(
+                new Vector2(0, 216),
+                SpriteFactory.CreateDoorTopWestEast("West", doors[2]),
+                SpriteFactory.CreateDoorBottomWestEast("West", doors[2]),
+                "West",
+                game
+                );
+            }
+            else
+            {
+                game.EastDoor = new BlankDoor();
+            }
+
+            if (!doors[3].Equals("-"))
+            {
+                game.WestDoor = new Door(
+                new Vector2(720, 216),
+                SpriteFactory.CreateDoorTopWestEast("East", doors[3]),
+                SpriteFactory.CreateDoorBottomWestEast("East", doors[3]),
+                "East",
+                game
+                );
+            }
+            else
+            {
+                game.WestDoor = new BlankDoor();
             }
         }
     }

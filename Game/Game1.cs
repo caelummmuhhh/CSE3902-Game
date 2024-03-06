@@ -28,10 +28,10 @@ public class Game1 : Game
 
     public Room Room;
 
-    public Door NorthDoor;
-    public Door WestDoor;
-    public Door EastDoor;
-    public Door SouthDoor;
+    public IDoor NorthDoor;
+    public IDoor WestDoor;
+    public IDoor EastDoor;
+    public IDoor SouthDoor;
 
     public Block Block;
     public Item Item;
@@ -65,44 +65,15 @@ public class Game1 : Game
 
         SpriteFactory.LoadAllTextures(Content);
         SpriteFactory.SpriteBatch = spriteBatch;
+        blockManager.LoadBlocks();
+        itemManager.LoadItems();
 
         Player = new Player(this);
 
-        RoomFactory.GenerateRoom("Room_14.csv", this);
+        RoomFactory.GenerateRoom("Room_13.csv", this);
 
 
-        NorthDoor = new Door(
-            new Vector2(336, 0),
-            SpriteFactory.CreateDoorTopNorthSouth("North", "wallNormal"),
-            SpriteFactory.CreateDoorBottomNorthSouth("North", "wallNormal"),
-            "North",
-            this
-        );
-        SouthDoor = new Door(
-            new Vector2(336, 480),
-            SpriteFactory.CreateDoorTopNorthSouth("South", "diamondDoor"),
-            SpriteFactory.CreateDoorBottomNorthSouth("South", "diamondDoor"),
-            "South",
-            this
-        );
-        WestDoor = new Door(
-            new Vector2(0, 216),
-            SpriteFactory.CreateDoorTopWestEast("West", "destroyedWall"),
-            SpriteFactory.CreateDoorBottomWestEast("West", "destroyedWall"),
-            "West",
-            this
-        );
-        EastDoor = new Door(
-            new Vector2(720, 216),
-            SpriteFactory.CreateDoorTopWestEast("East", "openDoor"),
-            SpriteFactory.CreateDoorBottomWestEast("East", "openDoor"),
-            "East",
-            this
-        );
-
-
-        blockManager.LoadBlocks();
-        itemManager.LoadItems();
+        /*
         Block =  new Block(
             new Vector2(GraphicsManager.PreferredBackBufferWidth / 3,
                 GraphicsManager.PreferredBackBufferHeight / 3),
@@ -115,6 +86,7 @@ public class Game1 : Game
             itemManager.GetItems()[0],
             this
         );
+        */
 
         controllers.Add(new KeyboardController(this, Player, Block, blockManager.GetBlocks(), Item, itemManager.GetItems()));
         controllers.Add(new MouseController(this, Player));
@@ -128,8 +100,6 @@ public class Game1 : Game
         }
 
         Player.Update();
-        Block.Update();
-        Item.Update();
 
         base.Update(gameTime);
     }
@@ -147,8 +117,6 @@ public class Game1 : Game
 
         Player.Draw();
 
-        Block.Draw();
-        Item.Draw();
 
         spriteBatch.End();
 
