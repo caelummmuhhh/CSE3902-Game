@@ -22,7 +22,7 @@ public class Game1 : Game
     private List<IController> controllers;
 
     private ISprite textSprite;
-    public IPlayer player;
+    public IPlayer Player;
 
     public Block Block;
     public Item Item;
@@ -54,23 +54,26 @@ public class Game1 : Game
         SpriteFactory.LoadAllTextures(Content);
         SpriteFactory.SpriteBatch = spriteBatch;
 
-        player = new Player(this);
+        textSprite = SpriteFactory.CreateTextSprite("hello world!");
+        Player = new Player(this);
+
         blockManager.LoadBlocks();
         itemManager.LoadItems();
-        Block = new Block(
+        Block =  new Block(
             new Vector2(GraphicsManager.PreferredBackBufferWidth / 3,
                 GraphicsManager.PreferredBackBufferHeight / 3),
             blockManager.GetBlocks()[0],
             this
         );
         Item = new Item(
-            new Vector2(GraphicsManager.PreferredBackBufferWidth / 3 * 2,
+            new Vector2(GraphicsManager.PreferredBackBufferWidth / 3*2,
                 GraphicsManager.PreferredBackBufferHeight / 3),
             itemManager.GetItems()[0],
             this
         );
 
-        controllers.Add(new KeyboardController(this, player, Block, blockManager.GetBlocks(), Item, itemManager.GetItems()));
+        controllers.Add(new KeyboardController(this, Player, Block, blockManager.GetBlocks(), Item, itemManager.GetItems()));
+        controllers.Add(new MouseController(this, Player));
     }
 
     protected override void Update(GameTime gameTime)
@@ -81,7 +84,7 @@ public class Game1 : Game
             controller.Update();
         }
 
-        player.Update();
+        Player.Update();
         Block.Update();
         Item.Update();
 
@@ -92,7 +95,8 @@ public class Game1 : Game
     {
         GraphicsDevice.Clear(Color.Indigo);
 
-        player.Draw();
+        Player.Draw();
+        textSprite.Draw(10, GraphicsManager.PreferredBackBufferHeight - 100, Color.Black);
         Block.Draw();
         Item.Draw();
 
