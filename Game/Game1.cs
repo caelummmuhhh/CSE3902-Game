@@ -14,6 +14,7 @@ using MainGame.Enemies;
 
 using MainGame.Managers;
 using System;
+using MainGame.RoomsAndDoors;
 
 namespace MainGame;
 
@@ -67,12 +68,8 @@ public class Game1 : Game
 
         Player = new Player(this);
 
-        Room = new Room(
-            SpriteFactory.CreateRoomOuterBorderSprite(),
-            SpriteFactory.CreateRoomInnerBorderSprite(),
-            SpriteFactory.CreateDungeonTilesSprite(),
-            this
-        );
+        RoomFactory.GenerateRoom("Room_14.csv", this);
+
 
         NorthDoor = new Door(
             new Vector2(336, 0),
