@@ -20,7 +20,8 @@ namespace MainGame.RoomsAndDoors
          */
         public static void GenerateRoom(string roomName, Game1 game)
         {
-            string path = "C:\\Users\\nagle\\Documents\\College\\Classes\\Spring24\\CSE3902\\Sprint3\\CSE3902-Game\\Game\\Content\\Rooms\\" + roomName;
+            string direct = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.Parent.ToString(); // Get the parent directory to access content
+            string path = direct + "\\Content\\Rooms\\" + roomName + ".csv";
             string[] lines = ParseCsv(path);
             if(lines == null)
             {

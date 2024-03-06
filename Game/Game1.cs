@@ -72,7 +72,7 @@ public class Game1 : Game
 
         Player = new Player(this);
 
-        RoomFactory.GenerateRoom("Room_13.csv", this);
+        RoomFactory.GenerateRoom("Room_13", this);
 
         controllers.Add(new KeyboardController(this, Player, null, blockManager.GetBlocks(), null, itemManager.GetItems()));
         controllers.Add(new MouseController(this, Player));
