@@ -99,7 +99,7 @@ namespace MainGame.RoomsAndDoors
             // Create each door
             if (!doors[0].Equals("-"))
             {
-                game.NorthDoor = new Door(
+                game.Room.NorthDoor = new Door(
                     new Vector2(336, 0),
                     SpriteFactory.CreateDoorTopNorthSouth("North", doors[0]),
                     SpriteFactory.CreateDoorBottomNorthSouth("North", doors[0]),
@@ -107,14 +107,10 @@ namespace MainGame.RoomsAndDoors
                     game
                 );
             }
-            else
-            {
-                game.NorthDoor = new BlankDoor();
-            }
 
             if (!doors[1].Equals("-"))
             {
-                game.SouthDoor = new Door(
+                game.Room.SouthDoor = new Door(
                 new Vector2(336, 480),
                 SpriteFactory.CreateDoorTopNorthSouth("South", doors[1]),
                 SpriteFactory.CreateDoorBottomNorthSouth("South", doors[1]),
@@ -122,14 +118,10 @@ namespace MainGame.RoomsAndDoors
                 game
                 );
             }
-            else
-            {
-                game.SouthDoor = new BlankDoor();
-            }
 
             if (!doors[2].Equals("-"))
             {
-                game.EastDoor = new Door(
+                game.Room.EastDoor = new Door(
                 new Vector2(0, 216),
                 SpriteFactory.CreateDoorTopWestEast("West", doors[2]),
                 SpriteFactory.CreateDoorBottomWestEast("West", doors[2]),
@@ -137,24 +129,16 @@ namespace MainGame.RoomsAndDoors
                 game
                 );
             }
-            else
-            {
-                game.EastDoor = new BlankDoor();
-            }
 
             if (!doors[3].Equals("-"))
             {
-                game.WestDoor = new Door(
+                game.Room.WestDoor = new Door(
                 new Vector2(720, 216),
                 SpriteFactory.CreateDoorTopWestEast("East", doors[3]),
                 SpriteFactory.CreateDoorBottomWestEast("East", doors[3]),
                 "East",
                 game
                 );
-            }
-            else
-            {
-                game.WestDoor = new BlankDoor();
             }
         }
 

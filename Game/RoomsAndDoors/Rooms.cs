@@ -1,4 +1,5 @@
-﻿using MainGame.SpriteHandlers;
+﻿using MainGame.Doors;
+using MainGame.SpriteHandlers;
 using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;
@@ -13,6 +14,12 @@ namespace MainGame.Rooms
         public ISprite OuterBorder;
         public ISprite InnerBorder;
         public ISprite Tiles;
+
+        public IDoor NorthDoor;
+        public IDoor WestDoor;
+        public IDoor EastDoor;
+        public IDoor SouthDoor;
+
         public Vector2 Position;
         private readonly Game game;
 
@@ -27,6 +34,11 @@ namespace MainGame.Rooms
             OuterBorder.LayerDepth = 0f;
             InnerBorder.LayerDepth = 1.0f;
             Tiles.LayerDepth = 1.0f;
+
+            NorthDoor = new BlankDoor();
+            WestDoor = new BlankDoor();
+            SouthDoor = new BlankDoor();
+            EastDoor = new BlankDoor();
         }
 
         public void Update()
@@ -42,6 +54,12 @@ namespace MainGame.Rooms
             OuterBorder.Draw(Position.X, Position.Y, Color.White);
             InnerBorder.Draw(Position.X, Position.Y, Color.White);
             Tiles.Draw(Position.X, Position.Y, Color.White);
+
+            NorthDoor.Draw();
+            SouthDoor.Draw();
+            WestDoor.Draw();
+            EastDoor.Draw();
+
         }
 
     }

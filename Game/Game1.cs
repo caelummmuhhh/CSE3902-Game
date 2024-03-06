@@ -28,10 +28,7 @@ public class Game1 : Game
 
     public Room Room;
 
-    public IDoor NorthDoor;
-    public IDoor WestDoor;
-    public IDoor EastDoor;
-    public IDoor SouthDoor;
+
 
     public HashSet<Block> Blocks;
     public HashSet<Item> Items;
@@ -104,10 +101,6 @@ public class Game1 : Game
         spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, SamplerState.PointClamp);
 
         Room.Draw();
-        NorthDoor.Draw();
-        SouthDoor.Draw();
-        WestDoor.Draw();
-        EastDoor.Draw();
 
         Player.Draw();
         foreach (Block block in Blocks)
