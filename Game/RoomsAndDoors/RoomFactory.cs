@@ -7,6 +7,9 @@ using MainGame.Doors;
 using MainGame.Rooms;
 using MainGame.SpriteHandlers;
 using Microsoft.Xna.Framework;
+using MainGame.Blocks;
+using MainGame.Items;
+using MainGame.Managers;
 
 namespace MainGame.RoomsAndDoors
 {
@@ -27,6 +30,12 @@ namespace MainGame.RoomsAndDoors
             {
                 ParseRoomType(lines[0], game); // Parse and set game.room to room
                 ParseDoors(lines[1], game);
+                for (int i = 2; i < lines.Length; i++)
+                {
+                    ParseItemsAndBlocks(lines[i], game, i-2);
+                }
+
+
             }
         }
 
@@ -52,7 +61,6 @@ namespace MainGame.RoomsAndDoors
             switch (line)
             {
                 case "dungeonNormal,,,,,,,,,,,":
-                    Debug.WriteLine("Room Created");
                     game.Room =  new Room(
                         SpriteFactory.CreateRoomOuterBorderSprite(),
                         SpriteFactory.CreateRoomInnerBorderSprite(),
@@ -88,7 +96,6 @@ namespace MainGame.RoomsAndDoors
             string[] doors = line.Split(',');
 
             // Create each door
-            Debug.WriteLine(doors[0]);
             if (!doors[0].Equals("-"))
             {
                 game.NorthDoor = new Door(
@@ -147,6 +154,43 @@ namespace MainGame.RoomsAndDoors
             else
             {
                 game.WestDoor = new BlankDoor();
+            }
+        }
+
+        private static void ParseItemsAndBlocks(string line, Game1 game, int yOffset)
+        {
+            int wallOffsetX = 96; 
+            int wallOffsetY = 96;
+            int scale = 48;
+
+            string[] objects = line.Split(',');
+            // Each block/item in objects[] will try to be parsed into either a block or object
+            // if parsed, a new block/item object will be added to game1's current set of objects
+            for (int i = 0; i < objects.Length; i++)
+            {
+                bool blockSuccess = Enum.TryParse(typeof(BlockSpriteTypes), objects[i], true, out object block);
+                if (blockSuccess)
+                {
+                    game.Blocks.Add(
+                        new Block(
+                                new Vector2(wallOffsetX + i * scale, wallOffsetY + yOffset * scale),
+                                SpriteFactory.CreateBlock((BlockSpriteTypes)block),
+                                game
+                            ));
+                }
+                else
+                {
+                    bool itemSuccess = Enum.TryParse(typeof(ItemSpriteTypes), objects[i], true, out object item);
+                    if (itemSuccess)
+                    {
+                        game.Items.Add(
+                            new Item(
+                                    new Vector2(wallOffsetX + i * scale, wallOffsetY + yOffset * scale),
+                                    SpriteFactory.CreateItemSprite((ItemSpriteTypes) item),
+                                    game
+                                ));
+                    }
+                }
             }
         }
     }

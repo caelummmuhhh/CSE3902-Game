@@ -33,8 +33,8 @@ public class Game1 : Game
     public IDoor EastDoor;
     public IDoor SouthDoor;
 
-    public Block Block;
-    public Item Item;
+    public HashSet<Block> Blocks;
+    public HashSet<Item> Items;
     public BlockManager blockManager;
     public ItemManager itemManager;
 
@@ -55,6 +55,8 @@ public class Game1 : Game
         controllers = new List<IController>();
         blockManager = new BlockManager();
         itemManager = new ItemManager();
+        Blocks = new HashSet<Block>();
+        Items = new HashSet<Item>();
 
         base.Initialize();
     }
@@ -72,23 +74,7 @@ public class Game1 : Game
 
         RoomFactory.GenerateRoom("Room_13.csv", this);
 
-
-        /*
-        Block =  new Block(
-            new Vector2(GraphicsManager.PreferredBackBufferWidth / 3,
-                GraphicsManager.PreferredBackBufferHeight / 3),
-            blockManager.GetBlocks()[0],
-            this
-        );
-        Item = new Item(
-            new Vector2(GraphicsManager.PreferredBackBufferWidth / 3*2,
-                GraphicsManager.PreferredBackBufferHeight / 3),
-            itemManager.GetItems()[0],
-            this
-        );
-        */
-
-        controllers.Add(new KeyboardController(this, Player, Block, blockManager.GetBlocks(), Item, itemManager.GetItems()));
+        controllers.Add(new KeyboardController(this, Player, null, blockManager.GetBlocks(), null, itemManager.GetItems()));
         controllers.Add(new MouseController(this, Player));
     }
 
@@ -100,6 +86,14 @@ public class Game1 : Game
         }
 
         Player.Update();
+        foreach(Block block in Blocks)
+        {
+            block.Update();
+        }
+        foreach(Item item in Items)
+        {
+            item.Update();
+        }
 
         base.Update(gameTime);
     }
@@ -116,6 +110,14 @@ public class Game1 : Game
         EastDoor.Draw();
 
         Player.Draw();
+        foreach (Block block in Blocks)
+        {
+            block.Draw();
+        }
+        foreach (Item item in Items)
+        {
+            item.Draw();
+        }
 
 
         spriteBatch.End();
