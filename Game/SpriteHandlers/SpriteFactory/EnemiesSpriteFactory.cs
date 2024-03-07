@@ -94,7 +94,7 @@ namespace MainGame.SpriteHandlers
                 scale: UniversalScaleMultiplier);
         }
 
-        // this isnt supposed to be in here but idk how else to make the sprite avaiable in the enemies namespace soooo
+       
         public static ISprite CreateAquamentusAttackSprite()
         {
             return new AquamentusAttackProjectileSprite(

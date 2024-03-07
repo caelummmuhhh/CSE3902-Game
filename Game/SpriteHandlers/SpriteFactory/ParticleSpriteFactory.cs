@@ -17,14 +17,12 @@ namespace MainGame.SpriteHandlers
 
 
             return new ParticleSprites.DeathParticles(
-                TextureMap["EnemiesSprites"], SpriteBatch,
+                TextureMap["ParticleSprites"], SpriteBatch,
                 numRows: 1,
                 numColumns: 2,
                 numberOfFrames: 2,
-
-                // real values needed just setting up a framework
-                frameHeight: 69,
-                frameWidth: 420,
+                frameHeight: 16,
+                frameWidth: 16,
                 scale: UniversalScaleMultiplier) ;
         }
 
@@ -32,30 +30,28 @@ namespace MainGame.SpriteHandlers
 
         public static ISprite CreateSwordBeamParticles()
         {
-            return new ParticleSprites.DeathParticles(
-                TextureMap["EnemiesSprites"], SpriteBatch,
+            return new ParticleSprites.SwordBeamParticles(
+                TextureMap["ParticleSprites"], SpriteBatch,
                 numRows: 1,
-                numColumns: 2,
-                numberOfFrames: 2,
-
-                // real values needed just setting up a framework
-                frameHeight: 69,
-                frameWidth: 420,
+                numColumns: 4,
+                numberOfFrames: 4,
+                textureStartingY: 18,               
+                frameHeight: 8,
+                frameWidth: 8,
                 scale: UniversalScaleMultiplier);
         }
 
         public static ISprite CreateSpawnParticles()
         {
 
-            return new ParticleSprites.DeathParticles(
-                TextureMap["EnemiesSprites"], SpriteBatch,
+            return new ParticleSprites.SpawnParticles(
+                TextureMap["ParticleSprites"], SpriteBatch,
                 numRows: 1,
-                numColumns: 2,
-                numberOfFrames: 2,
-
-                // real values needed just setting up a framework
-                frameHeight: 69,
-                frameWidth: 420,
+                numColumns: 3,
+                numberOfFrames: 3,
+                 textureStartingY: 32,
+                frameHeight: 16,
+                frameWidth: 16,
                 scale: UniversalScaleMultiplier);
         }
     }

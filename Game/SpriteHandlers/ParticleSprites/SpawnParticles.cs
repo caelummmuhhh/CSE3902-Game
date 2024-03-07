@@ -11,6 +11,11 @@ namespace MainGame.SpriteHandlers.ParticleSprites
 {
     public class SpawnParticles : AnimatedSpriteWithOffset
     {
+
+        private readonly Dictionary<int, int> frameDisplayTimeMap;
+        private readonly SpriteBatch spriteBatch;
+        private int spriteDisplayTimeLapse;
+
         public SpawnParticles(Texture2D texture,
             SpriteBatch spriteBatch,
             int numRows,
@@ -25,16 +30,33 @@ namespace MainGame.SpriteHandlers.ParticleSprites
             : base(texture, numRows, numColumns, frameWidth, frameHeight, numberOfFrames,
                   textureStartingX, textureStartingY, scale, layerDepth)
         {
+            this.spriteBatch = spriteBatch;
+            spriteDisplayTimeLapse = 0;
+            frameDisplayTimeMap = new()
+            {
+                { 0, 3 },
+                { 1, 6 },
+                { 2, 6 }
+            };
         }
 
         public override void Draw(float x, float y, Color color)
         {
-            throw new NotImplementedException();
+            Rectangle srcRectangle = GetSourceRectangle();
+            Rectangle destRectangle = GetDestinationRectangle(x, y);
+
+            spriteBatch.Draw(Texture, destRectangle, srcRectangle, color, rotation, origin, SpriteEffects.None, layer);
         }
 
         public override void Update()
         {
-            throw new NotImplementedException();
+            if (spriteDisplayTimeLapse == frameDisplayTimeMap[currentFrame])
+            {
+                spriteDisplayTimeLapse = 0;
+                GetNextFrame();
+            }
+
+            spriteDisplayTimeLapse++;
         }
     }
 }

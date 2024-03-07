@@ -8,16 +8,20 @@ using System.Threading.Tasks;
 
 namespace MainGame.SpriteHandlers.ParticleSprites
 {
+    
     public class DeathParticles : AnimatedSpriteWithOffset
     {
+        private readonly Dictionary<int, int> frameDisplayTimeMap;
+        private readonly SpriteBatch spriteBatch;
+        private int spriteDisplayTimeLapse;
         //real values not present yet just framework atm
         public DeathParticles(Texture2D texture,
             SpriteBatch spriteBatch,
             int numRows,
             int numColumns,
             int numberOfFrames,
-            int frameHeight,
-            int frameWidth,
+            int frameHeight = 16,
+            int frameWidth = 16,
             int textureStartingX = 0,
             int textureStartingY = 0,
             int scale = 1,
@@ -25,16 +29,34 @@ namespace MainGame.SpriteHandlers.ParticleSprites
             : base(texture, numRows, numColumns, frameWidth, frameHeight, numberOfFrames,
                   textureStartingX, textureStartingY, scale, layerDepth)
         {
+            this.spriteBatch = spriteBatch;
+            spriteDisplayTimeLapse = 0;
+            frameDisplayTimeMap = new()
+            {
+                { 0, 6 },
+                { 1, 6 },
+            };
+
         }
 
         public override void Draw(float x, float y, Color color)
         {
-            throw new NotImplementedException();
+            Rectangle srcRectangle = GetSourceRectangle();
+            Rectangle destRectangle = GetDestinationRectangle(x, y);
+
+            spriteBatch.Draw(Texture, destRectangle, srcRectangle, color, rotation, origin, SpriteEffects.None, layer);
         }
 
         public override void Update()
         {
-            throw new NotImplementedException();
+            if (spriteDisplayTimeLapse == frameDisplayTimeMap[currentFrame])
+            {
+                spriteDisplayTimeLapse = 0;
+                GetNextFrame();
+            }
+
+            spriteDisplayTimeLapse++;
         }
     }
+    
 }

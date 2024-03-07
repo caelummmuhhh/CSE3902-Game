@@ -11,9 +11,11 @@ using MainGame.Blocks;
 using MainGame.Items;
 using System.Collections.Generic;
 using MainGame.Enemies;
+using MainGame.Particles;
 
 using MainGame.Managers;
 using System;
+using MainGame.SpriteHandlers.ParticleSprites;
 
 namespace MainGame;
 
@@ -36,6 +38,7 @@ public class Game1 : Game
     public Item Item;
     public BlockManager blockManager;
     public ItemManager itemManager;
+    public Particle Particle;
 
     public Game1()
     {
@@ -64,7 +67,7 @@ public class Game1 : Game
 
         SpriteFactory.LoadAllTextures(Content);
         SpriteFactory.SpriteBatch = spriteBatch;
-
+        Particle = new Particle(this);
         Player = new Player(this);
 
         Room = new Room(
@@ -133,7 +136,7 @@ public class Game1 : Game
         Player.Update();
         Block.Update();
         Item.Update();
-
+        Particle.Update();
         base.Update(gameTime);
     }
 
@@ -149,7 +152,7 @@ public class Game1 : Game
         EastDoor.Draw();
 
         Player.Draw();
-
+        Particle.Draw();
         Block.Draw();
         Item.Draw();
 

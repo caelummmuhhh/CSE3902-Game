@@ -9,10 +9,9 @@ using Microsoft.Xna.Framework;
 
 namespace MainGame.Particles
 {
-    internal interface IParticle
+    public interface IParticle
     {
-        public Vector2 Position { get; set; }
-        public ISprite Sprite { get; set; }
+        
 
         public void Update();
         public void Draw();
