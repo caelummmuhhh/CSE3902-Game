@@ -59,7 +59,6 @@ namespace MainGame.Rooms
             SouthDoor.Draw();
             WestDoor.Draw();
             EastDoor.Draw();
-
         }
 
     }

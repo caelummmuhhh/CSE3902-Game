@@ -18,8 +18,10 @@ namespace MainGame.RoomsAndDoors
         /*
          * Method for generating a room object based on a room name as specified in Content/Rooms
          */
-        public static void GenerateRoom(string roomName, Game1 game)
+        public static Room GenerateRoom(string roomName, Game1 game)
         {
+            Room room = null;
+
             string direct = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.Parent.ToString(); // Get the parent directory to access content
             string path = direct + "\\Content\\Rooms\\" + roomName + ".csv";
             string[] lines = ParseCsv(path);
@@ -29,15 +31,15 @@ namespace MainGame.RoomsAndDoors
             }
             else
             {
-                ParseRoomType(lines[0], game); // Parse and set game.room to room
-                ParseDoors(lines[1], game);
+                room = ParseRoomType(lines[0], game); // Parse and set room to a new room object
+                ParseDoors(lines[1], game, room);
                 for (int i = 2; i < lines.Length; i++)
                 {
                     ParseItemsAndBlocks(lines[i], game, i-2);
                 }
-
-
             }
+
+            return room;
         }
 
         /*
@@ -57,41 +59,39 @@ namespace MainGame.RoomsAndDoors
         /*
          * Method for setting the game.Room parameter to the correct room style based on the inputted line
          */
-        private static void ParseRoomType(string line, Game1 game)
+        private static Room ParseRoomType(string line, Game1 game)
         {
             switch (line)
             {
                 case "dungeonNormal,,,,,,,,,,,":
-                    game.Room =  new Room(
+                    return new Room(
                         SpriteFactory.CreateRoomOuterBorderSprite(),
                         SpriteFactory.CreateRoomInnerBorderSprite(),
                         SpriteFactory.CreateDungeonTilesSprite(),
                         game
                         );
-                    break;
                 case "undergroundRoom,,,,,,,,,,,":
-                    game.Room = new Room(
+                    return new Room(
                         SpriteFactory.CreateEmptyRoomSprite(),
                         SpriteFactory.CreateEmptyRoomSprite(),
                         SpriteFactory.CreateUndergroundRoomSprite(),
                         game
                         );
-                    break;
                 case "dungeonOldMan,,,,,,,,,,,":
-                    game.Room = new Room(
+                    return new Room(
                         SpriteFactory.CreateRoomOuterBorderSprite(),
                         SpriteFactory.CreateRoomInnerBorderSprite(),
                         SpriteFactory.CreateEmptyRoomSprite(),
                         game
                         );
-                    break;
             }
+            return null;
         }
 
         /* 
          * Method for setting the doors of the room based on csv
          */
-        private static void ParseDoors(string line, Game1 game)
+        private static void ParseDoors(string line, Game1 game, Room room)
         {
             // Parse raw csv line into 4 doors names
             string[] doors = line.Split(',');
@@ -99,7 +99,7 @@ namespace MainGame.RoomsAndDoors
             // Create each door
             if (!doors[0].Equals("-"))
             {
-                game.Room.NorthDoor = new Door(
+               room.NorthDoor = new Door(
                     new Vector2(336, 0),
                     SpriteFactory.CreateDoorTopNorthSouth("North", doors[0]),
                     SpriteFactory.CreateDoorBottomNorthSouth("North", doors[0]),
@@ -110,7 +110,7 @@ namespace MainGame.RoomsAndDoors
 
             if (!doors[1].Equals("-"))
             {
-                game.Room.SouthDoor = new Door(
+                room.SouthDoor = new Door(
                 new Vector2(336, 480),
                 SpriteFactory.CreateDoorTopNorthSouth("South", doors[1]),
                 SpriteFactory.CreateDoorBottomNorthSouth("South", doors[1]),
@@ -121,7 +121,7 @@ namespace MainGame.RoomsAndDoors
 
             if (!doors[2].Equals("-"))
             {
-                game.Room.EastDoor = new Door(
+                room.EastDoor = new Door(
                 new Vector2(0, 216),
                 SpriteFactory.CreateDoorTopWestEast("West", doors[2]),
                 SpriteFactory.CreateDoorBottomWestEast("West", doors[2]),
@@ -132,7 +132,7 @@ namespace MainGame.RoomsAndDoors
 
             if (!doors[3].Equals("-"))
             {
-                game.Room.WestDoor = new Door(
+                room.WestDoor = new Door(
                 new Vector2(720, 216),
                 SpriteFactory.CreateDoorTopWestEast("East", doors[3]),
                 SpriteFactory.CreateDoorBottomWestEast("East", doors[3]),
