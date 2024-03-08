@@ -22,7 +22,7 @@ namespace MainGame.RoomsAndDoors
         {
             Room room = null;
 
-            string path = "Content\\Rooms\\" + roomName + ".csv";
+            string path = Path.Combine("Content", "Rooms", $"{roomName}.csv");
             string[] lines = ParseCsv(path);
             if(lines == null)
             {
