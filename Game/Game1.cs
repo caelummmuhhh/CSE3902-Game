@@ -68,7 +68,14 @@ public class Game1 : Game
         SpriteFactory.SpriteBatch = spriteBatch;
 
         Player = new Player(this);
-        Enemy = new WallMasterEnemy(new Vector2(465, 224), Player);
+        //Enemy = new GoriyaEnemy(new Vector2(465, 224));
+        //Enemy = new KeeseEnemy(new Vector2(465, 224));
+        //Enemy = new GelEnemy(new Vector2(465, 224));
+        //Enemy = new SpikeCrossEnemy(new Vector2(465, 224), Player);
+        //Enemy = new StalfosEnemy(new Vector2(465, 224));
+        //Enemy = new WallMasterEnemy(new Vector2(465, 224), Player);
+        //Enemy = new OldManEnemy(new Vector2(465, 224));
+        Enemy = new AquamentusEnemy(new Vector2(465+3*48, 224+48), Player);
 
         Room = new Room(
             SpriteFactory.CreateRoomOuterBorderSprite(),

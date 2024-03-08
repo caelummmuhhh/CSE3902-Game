@@ -33,10 +33,10 @@ namespace MainGame.SpriteHandlers.EnemySprites.AquamentusSprites
             spriteDisplayTimeLapse = 0;
             frameDisplayTimeMap = new()
             {
-                { 0, 5 },
-                { 1, 5 },
-                { 2, 5 },
-                { 3, 5 }
+                { 0, 1 },
+                { 1, 1 },
+                { 2, 1 },
+                { 3, 1 }
             };
         }
 
