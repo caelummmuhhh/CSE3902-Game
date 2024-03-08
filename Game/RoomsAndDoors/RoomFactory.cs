@@ -34,9 +34,11 @@ namespace MainGame.RoomsAndDoors
                 ParseDoors(lines[1], game, room);
                 for (int i = 2; i < lines.Length; i++)
                 {
-                    ParseItemsAndBlocks(lines[i], game, i-2);
+                    ParseItemsAndBlocks(lines[i], game, room, i-2);
                 }
             }
+
+            parseNextRooms("", room);
 
             return room;
         }
@@ -141,7 +143,7 @@ namespace MainGame.RoomsAndDoors
             }
         }
 
-        private static void ParseItemsAndBlocks(string line, Game1 game, int yOffset)
+        private static void ParseItemsAndBlocks(string line, Game1 game, Room room, int yOffset)
         {
             int wallOffsetX = 96; 
             int wallOffsetY = 96;
@@ -155,7 +157,7 @@ namespace MainGame.RoomsAndDoors
                 bool blockSuccess = Enum.TryParse(typeof(BlockSpriteTypes), objects[i], true, out object block);
                 if (blockSuccess)
                 {
-                    game.Blocks.Add(
+                    room.Blocks.Add(
                         new Block(
                                 new Vector2(wallOffsetX + i * scale, wallOffsetY + yOffset * scale),
                                 SpriteFactory.CreateBlock((BlockSpriteTypes)block),
@@ -167,7 +169,7 @@ namespace MainGame.RoomsAndDoors
                     bool itemSuccess = Enum.TryParse(typeof(ItemSpriteTypes), objects[i], true, out object item);
                     if (itemSuccess)
                     {
-                        game.Items.Add(
+                        room.Items.Add(
                             new Item(
                                     new Vector2(wallOffsetX + i * scale, wallOffsetY + yOffset * scale),
                                     SpriteFactory.CreateItemSprite((ItemSpriteTypes) item),
@@ -176,6 +178,13 @@ namespace MainGame.RoomsAndDoors
                     }
                 }
             }
+        }
+
+        private static void parseNextRooms(string line, Room room)
+        {
+            Random rnd = new Random();
+            // TODO : Change next room to have 4 options based on csv and change to the room based on that 
+            room.nextRoom = rnd.Next(1, 18); // Generate next room as random next room
         }
     }
 }
