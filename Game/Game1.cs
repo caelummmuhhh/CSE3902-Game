@@ -14,6 +14,7 @@ using MainGame.Enemies;
 
 using MainGame.Managers;
 using System;
+using MainGame.RoomsAndDoors;
 
 namespace MainGame;
 
@@ -28,13 +29,10 @@ public class Game1 : Game
 
     public Room Room;
 
-    public Door NorthDoor;
-    public Door WestDoor;
-    public Door EastDoor;
-    public Door SouthDoor;
 
-    public Block Block;
-    public Item Item;
+
+    public HashSet<Block> Blocks;
+    public HashSet<Item> Items;
     public BlockManager blockManager;
     public ItemManager itemManager;
 
@@ -56,6 +54,8 @@ public class Game1 : Game
         controllers = new List<IController>();
         blockManager = new BlockManager();
         itemManager = new ItemManager();
+        Blocks = new HashSet<Block>();
+        Items = new HashSet<Item>();
 
         base.Initialize();
     }
@@ -66,6 +66,8 @@ public class Game1 : Game
 
         SpriteFactory.LoadAllTextures(Content);
         SpriteFactory.SpriteBatch = spriteBatch;
+        blockManager.LoadBlocks();
+        itemManager.LoadItems();
 
         Player = new Player(this);
         //Enemy = new GoriyaEnemy(new Vector2(465, 224));
@@ -77,59 +79,9 @@ public class Game1 : Game
         //Enemy = new OldManEnemy(new Vector2(465, 224));
         Enemy = new AquamentusEnemy(new Vector2(465+3*48, 224+48), Player);
 
-        Room = new Room(
-            SpriteFactory.CreateRoomOuterBorderSprite(),
-            SpriteFactory.CreateRoomInnerBorderSprite(),
-            SpriteFactory.CreateDungeonTilesSprite(),
-            this
-        );
+        Room = RoomFactory.GenerateRoom("Room_1", this);
 
-        NorthDoor = new Door(
-            new Vector2(336, 0),
-            SpriteFactory.CreateDoorTopNorthSouth("North", "wallNormal"),
-            SpriteFactory.CreateDoorBottomNorthSouth("North", "wallNormal"),
-            "North",
-            this
-        );
-        SouthDoor = new Door(
-            new Vector2(336, 480),
-            SpriteFactory.CreateDoorTopNorthSouth("South", "diamondDoor"),
-            SpriteFactory.CreateDoorBottomNorthSouth("South", "diamondDoor"),
-            "South",
-            this
-        );
-        WestDoor = new Door(
-            new Vector2(0, 216),
-            SpriteFactory.CreateDoorTopWestEast("West", "destroyedWall"),
-            SpriteFactory.CreateDoorBottomWestEast("West", "destroyedWall"),
-            "West",
-            this
-        );
-        EastDoor = new Door(
-            new Vector2(720, 216),
-            SpriteFactory.CreateDoorTopWestEast("East", "openDoor"),
-            SpriteFactory.CreateDoorBottomWestEast("East", "openDoor"),
-            "East",
-            this
-        );
-
-
-        blockManager.LoadBlocks();
-        itemManager.LoadItems();
-        Block =  new Block(
-            new Vector2(GraphicsManager.PreferredBackBufferWidth / 3,
-                GraphicsManager.PreferredBackBufferHeight / 3),
-            blockManager.GetBlocks()[0],
-            this
-        );
-        Item = new Item(
-            new Vector2(GraphicsManager.PreferredBackBufferWidth / 3*2,
-                GraphicsManager.PreferredBackBufferHeight / 3),
-            itemManager.GetItems()[0],
-            this
-        );
-
-        controllers.Add(new KeyboardController(this, Player, Block, blockManager.GetBlocks(), Item, itemManager.GetItems()));
+        controllers.Add(new KeyboardController(this, Player, null, blockManager.GetBlocks(), null, itemManager.GetItems()));
         controllers.Add(new MouseController(this, Player));
     }
 
@@ -142,8 +94,15 @@ public class Game1 : Game
 
         Player.Update();
         Enemy.Update();
-        Block.Update();
-        Item.Update();
+        foreach(Block block in Blocks)
+        {
+            block.Update();
+        }
+        foreach(Item item in Items)
+        {
+            item.Update();
+        }
+        
 
         base.Update(gameTime);
     }
@@ -154,16 +113,21 @@ public class Game1 : Game
         spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, SamplerState.PointClamp);
 
         Room.Draw();
-        NorthDoor.Draw();
-        SouthDoor.Draw();
-        WestDoor.Draw();
-        EastDoor.Draw();
 
         Player.Draw();
+
+        foreach (Block block in Blocks)
+        {
+            block.Draw();
+        }
+        foreach (Item item in Items)
+        {
+            item.Draw();
+        }
+
         Enemy.Draw();
 
-        Block.Draw();
-        Item.Draw();
+
 
         spriteBatch.End();
 
