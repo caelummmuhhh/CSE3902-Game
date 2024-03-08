@@ -22,8 +22,7 @@ namespace MainGame.RoomsAndDoors
         {
             Room room = null;
 
-            string direct = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.Parent.ToString(); // Get the parent directory to access content
-            string path = direct + "\\Content\\Rooms\\" + roomName + ".csv";
+            string path = "Content\\Rooms\\" + roomName + ".csv";
             string[] lines = ParseCsv(path);
             if(lines == null)
             {
