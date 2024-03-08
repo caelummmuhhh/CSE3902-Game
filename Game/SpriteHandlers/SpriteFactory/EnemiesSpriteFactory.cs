@@ -1,7 +1,4 @@
-﻿using System.Collections.Generic;
-using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Content;
-using MainGame.SpriteHandlers.EnemySprites.AquamentusSprites;
+﻿using MainGame.SpriteHandlers.EnemySprites.AquamentusSprites;
 
 namespace MainGame.SpriteHandlers
 {
@@ -14,6 +11,34 @@ namespace MainGame.SpriteHandlers
                 numRows: 1,
                 numColumns: 2,
                 numberOfFrames: 2,
+                scale: UniversalScaleMultiplier);
+        }
+
+        public static ISprite CreateKeeseTakeOffSprite()
+        {
+            return new EnemySprites.KeeseTakeOffSprite(
+                TextureMap["EnemiesSprites"], SpriteBatch,
+                numRows: 1,
+                numColumns: 2,
+                numberOfFrames: 2,
+                scale: UniversalScaleMultiplier);
+        }
+
+        public static ISprite CreateKeeseLandingSprite()
+        {
+            return new EnemySprites.KeeseLandingSprite(
+                TextureMap["EnemiesSprites"], SpriteBatch,
+                numRows: 1,
+                numColumns: 2,
+                numberOfFrames: 2,
+                scale: UniversalScaleMultiplier);
+        }
+
+        public static ISprite CreateKeeseLandedSprite()
+        {
+            return new EnemySprites.KeeseLandedSprite(
+                TextureMap["EnemiesSprites"], SpriteBatch,
+                textureStartingX: 16,
                 scale: UniversalScaleMultiplier);
         }
 

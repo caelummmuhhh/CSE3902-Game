@@ -72,11 +72,11 @@ namespace MainGame.Players
         public void MoveLeft() => undecoratedPlayer.MoveLeft();
         public void MoveRight() => undecoratedPlayer.MoveRight();
         public void UseSword() => undecoratedPlayer.UseSword();
-        public void UseBoomerang(Direction direction) => undecoratedPlayer.UseBoomerang(direction);
-        public void UseArrow(Direction direction) => undecoratedPlayer.UseArrow(direction);
-        public void UseFire(Direction direction) => undecoratedPlayer.UseFire(direction);
-        public void UseBomb(Direction direction) => undecoratedPlayer.UseBomb(direction);
-        public void UseSwordBeam(Direction direction) => undecoratedPlayer.UseSwordBeam(direction);
+        public void UseBoomerang(CardinalDirections direction) => undecoratedPlayer.UseBoomerang(direction);
+        public void UseArrow(CardinalDirections direction) => undecoratedPlayer.UseArrow(direction);
+        public void UseFire(CardinalDirections direction) => undecoratedPlayer.UseFire(direction);
+        public void UseBomb(CardinalDirections direction) => undecoratedPlayer.UseBomb(direction);
+        public void UseSwordBeam(CardinalDirections direction) => undecoratedPlayer.UseSwordBeam(direction);
     }
 }
 

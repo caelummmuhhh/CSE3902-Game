@@ -23,11 +23,11 @@ namespace MainGame.Players
         public void MoveRight();
         public void Stop();
         public void UseSword();
-        public void UseBoomerang(Direction direction);
-        public void UseArrow(Direction direction);
-        public void UseFire(Direction direction);
-        public void UseBomb(Direction direction);
-        public void UseSwordBeam(Direction direction);
+        public void UseBoomerang(CardinalDirections direction);
+        public void UseArrow(CardinalDirections direction);
+        public void UseFire(CardinalDirections direction);
+        public void UseBomb(CardinalDirections direction);
+        public void UseSwordBeam(CardinalDirections direction);
     }
 }
 

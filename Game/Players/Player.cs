@@ -57,11 +57,11 @@ namespace MainGame.Players
 
 		public void UseSword() => CurrentState.UseSword();
 
-		public void UseBoomerang(Direction direction) => projectilesManager.AddProjectile(new BoomerangProjectile(Position, direction));
-        public void UseArrow(Direction direction) => projectilesManager.AddProjectile(new ArrowProjectile(Position, direction));
-        public void UseFire(Direction direction) => projectilesManager.AddProjectile(new FireBallProjectile(Position, direction));
-		public void UseBomb(Direction direction) => projectilesManager.AddProjectile(new BombProjectile(Position, direction));
-		public void UseSwordBeam(Direction direction) => projectilesManager.AddProjectile(new SwordBeamProjectile(Position, direction));
+		public void UseBoomerang(CardinalDirections direction) => projectilesManager.AddProjectile(new BoomerangProjectile(Position, direction));
+        public void UseArrow(CardinalDirections direction) => projectilesManager.AddProjectile(new ArrowProjectile(Position, direction));
+        public void UseFire(CardinalDirections direction) => projectilesManager.AddProjectile(new FireBallProjectile(Position, direction));
+		public void UseBomb(CardinalDirections direction) => projectilesManager.AddProjectile(new BombProjectile(Position, direction));
+		public void UseSwordBeam(CardinalDirections direction) => projectilesManager.AddProjectile(new SwordBeamProjectile(Position, direction));
     }
 }
 
