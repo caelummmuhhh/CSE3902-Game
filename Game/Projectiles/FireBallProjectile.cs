@@ -8,6 +8,12 @@ namespace MainGame.Projectiles
     {
         public Vector2 Position { get => position; }
         public bool IsActive { get => isActive; }
+        public Rectangle HitBox
+        {
+            get => Utils.CentralizeRectangle(
+                sprite.DestinationRectangle.X, sprite.DestinationRectangle.Y,
+                sprite.DestinationRectangle);
+        }
 
         private readonly ISprite sprite;
         private readonly float maxDistanceTravel = 200f;

@@ -72,5 +72,12 @@ namespace MainGame.SpriteHandlers.PlayerSprites
 
             spriteBatch.Draw(Texture, destRectangle, srcRectangle, color, rotation, origin, SpriteEffects.None, layer);
         }
+
+        protected override Rectangle GetDestinationRectangle(float x, float y)
+        {
+            Rectangle rectangle = base.GetDestinationRectangle(x, y);
+            DestinationRectangle = new((int)origin.X, (int)origin.Y, rectangle.Width / 2, rectangle.Height);
+            return rectangle;
+        }
     }
 }

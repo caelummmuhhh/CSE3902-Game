@@ -8,8 +8,17 @@ namespace MainGame.Projectiles
 	{
         public Vector2 Position { get => position; set => position = value; }
         public bool IsActive { get => isActive; }
+        public Rectangle HitBox
+        {
+            get
+            {
+                Rectangle destRect = sprite.DestinationRectangle;
+                Rectangle resized = new(destRect.X, destRect.Y, destRect.Width / 2, destRect.Height / 2);
+                return Utils.CentralizeRectangle(destRect.X, destRect.Y, resized);
+            }
+        }
 
-		private bool isActive = true;
+        private bool isActive = true;
 		private Vector2 position;
 		protected readonly ISprite sprite;
 		protected int horizontalSpeed = Constants.UniversalScale;

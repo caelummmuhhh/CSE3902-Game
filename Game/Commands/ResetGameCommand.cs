@@ -1,16 +1,5 @@
-﻿using MainGame.Blocks;
-using MainGame.Controllers;
-using MainGame.Enemies;
-using MainGame.Items;
-using MainGame.Managers;
+﻿using MainGame.Controllers;
 using MainGame.Players;
-using MainGame.SpriteHandlers;
-using Microsoft.Xna.Framework;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MainGame.Commands
 {
@@ -28,7 +17,7 @@ namespace MainGame.Commands
 
             game.Player = new Player(game);
 
-            game.controllers.Add(new KeyboardController(game, game.Player, game.Block, game.blockManager.GetBlocks(), game.Item, game.itemManager.GetItems()));
+            game.controllers.Add(new KeyboardController(game, game.Player));
             game.controllers.Add(new MouseController(game, game.Player));
         }
 

@@ -8,6 +8,7 @@ namespace MainGame.SpriteHandlers
     {
         public readonly int StartXPosition;
         public readonly int StartYPosition;
+        public override Rectangle DestinationRectangle { get; protected set; }
 
         protected float rotation;
         protected Vector2 origin;
@@ -33,6 +34,7 @@ namespace MainGame.SpriteHandlers
             origin = new Vector2(FrameWidth / 2f, FrameHeight / 2f);
             rotation = 0f;
             layer = layerDepth;
+            DestinationRectangle = new(0, 0, frameWidth, frameHeight);
         }
 
         protected override Rectangle GetSourceRectangle()
@@ -44,13 +46,15 @@ namespace MainGame.SpriteHandlers
                 FrameHeight);
         }
 
-        protected Rectangle GetDestinationRectangle(float x, float y)
+        protected override Rectangle GetDestinationRectangle(float x, float y)
         {
-            return new Rectangle(
+            Rectangle destRect =  new(
                 (int)(x - origin.X),
                 (int)(y - origin.Y),
                 FrameWidth * Scale,
                 FrameHeight * Scale);
+            DestinationRectangle = destRect;
+            return destRect;
         }
     }
 }

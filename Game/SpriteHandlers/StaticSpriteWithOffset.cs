@@ -10,6 +10,7 @@ namespace MainGame.SpriteHandlers
         public readonly int StartYPosition;
         public virtual int FrameWidth { get => frameWidth; }
         public virtual int FrameHeight { get => frameHeight; }
+        public override Rectangle DestinationRectangle { get; protected set; }
 
         protected int frameWidth;
         protected int frameHeight;
@@ -42,11 +43,13 @@ namespace MainGame.SpriteHandlers
 
         protected Rectangle GetDestinationRectangle(float x, float y)
         {
-            return new(
+            Rectangle destRect = new(
                 (int)(x - origin.X),
                 (int)(y - origin.Y),
-                FrameWidth * scale,
-                FrameHeight * scale);
+                FrameWidth * Scale,
+                FrameHeight * Scale);
+            DestinationRectangle = destRect;
+            return destRect;
         }
     }
 }

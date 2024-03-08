@@ -16,6 +16,7 @@ namespace MainGame.Players.PlayerStates
 			this.player.Sprite = SpriteFactory.CreatePlayerAttackingRightSprite();
             AnimatedSprite newSprite = (AnimatedSprite)this.player.Sprite;
             stateDuration = newSprite.AnimationFrameDuration;
+            player.SwordHitBox = GetSwordHitBox();
         }
 
         public void Update()
@@ -25,6 +26,7 @@ namespace MainGame.Players.PlayerStates
                 player.CurrentState = new PlayerIdleRightState(player);
             }
             player.Sprite.Update();
+            player.SwordHitBox = GetSwordHitBox();
         }
 
         public void Draw()
@@ -47,6 +49,15 @@ namespace MainGame.Players.PlayerStates
         public void UseArrow() { }
         public void UseBomb() { }
         public void UseSwordBeam() { }
+
+        private Rectangle GetSwordHitBox()
+        {
+            Rectangle playerRectangle = player.Sprite.DestinationRectangle;
+            return new(
+                playerRectangle.X + playerRectangle.Width, playerRectangle.Y,
+                playerRectangle.Width, playerRectangle.Height
+                );
+        }
     }
 }
 

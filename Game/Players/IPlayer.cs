@@ -12,6 +12,10 @@ namespace MainGame.Players
         public ISprite Sprite { get; set; }
         public bool IsMoving { get; set; }
 
+        public Rectangle MainHitbox { get; set; }
+        public Rectangle BottomHalfHitBox { get; set; }
+        public Rectangle SwordHitBox { get; set; }
+
         public void Update();
         public void Draw();
 

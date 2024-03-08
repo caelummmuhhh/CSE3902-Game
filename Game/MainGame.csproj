@@ -41,6 +41,9 @@
     <None Remove="Enemies\WallMasterEnemy\" />
     <None Remove="Enemies\AquamentusEnemy\" />
     <None Remove="Projectiles\AquamentusProjectile\" />
+    <None Remove="Collision\" />
+    <None Remove="Collision\CollisionHandlers\" />
+    <None Remove="Collision\NonSpriteHitBoxes\" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Icon.ico" />
@@ -75,6 +78,9 @@
     <Folder Include="Enemies\WallMasterEnemy\" />
     <Folder Include="Enemies\AquamentusEnemy\" />
     <Folder Include="Projectiles\AquamentusProjectile\" />
+    <Folder Include="Collision\" />
+    <Folder Include="Collision\CollisionHandlers\" />
+    <Folder Include="Collision\NonSpriteHitBoxes\" />
   </ItemGroup>
   <Target Name="RestoreDotnetTools" BeforeTargets="Restore">
     <Message Text="Restoring dotnet tools" Importance="High" />

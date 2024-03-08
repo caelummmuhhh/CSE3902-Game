@@ -1,4 +1,6 @@
 ﻿using System;
+using Microsoft.Xna.Framework;
+
 namespace MainGame
 {
     public enum CardinalAndOrdinalDirection
@@ -15,5 +17,17 @@ namespace MainGame
     {
         public static readonly int UniversalScale = 3;
     }
+
+    public static class Utils
+    {
+        public static Rectangle CentralizeRectangle(int desiredX, int desiredY, Rectangle rectangle)
+        {
+            return new(
+                desiredX - rectangle.X / 2, desiredY - rectangle.Y / 2,
+                rectangle.Width, rectangle.Height
+                );
+        }
+    }
+
 }
 

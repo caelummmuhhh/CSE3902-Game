@@ -1,10 +1,6 @@
 ﻿using MainGame.SpriteHandlers;
 using Microsoft.Xna.Framework;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MainGame.Doors
 {
@@ -13,36 +9,34 @@ namespace MainGame.Doors
         public ISprite SpriteTop;
         public ISprite SpriteBottom;
         public Vector2 Position;
-        private readonly Game game;
-        public enum dir { North, South, West, East };
-        public dir Direction;
+        public CardinalDirections Direction;
         public int BottomXOffset = 0;
         public int BottomYOffset = 0;
+        public Rectangle HitBox { get => SpriteTop.DestinationRectangle; }
 
-        public Door(Vector2 position, ISprite spriteTop, ISprite spriteBottom, String direction,Game game)
+        public Door(Vector2 position, ISprite spriteTop, ISprite spriteBottom, String direction)
         {
             Position = position;
             SpriteTop = spriteTop;
-            SpriteBottom = spriteBottom;
-            Direction = (dir)Enum.Parse(typeof(dir), direction);
-            this.game = game;
+            SpriteBottom = spriteBottom;                                                                                                                              
+            Direction = (CardinalDirections)Enum.Parse(typeof(CardinalDirections), direction);
 
             SpriteTop.LayerDepth = 0f;
             SpriteBottom.LayerDepth = 1.0f;
 
-            if (Direction == dir.North)
+            if (Direction == CardinalDirections.North)
             {
                 BottomYOffset = 48;
             }
-            else if (Direction == dir.South)
+            else if (Direction == CardinalDirections.South)
             {
                 BottomYOffset = -48;
             }
-            else if (Direction == dir.West)
+            else if (Direction == CardinalDirections.West)
             {
                 BottomXOffset = 48;
             }
-            else if (Direction == dir.East)
+            else if (Direction == CardinalDirections.East)
             {
                 BottomXOffset = -48;
             }

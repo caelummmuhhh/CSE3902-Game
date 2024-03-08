@@ -1,7 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using MainGame.SpriteHandlers;
 using MainGame.Players.PlayerStates;
-using MainGame.Projectiles;
 
 namespace MainGame.Players
 {
@@ -27,6 +26,25 @@ namespace MainGame.Players
             get => undecoratedPlayer.IsMoving;
             set => undecoratedPlayer.IsMoving = value;
         }
+
+        public Rectangle MainHitbox
+        {
+            get => undecoratedPlayer.MainHitbox;
+            set => undecoratedPlayer.MainHitbox = value;
+        }
+
+        public Rectangle BottomHalfHitBox
+        {
+            get => undecoratedPlayer.BottomHalfHitBox;
+            set => undecoratedPlayer.BottomHalfHitBox = value;
+        }
+
+        public Rectangle SwordHitBox
+        {
+            get => undecoratedPlayer.SwordHitBox;
+            set => undecoratedPlayer.SwordHitBox = value;
+        }
+
 
         private readonly Game1 game;
         private readonly IPlayer undecoratedPlayer;
