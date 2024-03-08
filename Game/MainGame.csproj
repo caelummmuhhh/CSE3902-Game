@@ -19,7 +19,6 @@
     <None Remove="Players\" />
     <None Remove="SpriteHandlers\PlayerSprites\" />
     <None Remove="SpriteHandlers\EnemySprites\" />
-    <None Remove="SpriteHandlers\EnemySprites\KeeseSprites\" />
     <None Remove="SpriteHandlers\EnemySprites\AquamentusSprites\" />
     <None Remove="SpriteHandlers\EnemySprites\GoriyaSprites\" />
     <None Remove="SpriteHandlers\BlockSprites\" />
@@ -32,6 +31,16 @@
     <None Remove="Commands\PlayerCommands\" />
     <None Remove="Projectiles\" />
     <None Remove="Players\PlayerStates\DamagedStates\" />
+    <None Remove="Enemies\KeeseEnemy\" />
+    <None Remove="SpriteHandlers\EnemySprites\KeeseSprites\" />
+    <None Remove="Enemies\GelEnemy\" />
+    <None Remove="Enemies\StalfosEnemy\" />
+    <None Remove="Enemies\GoriyaEnemy\" />
+    <None Remove="Enemies\SpikeCrossEnemy\" />
+    <None Remove="Enemies\OldManEnemy\" />
+    <None Remove="Enemies\WallMasterEnemy\" />
+    <None Remove="Enemies\AquamentusEnemy\" />
+    <None Remove="Projectiles\AquamentusProjectile\" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Icon.ico" />
@@ -45,7 +54,6 @@
     <Folder Include="Controllers\" />
     <Folder Include="Players\" />
     <Folder Include="SpriteHandlers\PlayerSprites\" />
-    <Folder Include="SpriteHandlers\EnemySprites\KeeseSprites\" />
     <Folder Include="SpriteHandlers\EnemySprites\GoriyaSprites\" />
     <Folder Include="SpriteHandlers\BlockSprites\" />
     <Folder Include="SpriteHandlers\ItemSprites\" />
@@ -56,6 +64,16 @@
     <Folder Include="Commands\PlayerCommands\" />
     <Folder Include="Projectiles\" />
     <Folder Include="Players\PlayerStates\DamagedStates\" />
+    <Folder Include="Enemies\KeeseEnemy\" />
+    <Folder Include="SpriteHandlers\EnemySprites\KeeseSprites\" />
+    <Folder Include="Enemies\GelEnemy\" />
+    <Folder Include="Enemies\StalfosEnemy\" />
+    <Folder Include="Enemies\GoriyaEnemy\" />
+    <Folder Include="Enemies\SpikeCrossEnemy\" />
+    <Folder Include="Enemies\OldManEnemy\" />
+    <Folder Include="Enemies\WallMasterEnemy\" />
+    <Folder Include="Enemies\AquamentusEnemy\" />
+    <Folder Include="Projectiles\AquamentusProjectile\" />
   </ItemGroup>
   <ItemGroup>
     <None Update="Content\Rooms\Room_1.csv">

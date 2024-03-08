@@ -28,9 +28,7 @@ namespace MainGame.SpriteHandlers.EnemySprites
             Rectangle srcRectangle = GetSourceRectangle();
             Rectangle destRectangle = GetDestinationRectangle(x, y);
 
-            spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, SamplerState.PointClamp);
             spriteBatch.Draw(Texture, destRectangle, srcRectangle, color, rotation, origin, SpriteEffects.None, layer);
-            spriteBatch.End();
         }
     }
 }

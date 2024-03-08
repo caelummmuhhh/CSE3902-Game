@@ -25,7 +25,7 @@ namespace MainGame.SpriteHandlers.EnemySprites
             int textureStartingX = 0,
             int textureStartingY = 0,
             int scale = 1,
-            float layerDepth = 0.5f)
+            float layerDepth = 0f)
             : base(texture, numRows, numColumns, frameWidth, frameHeight, numberOfFrames,
                   textureStartingX, textureStartingY, scale, layerDepth)
         {
