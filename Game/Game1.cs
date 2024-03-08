@@ -24,6 +24,7 @@ public class Game1 : Game
     public List<IController> controllers;
 
     public IPlayer Player;
+    public GenericEnemy Enemy;
 
     public Room Room;
 
@@ -39,14 +40,15 @@ public class Game1 : Game
 
     public Game1()
     {
-        GraphicsManager = new GraphicsDeviceManager(this);
-
-        GraphicsManager.PreferredBackBufferWidth = 768;
-        GraphicsManager.PreferredBackBufferHeight = 528;  //768 in sprint 4+
+        GraphicsManager = new GraphicsDeviceManager(this)
+        {
+            PreferredBackBufferWidth = 768,
+            PreferredBackBufferHeight = 528  //768 in sprint 4+
+        };
 
         Content.RootDirectory = "Content";
         IsMouseVisible = true;
-        TargetElapsedTime = TimeSpan.FromSeconds(1d / 30d);
+        //TargetElapsedTime = TimeSpan.FromSeconds(1d / 30d);
     }
 
     protected override void Initialize()
@@ -66,6 +68,14 @@ public class Game1 : Game
         SpriteFactory.SpriteBatch = spriteBatch;
 
         Player = new Player(this);
+        //Enemy = new GoriyaEnemy(new Vector2(465, 224));
+        //Enemy = new KeeseEnemy(new Vector2(465, 224));
+        //Enemy = new GelEnemy(new Vector2(465, 224));
+        //Enemy = new SpikeCrossEnemy(new Vector2(465, 224), Player);
+        //Enemy = new StalfosEnemy(new Vector2(465, 224));
+        //Enemy = new WallMasterEnemy(new Vector2(465, 224), Player);
+        //Enemy = new OldManEnemy(new Vector2(465, 224));
+        Enemy = new AquamentusEnemy(new Vector2(465+3*48, 224+48), Player);
 
         Room = new Room(
             SpriteFactory.CreateRoomOuterBorderSprite(),
@@ -131,6 +141,7 @@ public class Game1 : Game
         }
 
         Player.Update();
+        Enemy.Update();
         Block.Update();
         Item.Update();
 
@@ -149,6 +160,7 @@ public class Game1 : Game
         EastDoor.Draw();
 
         Player.Draw();
+        Enemy.Draw();
 
         Block.Draw();
         Item.Draw();
