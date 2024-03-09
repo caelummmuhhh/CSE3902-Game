@@ -1,7 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
-
 using MainGame.SpriteHandlers;
 using MainGame.Controllers;
 using MainGame.Players;
@@ -29,10 +28,6 @@ public class Game1 : Game
 
     public Room Room;
 
-
-
-    public HashSet<Block> Blocks;
-    public HashSet<Item> Items;
     public BlockManager blockManager;
     public ItemManager itemManager;
 
@@ -54,8 +49,6 @@ public class Game1 : Game
         controllers = new List<IController>();
         blockManager = new BlockManager();
         itemManager = new ItemManager();
-        Blocks = new HashSet<Block>();
-        Items = new HashSet<Item>();
 
         base.Initialize();
     }
@@ -94,16 +87,8 @@ public class Game1 : Game
 
         Player.Update();
         Enemy.Update();
-        foreach(Block block in Blocks)
-        {
-            block.Update();
-        }
-        foreach(Item item in Items)
-        {
-            item.Update();
-        }
+        Room.Update();
         
-
         base.Update(gameTime);
     }
 
@@ -116,18 +101,7 @@ public class Game1 : Game
 
         Player.Draw();
 
-        foreach (Block block in Blocks)
-        {
-            block.Draw();
-        }
-        foreach (Item item in Items)
-        {
-            item.Draw();
-        }
-
         Enemy.Draw();
-
-
 
         spriteBatch.End();
 
