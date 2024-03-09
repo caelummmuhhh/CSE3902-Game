@@ -47,6 +47,8 @@ namespace MainGame.Controllers
                 { Keys.D2, new PlayerUseArrowCommand(player) },
                 { Keys.D3, new PlayerUseBoomerangCommand(player) },
                 { Keys.D4, new PlayerUseFireCommand(player) },
+
+                { Keys.Up, new NextRoomCommand(game) },
             };
         }
 

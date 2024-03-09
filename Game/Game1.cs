@@ -1,7 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
-
 using MainGame.SpriteHandlers;
 using MainGame.Controllers;
 using MainGame.Players;
@@ -15,7 +14,10 @@ using MainGame.Particles;
 
 using MainGame.Managers;
 using System;
+
 using MainGame.SpriteHandlers.ParticleSprites;
+using MainGame.RoomsAndDoors;
+
 
 namespace MainGame;
 
@@ -26,30 +28,25 @@ public class Game1 : Game
     public List<IController> controllers;
 
     public IPlayer Player;
+    public GenericEnemy Enemy;
 
     public Room Room;
 
-    public Door NorthDoor;
-    public Door WestDoor;
-    public Door EastDoor;
-    public Door SouthDoor;
-
-    public Block Block;
-    public Item Item;
     public BlockManager blockManager;
     public ItemManager itemManager;
     public Particle Particle;
 
     public Game1()
     {
-        GraphicsManager = new GraphicsDeviceManager(this);
-
-        GraphicsManager.PreferredBackBufferWidth = 768;
-        GraphicsManager.PreferredBackBufferHeight = 528;  //768 in sprint 4+
+        GraphicsManager = new GraphicsDeviceManager(this)
+        {
+            PreferredBackBufferWidth = 768,
+            PreferredBackBufferHeight = 528  //768 in sprint 4+
+        };
 
         Content.RootDirectory = "Content";
         IsMouseVisible = true;
-        TargetElapsedTime = TimeSpan.FromSeconds(1d / 30d);
+        //TargetElapsedTime = TimeSpan.FromSeconds(1d / 30d);
     }
 
     protected override void Initialize()
@@ -67,62 +64,25 @@ public class Game1 : Game
 
         SpriteFactory.LoadAllTextures(Content);
         SpriteFactory.SpriteBatch = spriteBatch;
+
         Particle = new Particle(this);
-        Player = new Player(this);
-
-        Room = new Room(
-            SpriteFactory.CreateRoomOuterBorderSprite(),
-            SpriteFactory.CreateRoomInnerBorderSprite(),
-            SpriteFactory.CreateDungeonTilesSprite(),
-            this
-        );
-
-        NorthDoor = new Door(
-            new Vector2(336, 0),
-            SpriteFactory.CreateDoorTopNorthSouth("North", "wallNormal"),
-            SpriteFactory.CreateDoorBottomNorthSouth("North", "wallNormal"),
-            "North",
-            this
-        );
-        SouthDoor = new Door(
-            new Vector2(336, 480),
-            SpriteFactory.CreateDoorTopNorthSouth("South", "diamondDoor"),
-            SpriteFactory.CreateDoorBottomNorthSouth("South", "diamondDoor"),
-            "South",
-            this
-        );
-        WestDoor = new Door(
-            new Vector2(0, 216),
-            SpriteFactory.CreateDoorTopWestEast("West", "destroyedWall"),
-            SpriteFactory.CreateDoorBottomWestEast("West", "destroyedWall"),
-            "West",
-            this
-        );
-        EastDoor = new Door(
-            new Vector2(720, 216),
-            SpriteFactory.CreateDoorTopWestEast("East", "openDoor"),
-            SpriteFactory.CreateDoorBottomWestEast("East", "openDoor"),
-            "East",
-            this
-        );
-
 
         blockManager.LoadBlocks();
         itemManager.LoadItems();
-        Block =  new Block(
-            new Vector2(GraphicsManager.PreferredBackBufferWidth / 3,
-                GraphicsManager.PreferredBackBufferHeight / 3),
-            blockManager.GetBlocks()[0],
-            this
-        );
-        Item = new Item(
-            new Vector2(GraphicsManager.PreferredBackBufferWidth / 3*2,
-                GraphicsManager.PreferredBackBufferHeight / 3),
-            itemManager.GetItems()[0],
-            this
-        );
 
-        controllers.Add(new KeyboardController(this, Player, Block, blockManager.GetBlocks(), Item, itemManager.GetItems()));
+        Player = new Player(this);
+        //Enemy = new GoriyaEnemy(new Vector2(465, 224));
+        //Enemy = new KeeseEnemy(new Vector2(465, 224));
+        //Enemy = new GelEnemy(new Vector2(465, 224));
+        //Enemy = new SpikeCrossEnemy(new Vector2(465, 224), Player);
+        //Enemy = new StalfosEnemy(new Vector2(465, 224));
+        //Enemy = new WallMasterEnemy(new Vector2(465, 224), Player);
+        //Enemy = new OldManEnemy(new Vector2(465, 224));
+        Enemy = new AquamentusEnemy(new Vector2(465+3*48, 224+48), Player);
+
+        Room = RoomFactory.GenerateRoom("Room_1", this);
+
+        controllers.Add(new KeyboardController(this, Player, null, blockManager.GetBlocks(), null, itemManager.GetItems()));
         controllers.Add(new MouseController(this, Player));
     }
 
@@ -134,9 +94,11 @@ public class Game1 : Game
         }
 
         Player.Update();
-        Block.Update();
-        Item.Update();
         Particle.Update();
+
+        Enemy.Update();
+        Room.Update();
+        
         base.Update(gameTime);
     }
 
@@ -146,15 +108,11 @@ public class Game1 : Game
         spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, SamplerState.PointClamp);
 
         Room.Draw();
-        NorthDoor.Draw();
-        SouthDoor.Draw();
-        WestDoor.Draw();
-        EastDoor.Draw();
 
         Player.Draw();
         Particle.Draw();
-        Block.Draw();
-        Item.Draw();
+
+        Enemy.Draw();
 
         spriteBatch.End();
 
