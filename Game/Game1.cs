@@ -1,7 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
-
 using MainGame.SpriteHandlers;
 using MainGame.Controllers;
 using MainGame.Players;
@@ -11,6 +10,7 @@ using System.Collections.Generic;
 using MainGame.Enemies;
 
 using System;
+using MainGame.RoomsAndDoors;
 
 namespace MainGame;
 
@@ -66,38 +66,7 @@ public class Game1 : Game
         //Enemy = new OldManEnemy(new Vector2(465, 224));
         Enemy = new AquamentusEnemy(new Vector2(465+3*48, 224+48), Player);
 
-        Room = new Room(
-            SpriteFactory.CreateRoomOuterBorderSprite(),
-            SpriteFactory.CreateRoomInnerBorderSprite(),
-            SpriteFactory.CreateDungeonTilesSprite(),
-            this
-        );
-
-        NorthDoor = new Door(
-            new Vector2(336, 0),
-            SpriteFactory.CreateDoorTopNorthSouth("North", "wallNormal"),
-            SpriteFactory.CreateDoorBottomNorthSouth("North", "wallNormal"),
-            "North"
-        );
-        SouthDoor = new Door(
-            new Vector2(336, 480),
-            SpriteFactory.CreateDoorTopNorthSouth("South", "diamondDoor"),
-            SpriteFactory.CreateDoorBottomNorthSouth("South", "diamondDoor"),
-            "South"
-        );
-        WestDoor = new Door(
-            new Vector2(0, 216),
-            SpriteFactory.CreateDoorTopWestEast("West", "destroyedWall"),
-            SpriteFactory.CreateDoorBottomWestEast("West", "destroyedWall"),
-            "West"
-        );
-        EastDoor = new Door(
-            new Vector2(720, 216),
-            SpriteFactory.CreateDoorTopWestEast("East", "openDoor"),
-            SpriteFactory.CreateDoorBottomWestEast("East", "openDoor"),
-            "East"
-        );
-
+        Room = RoomFactory.GenerateRoom("Room_1", this);
 
         controllers.Add(new KeyboardController(this, Player));
         controllers.Add(new MouseController(this, Player));
@@ -112,7 +81,8 @@ public class Game1 : Game
 
         Player.Update();
         Enemy.Update();
-
+        Room.Update();
+        
         base.Update(gameTime);
     }
 
@@ -122,12 +92,9 @@ public class Game1 : Game
         spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, SamplerState.PointClamp);
 
         Room.Draw();
-        NorthDoor.Draw();
-        SouthDoor.Draw();
-        WestDoor.Draw();
-        EastDoor.Draw();
 
         Player.Draw();
+
         Enemy.Draw();
 
         spriteBatch.End();

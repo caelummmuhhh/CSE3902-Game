@@ -4,7 +4,13 @@ using System;
 
 namespace MainGame.Doors
 {
-    public class Door
+    public interface IDoor
+    {
+        public void Update();
+        public void Draw();
+    }
+
+    public class Door : IDoor
     {
         public ISprite SpriteTop;
         public ISprite SpriteBottom;
@@ -54,5 +60,12 @@ namespace MainGame.Doors
             SpriteTop.Draw(Position.X, Position.Y, Color.White);
             SpriteBottom.Draw(Position.X + BottomXOffset, Position.Y + BottomYOffset, Color.White);
         }
+    }
+
+    public class BlankDoor : IDoor
+    {
+        // Nothing to do for a blank door
+        public void Draw(){} 
+        public void Update(){}
     }
 }
