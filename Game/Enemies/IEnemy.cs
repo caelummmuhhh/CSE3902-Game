@@ -5,6 +5,7 @@ namespace MainGame.Enemies
 {
 	public interface IEnemy
 	{
+        public Vector2 PreviousPosition { get; set; }
         public Vector2 Position { get; set; }
         public ISprite Sprite { get; set; }
         public IEnemyState State { get; set; }

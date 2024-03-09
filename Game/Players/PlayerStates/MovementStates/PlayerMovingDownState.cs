@@ -22,6 +22,7 @@ namespace MainGame.Players.PlayerStates
 
         public void MoveDown()
 		{
+            player.PreviousPosition = player.Position;
 			player.IsMoving = true;
 			player.Position = new Vector2(player.Position.X, player.Position.Y + Player.Speed);
 		}

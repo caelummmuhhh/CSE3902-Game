@@ -7,6 +7,11 @@ using MainGame.Controllers;
 using MainGame.Players;
 using MainGame.Rooms;
 using MainGame.RoomsAndDoors;
+using MainGame.BlocksAndItems;
+
+using MainGame.Collision;
+using MainGame.SpriteHandlers.BlockSprites;
+using MainGame.Enemies;
 
 namespace MainGame;
 
@@ -18,6 +23,9 @@ public class Game1 : Game
 
     public IPlayer Player;
     public Room Room;
+    public CollisionDetector Collision;
+
+    public BlockSprite testBlock; // TODO: DELETE ME
 
     public Game1()
     {
@@ -48,6 +56,9 @@ public class Game1 : Game
         Player = new Player(this);
 
         Room = RoomFactory.GenerateRoom(1, this);
+        Collision = new(this);
+
+        testBlock = (BlockSprite)SpriteFactory.CreateBlackSquareSprite(); // TODO: DELETE ME
 
         controllers.Add(new KeyboardController(this, Player));
         controllers.Add(new MouseController(this, Player));
@@ -62,7 +73,7 @@ public class Game1 : Game
 
         Player.Update();
         Room.Update();
-        
+        Collision.Update();
         base.Update(gameTime);
     }
 
@@ -73,6 +84,15 @@ public class Game1 : Game
 
         Room.Draw();
         Player.Draw();
+
+        if (Room.Enemies.Count > 0)
+        {
+            testBlock.Draw(
+                new List<IEnemy>(Room.Enemies)[0].HitBox,
+                Color.White
+                );
+
+        }
 
         spriteBatch.End();
 

@@ -5,14 +5,13 @@ namespace MainGame.Enemies
 {
     public class KeeseFlyingState : IEnemyState
     {
-        private readonly GenericEnemy entity;
+        private readonly KeeseEnemy entity;
         private readonly Random random;
-        private CardinalAndOrdinalDirection moveDirection;
 
         private int flightDurationTimer;
         private int directionChangeTimer;
 
-        public KeeseFlyingState(GenericEnemy enemy)
+        public KeeseFlyingState(KeeseEnemy enemy)
         {
             entity = enemy;
             entity.Sprite = SpriteFactory.CreateKeeseFlightSprite();
@@ -43,13 +42,13 @@ namespace MainGame.Enemies
         {
             if (flightDurationTimer % entity.MovementCoolDownFrame == 0)
             {
-                entity.Position = EnemyUtils.DirectionalMove(entity.Position, moveDirection, entity.MovementSpeed);
+                entity.Position = EnemyUtils.DirectionalMove(entity.Position, entity.MoveDirection, entity.MovementSpeed);
             }
         }
 
-        private void ChangeDirection()
+        public void ChangeDirection()
         {
-            moveDirection = EnemyUtils.GetRandomCardinalAndOrdinalDirection();
+            entity.ChangeDirection();
             directionChangeTimer = random.Next(1, 16) * 4;
         }
     }

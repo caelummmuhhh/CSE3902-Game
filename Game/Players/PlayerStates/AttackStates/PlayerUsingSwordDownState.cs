@@ -24,6 +24,8 @@ namespace MainGame.Players.PlayerStates
             if (currentFrame == stateDuration)
             {
                 player.CurrentState = new PlayerIdleDownState(player);
+                player.SwordHitBox = new();
+                return;
             }
             player.Sprite.Update();
             player.SwordHitBox = GetSwordHitBox();
@@ -52,10 +54,11 @@ namespace MainGame.Players.PlayerStates
 
         private Rectangle GetSwordHitBox()
         {
-            Rectangle playerRectangle = player.Sprite.DestinationRectangle;
+            Rectangle playerRectangle = player.MainHitbox;
             return new(
-                playerRectangle.X, playerRectangle.Y + playerRectangle.Height,
-                playerRectangle.Width, playerRectangle.Height
+                playerRectangle.X + 7 * Constants.UniversalScale,
+                playerRectangle.Y + 16 * Constants.UniversalScale,
+                3 * Constants.UniversalScale, 11 * Constants.UniversalScale
                 );
         }
     }

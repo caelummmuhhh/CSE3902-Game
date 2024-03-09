@@ -45,6 +45,12 @@ namespace MainGame.Players
             set => undecoratedPlayer.SwordHitBox = value;
         }
 
+        public Vector2 PreviousPosition
+        {
+            get => undecoratedPlayer.PreviousPosition;
+            set => undecoratedPlayer.PreviousPosition = value;
+        }
+
 
         private readonly Game1 game;
         private readonly IPlayer undecoratedPlayer;

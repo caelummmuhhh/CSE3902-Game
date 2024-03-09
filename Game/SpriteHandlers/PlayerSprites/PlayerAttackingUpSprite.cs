@@ -76,7 +76,7 @@ namespace MainGame.SpriteHandlers.PlayerSprites
         protected override Rectangle GetDestinationRectangle(float x, float y)
         {
             Rectangle rectangle = base.GetDestinationRectangle(x, y);
-            DestinationRectangle = new((int)origin.X, (int)origin.Y, rectangle.Width, rectangle.Height / 2);
+            DestinationRectangle = new(rectangle.X, rectangle.Y, rectangle.Width, 16 * Constants.UniversalScale);
             return rectangle;
         }
     }

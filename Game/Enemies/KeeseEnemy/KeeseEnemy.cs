@@ -4,7 +4,8 @@ namespace MainGame.Enemies
 {
 	public class KeeseEnemy : GenericEnemy
 	{
-        public override int MovementCoolDownFrame { get; protected set; } = 2;
+        public override int MovementCoolDownFrame { get; protected set; } = 1;
+        public CardinalAndOrdinalDirection MoveDirection;
 
         public KeeseEnemy(Vector2 spawnPosition)
         {
@@ -19,6 +20,11 @@ namespace MainGame.Enemies
         }
 
         public override void Move() => State.Move();
+
+        public void ChangeDirection()
+        {
+            MoveDirection = EnemyUtils.GetRandomCardinalAndOrdinalDirection();
+        }
     }
 }
 

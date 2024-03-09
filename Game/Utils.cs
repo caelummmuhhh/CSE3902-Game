@@ -23,7 +23,7 @@ namespace MainGame
         public static Rectangle CentralizeRectangle(int desiredX, int desiredY, Rectangle rectangle)
         {
             return new(
-                desiredX - rectangle.X / 2, desiredY - rectangle.Y / 2,
+                desiredX - rectangle.Width / 2, desiredY - rectangle.Height / 2,
                 rectangle.Width, rectangle.Height
                 );
         }

@@ -2,9 +2,9 @@
 
 namespace MainGame.Collision
 {
-	public interface ICollisionHandler<Entity1, Entity2>
+	public interface ICollisionHandler
 	{
-		public void HandleCollision(Entity1 entity1, Entity2 entity2, Rectangle overlap);
+		public void HandleCollision();
 	}
 }
 

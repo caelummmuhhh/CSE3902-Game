@@ -22,6 +22,7 @@ namespace MainGame.Players.PlayerStates
 
         public void MoveUp()
         {
+            player.PreviousPosition = player.Position;
             player.IsMoving = true;
             player.Position = new(player.Position.X, player.Position.Y - Player.Speed);
         }

@@ -9,6 +9,7 @@ namespace MainGame.Players
     {
         public IPlayerState CurrentState { get; set; }
         public Vector2 Position { get; set; }
+        public Vector2 PreviousPosition { get; set; }
         public ISprite Sprite { get; set; }
         public bool IsMoving { get; set; }
 

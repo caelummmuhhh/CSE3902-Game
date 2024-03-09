@@ -6,14 +6,13 @@ namespace MainGame.Enemies
 {
     public class KeeseLandingState : IEnemyState
     {
-        private readonly GenericEnemy entity;
-        private readonly CardinalAndOrdinalDirection direction;
+        private readonly KeeseEnemy entity;
         private readonly int stateDuration;
         private int stateTimeRemaining;
 
-        public KeeseLandingState(GenericEnemy enemy)
+        public KeeseLandingState(KeeseEnemy enemy)
         {
-            direction = EnemyUtils.GetRandomCardinalAndOrdinalDirection();
+            enemy.ChangeDirection();
 
             entity = enemy;
             entity.Sprite = SpriteFactory.CreateKeeseLandingSprite();
@@ -46,7 +45,7 @@ namespace MainGame.Enemies
                 return;
             }
 
-            entity.Position = EnemyUtils.DirectionalMove(entity.Position, direction, entity.MovementSpeed);
+            entity.Position = EnemyUtils.DirectionalMove(entity.Position, entity.MoveDirection, entity.MovementSpeed);
         }
     }
 }

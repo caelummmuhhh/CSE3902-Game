@@ -22,7 +22,8 @@ namespace MainGame.Players.PlayerStates
 
         public void MoveRight()
 		{
-			player.IsMoving = true;
+            player.PreviousPosition = player.Position;
+            player.IsMoving = true;
 			player.Position = new(player.Position.X + Player.Speed, player.Position.Y);
 		}
 
