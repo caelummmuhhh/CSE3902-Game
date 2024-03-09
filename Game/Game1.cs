@@ -30,6 +30,7 @@ public class Game1 : Game
 
     public BlockManager blockManager;
     public ItemManager itemManager;
+    public RoomsAndDoorsManager roomsAndDoorsManager;
 
     public Game1()
     {
@@ -49,6 +50,7 @@ public class Game1 : Game
         controllers = new List<IController>();
         blockManager = new BlockManager();
         itemManager = new ItemManager();
+        roomsAndDoorsManager = new RoomsAndDoorsManager();
 
         base.Initialize();
     }
