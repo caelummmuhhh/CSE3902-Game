@@ -28,7 +28,7 @@ namespace MainGame.Commands
 
             game.Player = new Player(game);
 
-            game.controllers.Add(new KeyboardController(game, game.Player, game.Block, game.blockManager.GetBlocks(), game.Item, game.itemManager.GetItems()));
+            game.controllers.Add(new KeyboardController(game, game.Player, null, game.blockManager.GetBlocks(), null, game.itemManager.GetItems()));
             game.controllers.Add(new MouseController(game, game.Player));
         }
 

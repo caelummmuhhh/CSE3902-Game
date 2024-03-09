@@ -31,31 +31,31 @@ namespace MainGame.Players.PlayerStates
 
         public void UseArrow()
         {
-            player.UseArrow(Direction.Up);
+            player.UseArrow(CardinalDirections.North);
             player.CurrentState = new PlayerUsingItemUpState(player);
         }
 
         public void UseBoomerang()
         {
-            player.UseBoomerang(Direction.Up);
+            player.UseBoomerang(CardinalDirections.North);
             player.CurrentState = new PlayerUsingItemUpState(player);
         }
 
         public void UseFire()
         {
-            player.UseFire(Direction.Up);
+            player.UseFire(CardinalDirections.North);
             player.CurrentState = new PlayerUsingItemUpState(player);
         }
 
         public void UseBomb()
         {
-            player.UseBomb(Direction.Up);
+            player.UseBomb(CardinalDirections.North);
             player.CurrentState = new PlayerUsingItemUpState(player);
         }
 
         public void UseSwordBeam()
         {
-            player.UseSwordBeam(Direction.Up);
+            player.UseSwordBeam(CardinalDirections.North);
             player.CurrentState = new PlayerUsingSwordUpState(player);
         }
     }

@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using System;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
 namespace MainGame.SpriteHandlers
@@ -6,15 +7,33 @@ namespace MainGame.SpriteHandlers
     public abstract class StaticSprite : ISprite
     {
         public readonly Texture2D Texture;
-        public readonly int Scale;
+        public int Scale { get => scale; }
+        public float LayerDepth
+        {
+            get => layer;
+            set
+            {
+                // Protect setter; SpriteBatch.Draw only allows [0, 1]f values
+                if (value < 0.0f || value > 1.0f)
+                {
+                    throw new ArgumentOutOfRangeException(
+                        nameof(value),
+                        "Value must be between 0 and 1, inclusive.");
+                }
+                layer = value;
+            }
+        }
+
+        protected int scale;
+        protected float layer;
 
         public StaticSprite(Texture2D texture, int scale = 1)
         {
             Texture = texture;
-            Scale = scale;
+            this.scale = scale;
         }
 
-        public abstract void Draw(float x, float y, Color color, float layerDepth = 0f);
+        public abstract void Draw(float x, float y, Color color);
 
         public virtual void Update() { /* generally not needed */ }
 

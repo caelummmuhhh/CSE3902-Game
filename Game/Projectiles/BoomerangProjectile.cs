@@ -16,11 +16,11 @@ namespace MainGame.Projectiles
         private int timeLeft = 0;
 		private readonly float speed = 2f;
 		private readonly float maxTravelDistance = 20f;
-		private readonly Direction direction;
+		private readonly CardinalDirections direction;
 
-		public BoomerangProjectile(Vector2 startingPosition, Direction direction)
+		public BoomerangProjectile(Vector2 entityPosition, CardinalDirections direction)
 		{
-			this.startingPosition = startingPosition;
+			startingPosition = entityPosition;
             position = startingPosition;
 			sprite = SpriteFactory.CreateWoodenBoomerangSprite();
 			this.direction = direction;
@@ -32,16 +32,16 @@ namespace MainGame.Projectiles
 			float changeY = 0f;
 			switch (direction)
 			{
-				case Direction.Up:
+				case CardinalDirections.North:
 					changeY = -1f * CurrentMovementSpeed();
                     break;
-				case Direction.Down:
+				case CardinalDirections.South:
                     changeY = CurrentMovementSpeed();
                     break;
-				case Direction.Right:
+				case CardinalDirections.East:
 					changeX = CurrentMovementSpeed();
 					break;
-				case Direction.Left:
+				case CardinalDirections.West:
 					changeX = -1f * CurrentMovementSpeed();
 					break;
 			}

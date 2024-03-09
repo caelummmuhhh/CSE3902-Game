@@ -9,7 +9,7 @@ namespace MainGame.SpriteHandlers
     public static partial class SpriteFactory
     {
         public enum dir { North, South, West, East };
-        public enum type { wallNormal, openDoor, keyDoor, diamondDoor, destroyedWall, wallDestructible = 0 };
+        public enum type { wallNormal, openDoor, keyDoor, diamondDoor, destroyedWall, wallDestructible = 0};
         public static ISprite CreateDoorTopNorthSouth(String direction, String doorType)
         {
             type DoorType = (type)Enum.Parse(typeof(type), doorType);

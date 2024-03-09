@@ -8,7 +8,13 @@ using System.Threading.Tasks;
 
 namespace MainGame.Doors
 {
-    public class Door
+    public interface IDoor
+    {
+        public void Update();
+        public void Draw();
+    }
+
+    public class Door : IDoor
     {
         public ISprite SpriteTop;
         public ISprite SpriteBottom;
@@ -26,6 +32,10 @@ namespace MainGame.Doors
             SpriteBottom = spriteBottom;
             Direction = (dir)Enum.Parse(typeof(dir), direction);
             this.game = game;
+
+            SpriteTop.LayerDepth = 0f;
+            SpriteBottom.LayerDepth = 1.0f;
+
             if (Direction == dir.North)
             {
                 BottomYOffset = 48;
@@ -53,10 +63,15 @@ namespace MainGame.Doors
 
         public void Draw()
         {
-            SpriteTop.Draw(Position.X, Position.Y, Color.White, 0.0f);
-            SpriteBottom.Draw(Position.X + BottomXOffset, Position.Y + BottomYOffset, Color.White, 1.0f);
-
+            SpriteTop.Draw(Position.X, Position.Y, Color.White);
+            SpriteBottom.Draw(Position.X + BottomXOffset, Position.Y + BottomYOffset, Color.White);
         }
+    }
 
+    public class BlankDoor : IDoor
+    {
+        // Nothing to do for a blank door
+        public void Draw(){} 
+        public void Update(){}
     }
 }

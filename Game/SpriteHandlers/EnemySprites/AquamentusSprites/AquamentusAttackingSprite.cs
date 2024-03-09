@@ -24,9 +24,10 @@ namespace MainGame.SpriteHandlers.EnemySprites
             int frameWidth = 16,
             int textureStartingX = 0,
             int textureStartingY = 0,
-            int scale = 1) : base(texture, numRows, numColumns, frameWidth,
-                                  frameHeight, numberOfFrames, textureStartingX,
-                                  textureStartingY, scale)
+            int scale = 1,
+            float layerDepth = 0f)
+            : base(texture, numRows, numColumns, frameWidth, frameHeight, numberOfFrames,
+                  textureStartingX, textureStartingY, scale, layerDepth)
         {
             this.spriteBatch = spriteBatch;
             spriteDisplayTimeLapse = 0;
@@ -48,14 +49,12 @@ namespace MainGame.SpriteHandlers.EnemySprites
             spriteDisplayTimeLapse++;
         }
 
-        public override void Draw(float x, float y, Color color, float layerDepth = 0f)
+        public override void Draw(float x, float y, Color color)
         {
             Rectangle srcRectangle = GetSourceRectangle();
             Rectangle destRectangle = GetDestinationRectangle(x, y);
 
-            spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, SamplerState.PointClamp);
-            spriteBatch.Draw(Texture, destRectangle, srcRectangle, color, rotation, origin, SpriteEffects.None, 0f);
-            spriteBatch.End();
+            spriteBatch.Draw(Texture, destRectangle, srcRectangle, color, rotation, origin, SpriteEffects.None, layer);
         }
     }
 }
