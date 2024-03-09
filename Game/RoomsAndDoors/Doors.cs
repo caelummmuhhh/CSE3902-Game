@@ -18,13 +18,12 @@ namespace MainGame.Doors
         public CardinalDirections Direction;
         public int BottomXOffset = 0;
         public int BottomYOffset = 0;
-        public Rectangle HitBox { get => SpriteTop.DestinationRectangle; }
 
-        public Door(Vector2 position, ISprite spriteTop, ISprite spriteBottom, String direction)
+        public Door(Vector2 position, ISprite spriteTop, ISprite spriteBottom, string direction)
         {
             Position = position;
             SpriteTop = spriteTop;
-            SpriteBottom = spriteBottom;                                                                                                                              
+            SpriteBottom = spriteBottom;
             Direction = (CardinalDirections)Enum.Parse(typeof(CardinalDirections), direction);
 
             SpriteTop.LayerDepth = 0f;
@@ -65,7 +64,7 @@ namespace MainGame.Doors
     public class BlankDoor : IDoor
     {
         // Nothing to do for a blank door
-        public void Draw(){} 
-        public void Update(){}
+        public void Draw() { }
+        public void Update() { }
     }
 }

@@ -1,15 +1,14 @@
 ﻿using System;
 using System.Diagnostics;
 using System.IO;
-using System.Reflection.Metadata;
-using System.Xml.Linq;
+using Microsoft.Xna.Framework;
+
 using MainGame.Doors;
 using MainGame.Rooms;
 using MainGame.SpriteHandlers;
-using Microsoft.Xna.Framework;
-using MainGame.Blocks;
-using MainGame.Items;
-using MainGame.Managers;
+using MainGame.BlocksAndItems;
+using MainGame.Enemies;
+using MainGame.Players;
 
 namespace MainGame.RoomsAndDoors
 {
@@ -18,28 +17,27 @@ namespace MainGame.RoomsAndDoors
         /*
          * Method for generating a room object based on a room name as specified in Content/Rooms
          */
-        public static Room GenerateRoom(string roomName, Game1 game)
+        public static Room GenerateRoom(int roomNum, Game1 game)
         {
             Room room = null;
 
-            string path = Path.Combine("Content", "Rooms", $"{roomName}.csv");
+            string path = Path.Combine("Content", "Rooms", $"Room_{roomNum}.csv");
             string[] lines = ParseCsv(path);
-            if(lines == null)
+            if (lines == null)
             {
                 Debug.WriteLine("Error reading filename");
             }
             else
             {
                 room = ParseRoomType(lines[0], game); // Parse and set room to a new room object
-                ParseDoors(lines[1], game, room);
+                ParseDoors(lines[1], room);
                 for (int i = 2; i < lines.Length; i++)
                 {
-                    ParseItemsAndBlocks(lines[i], game, room, i-2);
+                    ParseItemsAndBlocks(lines[i], room, i - 2);
+                    ParseEnemies(lines[i], room, game.Player, i - 2);
                 }
             }
-
-            parseNextRooms("", room);
-
+            room.CurrentRoom = roomNum;
             return room;
         }
 
@@ -54,7 +52,7 @@ namespace MainGame.RoomsAndDoors
 
                 return lines;
             }
-            return null; 
+            return null;
         }
 
         /*
@@ -92,7 +90,7 @@ namespace MainGame.RoomsAndDoors
         /* 
          * Method for setting the doors of the room based on csv
          */
-        private static void ParseDoors(string line, Game1 game, Room room)
+        private static void ParseDoors(string line, Room room)
         {
             // Parse raw csv line into 4 doors names
             string[] doors = line.Split(',');
@@ -100,13 +98,12 @@ namespace MainGame.RoomsAndDoors
             // Create each door
             if (!doors[0].Equals("-"))
             {
-               room.NorthDoor = new Door(
-                    new Vector2(336, 0),
-                    SpriteFactory.CreateDoorTopNorthSouth("North", doors[0]),
-                    SpriteFactory.CreateDoorBottomNorthSouth("North", doors[0]),
-                    "North",
-                    game
-                );
+                room.NorthDoor = new Door(
+                     new Vector2(336, 0),
+                     SpriteFactory.CreateDoorTopNorthSouth("North", doors[0]),
+                     SpriteFactory.CreateDoorBottomNorthSouth("North", doors[0]),
+                     "North"
+                 );
             }
 
             if (!doors[1].Equals("-"))
@@ -115,8 +112,7 @@ namespace MainGame.RoomsAndDoors
                 new Vector2(336, 480),
                 SpriteFactory.CreateDoorTopNorthSouth("South", doors[1]),
                 SpriteFactory.CreateDoorBottomNorthSouth("South", doors[1]),
-                "South",
-                game
+                "South"
                 );
             }
 
@@ -126,8 +122,7 @@ namespace MainGame.RoomsAndDoors
                 new Vector2(0, 216),
                 SpriteFactory.CreateDoorTopWestEast("West", doors[2]),
                 SpriteFactory.CreateDoorBottomWestEast("West", doors[2]),
-                "West",
-                game
+                "West"
                 );
             }
 
@@ -137,17 +132,16 @@ namespace MainGame.RoomsAndDoors
                 new Vector2(720, 216),
                 SpriteFactory.CreateDoorTopWestEast("East", doors[3]),
                 SpriteFactory.CreateDoorBottomWestEast("East", doors[3]),
-                "East",
-                game
+                "East"
                 );
             }
         }
 
-        private static void ParseItemsAndBlocks(string line, Game1 game, Room room, int yOffset)
+        private static void ParseItemsAndBlocks(string line, Room room, int yOffset)
         {
-            int wallOffsetX = 96; 
-            int wallOffsetY = 96;
-            int scale = 48;
+            int wallOffsetX = 32 * Constants.UniversalScale;
+            int wallOffsetY = 32 * Constants.UniversalScale;
+            int columnWidth = 16 * Constants.UniversalScale;
 
             string[] objects = line.Split(',');
             // Each block/item in objects[] will try to be parsed into either a block or object
@@ -159,9 +153,8 @@ namespace MainGame.RoomsAndDoors
                 {
                     room.Blocks.Add(
                         new Block(
-                                new Vector2(wallOffsetX + i * scale, wallOffsetY + yOffset * scale),
-                                SpriteFactory.CreateBlock((BlockSpriteTypes)block),
-                                game
+                                new Vector2(wallOffsetX + i * columnWidth, wallOffsetY + yOffset * columnWidth),
+                                SpriteFactory.CreateBlock((BlockSpriteTypes)block)
                             ));
                 }
                 else
@@ -171,20 +164,33 @@ namespace MainGame.RoomsAndDoors
                     {
                         room.Items.Add(
                             new Item(
-                                    new Vector2(wallOffsetX + i * scale, wallOffsetY + yOffset * scale),
-                                    SpriteFactory.CreateItemSprite((ItemSpriteTypes) item),
-                                    game
+                                    new Vector2(wallOffsetX + i * columnWidth, wallOffsetY + yOffset * columnWidth),
+                                    SpriteFactory.CreateItemSprite((ItemSpriteTypes)item)
                                 ));
                     }
                 }
             }
         }
 
-        private static void parseNextRooms(string line, Room room)
+        private static void ParseEnemies(string line, Room room, IPlayer player, int yOffset)
         {
-            Random rnd = new Random();
-            // TODO : Change next room to have 4 options based on csv and change to the room based on that 
-            room.nextRoom = rnd.Next(1, 18); // Generate next room as random next room
+            int wallOffsetX = 32 * Constants.UniversalScale;
+            int wallOffsetY = 32 * Constants.UniversalScale;
+            int columnWidth = 16 * Constants.UniversalScale;
+            int blockCenter = 30;
+
+            string[] objects = line.Split(',');
+            
+            for (int i = 0; i < objects.Length; i++)
+            {
+                try
+                {
+                    Vector2 spawnPosition = new(wallOffsetX + i * columnWidth + blockCenter, wallOffsetY + yOffset * columnWidth + blockCenter);
+                    IEnemy enemy = EnemyUtils.CreateEnemy(objects[i], spawnPosition, player);
+                    room.Enemies.Add(enemy);
+                }
+                catch { /* nothing to do for now */ }
+            }
         }
     }
 }

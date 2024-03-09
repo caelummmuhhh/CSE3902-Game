@@ -18,7 +18,7 @@ namespace MainGame.SpriteHandlers
                 TextureMap["RoomSprites"], SpriteBatch,
                 textureStartingY: (704 + 32 * (int)Direction),
                 textureStartingX: (32 * (int)DoorType),
-                scale: 3
+                scale: Constants.UniversalScale
                 );
         }
         public static ISprite CreateDoorBottomNorthSouth(String direction, String doorType)
@@ -29,7 +29,7 @@ namespace MainGame.SpriteHandlers
                 TextureMap["RoomSprites"], SpriteBatch,
                 textureStartingY: (704 + 16 + 32*(int)Direction),
                 textureStartingX: (32*(int)DoorType),
-                scale: 3
+                scale: Constants.UniversalScale
                 );
         }
         public static ISprite CreateDoorTopWestEast(String direction, String doorType)
@@ -40,7 +40,7 @@ namespace MainGame.SpriteHandlers
                 TextureMap["RoomSprites"], SpriteBatch,
                 textureStartingY: (704 + 32 * (int)Direction),
                 textureStartingX: (32 * (int)DoorType),
-                scale: 3
+                scale: Constants.UniversalScale
                 );
         }
         public static ISprite CreateDoorBottomWestEast(String direction, String doorType)
@@ -51,7 +51,7 @@ namespace MainGame.SpriteHandlers
                 TextureMap["RoomSprites"], SpriteBatch,
                 textureStartingY: (704 + 32 * (int)Direction),
                 textureStartingX: (16 + 32 * (int)DoorType),
-                scale: 3
+                scale: Constants.UniversalScale
                 );
         }
     }

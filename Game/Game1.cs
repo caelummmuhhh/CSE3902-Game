@@ -1,15 +1,11 @@
-﻿using Microsoft.Xna.Framework;
+﻿using System.Collections.Generic;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Input;
+
 using MainGame.SpriteHandlers;
 using MainGame.Controllers;
 using MainGame.Players;
 using MainGame.Rooms;
-using MainGame.Doors;
-using System.Collections.Generic;
-using MainGame.Enemies;
-
-using System;
 using MainGame.RoomsAndDoors;
 
 namespace MainGame;
@@ -21,14 +17,7 @@ public class Game1 : Game
     public List<IController> controllers;
 
     public IPlayer Player;
-    public GenericEnemy Enemy;
-
     public Room Room;
-
-    public Door NorthDoor;
-    public Door WestDoor;
-    public Door EastDoor;
-    public Door SouthDoor;
 
     public Game1()
     {
@@ -57,16 +46,8 @@ public class Game1 : Game
         SpriteFactory.SpriteBatch = spriteBatch;
 
         Player = new Player(this);
-        //Enemy = new GoriyaEnemy(new Vector2(465, 224));
-        //Enemy = new KeeseEnemy(new Vector2(465, 224));
-        //Enemy = new GelEnemy(new Vector2(465, 224));
-        //Enemy = new SpikeCrossEnemy(new Vector2(465, 224), Player);
-        //Enemy = new StalfosEnemy(new Vector2(465, 224));
-        //Enemy = new WallMasterEnemy(new Vector2(465, 224), Player);
-        //Enemy = new OldManEnemy(new Vector2(465, 224));
-        Enemy = new AquamentusEnemy(new Vector2(465+3*48, 224+48), Player);
 
-        Room = RoomFactory.GenerateRoom("Room_1", this);
+        Room = RoomFactory.GenerateRoom(1, this);
 
         controllers.Add(new KeyboardController(this, Player));
         controllers.Add(new MouseController(this, Player));
@@ -80,7 +61,6 @@ public class Game1 : Game
         }
 
         Player.Update();
-        Enemy.Update();
         Room.Update();
         
         base.Update(gameTime);
@@ -92,10 +72,7 @@ public class Game1 : Game
         spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, SamplerState.PointClamp);
 
         Room.Draw();
-
         Player.Draw();
-
-        Enemy.Draw();
 
         spriteBatch.End();
 

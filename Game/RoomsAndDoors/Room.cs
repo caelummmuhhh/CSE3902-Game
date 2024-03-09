@@ -1,9 +1,11 @@
-﻿using MainGame.Doors;
+﻿using Microsoft.Xna.Framework;
+using System.Collections.Generic;
+
+using MainGame.Doors;
 using MainGame.RoomsAndDoors;
 using MainGame.SpriteHandlers;
 using MainGame.BlocksAndItems;
-using Microsoft.Xna.Framework;
-using System.Collections.Generic;
+using MainGame.Enemies;
 
 namespace MainGame.Rooms
 {
@@ -18,14 +20,18 @@ namespace MainGame.Rooms
         public IDoor EastDoor;
         public IDoor SouthDoor;
 
-        public HashSet<Block> Blocks;
-        public HashSet<Item> Items;
+        public HashSet<Block> Blocks { get; set; } = new();
+        public HashSet<Item> Items { get; set; } = new();
+        public HashSet<IEnemy> Enemies { get; set; } = new();
 
         public Vector2 Position;
         private readonly Game1 game;
 
-        public int nextRoom = 5;
-        private int changeTimeDelay;
+        // TODO: Delete this for sprint 4
+        public int CurrentRoom = 1;
+        private readonly int maxRoomChangeDebounce = 2;
+        private int roomChangeDebounce;
+        private readonly int maxNumRooms = 18;
 
         public Room(ISprite outerBorder, ISprite innerBorder, ISprite tiles, Game1 game)
         {
@@ -43,11 +49,7 @@ namespace MainGame.Rooms
             WestDoor = new BlankDoor();
             SouthDoor = new BlankDoor();
             EastDoor = new BlankDoor();
-
-            Blocks = new HashSet<Block>();
-            Items = new HashSet<Item>();
-
-            changeTimeDelay = 10;
+            roomChangeDebounce = maxRoomChangeDebounce;
         }
 
         public void Update()
@@ -63,8 +65,11 @@ namespace MainGame.Rooms
             {
                 item.Update();
             }
-
-            changeTimeDelay--;
+            foreach (IEnemy enemy in Enemies)
+            {
+                enemy.Update();
+            }
+            roomChangeDebounce--;
         }
 
         public void Draw()
@@ -86,20 +91,25 @@ namespace MainGame.Rooms
             {
                 item.Draw();
             }
+            foreach(IEnemy enemy in Enemies)
+            {
+                enemy.Draw();
+            }
         }
 
-        public Room getNextRoom()
+        public Room GetNextRoom()
         {
-            if (changeTimeDelay < 0)
+            if (roomChangeDebounce <= 0)
             {
-
-                return RoomFactory.GenerateRoom("Room_" + nextRoom, game);
+                int newRoomNumber = (CurrentRoom + 1) % maxNumRooms;
+                if (newRoomNumber == 0)
+                {
+                    newRoomNumber = 1;
+                }
+                Room newRoom = RoomFactory.GenerateRoom(newRoomNumber, game);
+                return newRoom;
             }
-            else
-            {
-                return this;
-            }
+            return this;
         }
-
     }
 }
