@@ -13,6 +13,7 @@ using MainGame.Collision;
 using MainGame.SpriteHandlers.BlockSprites;
 using MainGame.Enemies;
 
+
 namespace MainGame;
 
 public class Game1 : Game
@@ -25,7 +26,7 @@ public class Game1 : Game
     public Room Room;
     public CollisionDetector Collision;
 
-    public BlockSprite testBlock; // TODO: DELETE ME
+    public Particle Particle;
 
     public Game1()
     {
@@ -53,6 +54,8 @@ public class Game1 : Game
         SpriteFactory.LoadAllTextures(Content);
         SpriteFactory.SpriteBatch = spriteBatch;
 
+        Particle = new Particle(this);
+
         Player = new Player(this);
 
         Room = RoomFactory.GenerateRoom(1, this);
@@ -72,6 +75,7 @@ public class Game1 : Game
         }
 
         Player.Update();
+        Particle.Update();
         Room.Update();
         Collision.Update();
         base.Update(gameTime);
@@ -84,16 +88,7 @@ public class Game1 : Game
 
         Room.Draw();
         Player.Draw();
-
-        if (Room.Enemies.Count > 0)
-        {
-            testBlock.Draw(
-                new List<IEnemy>(Room.Enemies)[0].HitBox,
-                Color.White
-                );
-
-        }
-
+        Particle.Draw();
         spriteBatch.End();
 
         base.Draw(gameTime);
