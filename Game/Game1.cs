@@ -69,8 +69,6 @@ public class Game1 : Game
 
         Player = new Player(this);
 
-        roomsAndDoorsManager.LoadRooms();
-
         Room = new Room(
             SpriteFactory.CreateRoomOuterBorderSprite(),
             SpriteFactory.CreateRoomInnerBorderSprite(),
@@ -110,6 +108,7 @@ public class Game1 : Game
 
         blockManager.LoadBlocks();
         itemManager.LoadItems();
+        roomsAndDoorsManager.LoadRooms();
         Block =  new Block(
             new Vector2(GraphicsManager.PreferredBackBufferWidth / 3,
                 GraphicsManager.PreferredBackBufferHeight / 3),
