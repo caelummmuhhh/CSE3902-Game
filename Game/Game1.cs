@@ -12,7 +12,7 @@ using MainGame.BlocksAndItems;
 using MainGame.Collision;
 using MainGame.SpriteHandlers.BlockSprites;
 using MainGame.Enemies;
-
+using System;
 
 namespace MainGame;
 
@@ -26,16 +26,17 @@ public class Game1 : Game
     public Room Room;
     public CollisionDetector Collision;
 
-    public Particle Particle;
+    public BlockSprite testBlock; // TODO: DELETE ME
 
     public Game1()
     {
         GraphicsManager = new GraphicsDeviceManager(this)
         {
-            PreferredBackBufferWidth = 768,
-            PreferredBackBufferHeight = 528  //768 in sprint 4+
+            PreferredBackBufferWidth = 256 * Constants.UniversalScale,
+            PreferredBackBufferHeight = 176 * Constants.UniversalScale  //768 in sprint 4+
         };
 
+        this.TargetElapsedTime = TimeSpan.FromSeconds(1d / 30d); //60);
         Content.RootDirectory = "Content";
         IsMouseVisible = true;
     }
@@ -53,8 +54,6 @@ public class Game1 : Game
 
         SpriteFactory.LoadAllTextures(Content);
         SpriteFactory.SpriteBatch = spriteBatch;
-
-        Particle = new Particle(this);
 
         Player = new Player(this);
 
@@ -75,7 +74,6 @@ public class Game1 : Game
         }
 
         Player.Update();
-        Particle.Update();
         Room.Update();
         Collision.Update();
         base.Update(gameTime);
@@ -88,7 +86,21 @@ public class Game1 : Game
 
         Room.Draw();
         Player.Draw();
-        Particle.Draw();
+
+        /*if (Room.Enemies.Count > 0)
+        {
+            testBlock.Draw(
+            new List<IEnemy>(Room.Enemies)[0].HitBox,
+            Color.White
+            );
+        }*/
+
+        Rectangle t = new(
+            Player.MainHitbox.X + Player.Sprite.DestinationRectangle.Width / 2,
+            Player.MainHitbox.Y + Player.Sprite.DestinationRectangle.Height / 2,
+            Player.MainHitbox.Width / 10, Player.MainHitbox.Height / 10);
+        testBlock.Draw(t, Color.White);
+
         spriteBatch.End();
 
         base.Draw(gameTime);

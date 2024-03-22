@@ -7,7 +7,7 @@ namespace MainGame.Players
 {
 	public class Player : IPlayer
 	{
-		public static readonly float Speed = 5f;
+		public static readonly float Speed = Constants.UniversalScale;
 		public static readonly int UsingItemsSpeed = 10;
 		public static readonly int KnockedBackDuration = 10;
 		public static readonly float KnockedBackSpeed = 10f;
@@ -28,7 +28,7 @@ namespace MainGame.Players
         public Player(Game1 game)
 		{
 			ProjectilesManager = new(this);
-            Position = new Vector2(100, 100); // TODO: Set spawn position properly
+            Position = new Vector2(24, 24); // TODO: Set spawn position properly
 			CurrentState = new PlayerIdleDownState(this);
 			this.game = game;
 			UpdateHitBoxes();
@@ -70,13 +70,7 @@ namespace MainGame.Players
 
 		private void UpdateHitBoxes()
 		{
-			//MainHitbox = Utils.CentralizeRectangle((int)Position.X, (int)Position.Y, Sprite.DestinationRectangle);
-			// TODO: Make it so this doesn't rely on magic number
-			MainHitbox = new(
-				Sprite.DestinationRectangle.X - 8 * Constants.UniversalScale,
-				Sprite.DestinationRectangle.Y - 8 * Constants.UniversalScale,
-                Sprite.DestinationRectangle.Width, Sprite.DestinationRectangle.Height
-                );
+			MainHitbox = Utils.CentralizeRectangle((int)Position.X, (int)Position.Y, Sprite.DestinationRectangle);
 
 			BottomHalfHitBox = new(
 				MainHitbox.X, MainHitbox.Y + MainHitbox.Height / 2,

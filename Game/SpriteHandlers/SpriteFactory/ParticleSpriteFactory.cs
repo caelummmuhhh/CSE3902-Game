@@ -23,7 +23,7 @@ namespace MainGame.SpriteHandlers
                 numberOfFrames: 2,
                 frameHeight: 16,
                 frameWidth: 16,
-                scale: UniversalScaleMultiplier) ;
+                scale: Constants.UniversalScale) ;
         }
 
 
@@ -38,7 +38,7 @@ namespace MainGame.SpriteHandlers
                 textureStartingY: 18,               
                 frameHeight: 8,
                 frameWidth: 8,
-                scale: UniversalScaleMultiplier);
+                scale: Constants.UniversalScale);
         }
 
         public static ISprite CreateSpawnParticles()
@@ -52,7 +52,7 @@ namespace MainGame.SpriteHandlers
                  textureStartingY: 32,
                 frameHeight: 16,
                 frameWidth: 16,
-                scale: UniversalScaleMultiplier);
+                scale: Constants.UniversalScale);
         }
     }
 }

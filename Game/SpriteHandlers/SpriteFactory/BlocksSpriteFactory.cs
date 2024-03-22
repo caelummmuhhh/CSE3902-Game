@@ -66,7 +66,7 @@ namespace MainGame.SpriteHandlers
             return new BlockSprites.BlockSprite(
                 TextureMap["BlocksSprites"], SpriteBatch,
                 textureStartingY: 0,
-                scale: UniversalScaleMultiplier);
+                scale: Constants.UniversalScale);
         }
 
         public static ISprite CreateSquareBlockSprite()
@@ -74,7 +74,7 @@ namespace MainGame.SpriteHandlers
             return new BlockSprites.BlockSprite(
                 TextureMap["BlocksSprites"], SpriteBatch,
                 textureStartingY: 16,
-                scale: UniversalScaleMultiplier);
+                scale: Constants.UniversalScale);
         }
 
         public static ISprite CreateStatueOneEntranceSprite()
@@ -82,7 +82,7 @@ namespace MainGame.SpriteHandlers
             return new BlockSprites.BlockSprite(
                 TextureMap["BlocksSprites"], SpriteBatch,
                 textureStartingY: 32,
-                scale: UniversalScaleMultiplier);
+                scale: Constants.UniversalScale);
         }
 
         public static ISprite CreateStatueTwoEntranceSprite()
@@ -90,7 +90,7 @@ namespace MainGame.SpriteHandlers
             return new BlockSprites.BlockSprite(
                 TextureMap["BlocksSprites"], SpriteBatch,
                 textureStartingY: 48,
-                scale: UniversalScaleMultiplier);
+                scale: Constants.UniversalScale);
         }
 
         public static ISprite CreateStatueOneEndSprite()
@@ -98,7 +98,7 @@ namespace MainGame.SpriteHandlers
             return new BlockSprites.BlockSprite(
                 TextureMap["BlocksSprites"], SpriteBatch,
                 textureStartingY: 64,
-                scale: UniversalScaleMultiplier);
+                scale: Constants.UniversalScale);
         }
 
         public static ISprite CreateStatueTwoEndSprite()
@@ -106,7 +106,7 @@ namespace MainGame.SpriteHandlers
             return new BlockSprites.BlockSprite(
                 TextureMap["BlocksSprites"], SpriteBatch,
                 textureStartingY: 80,
-                scale: UniversalScaleMultiplier);
+                scale: Constants.UniversalScale);
         }
 
         public static ISprite CreateBlackSquareSprite()
@@ -114,7 +114,7 @@ namespace MainGame.SpriteHandlers
             return new BlockSprites.BlockSprite(
                 TextureMap["BlocksSprites"], SpriteBatch,
                 textureStartingY: 96,
-                scale: UniversalScaleMultiplier);
+                scale: Constants.UniversalScale);
         }
 
         public static ISprite CreateBlueSandSprite()
@@ -122,7 +122,7 @@ namespace MainGame.SpriteHandlers
             return new BlockSprites.BlockSprite(
                 TextureMap["BlocksSprites"], SpriteBatch,
                 textureStartingY: 112,
-                scale: UniversalScaleMultiplier);
+                scale: Constants.UniversalScale);
         }
 
         public static ISprite CreateBlueGapSprite()
@@ -130,7 +130,7 @@ namespace MainGame.SpriteHandlers
             return new BlockSprites.BlockSprite(
                 TextureMap["BlocksSprites"], SpriteBatch,
                 textureStartingY: 128,
-                scale: UniversalScaleMultiplier);
+                scale: Constants.UniversalScale);
         }
 
         public static ISprite CreateStairsSprite()
@@ -138,7 +138,7 @@ namespace MainGame.SpriteHandlers
             return new BlockSprites.BlockSprite(
                 TextureMap["BlocksSprites"], SpriteBatch,
                 textureStartingY: 144,
-                scale: UniversalScaleMultiplier);
+                scale: Constants.UniversalScale);
         }
 
         public static ISprite CreateWhiteBrickSprite()
@@ -146,7 +146,7 @@ namespace MainGame.SpriteHandlers
             return new BlockSprites.BlockSprite(
                 TextureMap["BlocksSprites"], SpriteBatch,
                 textureStartingY: 160,
-                scale: UniversalScaleMultiplier);
+                scale: Constants.UniversalScale);
         }
 
         public static ISprite CreateWhiteLadderSprite()
@@ -154,7 +154,7 @@ namespace MainGame.SpriteHandlers
             return new BlockSprites.BlockSprite(
                 TextureMap["BlocksSprites"], SpriteBatch,
                 textureStartingY: 176,
-                scale: UniversalScaleMultiplier);
+                scale: Constants.UniversalScale);
         }
     }
 }

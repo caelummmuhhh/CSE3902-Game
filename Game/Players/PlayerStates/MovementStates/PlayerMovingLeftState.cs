@@ -13,7 +13,13 @@ namespace MainGame.Players.PlayerStates
 		{
             this.player = player;
             this.player.Sprite = SpriteFactory.CreatePlayerWalkingLeftSprite();
-		}
+
+            Vector2 playerOriginPosition = new(
+                player.Position.X + player.Sprite.DestinationRectangle.Width / 2,
+                player.Position.Y + player.Sprite.DestinationRectangle.Height / 2
+                );
+            player.Position = new Vector2(GridHandler.SnapToGridHalfStep(playerOriginPosition).X, GridHandler.SnapToGridHalfStep(playerOriginPosition).Y);
+        }
 
         public void Draw()
         {

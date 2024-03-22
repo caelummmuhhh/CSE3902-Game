@@ -34,7 +34,7 @@ namespace MainGame.RoomsAndDoors
                 for (int i = 2; i < lines.Length; i++)
                 {
                     ParseItemsAndBlocks(lines[i], room, i - 2);
-                    ParseEnemies(lines[i], room, game.Player, i - 2);
+                    //ParseEnemies(lines[i], room, game.Player, i - 2);
                 }
             }
             room.CurrentRoom = roomNum;
@@ -99,7 +99,7 @@ namespace MainGame.RoomsAndDoors
             if (!doors[0].Equals("-"))
             {
                 room.NorthDoor = new Door(
-                     new Vector2(336, 0),
+                     new Vector2(112 * Constants.UniversalScale, 0 * Constants.UniversalScale),
                      SpriteFactory.CreateDoorTopNorthSouth("North", doors[0]),
                      SpriteFactory.CreateDoorBottomNorthSouth("North", doors[0]),
                      "North"
@@ -109,7 +109,7 @@ namespace MainGame.RoomsAndDoors
             if (!doors[1].Equals("-"))
             {
                 room.SouthDoor = new Door(
-                new Vector2(336, 480),
+                new Vector2(112 * Constants.UniversalScale, 160 * Constants.UniversalScale),
                 SpriteFactory.CreateDoorTopNorthSouth("South", doors[1]),
                 SpriteFactory.CreateDoorBottomNorthSouth("South", doors[1]),
                 "South"
@@ -119,7 +119,7 @@ namespace MainGame.RoomsAndDoors
             if (!doors[2].Equals("-"))
             {
                 room.EastDoor = new Door(
-                new Vector2(0, 216),
+                new Vector2(0 * Constants.UniversalScale, 72 * Constants.UniversalScale),
                 SpriteFactory.CreateDoorTopWestEast("West", doors[2]),
                 SpriteFactory.CreateDoorBottomWestEast("West", doors[2]),
                 "West"
@@ -129,7 +129,7 @@ namespace MainGame.RoomsAndDoors
             if (!doors[3].Equals("-"))
             {
                 room.WestDoor = new Door(
-                new Vector2(720, 216),
+                new Vector2(240 * Constants.UniversalScale, 72 * Constants.UniversalScale),
                 SpriteFactory.CreateDoorTopWestEast("East", doors[3]),
                 SpriteFactory.CreateDoorBottomWestEast("East", doors[3]),
                 "East"

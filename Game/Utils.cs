@@ -15,6 +15,10 @@ namespace MainGame
 
     public static class Constants
     {
+        /// <summary>
+        /// Represents the number that everything will be multiplied by to get
+        /// "scaled up". Also represents the size of one "pixel".
+        /// </summary>
         public static readonly int UniversalScale = 3;
     }
 

@@ -49,8 +49,8 @@ namespace MainGame.SpriteHandlers
         protected override Rectangle GetDestinationRectangle(float x, float y)
         {
             Rectangle destRect =  new(
-                (int)(x - origin.X),
-                (int)(y - origin.Y),
+                (int)(x),
+                (int)(y),
                 FrameWidth * Scale,
                 FrameHeight * Scale);
             DestinationRectangle = destRect;

@@ -11,9 +11,15 @@ namespace MainGame.Players.PlayerStates
 
 		public PlayerMovingUpState(IPlayer player)
 		{
-			this.player = player;
-            player.Sprite = SpriteFactory.CreatePlayerWalkingUpSprite();
-		}
+            this.player = player;
+            this.player.Sprite = SpriteFactory.CreatePlayerWalkingUpSprite();
+
+            Vector2 playerOriginPosition = new(
+                player.Position.X + player.Sprite.DestinationRectangle.Width / 2,
+                player.Position.Y + player.Sprite.DestinationRectangle.Height / 2
+                );
+            player.Position = new Vector2(GridHandler.SnapToGridHalfStep(playerOriginPosition).X, GridHandler.SnapToGridHalfStep(playerOriginPosition).Y);
+        }
 
         public void Draw()
         {

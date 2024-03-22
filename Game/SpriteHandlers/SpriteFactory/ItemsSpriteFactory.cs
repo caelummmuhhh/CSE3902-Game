@@ -75,7 +75,7 @@ namespace MainGame.SpriteHandlers
                 numRows: 1,
                 numColumns: 2,
                 numberOfFrames: 2,
-                scale: UniversalScaleMultiplier);
+                scale: Constants.UniversalScale);
         }
 
         public static ISprite CreateHeartContainerItemSprite()
@@ -83,7 +83,7 @@ namespace MainGame.SpriteHandlers
             return new StaticItemSprite(
                 TextureMap["ItemsSprites"], SpriteBatch,
                 textureStartingY: 16,
-                scale: UniversalScaleMultiplier);
+                scale: Constants.UniversalScale);
         }
 
         public static ISprite CreateClockItemSprite()
@@ -91,7 +91,7 @@ namespace MainGame.SpriteHandlers
             return new StaticItemSprite(
                 TextureMap["ItemsSprites"], SpriteBatch,
                 textureStartingY: 32,
-                scale: UniversalScaleMultiplier);
+                scale: Constants.UniversalScale);
         }
 
         public static ISprite CreateFiveRupeesItemSprite()
@@ -99,7 +99,7 @@ namespace MainGame.SpriteHandlers
             return new StaticItemSprite(
                 TextureMap["ItemsSprites"], SpriteBatch,
                 textureStartingY: 48,
-                scale: UniversalScaleMultiplier);
+                scale: Constants.UniversalScale);
         }
 
         public static ISprite CreateRupeeItemSprite()
@@ -110,7 +110,7 @@ namespace MainGame.SpriteHandlers
                 numColumns: 2,
                 numberOfFrames: 2,
                 textureStartingY: 48,
-                scale: UniversalScaleMultiplier);
+                scale: Constants.UniversalScale);
         }
 
         public static ISprite CreateMapItemSprite()
@@ -118,7 +118,7 @@ namespace MainGame.SpriteHandlers
             return new StaticItemSprite(
                 TextureMap["ItemsSprites"], SpriteBatch,
                 textureStartingY: 64,
-                scale: UniversalScaleMultiplier);
+                scale: Constants.UniversalScale);
         }
 
         public static ISprite CreateWoodenBoomerangItemSprite()
@@ -126,7 +126,7 @@ namespace MainGame.SpriteHandlers
             return new StaticItemSprite(
                 TextureMap["ItemsSprites"], SpriteBatch,
                 textureStartingY: 80,
-                scale: UniversalScaleMultiplier);
+                scale: Constants.UniversalScale);
         }
 
         public static ISprite CreateBombItemSprite()
@@ -134,7 +134,7 @@ namespace MainGame.SpriteHandlers
             return new StaticItemSprite(
                 TextureMap["ItemsSprites"], SpriteBatch,
                 textureStartingY: 96,
-                scale: UniversalScaleMultiplier);
+                scale: Constants.UniversalScale);
         }
 
         public static ISprite CreateBowItemSprite()
@@ -142,7 +142,7 @@ namespace MainGame.SpriteHandlers
             return new StaticItemSprite(
                 TextureMap["ItemsSprites"], SpriteBatch,
                 textureStartingY: 112,
-                scale: UniversalScaleMultiplier);
+                scale: Constants.UniversalScale);
         }
 
         public static ISprite CreateArrowItemSprite()
@@ -150,7 +150,7 @@ namespace MainGame.SpriteHandlers
             return new StaticItemSprite(
                 TextureMap["ItemsSprites"], SpriteBatch,
                 textureStartingY: 128,
-                scale: UniversalScaleMultiplier);
+                scale: Constants.UniversalScale);
         }
 
         public static ISprite CreateKeyItemSprite()
@@ -158,7 +158,7 @@ namespace MainGame.SpriteHandlers
             return new StaticItemSprite(
                 TextureMap["ItemsSprites"], SpriteBatch,
                 textureStartingY: 144,
-                scale: UniversalScaleMultiplier);
+                scale: Constants.UniversalScale);
         }
 
         public static ISprite CreateCompassItemSprite()
@@ -166,7 +166,7 @@ namespace MainGame.SpriteHandlers
             return new StaticItemSprite(
                 TextureMap["ItemsSprites"], SpriteBatch,
                 textureStartingY: 160,
-                scale: UniversalScaleMultiplier);
+                scale: Constants.UniversalScale);
         }
 
         public static ISprite CreateTriforcePieceItemSprite()
@@ -177,7 +177,7 @@ namespace MainGame.SpriteHandlers
                 numColumns: 2,
                 numberOfFrames: 2,
                 textureStartingY: 176,
-                scale: UniversalScaleMultiplier);
+                scale: Constants.UniversalScale);
         }
 
         public static ISprite CreateFairyItemSprite()
@@ -188,7 +188,7 @@ namespace MainGame.SpriteHandlers
                 numColumns: 2,
                 numberOfFrames: 2,
                 textureStartingY: 192,
-                scale: UniversalScaleMultiplier);
+                scale: Constants.UniversalScale);
         }
 
         public static ISprite CreateFireSprite()
@@ -199,7 +199,7 @@ namespace MainGame.SpriteHandlers
                 numColumns: 1,
                 numberOfFrames: 1,
                 textureStartingY: 208,
-                scale: UniversalScaleMultiplier);
+                scale: Constants.UniversalScale);
 
         }
     }

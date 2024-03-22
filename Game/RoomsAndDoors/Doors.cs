@@ -31,19 +31,19 @@ namespace MainGame.Doors
 
             if (Direction == CardinalDirections.North)
             {
-                BottomYOffset = 48;
+                BottomYOffset = 16 * Constants.UniversalScale;
             }
             else if (Direction == CardinalDirections.South)
             {
-                BottomYOffset = -48;
+                BottomYOffset = -16 * Constants.UniversalScale;
             }
             else if (Direction == CardinalDirections.West)
             {
-                BottomXOffset = 48;
+                BottomXOffset = 16 * Constants.UniversalScale;
             }
             else if (Direction == CardinalDirections.East)
             {
-                BottomXOffset = -48;
+                BottomXOffset = -16 * Constants.UniversalScale;
             }
         }
 

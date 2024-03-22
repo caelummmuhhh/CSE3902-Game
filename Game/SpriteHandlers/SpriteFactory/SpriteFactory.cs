@@ -9,7 +9,6 @@ namespace MainGame.SpriteHandlers
 		public static SpriteBatch SpriteBatch { get; set; }
 		public static readonly Dictionary<string, Texture2D> TextureMap = new();
         public static SpriteFont Font;
-        public static readonly int UniversalScaleMultiplier = 3;
 
 		public static void LoadAllTextures(ContentManager contents)
 		{
