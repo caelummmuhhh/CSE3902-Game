@@ -24,6 +24,8 @@ namespace MainGame.Rooms
         public IDoor EastDoor;
         public IDoor SouthDoor;
 
+        public string[] connectingRooms;
+
         public HashSet<Block> Blocks;
         public HashSet<Item> Items;
 
@@ -52,6 +54,8 @@ namespace MainGame.Rooms
 
             Blocks = new HashSet<Block>();
             Items = new HashSet<Item>();
+
+            connectingRooms = new string[4];
 
             changeTimeDelay = 10;
         }
@@ -94,18 +98,56 @@ namespace MainGame.Rooms
             }
         }
 
-        public Room getNextRoom()
+        public Room getNorthRoom()
         {
-            if (changeTimeDelay < 0)
+            if (changeTimeDelay < 0 && connectingRooms[0] != null)
             {
 
-                return RoomFactory.GenerateRoom("Room_" + nextRoom, game);
+                return RoomFactory.GenerateRoom(connectingRooms[0], game);
             }
             else
             {
                 return this;
             }
         }
+        public Room getSouthRoom()
+        {
+            if (changeTimeDelay < 0 && connectingRooms[1] != null)
+            {
+
+                return RoomFactory.GenerateRoom(connectingRooms[1], game);
+            }
+            else
+            {
+                return this;
+            }
+        }
+        public Room getEastRoom()
+        {
+            if (changeTimeDelay < 0 && connectingRooms[2] != null)
+            {
+
+                return RoomFactory.GenerateRoom(connectingRooms[2], game);
+            }
+            else
+            {
+                return this;
+            }
+        }
+        public Room getWestRoom()
+        {
+            if (changeTimeDelay < 0 && connectingRooms[3] != null)
+            {
+
+                return RoomFactory.GenerateRoom(connectingRooms[3], game);
+            }
+            else
+            {
+                return this;
+            }
+        }
+
+
 
     }
 }

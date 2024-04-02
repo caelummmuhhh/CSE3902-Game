@@ -62,7 +62,7 @@ namespace MainGame.Players
 
         private void UnDecorate()
         {
-            game.player = undecoratedPlayer;
+            game.Player = undecoratedPlayer;
         }
 
         public void TakeDamage() { /* not needed */ }

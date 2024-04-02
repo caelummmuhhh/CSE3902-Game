@@ -32,13 +32,13 @@ namespace MainGame.RoomsAndDoors
             {
                 room = ParseRoomType(lines[0], game); // Parse and set room to a new room object
                 ParseDoors(lines[1], game, room);
-                for (int i = 2; i < lines.Length; i++)
+                for (int i = 2; i < lines.Length-1; i++)
                 {
                     ParseItemsAndBlocks(lines[i], game, room, i-2);
                 }
             }
 
-            parseNextRooms("", room);
+            parseNextRooms(lines[lines.Length-1], room);
 
             return room;
         }
@@ -182,9 +182,14 @@ namespace MainGame.RoomsAndDoors
 
         private static void parseNextRooms(string line, Room room)
         {
-            Random rnd = new Random();
-            // TODO : Change next room to have 4 options based on csv and change to the room based on that 
-            room.nextRoom = rnd.Next(1, 18); // Generate next room as random next room
+            string[] objects = line.Split(",");
+            for(int i = 0 ; i < objects.Length; i++)
+            {
+                if (!objects[i].Equals("-"))
+                {
+                    room.connectingRooms[i] = "Room_" + objects[i];
+                }
+            }
         }
     }
 }

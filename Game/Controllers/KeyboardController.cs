@@ -9,6 +9,7 @@ using MainGame.Blocks;
 using MainGame.Items;
 
 using MainGame.SpriteHandlers;
+using MainGame.Commands.RoomSwitchingCommands;
 
 namespace MainGame.Controllers
 {
@@ -48,7 +49,10 @@ namespace MainGame.Controllers
                 { Keys.D3, new PlayerUseBoomerangCommand(player) },
                 { Keys.D4, new PlayerUseFireCommand(player) },
 
-                { Keys.Up, new NextRoomCommand(game) },
+                { Keys.Up, new NorthRoomCommand(game) },
+                { Keys.Down, new SouthRoomCommand(game) },
+                { Keys.Left, new WestRoomCommand(game) },
+                { Keys.Right, new EastRoomCommand(game) },
             };
         }
 
