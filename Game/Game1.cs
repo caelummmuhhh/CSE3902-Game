@@ -1,17 +1,23 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
-
 using MainGame.SpriteHandlers;
 using MainGame.Controllers;
 using MainGame.Players;
+using MainGame.Rooms;
+using MainGame.Doors;
 using MainGame.Blocks;
 using MainGame.Items;
 using System.Collections.Generic;
-using System;
-
+using MainGame.Enemies;
+using MainGame.Particles;
 
 using MainGame.Managers;
+using System;
+
+using MainGame.SpriteHandlers.ParticleSprites;
+using MainGame.RoomsAndDoors;
+
 
 namespace MainGame;
 
@@ -19,23 +25,28 @@ public class Game1 : Game
 {
     public readonly GraphicsDeviceManager GraphicsManager;
     private SpriteBatch spriteBatch;
-    private List<IController> controllers;
+    public List<IController> controllers;
 
-    private ISprite textSprite;
     public IPlayer Player;
+    public GenericEnemy Enemy;
 
-    public Block Block;
-    public Item Item;
+    public Room Room;
 
-    private BlockManager blockManager;
-    private ItemManager itemManager;
+    public BlockManager blockManager;
+    public ItemManager itemManager;
+    public Particle Particle;
 
     public Game1()
     {
-        GraphicsManager = new GraphicsDeviceManager(this);
+        GraphicsManager = new GraphicsDeviceManager(this)
+        {
+            PreferredBackBufferWidth = 768,
+            PreferredBackBufferHeight = 528  //768 in sprint 4+
+        };
+
         Content.RootDirectory = "Content";
         IsMouseVisible = true;
-        TargetElapsedTime = TimeSpan.FromSeconds(1d / 30d);
+        //TargetElapsedTime = TimeSpan.FromSeconds(1d / 30d);
     }
 
     protected override void Initialize()
@@ -54,51 +65,56 @@ public class Game1 : Game
         SpriteFactory.LoadAllTextures(Content);
         SpriteFactory.SpriteBatch = spriteBatch;
 
-        textSprite = SpriteFactory.CreateTextSprite("hello world!");
-        Player = new Player(this);
+        Particle = new Particle(this);
 
         blockManager.LoadBlocks();
         itemManager.LoadItems();
-        Block =  new Block(
-            new Vector2(GraphicsManager.PreferredBackBufferWidth / 3,
-                GraphicsManager.PreferredBackBufferHeight / 3),
-            blockManager.GetBlocks()[0],
-            this
-        );
-        Item = new Item(
-            new Vector2(GraphicsManager.PreferredBackBufferWidth / 3*2,
-                GraphicsManager.PreferredBackBufferHeight / 3),
-            itemManager.GetItems()[0],
-            this
-        );
 
-        controllers.Add(new KeyboardController(this, Player, Block, blockManager.GetBlocks(), Item, itemManager.GetItems()));
+        Player = new Player(this);
+        //Enemy = new GoriyaEnemy(new Vector2(465, 224));
+        //Enemy = new KeeseEnemy(new Vector2(465, 224));
+        //Enemy = new GelEnemy(new Vector2(465, 224));
+        //Enemy = new SpikeCrossEnemy(new Vector2(465, 224), Player);
+        //Enemy = new StalfosEnemy(new Vector2(465, 224));
+        //Enemy = new WallMasterEnemy(new Vector2(465, 224), Player);
+        //Enemy = new OldManEnemy(new Vector2(465, 224));
+        Enemy = new AquamentusEnemy(new Vector2(465+3*48, 224+48), Player);
+
+        Room = RoomFactory.GenerateRoom("Room_1", this);
+
+        controllers.Add(new KeyboardController(this, Player, null, blockManager.GetBlocks(), null, itemManager.GetItems()));
         controllers.Add(new MouseController(this, Player));
     }
 
     protected override void Update(GameTime gameTime)
     {
-
-        foreach (IController controller in controllers)
+        for (int i = 0; i < controllers.Count; i++)
         {
-            controller.Update();
+            controllers[i].Update();
         }
 
         Player.Update();
-        Block.Update();
-        Item.Update();
+        Particle.Update();
 
+        Enemy.Update();
+        Room.Update();
+        
         base.Update(gameTime);
     }
 
     protected override void Draw(GameTime gameTime)
     {
-        GraphicsDevice.Clear(Color.Indigo);
+        GraphicsDevice.Clear(Color.Black);
+        spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, SamplerState.PointClamp);
+
+        Room.Draw();
 
         Player.Draw();
-        textSprite.Draw(10, GraphicsManager.PreferredBackBufferHeight - 100, Color.Black);
-        Block.Draw();
-        Item.Draw();
+        Particle.Draw();
+
+        Enemy.Draw();
+
+        spriteBatch.End();
 
         base.Draw(gameTime);
     }

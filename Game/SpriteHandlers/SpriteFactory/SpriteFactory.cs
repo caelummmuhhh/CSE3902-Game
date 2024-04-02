@@ -18,6 +18,8 @@ namespace MainGame.SpriteHandlers
             TextureMap.Add("BlocksSprites", contents.Load<Texture2D>("BlocksSprites"));
             TextureMap.Add("ProjectilesSprites", contents.Load<Texture2D>("ProjectilesSprites"));
             TextureMap.Add("ItemsSprites", contents.Load<Texture2D>("ItemsSprites"));
+            TextureMap.Add("RoomSprites", contents.Load<Texture2D>("RoomSprites"));
+            TextureMap.Add("ParticleSprites", contents.Load<Texture2D>("ParticleSprites"));
 
             Font = contents.Load<SpriteFont>("Fonts/Font");
         }
@@ -25,28 +27,6 @@ namespace MainGame.SpriteHandlers
         public static ISprite CreateTextSprite(string text)
         {
             return new TextSprite(SpriteBatch, Font, text);
-        }
-
-        public static ISprite CreatePlayerStaticIdleSprite()
-		{
-			return CreateHeartItemSprite();
-		}
-
-        public static ISprite CreatePlayerAnimatedIdleSprite()
-        {
-            return CreateTriforcePieceItemSprite();
-        }
-
-
-        public static ISprite CreatePlayerStaticFallingSprite()
-        {
-            return CreateRupeeItemSprite();
-        }
-
-
-        public static ISprite CreatePlayerAnimatedWalkingSprite()
-        {
-            return CreateFireSprite();
         }
     }
 }

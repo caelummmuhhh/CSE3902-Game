@@ -1,0 +1,9 @@
+dungeonNormal,,,,,,,,,,,
+wallNormal,keyDoor,wallNormal,diamondDoor,,,,,,,,
+-,-,-,-,-,-,-,squareBlock,squareBlock,squareBlock,squareBlock,squareBlock
+-,-,-,-,-,-,-,-,-,squareBlock,squareBlock,squareBlock
+-,-,-,-,-,-,-,-,-,aquamentus ,squareBlock,squareBlock
+-,-,-,-,-,-,-,-,-,-,heartContainer,-
+-,-,-,-,-,-,-,-,-,-,squareBlock,squareBlock
+-,-,-,-,-,-,-,-,-,squareBlock,squareBlock,squareBlock
+-,-,-,-,-,-,-,squareBlock,squareBlock,squareBlock,squareBlock,squareBlock

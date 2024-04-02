@@ -14,8 +14,9 @@ namespace MainGame.SpriteHandlers.PlayerSprites
             int spriteWidth = 16,
             int textureStartingX = 0,
             int textureStartingY = 0,
-            int scale = 1) : base(texture, spriteHeight, spriteWidth,
-                                  textureStartingX, textureStartingY, scale)
+            int scale = 1,
+            float layerDepth = 0.5f)
+            : base(texture, spriteHeight, spriteWidth, textureStartingX, textureStartingY, scale, layerDepth)
         {
             this.spriteBatch = spriteBatch;
         }
@@ -24,19 +25,10 @@ namespace MainGame.SpriteHandlers.PlayerSprites
 
         public override void Draw(float x, float y, Color color)
         {
-            Vector2 origin = new(FrameWidth / 2f, FrameHeight / 2f);
-            float rotation = 0f;
-
             Rectangle srcRectangle = GetSourceRectangle();
-            Rectangle destRectangle = new(
-                (int)(x - origin.X),
-                (int)(y - origin.Y),
-                FrameWidth * Scale,
-                FrameHeight * Scale);
+            Rectangle destRectangle = GetDestinationRectangle(x, y);
 
-            spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, SamplerState.PointClamp);
-            spriteBatch.Draw(Texture, destRectangle, srcRectangle, color, rotation, origin, SpriteEffects.None, 0f);
-            spriteBatch.End();
+            spriteBatch.Draw(Texture, destRectangle, srcRectangle, color, rotation, origin, SpriteEffects.None, layer);
         }
     }
 }

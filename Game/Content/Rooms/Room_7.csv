@@ -1,0 +1,9 @@
+dungeonNormal,,,,,,,,,,,
+keyDoor,wallNormal,wallNormal,diamondDoor,,,,,,,,
+-,-,-,-,-,-,-,-,keese,-,-,-
+-,keese,-,-,-,-,-,-,-,-,-,-
+-,-,-,-,-,squareBlock,squareBlock,-,-,-,-,-
+keese,-,-,-,-,squareBlock,squareBlock,-,-,-,-,-
+-,-,-,keese,-,squareBlock,squareBlock,-,-,-,-,-
+-,keese,-,-,-,-,-,-,-,-,-,-
+-,-,-,-,-,-,-,-,keese,-,-,-

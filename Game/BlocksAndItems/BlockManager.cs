@@ -1,11 +1,5 @@
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Input;
-
-using MainGame.SpriteHandlers;
-using MainGame.Controllers;
-using MainGame.Players;
 using System.Collections.Generic;
+using MainGame.SpriteHandlers;
 
 namespace MainGame.Managers
 {
@@ -20,18 +14,18 @@ namespace MainGame.Managers
 
         public void LoadBlocks()
         {
-        blocks.Add(MainGame.SpriteHandlers.SpriteFactory.CreateBlueFloorSprite());
-        blocks.Add(MainGame.SpriteHandlers.SpriteFactory.CreateSquareBlockSprite());
-        blocks.Add(MainGame.SpriteHandlers.SpriteFactory.CreateStatueOneEntranceSprite());
-        blocks.Add(MainGame.SpriteHandlers.SpriteFactory.CreateStatueTwoEntranceSprite());
-        blocks.Add(MainGame.SpriteHandlers.SpriteFactory.CreateStatueOneEndSprite());
-        blocks.Add(MainGame.SpriteHandlers.SpriteFactory.CreateStatueTwoEndSprite());
-        blocks.Add(MainGame.SpriteHandlers.SpriteFactory.CreateBlackSquareSprite());
-        blocks.Add(MainGame.SpriteHandlers.SpriteFactory.CreateBlueSandSprite());
-        blocks.Add(MainGame.SpriteHandlers.SpriteFactory.CreateBlueGapSprite());
-        blocks.Add(MainGame.SpriteHandlers.SpriteFactory.CreateStairsSprite());
-        blocks.Add(MainGame.SpriteHandlers.SpriteFactory.CreateWhiteBrickSprite());
-        blocks.Add(MainGame.SpriteHandlers.SpriteFactory.CreateWhiteLadderSprite());
+            blocks.Add(SpriteFactory.CreateBlock("BlueFloor"));
+            blocks.Add(SpriteFactory.CreateBlock(BlockSpriteTypes.SquareBlock));
+            blocks.Add(SpriteFactory.CreateBlock(BlockSpriteTypes.StatueOneEntrance));
+            blocks.Add(SpriteFactory.CreateBlock(BlockSpriteTypes.StatueTwoEntrance));
+            blocks.Add(SpriteFactory.CreateBlock(BlockSpriteTypes.StatueOneEnd));
+            blocks.Add(SpriteFactory.CreateBlock(BlockSpriteTypes.StatueTwoEnd));
+            blocks.Add(SpriteFactory.CreateBlock(BlockSpriteTypes.BlackSquare));
+            blocks.Add(SpriteFactory.CreateBlock(BlockSpriteTypes.BlueSand));
+            blocks.Add(SpriteFactory.CreateBlock(BlockSpriteTypes.BlueGap));
+            blocks.Add(SpriteFactory.CreateBlock(BlockSpriteTypes.Stairs));
+            blocks.Add(SpriteFactory.CreateBlock(BlockSpriteTypes.WhiteBrick));
+            blocks.Add(SpriteFactory.CreateBlock(BlockSpriteTypes.WhiteLadder));
         }
 
         public List<ISprite> GetBlocks()

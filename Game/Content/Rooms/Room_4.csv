@@ -1,0 +1,9 @@
+dungeonNormal,,,,,,,,,,,
+openDoor,keyDoor,wallNormal,wallNormal,,,,,,,,
+-,-,-,-,-,-,-,-,stalfos,-,-,-
+-,-,-,-,-,-,-,-,-,-,-,-
+-,-,-,-,stalfos,squareBlock,squareBlock,stalfos,-,-,-,-
+-,-,-,-,-,squareBlock,squareBlock,-,-,-,-,-
+-,-,-,-,-,squareBlock,squareBlock,-,-,-,-,-
+-,-,-,-,-,-,-,-,-,-,-,-
+-,-,-,-,-,-,-,-,-,-,-,-

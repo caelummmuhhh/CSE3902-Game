@@ -6,14 +6,13 @@ namespace MainGame.SpriteHandlers.ProjectileSprites
 {
     public class SwordBeamRightProjectileSprite : AnimatedSpriteWithOffset
     {
-        private readonly SpriteBatch spriteBatch;
-        private int spriteDisplayTimeLapse;
-
         /// <summary>
         /// The key is the current frame (starting at 0) and corresponds with currentFrame.
         /// The value is how many game seconds the frame should be displayed.
         /// </summary>
-        private Dictionary<int, int> frameDisplayTimeMap;
+        private readonly Dictionary<int, int> frameDisplayTimeMap;
+        private readonly SpriteBatch spriteBatch;
+        private int spriteDisplayTimeLapse;
 
         public SwordBeamRightProjectileSprite(
             Texture2D texture,
@@ -25,12 +24,14 @@ namespace MainGame.SpriteHandlers.ProjectileSprites
             int frameWidth = 16,
             int textureStartingX = 0,
             int textureStartingY = 0,
-            int scale = 1) : base(texture, numRows, numColumns, frameWidth,
-                                  frameHeight, numberOfFrames, textureStartingX,
-                                  textureStartingY, scale)
+            int scale = 1,
+            float layerDepth = 0.5f)
+            : base(texture, numRows, numColumns, frameWidth, frameHeight, numberOfFrames,
+                  textureStartingX, textureStartingY, scale, layerDepth)
         {
             this.spriteBatch = spriteBatch;
             spriteDisplayTimeLapse = 0;
+            rotation = 0f;
             frameDisplayTimeMap = new()
             {
                 { 0, 1 },
@@ -39,7 +40,6 @@ namespace MainGame.SpriteHandlers.ProjectileSprites
                 { 3, 1 }
             };
         }
-
 
         public override void Update()
         {
@@ -54,19 +54,10 @@ namespace MainGame.SpriteHandlers.ProjectileSprites
 
         public override void Draw(float x, float y, Color color)
         {
-            Vector2 origin = new(FrameWidth / 2f, FrameHeight / 2f);
-            float rotation = 0f;
-
             Rectangle srcRectangle = GetSourceRectangle();
-            Rectangle destRectangle = new(
-                (int)(x - origin.X),
-                (int)(y - origin.Y),
-                FrameWidth * Scale,
-                FrameHeight * Scale);
+            Rectangle destRectangle = GetDestinationRectangle(x, y);
 
-            spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, SamplerState.PointClamp);
-            spriteBatch.Draw(Texture, destRectangle, srcRectangle, color, rotation, origin, SpriteEffects.None, 0f);
-            spriteBatch.End();
+            spriteBatch.Draw(Texture, destRectangle, srcRectangle, color, rotation, origin, SpriteEffects.None, layer);
         }
     }
 }

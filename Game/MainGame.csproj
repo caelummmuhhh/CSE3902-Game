@@ -19,7 +19,6 @@
     <None Remove="Players\" />
     <None Remove="SpriteHandlers\PlayerSprites\" />
     <None Remove="SpriteHandlers\EnemySprites\" />
-    <None Remove="SpriteHandlers\EnemySprites\KeeseSprites\" />
     <None Remove="SpriteHandlers\EnemySprites\AquamentusSprites\" />
     <None Remove="SpriteHandlers\EnemySprites\GoriyaSprites\" />
     <None Remove="SpriteHandlers\BlockSprites\" />
@@ -32,6 +31,16 @@
     <None Remove="Commands\PlayerCommands\" />
     <None Remove="Projectiles\" />
     <None Remove="Players\PlayerStates\DamagedStates\" />
+    <None Remove="Enemies\KeeseEnemy\" />
+    <None Remove="SpriteHandlers\EnemySprites\KeeseSprites\" />
+    <None Remove="Enemies\GelEnemy\" />
+    <None Remove="Enemies\StalfosEnemy\" />
+    <None Remove="Enemies\GoriyaEnemy\" />
+    <None Remove="Enemies\SpikeCrossEnemy\" />
+    <None Remove="Enemies\OldManEnemy\" />
+    <None Remove="Enemies\WallMasterEnemy\" />
+    <None Remove="Enemies\AquamentusEnemy\" />
+    <None Remove="Projectiles\AquamentusProjectile\" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Icon.ico" />
@@ -42,14 +51,11 @@
     <PackageReference Include="MonoGame.Content.Builder.Task" Version="3.8.1.303" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Commands\" />
     <Folder Include="Controllers\" />
     <Folder Include="Players\" />
     <Folder Include="SpriteHandlers\PlayerSprites\" />
-    <Folder Include="SpriteHandlers\EnemySprites\KeeseSprites\" />
     <Folder Include="SpriteHandlers\EnemySprites\GoriyaSprites\" />
     <Folder Include="SpriteHandlers\BlockSprites\" />
-    <Folder Include="SpriteHandlers\SpriteFactory\" />
     <Folder Include="SpriteHandlers\ItemSprites\" />
     <Folder Include="SpriteHandlers\ProjectileSprites\" />
     <Folder Include="SpriteHandlers\ProjectileSprites\ArrowProjectileSprites\" />
@@ -58,6 +64,72 @@
     <Folder Include="Commands\PlayerCommands\" />
     <Folder Include="Projectiles\" />
     <Folder Include="Players\PlayerStates\DamagedStates\" />
+    <Folder Include="Enemies\KeeseEnemy\" />
+    <Folder Include="SpriteHandlers\EnemySprites\KeeseSprites\" />
+    <Folder Include="Enemies\GelEnemy\" />
+    <Folder Include="Enemies\StalfosEnemy\" />
+    <Folder Include="Enemies\GoriyaEnemy\" />
+    <Folder Include="Enemies\SpikeCrossEnemy\" />
+    <Folder Include="Enemies\OldManEnemy\" />
+    <Folder Include="Enemies\WallMasterEnemy\" />
+    <Folder Include="Enemies\AquamentusEnemy\" />
+    <Folder Include="Projectiles\AquamentusProjectile\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Update="Content\Rooms\Room_1.csv">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Rooms\Room_10.csv">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Rooms\Room_11.csv">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Rooms\Room_12.csv">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Rooms\Room_13.csv">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Rooms\Room_14.csv">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Rooms\Room_15.csv">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Rooms\Room_16.csv">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Rooms\Room_17.csv">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Rooms\Room_18.csv">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Rooms\Room_2.csv">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Rooms\Room_3.csv">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Rooms\Room_4.csv">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Rooms\Room_5.csv">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Rooms\Room_6.csv">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Rooms\Room_7.csv">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Rooms\Room_8.csv">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Rooms\Room_9.csv">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <Target Name="RestoreDotnetTools" BeforeTargets="Restore">
     <Message Text="Restoring dotnet tools" Importance="High" />

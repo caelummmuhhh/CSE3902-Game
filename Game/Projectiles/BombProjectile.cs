@@ -18,22 +18,22 @@ namespace MainGame.Projectiles
         private int explosionTime = 0;
         private bool detonated = false;
 
-        public BombProjectile(Vector2 spawnerPosition, Direction direction)
+        public BombProjectile(Vector2 spawnerPosition, CardinalDirections direction)
         {
             sprite = SpriteFactory.CreateBombSprite();
 
             switch (direction)
             {
-                case Direction.Up:
+                case CardinalDirections.North:
                     position = new(spawnerPosition.X, spawnerPosition.Y - bombSpawnOffset);
                     break;
-                case Direction.Down:
+                case CardinalDirections.South:
                     position = new(spawnerPosition.X, spawnerPosition.Y + bombSpawnOffset);
                     break;
-                case Direction.Right:
+                case CardinalDirections.East:
                     position = new(spawnerPosition.X + bombSpawnOffset, spawnerPosition.Y);
                     break;
-                case Direction.Left:
+                case CardinalDirections.West:
                     position = new(spawnerPosition.X - bombSpawnOffset, spawnerPosition.Y);
                     break;
             }

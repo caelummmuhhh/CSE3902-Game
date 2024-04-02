@@ -14,8 +14,9 @@ namespace MainGame.SpriteHandlers.EnemySprites
             int spriteWidth = 16,
             int textureStartingX = 0,
             int textureStartingY = 0,
-            int scale = 1) : base(texture, spriteHeight, spriteWidth,
-                                  textureStartingX, textureStartingY, scale)
+            int scale = 1,
+            float layerDepth = 0.5f)
+            : base(texture, spriteHeight, spriteWidth, textureStartingX, textureStartingY, scale, layerDepth)
         {
             this.spriteBatch = spriteBatch;
         }
@@ -25,16 +26,9 @@ namespace MainGame.SpriteHandlers.EnemySprites
         public override void Draw(float x, float y, Color color)
         {
             Rectangle srcRectangle = GetSourceRectangle();
-            Rectangle destRectangle = new Rectangle(
-                (int)(x - (FrameHeight * Scale) / 2),
-                (int)(y - (FrameWidth * Scale) / 2),
-                FrameWidth * Scale,
-                FrameHeight * Scale);
+            Rectangle destRectangle = GetDestinationRectangle(x, y);
 
-            spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, SamplerState.PointClamp);
-            spriteBatch.Draw(Texture, destRectangle, srcRectangle, color);
-            spriteBatch.End();
+            spriteBatch.Draw(Texture, destRectangle, srcRectangle, color, rotation, origin, SpriteEffects.None, layer);
         }
     }
 }
-
