@@ -37,8 +37,8 @@ namespace MainGame
             int halfCellWidth = CellSize.X / 2;
             int halfCellHeight = CellSize.Y / 2;
 
-            int roundedX = (int)Math.Floor((decimal)position.X / halfCellWidth) * halfCellWidth;
-            int roundedY = (int)Math.Floor((decimal)position.Y / halfCellHeight) * halfCellHeight;
+            int roundedX = (int)Math.Round((decimal)position.X / halfCellWidth) * halfCellWidth;
+            int roundedY = (int)Math.Round((decimal)position.Y / halfCellHeight) * halfCellHeight;
 
             return new Point(roundedX, roundedY);
         }

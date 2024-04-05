@@ -8,7 +8,7 @@ namespace MainGame.Players
 	public class Player : IPlayer
 	{
 		public static readonly float Speed = Constants.UniversalScale;
-		public static readonly int UsingItemsSpeed = 10;
+		public static readonly int UsingItemsSpeed = 6;
 		public static readonly int KnockedBackDuration = 10;
 		public static readonly float KnockedBackSpeed = 10f;
 
@@ -70,7 +70,8 @@ namespace MainGame.Players
 
 		private void UpdateHitBoxes()
 		{
-			MainHitbox = Utils.CentralizeRectangle((int)Position.X, (int)Position.Y, Sprite.DestinationRectangle);
+			MainHitbox = new(Sprite.DestinationRectangle.Location, Sprite.DestinationRectangle.Size);
+			//Utils.CentralizeRectangle((int)Position.X, (int)Position.Y, Sprite.DestinationRectangle);
 
 			BottomHalfHitBox = new(
 				MainHitbox.X, MainHitbox.Y + MainHitbox.Height / 2,

@@ -43,7 +43,7 @@ namespace MainGame.SpriteHandlers.PlayerSprites
                   textureStartingX, textureStartingY, scale, layerDepth)
         {
             this.spriteBatch = spriteBatch;
-            origin = new(FrameWidth / 2f, FrameHeight - 8);
+            origin = new(0f, 11f);
             spriteDisplayTimeLapse = 0;
             frameDisplayTimeMap = new()
             {

@@ -36,7 +36,7 @@ public class Game1 : Game
             PreferredBackBufferHeight = 176 * Constants.UniversalScale  //768 in sprint 4+
         };
 
-        this.TargetElapsedTime = TimeSpan.FromSeconds(1d / 30d); //60);
+        //this.TargetElapsedTime = TimeSpan.FromSeconds(1d / 30d); //60);
         Content.RootDirectory = "Content";
         IsMouseVisible = true;
     }
@@ -87,19 +87,15 @@ public class Game1 : Game
         Room.Draw();
         Player.Draw();
 
-        /*if (Room.Enemies.Count > 0)
+        if (Room.Enemies.Count > 0)
         {
             testBlock.Draw(
             new List<IEnemy>(Room.Enemies)[0].HitBox,
             Color.White
             );
-        }*/
-
-        Rectangle t = new(
-            Player.MainHitbox.X + Player.Sprite.DestinationRectangle.Width / 2,
-            Player.MainHitbox.Y + Player.Sprite.DestinationRectangle.Height / 2,
-            Player.MainHitbox.Width / 10, Player.MainHitbox.Height / 10);
-        testBlock.Draw(t, Color.White);
+        }
+        testBlock.Draw(Player.SwordHitBox, Color.Wheat);
+        //testBlock.Draw(Player.MainHitbox, Color.White);
 
         spriteBatch.End();
 

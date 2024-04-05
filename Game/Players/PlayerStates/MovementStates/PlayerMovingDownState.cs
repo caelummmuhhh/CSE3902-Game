@@ -14,13 +14,9 @@ namespace MainGame.Players.PlayerStates
 			this.player = player;
 			this.player.Sprite = SpriteFactory.CreatePlayerWalkingDownSprite();
 
-            Vector2 playerOriginPosition = new(
-                player.Position.X + player.Sprite.DestinationRectangle.Width / 2,
-                player.Position.Y + player.Sprite.DestinationRectangle.Height / 2
-                );
             player.Position = new Vector2(
-                GridHandler.SnapToGridHalfStep(playerOriginPosition).X,
-                GridHandler.SnapToGridHalfStep(playerOriginPosition).Y
+                GridHandler.SnapToGridHalfStep(player.Position).X,
+                player.Position.Y
                 );
         }
 
@@ -45,10 +41,14 @@ namespace MainGame.Players.PlayerStates
 
 		public void MoveRight()
         {
-            player.Position = new(player.Position.X, player.Position.Y + 16f * 0.5f * Constants.UniversalScale);
+            player.Position = new(player.Position.X, player.Position.Y + 1f * Constants.UniversalScale);
             player.CurrentState = new PlayerMovingRightState(player);
         }
-		public void MoveLeft() { player.CurrentState = new PlayerMovingLeftState(player); }
+		public void MoveLeft()
+        {
+            player.Position = new(player.Position.X, player.Position.Y - 1f * Constants.UniversalScale);
+            player.CurrentState = new PlayerMovingLeftState(player);
+        }
 
         public void UseSword() => player.CurrentState = new PlayerUsingSwordDownState(player);
 

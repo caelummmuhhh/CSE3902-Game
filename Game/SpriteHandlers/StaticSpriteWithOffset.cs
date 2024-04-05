@@ -31,7 +31,7 @@ namespace MainGame.SpriteHandlers
             this.frameHeight = frameHeight;
             StartXPosition = textureStartingX;
             StartYPosition = textureStartingY;
-            origin = new(FrameWidth / 2f, FrameHeight / 2f);
+            origin = new(0, 0);//new(FrameWidth / 2f, FrameHeight / 2f);
             rotation = 0f;
             layer = layerDepth;
         }
@@ -44,8 +44,9 @@ namespace MainGame.SpriteHandlers
         protected Rectangle GetDestinationRectangle(float x, float y)
         {
             Rectangle destRect = new(
-                (int)(x),
-                (int)(y),
+                //(int)(x - origin.X),
+                //(int)(y - origin.Y),
+                (int)x, (int)y,
                 FrameWidth * Scale,
                 FrameHeight * Scale);
             DestinationRectangle = destRect;

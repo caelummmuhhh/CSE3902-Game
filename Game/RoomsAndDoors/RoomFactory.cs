@@ -34,7 +34,7 @@ namespace MainGame.RoomsAndDoors
                 for (int i = 2; i < lines.Length; i++)
                 {
                     ParseItemsAndBlocks(lines[i], room, i - 2);
-                    //ParseEnemies(lines[i], room, game.Player, i - 2);
+                    ParseEnemies(lines[i], room, game.Player, i - 2);
                 }
             }
             room.CurrentRoom = roomNum;
@@ -177,7 +177,6 @@ namespace MainGame.RoomsAndDoors
             int wallOffsetX = 32 * Constants.UniversalScale;
             int wallOffsetY = 32 * Constants.UniversalScale;
             int columnWidth = 16 * Constants.UniversalScale;
-            int blockCenter = 30;
 
             string[] objects = line.Split(',');
             
@@ -185,7 +184,7 @@ namespace MainGame.RoomsAndDoors
             {
                 try
                 {
-                    Vector2 spawnPosition = new(wallOffsetX + i * columnWidth + blockCenter, wallOffsetY + yOffset * columnWidth + blockCenter);
+                    Vector2 spawnPosition = new(wallOffsetX + i * columnWidth, wallOffsetY + yOffset * columnWidth);
                     IEnemy enemy = EnemyUtils.CreateEnemy(objects[i], spawnPosition, player);
                     room.Enemies.Add(enemy);
                 }

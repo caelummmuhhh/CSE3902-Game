@@ -9,7 +9,18 @@ namespace MainGame.Enemies
         /// If moving, the entity can only move once every MovementCoolDownFrame.
         /// </summary>
         public abstract int MovementCoolDownFrame {  get; protected set; }
-        public virtual Rectangle HitBox { get => Utils.CentralizeRectangle((int)Position.X - 8, (int)Position.Y - 8, Sprite.DestinationRectangle); }
+        public virtual Rectangle HitBox
+        {
+            get
+            {
+                // Shrink the sprite size by one pixel
+                Rectangle hitbox = new(Sprite.DestinationRectangle.Location, Sprite.DestinationRectangle.Size);
+                hitbox.Width -= Constants.UniversalScale;
+                hitbox.Height -= Constants.UniversalScale;
+
+                return hitbox;
+            }
+        }
         public virtual Vector2 PreviousPosition { get; set; } 
 
         public virtual int MovementSpeed { get; protected set; } = Constants.UniversalScale;
