@@ -11,7 +11,7 @@
 
         public void Execute()
         {
-            game.Room = game.Room.GetNextRoom();
+            game.RoomManager.NextRoom();
         }
 
         public void UnExecute()

@@ -2,114 +2,107 @@
 using System.Collections.Generic;
 
 using MainGame.Doors;
-using MainGame.RoomsAndDoors;
 using MainGame.SpriteHandlers;
 using MainGame.BlocksAndItems;
 using MainGame.Enemies;
+using MainGame.Players;
+using MainGame.Particles;
+using MainGame.Collision;
 
 namespace MainGame.Rooms
 {
-    public class Room
+    public class Room : IRoom
     {
-        public ISprite OuterBorder;
-        public ISprite InnerBorder;
-        public ISprite Tiles;
+        public int RoomId { get; set; }
+        public IPlayer RoomPlayer { get; set; }
 
-        public IDoor NorthDoor;
-        public IDoor WestDoor;
-        public IDoor EastDoor;
-        public IDoor SouthDoor;
+        public List<IEnemy> RoomEnemies { get; set; } = new();
+        public List<IBlock> RoomBlocks { get; set; } = new();
+        public List<IItem> RoomItems { get; set; } = new();
+        public List<IParticle> RoomParticles { get; set; } = new();
 
-        public HashSet<Block> Blocks { get; set; } = new();
-        public HashSet<Item> Items { get; set; } = new();
-        public HashSet<IEnemy> Enemies { get; set; } = new();
+        public IHitBox EnemiesBorderHitBox { get; set; }
+        public IHitBox PlayerBorderHitBox { get; set; }
 
-        public Vector2 Position;
-        private readonly Game1 game;
+        public IDoor NorthDoor { get; set; }
+        public IDoor WestDoor { get; set; }
+        public IDoor EastDoor { get; set; }
+        public IDoor SouthDoor { get; set; }
 
-        // TODO: Delete this for sprint 4
-        public int CurrentRoom = 1;
-        private readonly int maxRoomChangeDebounce = 2;
-        private int roomChangeDebounce;
-        private readonly int maxNumRooms = 18;
+        public ISprite OuterBorderSprite { get; set; }
+        public ISprite InnerBorderSprite { get; set; }
+        public ISprite TilesSprite { get; set; }
 
-        public Room(ISprite outerBorder, ISprite innerBorder, ISprite tiles, Game1 game)
+        private Vector2 Position = new(0, 0);
+
+        public Room(ISprite outerBorder, ISprite innerBorder, ISprite tiles)
         {
             Position = new Vector2(0, 0);
-            OuterBorder = outerBorder;
-            InnerBorder = innerBorder;
-            Tiles = tiles;
-            this.game = game;
+            OuterBorderSprite = outerBorder;
+            InnerBorderSprite = innerBorder;
+            TilesSprite = tiles;
 
-            OuterBorder.LayerDepth = 0f;
-            InnerBorder.LayerDepth = 1.0f;
-            Tiles.LayerDepth = 1.0f;
+            OuterBorderSprite.LayerDepth = 0f;
+            InnerBorderSprite.LayerDepth = 1.0f;
+            TilesSprite.LayerDepth = 1.0f;
 
-            NorthDoor = new BlankDoor();
-            WestDoor = new BlankDoor();
-            SouthDoor = new BlankDoor();
-            EastDoor = new BlankDoor();
-            roomChangeDebounce = maxRoomChangeDebounce;
+            EnemiesBorderHitBox = new AllFullWallHitBox();
+            PlayerBorderHitBox = new GenericHitBox();
         }
 
         public void Update()
         {
-            OuterBorder.Update();
-            InnerBorder.Update();
-            Tiles.Update();
-            foreach (Block block in Blocks)
+            //RoomPlayer.Update();
+            OuterBorderSprite.Update();
+            InnerBorderSprite.Update();
+            TilesSprite.Update();
+
+            foreach (IBlock block in RoomBlocks)
             {
                 block.Update();
             }
-            foreach (Item item in Items)
+            foreach (IItem item in RoomItems)
             {
                 item.Update();
             }
-            foreach (IEnemy enemy in Enemies)
+            foreach (IEnemy enemy in RoomEnemies)
             {
                 enemy.Update();
             }
-            roomChangeDebounce--;
+            foreach (IParticle particle in RoomParticles)
+            {
+                particle.Update();
+            }
         }
 
         public void Draw()
         {
-            OuterBorder.Draw(Position.X, Position.Y, Color.White);
-            InnerBorder.Draw(Position.X, Position.Y, Color.White);
-            Tiles.Draw(Position.X, Position.Y, Color.White);
+            //RoomPlayer.Draw();
+            OuterBorderSprite.Draw(Position.X, Position.Y, Color.White);
+            InnerBorderSprite.Draw(Position.X, Position.Y, Color.White);
+            TilesSprite.Draw(Position.X, Position.Y, Color.White);
 
             NorthDoor.Draw();
             SouthDoor.Draw();
             WestDoor.Draw();
             EastDoor.Draw();
 
-            foreach (Block block in Blocks)
+            foreach (IBlock block in RoomBlocks)
             {
                 block.Draw();
             }
-            foreach (Item item in Items)
+            foreach (IItem item in RoomItems)
             {
                 item.Draw();
             }
-            foreach(IEnemy enemy in Enemies)
+            foreach(IEnemy enemy in RoomEnemies)
             {
                 enemy.Draw();
             }
-        }
-
-        public Room GetNextRoom()
-        {
-            if (roomChangeDebounce <= 0)
+            foreach (IParticle particle in RoomParticles)
             {
-                int newRoomNumber = (CurrentRoom + 1) % maxNumRooms;
-                if (newRoomNumber == 0)
-                {
-                    newRoomNumber = 1;
-                }
-                Room newRoom = RoomFactory.GenerateRoom(newRoomNumber, game);
-                return newRoom;
+                particle.Draw();
             }
-            return this;
         }
     }
 }

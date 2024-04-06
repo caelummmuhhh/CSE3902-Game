@@ -9,35 +9,37 @@ using MainGame.SpriteHandlers;
 using MainGame.BlocksAndItems;
 using MainGame.Enemies;
 using MainGame.Players;
+using MainGame.Collision;
 
-namespace MainGame.RoomsAndDoors
+namespace MainGame.Rooms
 {
     public static class RoomFactory
     {
         /*
          * Method for generating a room object based on a room name as specified in Content/Rooms
          */
-        public static Room GenerateRoom(int roomNum, Game1 game)
+        public static IRoom GenerateRoom(string roomFile, IPlayer player)
         {
-            Room room = null;
+            string fullPath = Path.GetFullPath(roomFile);
+            string[] lines = ParseCsv(fullPath);
+            int roomNumber = Path.GetFileNameWithoutExtension(fullPath)[^1];
 
-            string path = Path.Combine("Content", "Rooms", $"Room_{roomNum}.csv");
-            string[] lines = ParseCsv(path);
             if (lines == null)
             {
-                Debug.WriteLine("Error reading filename");
+                throw new IOException($"Could not read CSV file to room: {roomFile}");
             }
-            else
+            
+            IRoom room = ParseRoomType(lines[0]); // Parse and set room to a new room object
+            room.RoomId = roomNumber;
+            ParseDoors(lines[1], room);
+            room.RoomPlayer = player;
+
+            for (int i = 2; i < lines.Length; i++)
             {
-                room = ParseRoomType(lines[0], game); // Parse and set room to a new room object
-                ParseDoors(lines[1], room);
-                for (int i = 2; i < lines.Length; i++)
-                {
-                    ParseItemsAndBlocks(lines[i], room, i - 2);
-                    ParseEnemies(lines[i], room, game.Player, i - 2);
-                }
+                ParseItemsAndBlocks(lines[i], room, i - 2);
+                ParseEnemies(lines[i], room, player, i - 2);
             }
-            room.CurrentRoom = roomNum;
+
             return room;
         }
 
@@ -58,39 +60,38 @@ namespace MainGame.RoomsAndDoors
         /*
          * Method for setting the game.Room parameter to the correct room style based on the inputted line
          */
-        private static Room ParseRoomType(string line, Game1 game)
+        private static IRoom ParseRoomType(string line)
         {
-            switch (line)
+            string roomName = line.Replace(",", "");
+            switch (roomName)
             {
-                case "dungeonNormal,,,,,,,,,,,":
+                case "dungeonNormal":
                     return new Room(
                         SpriteFactory.CreateRoomOuterBorderSprite(),
                         SpriteFactory.CreateRoomInnerBorderSprite(),
-                        SpriteFactory.CreateDungeonTilesSprite(),
-                        game
+                        SpriteFactory.CreateDungeonTilesSprite()
                         );
-                case "undergroundRoom,,,,,,,,,,,":
+                case "undergroundRoom":
                     return new Room(
                         SpriteFactory.CreateEmptyRoomSprite(),
                         SpriteFactory.CreateEmptyRoomSprite(),
-                        SpriteFactory.CreateUndergroundRoomSprite(),
-                        game
+                        SpriteFactory.CreateUndergroundRoomSprite()
                         );
-                case "dungeonOldMan,,,,,,,,,,,":
+                case "dungeonOldMan":
                     return new Room(
                         SpriteFactory.CreateRoomOuterBorderSprite(),
                         SpriteFactory.CreateRoomInnerBorderSprite(),
-                        SpriteFactory.CreateEmptyRoomSprite(),
-                        game
+                        SpriteFactory.CreateEmptyRoomSprite()
                         );
+                default:
+                    throw new FormatException($"Unable to read room type from format, unknown room type \"{roomName}\"");
             }
-            return null;
         }
 
         /* 
          * Method for setting the doors of the room based on csv
          */
-        private static void ParseDoors(string line, Room room)
+        private static void ParseDoors(string line, IRoom room)
         {
             // Parse raw csv line into 4 doors names
             string[] doors = line.Split(',');
@@ -104,6 +105,12 @@ namespace MainGame.RoomsAndDoors
                      SpriteFactory.CreateDoorBottomNorthSouth("North", doors[0]),
                      "North"
                  );
+                room.PlayerBorderHitBox.Add(new TopHorizontalDoorWallHitBox());
+            }
+            else
+            {
+                room.NorthDoor = new BlankDoor();
+                room.PlayerBorderHitBox.Add(new TopFullHorizontalWallHitBox());
             }
 
             if (!doors[1].Equals("-"))
@@ -114,6 +121,12 @@ namespace MainGame.RoomsAndDoors
                 SpriteFactory.CreateDoorBottomNorthSouth("South", doors[1]),
                 "South"
                 );
+                room.PlayerBorderHitBox.Add(new BottomHorizontalDoorWallHitBox());
+            }
+            else
+            {
+                room.SouthDoor = new BlankDoor();
+                room.PlayerBorderHitBox.Add(new BottomFullHorizontalWallHitBox());
             }
 
             if (!doors[2].Equals("-"))
@@ -124,6 +137,12 @@ namespace MainGame.RoomsAndDoors
                 SpriteFactory.CreateDoorBottomWestEast("West", doors[2]),
                 "West"
                 );
+                room.PlayerBorderHitBox.Add(new RightVerticalDoorWallHitBox());
+            }
+            else
+            {
+                room.EastDoor = new BlankDoor();
+                room.PlayerBorderHitBox.Add(new RightFullVerticalWallHitBox());
             }
 
             if (!doors[3].Equals("-"))
@@ -134,10 +153,16 @@ namespace MainGame.RoomsAndDoors
                 SpriteFactory.CreateDoorBottomWestEast("East", doors[3]),
                 "East"
                 );
+                room.PlayerBorderHitBox.Add(new LeftVerticalDoorWallHitBox());
+            }
+            else
+            {
+                room.WestDoor = new BlankDoor();
+                room.PlayerBorderHitBox.Add(new LeftFullVerticalWallHitBox());
             }
         }
 
-        private static void ParseItemsAndBlocks(string line, Room room, int yOffset)
+        private static void ParseItemsAndBlocks(string line, IRoom room, int yOffset)
         {
             int wallOffsetX = 32 * Constants.UniversalScale;
             int wallOffsetY = 32 * Constants.UniversalScale;
@@ -148,10 +173,16 @@ namespace MainGame.RoomsAndDoors
             // if parsed, a new block/item object will be added to game1's current set of objects
             for (int i = 0; i < objects.Length; i++)
             {
+                if (objects[i].Equals("-"))
+                {
+                    continue;
+                }
+
+                // TODO: Maybe we should have a BlocksFactory instead of using block sprite type, so we can control the collideability
                 bool blockSuccess = Enum.TryParse(typeof(BlockSpriteTypes), objects[i], true, out object block);
                 if (blockSuccess)
                 {
-                    room.Blocks.Add(
+                    room.RoomBlocks.Add(
                         new Block(
                                 new Vector2(wallOffsetX + i * columnWidth, wallOffsetY + yOffset * columnWidth),
                                 SpriteFactory.CreateBlock((BlockSpriteTypes)block)
@@ -162,17 +193,18 @@ namespace MainGame.RoomsAndDoors
                     bool itemSuccess = Enum.TryParse(typeof(ItemSpriteTypes), objects[i], true, out object item);
                     if (itemSuccess)
                     {
-                        room.Items.Add(
+                        room.RoomItems.Add(
                             new Item(
                                     new Vector2(wallOffsetX + i * columnWidth, wallOffsetY + yOffset * columnWidth),
                                     SpriteFactory.CreateItemSprite((ItemSpriteTypes)item)
                                 ));
                     }
                 }
+                objects[i] = "-";
             }
         }
 
-        private static void ParseEnemies(string line, Room room, IPlayer player, int yOffset)
+        private static void ParseEnemies(string line, IRoom room, IPlayer player, int yOffset)
         {
             int wallOffsetX = 32 * Constants.UniversalScale;
             int wallOffsetY = 32 * Constants.UniversalScale;
@@ -182,11 +214,15 @@ namespace MainGame.RoomsAndDoors
             
             for (int i = 0; i < objects.Length; i++)
             {
+                if (objects[i].Equals("-")) {
+                    continue;
+                }
+
                 try
                 {
                     Vector2 spawnPosition = new(wallOffsetX + i * columnWidth, wallOffsetY + yOffset * columnWidth);
                     IEnemy enemy = EnemyUtils.CreateEnemy(objects[i], spawnPosition, player);
-                    room.Enemies.Add(enemy);
+                    room.RoomEnemies.Add(enemy);
                 }
                 catch { /* nothing to do for now */ }
             }

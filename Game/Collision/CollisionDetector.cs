@@ -6,9 +6,7 @@ using MainGame.Players;
 using MainGame.Enemies;
 using MainGame.Projectiles;
 using MainGame.Rooms;
-using MainGame.RoomsAndDoors;
 using MainGame;
-using MainGame.Collision;
 using System;
 using MainGame.Collision.CollisionHandlers;
 
@@ -16,38 +14,43 @@ namespace MainGame.Collision
 {
 	public class CollisionDetector
 	{
-		private HashSet<Block> blocks;
-		private HashSet<Item> items;
-		private HashSet<IEnemy> enemies;
-		private HashSet<IProjectile> playerProjectiles = new();
-		private HashSet<IProjectile> enemyProjectiles = new();
+		private List<IBlock> blocks;
+		private List<IItem> items;
+		private List<IEnemy> enemies;
+		private List<IProjectile> playerProjectiles = new();
+		private List<IProjectile> enemyProjectiles = new();
+        private IHitBox enemyBorder;
+        private IHitBox playerBorders;
 
         private readonly Game1 game;
-		private HashSet<IHitBox> borders = new();
-		private Player player;
+        private readonly Player player;
 
 		public CollisionDetector(Game1 game)
 		{
             this.game = game;
             player = (Player)game.Player;
-            blocks = new HashSet<Block>(game.Room.Blocks);
-            items = new HashSet<Item>(game.Room.Items);
-            enemies = new HashSet<IEnemy>(game.Room.Enemies);
-            playerProjectiles = new HashSet<IProjectile>(player.ProjectilesManager.ActiveProjectiles);
 
-            // TODO: Match border hitboxes to actual walls, this is here as a placeholder for now
-            borders.Add(new TopFullHorizontalWallHitBox());
-			borders.Add(new BottomFullHorizontalWallHitBox());
-			borders.Add(new LeftFullVerticalWallHitBox());
-			borders.Add(new RightFullVerticalWallHitBox());
+            IRoom currentRoom = game.RoomManager.CurrentRoom;
+            blocks = new List<IBlock>(currentRoom.RoomBlocks);
+            items = new List<IItem>(currentRoom.RoomItems);
+            enemies = new List<IEnemy>(currentRoom.RoomEnemies);
+            playerProjectiles = new List<IProjectile>(player.ProjectilesManager.ActiveProjectiles);
+
+            playerBorders = currentRoom.PlayerBorderHitBox;
+            enemyBorder = currentRoom.EnemiesBorderHitBox;
+            // TODO: Get enemy projectiles
         }
 
         public void Update()
         {
-            blocks = new HashSet<Block>(game.Room.Blocks);
-            items = new HashSet<Item>(game.Room.Items);
-            enemies = new HashSet<IEnemy>(game.Room.Enemies);
-            playerProjectiles = new HashSet<IProjectile>(player.ProjectilesManager.ActiveProjectiles);
+            IRoom currentRoom = game.RoomManager.CurrentRoom;
+            blocks = new List<IBlock>(currentRoom.RoomBlocks);
+            items = new List<IItem>(currentRoom.RoomItems);
+            enemies = new List<IEnemy>(currentRoom.RoomEnemies);
+            playerProjectiles = new List<IProjectile>(player.ProjectilesManager.ActiveProjectiles);
+            playerBorders = currentRoom.PlayerBorderHitBox;
+            enemyBorder = currentRoom.EnemiesBorderHitBox;
+
             DetectAllCollisions();
         }
 
@@ -83,19 +86,16 @@ namespace MainGame.Collision
                     }
                 }
 
-                foreach (IHitBox border in borders)
-				{
-					foreach (Rectangle borderHitBox in border.HitBoxes)
-					{
-                        Rectangle overlap = Rectangle.Intersect(enemy.HitBox, borderHitBox);
-                        if (!overlap.IsEmpty)
-                        {
-                            new EnemyBorderCollisionHandler(enemy, border, overlap).HandleCollision();
-                        }
+                foreach (Rectangle borderHitBox in enemyBorder.HitBoxes)
+                {
+                    Rectangle overlap = Rectangle.Intersect(enemy.HitBox, borderHitBox);
+                    if (!overlap.IsEmpty)
+                    {
+                        new EnemyBorderCollisionHandler(enemy, enemyBorder, overlap).HandleCollision();
                     }
                 }
 
-				if (player.MainHitbox.Intersects(enemy.HitBox))
+                if (player.MainHitbox.Intersects(enemy.HitBox))
 				{
                     Console.WriteLine("Enemy and Player");
                 }
@@ -111,15 +111,12 @@ namespace MainGame.Collision
 		{
 			foreach (IProjectile enemyProjectile in enemyProjectiles)
 			{
-                foreach (IHitBox border in borders)
+                foreach (Rectangle borderHitBox in enemyBorder.HitBoxes)
                 {
-                    foreach (Rectangle borderHitBox in border.HitBoxes)
+                    Rectangle overlap = Rectangle.Intersect(enemyProjectile.HitBox, borderHitBox);
+                    if (!overlap.IsEmpty)
                     {
-                        Rectangle overlap = Rectangle.Intersect(enemyProjectile.HitBox, borderHitBox);
-                        if (!overlap.IsEmpty)
-                        {
-                            Console.WriteLine("Enemy Projectile and Wall");
-                        }
+                        Console.WriteLine("Enemy Projectile and Wall");
                     }
                 }
 
@@ -134,15 +131,12 @@ namespace MainGame.Collision
 		{
             foreach (IProjectile playerProjectile in enemyProjectiles)
             {
-                foreach (IHitBox border in borders)
+                foreach (Rectangle borderHitBox in playerBorders.HitBoxes)
                 {
-                    foreach (Rectangle borderHitBox in border.HitBoxes)
+                    Rectangle overlap = Rectangle.Intersect(playerProjectile.HitBox, borderHitBox);
+                    if (!overlap.IsEmpty)
                     {
-                        Rectangle overlap = Rectangle.Intersect(playerProjectile.HitBox, borderHitBox);
-                        if (!overlap.IsEmpty)
-                        {
-                            Console.WriteLine("Player Projectile and Wall");
-                        }
+                        Console.WriteLine("Player Projectile and Wall");
                     }
                 }
             }
@@ -162,15 +156,12 @@ namespace MainGame.Collision
 
 		public void DetectBorderCollisions()
 		{
-            foreach (IHitBox border in borders)
+            foreach (Rectangle borderHitBox in playerBorders.HitBoxes)
             {
-                foreach (Rectangle borderHitBox in border.HitBoxes)
+                Rectangle overlap = Rectangle.Intersect(player.MainHitbox, borderHitBox);
+                if (!overlap.IsEmpty)
                 {
-                    Rectangle overlap = Rectangle.Intersect(player.MainHitbox, borderHitBox);
-                    if (!overlap.IsEmpty)
-                    {
-                        Console.WriteLine("Wall and Player");
-                    }
+                    Console.WriteLine("Wall and Player");
                 }
             }
         }

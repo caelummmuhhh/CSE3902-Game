@@ -6,13 +6,9 @@ using MainGame.SpriteHandlers;
 using MainGame.Controllers;
 using MainGame.Players;
 using MainGame.Rooms;
-using MainGame.RoomsAndDoors;
-using MainGame.BlocksAndItems;
 
 using MainGame.Collision;
 using MainGame.SpriteHandlers.BlockSprites;
-using MainGame.Enemies;
-using System;
 
 namespace MainGame;
 
@@ -23,8 +19,8 @@ public class Game1 : Game
     public List<IController> controllers;
 
     public IPlayer Player;
-    public Room Room;
     public CollisionDetector Collision;
+    public GameRoomManager RoomManager;
 
     public BlockSprite testBlock; // TODO: DELETE ME
 
@@ -56,8 +52,8 @@ public class Game1 : Game
         SpriteFactory.SpriteBatch = spriteBatch;
 
         Player = new Player(this);
+        RoomManager = new(this);
 
-        Room = RoomFactory.GenerateRoom(1, this);
         Collision = new(this);
 
         testBlock = (BlockSprite)SpriteFactory.CreateBlackSquareSprite(); // TODO: DELETE ME
@@ -72,9 +68,8 @@ public class Game1 : Game
         {
             controllers[i].Update();
         }
-
+        RoomManager.Update();
         Player.Update();
-        Room.Update();
         Collision.Update();
         base.Update(gameTime);
     }
@@ -84,16 +79,19 @@ public class Game1 : Game
         GraphicsDevice.Clear(Color.Black);
         spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, SamplerState.PointClamp);
 
-        Room.Draw();
+        RoomManager.Draw();
         Player.Draw();
 
-        if (Room.Enemies.Count > 0)
+        
+        if (RoomManager.CurrentRoom.RoomEnemies.Count > 0)
         {
             testBlock.Draw(
-            new List<IEnemy>(Room.Enemies)[0].HitBox,
+            RoomManager.CurrentRoom.RoomEnemies[0].HitBox,
             Color.White
             );
         }
+
+
         testBlock.Draw(Player.SwordHitBox, Color.Wheat);
         //testBlock.Draw(Player.MainHitbox, Color.White);
 

@@ -1,12 +1,9 @@
-﻿using System.Collections.Generic;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 
 namespace MainGame.Collision
 {
-    public class RightFullVerticalWallHitBox : IHitBox
+    public class RightFullVerticalWallHitBox : GenericHitBox
     {
-        public List<Rectangle> HitBoxes { get; protected set; } = new();
-
         public RightFullVerticalWallHitBox()
         {
             Rectangle wallHitBox = new(
