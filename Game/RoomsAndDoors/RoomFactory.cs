@@ -101,7 +101,7 @@ namespace MainGame.RoomsAndDoors
             if (!doors[0].Equals("-"))
             {
                room.NorthDoor = new Door(
-                    new Vector2(336, 0),
+                    new Vector2(336, 0 + (56 * 3)),
                     SpriteFactory.CreateDoorTopNorthSouth("North", doors[0]),
                     SpriteFactory.CreateDoorBottomNorthSouth("North", doors[0]),
                     "North",
@@ -112,7 +112,7 @@ namespace MainGame.RoomsAndDoors
             if (!doors[1].Equals("-"))
             {
                 room.SouthDoor = new Door(
-                new Vector2(336, 480),
+                new Vector2(336, 480 + (56 * 3)),
                 SpriteFactory.CreateDoorTopNorthSouth("South", doors[1]),
                 SpriteFactory.CreateDoorBottomNorthSouth("South", doors[1]),
                 "South",
@@ -123,7 +123,7 @@ namespace MainGame.RoomsAndDoors
             if (!doors[2].Equals("-"))
             {
                 room.EastDoor = new Door(
-                new Vector2(0, 216),
+                new Vector2(0, 216 + (56 * 3)),
                 SpriteFactory.CreateDoorTopWestEast("West", doors[2]),
                 SpriteFactory.CreateDoorBottomWestEast("West", doors[2]),
                 "West",
@@ -134,7 +134,7 @@ namespace MainGame.RoomsAndDoors
             if (!doors[3].Equals("-"))
             {
                 room.WestDoor = new Door(
-                new Vector2(720, 216),
+                new Vector2(720, 216 + (56 * 3)),
                 SpriteFactory.CreateDoorTopWestEast("East", doors[3]),
                 SpriteFactory.CreateDoorBottomWestEast("East", doors[3]),
                 "East",
@@ -146,7 +146,7 @@ namespace MainGame.RoomsAndDoors
         private static void ParseItemsAndBlocks(string line, Game1 game, Room room, int yOffset)
         {
             int wallOffsetX = 96; 
-            int wallOffsetY = 96;
+            int wallOffsetY = 96 + (56 * 3);
             int scale = 48;
 
             string[] objects = line.Split(',');

@@ -8,6 +8,7 @@ using MainGame.Rooms;
 using MainGame.Doors;
 using MainGame.Blocks;
 using MainGame.Items;
+using MainGame.HudAndMenu;
 using System.Collections.Generic;
 using MainGame.Enemies;
 using MainGame.Particles;
@@ -36,12 +37,16 @@ public class Game1 : Game
     public ItemManager itemManager;
     public Particle Particle;
 
+    public Hud Hud;
+    public Menu Menu;
+
+
     public Game1()
     {
         GraphicsManager = new GraphicsDeviceManager(this)
         {
             PreferredBackBufferWidth = 768,
-            PreferredBackBufferHeight = 528  //768 in sprint 4+
+            PreferredBackBufferHeight = 696
         };
 
         Content.RootDirectory = "Content";
@@ -72,15 +77,18 @@ public class Game1 : Game
 
         Player = new Player(this);
         //Enemy = new GoriyaEnemy(new Vector2(465, 224));
-        //Enemy = new KeeseEnemy(new Vector2(465, 224));
+        Enemy = new KeeseEnemy(new Vector2(465, 224));
         //Enemy = new GelEnemy(new Vector2(465, 224));
         //Enemy = new SpikeCrossEnemy(new Vector2(465, 224), Player);
         //Enemy = new StalfosEnemy(new Vector2(465, 224));
         //Enemy = new WallMasterEnemy(new Vector2(465, 224), Player);
         //Enemy = new OldManEnemy(new Vector2(465, 224));
-        Enemy = new AquamentusEnemy(new Vector2(465+3*48, 224+48), Player);
+        //Enemy = new AquamentusEnemy(new Vector2(465+3*48, 224+48), Player);
 
         Room = RoomFactory.GenerateRoom("Room_1", this);
+
+        Hud = new Hud("1", "B", "A", this);
+        Menu = new Menu("B", this);
 
         controllers.Add(new KeyboardController(this, Player, null, blockManager.GetBlocks(), null, itemManager.GetItems()));
         controllers.Add(new MouseController(this, Player));
@@ -98,7 +106,10 @@ public class Game1 : Game
 
         Enemy.Update();
         Room.Update();
-        
+
+        Hud.Update();
+        Menu.Update();
+
         base.Update(gameTime);
     }
 
@@ -113,6 +124,9 @@ public class Game1 : Game
         Particle.Draw();
 
         Enemy.Draw();
+
+        Hud.Draw();
+        //Menu.Draw();
 
         spriteBatch.End();
 

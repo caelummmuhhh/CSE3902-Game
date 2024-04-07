@@ -1,17 +1,22 @@
-﻿using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
+﻿using Microsoft.Xna.Framework.Graphics;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using Microsoft.Xna.Framework;
 
-namespace MainGame.SpriteHandlers.ItemSprites
+namespace MainGame.SpriteHandlers.HudAndMenuSprites
 {
-    public class EmptyRoomSprite : StaticSpriteWithOffset
+    internal class EmptyHudSprite : StaticSpriteWithOffset
     {
         private readonly SpriteBatch spriteBatch;
 
-        public EmptyRoomSprite(
+        public EmptyHudSprite(
             Texture2D texture,
             SpriteBatch spriteBatch,
-            int spriteHeight = 0,
-            int spriteWidth = 0,
+            int spriteHeight = 56,
+            int spriteWidth = 256,
             int textureStartingX = 0,
             int textureStartingY = 0,
             int scale = 1,

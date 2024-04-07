@@ -39,9 +39,7 @@ namespace MainGame.SpriteHandlers
 
         public void Draw(float x, float y, Color color)
         {
-            spriteBatch.Begin();
             spriteBatch.DrawString(font, Text, new Vector2(x, y), color);
-            spriteBatch.End();
         }
 
     }
