@@ -8,10 +8,10 @@ namespace MainGame.Enemies
 		private readonly GoriyaEnemy entity;
 		private readonly IProjectile boomerang;
 
-		public GoriyaAttackingState(GoriyaEnemy goriya, CardinalDirections direction)
+		public GoriyaAttackingState(GoriyaEnemy goriya)
 		{
 			entity = goriya;
-			boomerang = new BoomerangProjectile(entity.Position, direction);
+			boomerang = new BoomerangProjectile(entity.Position, entity.MovingDirection);
 		}
 
 		public void Update()

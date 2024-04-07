@@ -8,14 +8,19 @@ namespace MainGame.Collision.CollisionHandlers
     public class PlayerBlockCollisionHandler : ICollisionHandler
 	{
         private readonly IPlayer player;
-		public PlayerBlockCollisionHandler(IPlayer player, Block block, Rectangle overlap)
+        private readonly IBlock block;
+
+		public PlayerBlockCollisionHandler(IPlayer player, IBlock block)
 		{
             this.player = player;
+            this.block = block;
 		}
 
         public void HandleCollision()
         {
-            player.Position = player.PreviousPosition;
+            //player.Position = player.PreviousPosition;
+            Vector2 bottomHalfResolved = CollisionManager.DecoupleRectangle(player.BottomHalfHitBox, block.HitBox);
+            player.Position = new Vector2(bottomHalfResolved.X, bottomHalfResolved.Y - player.BottomHalfHitBox.Height);
         }
     }
 }

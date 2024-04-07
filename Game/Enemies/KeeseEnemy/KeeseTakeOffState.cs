@@ -44,7 +44,7 @@ namespace MainGame.Enemies
 			{
 				return;
 			}
-            entity.Position = EnemyUtils.DirectionalMove(entity.Position, entity.MoveDirection, entity.MovementSpeed);
+            entity.Position = Utils.DirectionalMove(entity.Position, entity.MovingDirection, entity.MovementSpeed);
         }
     }
 }

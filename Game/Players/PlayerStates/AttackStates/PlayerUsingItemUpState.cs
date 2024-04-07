@@ -12,6 +12,7 @@ namespace MainGame.Players.PlayerStates
         public PlayerUsingItemUpState(IPlayer player)
 		{
             this.player = player;
+            this.player.FacingDirection = Direction.North;
             this.player.Sprite = SpriteFactory.CreatePlayerInteractingUpSprite();
             stateDuration = Player.UsingItemsSpeed;
         }

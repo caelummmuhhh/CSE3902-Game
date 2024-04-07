@@ -8,6 +8,7 @@
         public PlayerDamagedRightState(IPlayer player)
         {
             this.player = player;
+            this.player.FacingDirection = Direction.East;
         }
 
         public void Stop() => player.CurrentState = new PlayerIdleRightState(player);

@@ -12,6 +12,7 @@ namespace MainGame.Players.PlayerStates
 		public PlayerMovingUpState(IPlayer player)
 		{
             this.player = player;
+            this.player.FacingDirection = Direction.North;
             this.player.Sprite = SpriteFactory.CreatePlayerWalkingUpSprite();
 
             player.Position = new Vector2(GridHandler.SnapToGridHalfStep(player.Position).X, player.Position.Y);
@@ -25,7 +26,6 @@ namespace MainGame.Players.PlayerStates
         public void MoveUp()
         {
             player.PreviousPosition = player.Position;
-            player.IsMoving = true;
             player.Position = new(player.Position.X, player.Position.Y - Player.Speed);
         }
 
@@ -50,31 +50,31 @@ namespace MainGame.Players.PlayerStates
 
         public void UseArrow()
         {
-            player.UseArrow(CardinalDirections.North);
+            player.UseArrow(Direction.North);
             player.CurrentState = new PlayerUsingItemUpState(player);
         }
 
         public void UseBoomerang()
         {
-            player.UseBoomerang(CardinalDirections.North);
+            player.UseBoomerang(Direction.North);
             player.CurrentState = new PlayerUsingItemUpState(player);
         }
 
         public void UseFire()
         {
-            player.UseFire(CardinalDirections.North);
+            player.UseFire(Direction.North);
             player.CurrentState = new PlayerUsingItemUpState(player);
         }
 
         public void UseBomb()
         {
-            player.UseBomb(CardinalDirections.North);
+            player.UseBomb(Direction.North);
             player.CurrentState = new PlayerUsingItemUpState(player);
         }
 
         public void UseSwordBeam()
         {
-            player.UseSwordBeam(CardinalDirections.North);
+            player.UseSwordBeam(Direction.North);
             player.CurrentState = new PlayerUsingSwordUpState(player);
         }
     }

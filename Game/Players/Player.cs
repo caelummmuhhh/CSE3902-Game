@@ -12,11 +12,11 @@ namespace MainGame.Players
 		public static readonly int KnockedBackDuration = 10;
 		public static readonly float KnockedBackSpeed = 10f;
 
-        public bool IsMoving { get; set; }
         public ISprite Sprite { get; set; }
         public IPlayerState CurrentState { get; set; }
         public Vector2 Position { get; set; }
 		public Vector2 PreviousPosition { get; set; }
+        public Direction FacingDirection { get; set; }
 
         public Rectangle MainHitbox { get; set; }
         public Rectangle BottomHalfHitBox { get; set; }
@@ -25,14 +25,14 @@ namespace MainGame.Players
         private readonly Game1 game;
         public readonly PlayerProjectilesManager ProjectilesManager;
 
-        public Player(Game1 game)
+        public Player(Game1 game, Vector2 spawnPosition)
 		{
 			ProjectilesManager = new(this);
-            Position = new Vector2(24, 24); // TODO: Set spawn position properly
+			Position = spawnPosition;
 			CurrentState = new PlayerIdleDownState(this);
 			this.game = game;
-			UpdateHitBoxes();
 			SwordHitBox = new();
+            UpdateHitBoxes();
         }
 
 		public void Update()
@@ -62,16 +62,15 @@ namespace MainGame.Players
 		public void MoveRight() => CurrentState.MoveRight();
 
 		public void UseSword() => CurrentState.UseSword();
-		public void UseBoomerang(CardinalDirections direction) => ProjectilesManager.AddProjectile(new BoomerangProjectile(Position, direction));
-        public void UseArrow(CardinalDirections direction) => ProjectilesManager.AddProjectile(new ArrowProjectile(Position, direction));
-        public void UseFire(CardinalDirections direction) => ProjectilesManager.AddProjectile(new FireBallProjectile(Position, direction));
-		public void UseBomb(CardinalDirections direction) => ProjectilesManager.AddProjectile(new BombProjectile(Position, direction));
-		public void UseSwordBeam(CardinalDirections direction) => ProjectilesManager.AddProjectile(new SwordBeamProjectile(Position, direction));
+		public void UseBoomerang(Direction direction) => ProjectilesManager.AddProjectile(new BoomerangProjectile(Position, direction));
+        public void UseArrow(Direction direction) => ProjectilesManager.AddProjectile(new ArrowProjectile(Position, direction));
+        public void UseFire(Direction direction) => ProjectilesManager.AddProjectile(new FireBallProjectile(Position, direction));
+		public void UseBomb(Direction direction) => ProjectilesManager.AddProjectile(new BombProjectile(Position, direction));
+		public void UseSwordBeam(Direction direction) => ProjectilesManager.AddProjectile(new SwordBeamProjectile(Position, direction));
 
 		private void UpdateHitBoxes()
 		{
-			MainHitbox = new(Sprite.DestinationRectangle.Location, Sprite.DestinationRectangle.Size);
-			//Utils.CentralizeRectangle((int)Position.X, (int)Position.Y, Sprite.DestinationRectangle);
+			MainHitbox = new(Position.ToPoint(), Sprite.DestinationRectangle.Size);
 
 			BottomHalfHitBox = new(
 				MainHitbox.X, MainHitbox.Y + MainHitbox.Height / 2,

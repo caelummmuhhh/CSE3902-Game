@@ -1,4 +1,5 @@
-﻿using MainGame.Controllers;
+﻿using Microsoft.Xna.Framework;
+using MainGame.Controllers;
 using MainGame.Players;
 
 namespace MainGame.Commands
@@ -15,7 +16,7 @@ namespace MainGame.Commands
         {
             game.controllers.Clear();
 
-            game.Player = new Player(game);
+            game.Player = new Player(game, new Vector2(96, 96));
 
             game.controllers.Add(new KeyboardController(game, game.Player));
             game.controllers.Add(new MouseController(game, game.Player));

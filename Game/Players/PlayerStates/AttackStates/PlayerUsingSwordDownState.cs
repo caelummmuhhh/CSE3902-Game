@@ -13,6 +13,7 @@ namespace MainGame.Players.PlayerStates
         public PlayerUsingSwordDownState(IPlayer player)
         {
             this.player = player;
+            this.player.FacingDirection = Direction.South;
             this.player.Sprite = SpriteFactory.CreatePlayerAttackingDownSprite();
             AnimatedSprite newSprite = (AnimatedSprite)this.player.Sprite;
             stateDuration = newSprite.AnimationFrameDuration;
@@ -37,7 +38,11 @@ namespace MainGame.Players.PlayerStates
             player.Sprite.Draw(player.Position.X, player.Position.Y, Color.White);
         }
 
-        public void TakeDamage() => player.CurrentState = new PlayerDamagedDownState(player);
+        public void TakeDamage()
+        {
+            player.SwordHitBox = new();
+            player.CurrentState = new PlayerDamagedDownState(player);
+        }
 
         /* Not useable in this state, therefore not implemented. */
         public void Stop() { }

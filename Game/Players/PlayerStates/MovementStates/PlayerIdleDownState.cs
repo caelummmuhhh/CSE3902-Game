@@ -11,6 +11,7 @@ namespace MainGame.Players.PlayerStates
         public PlayerIdleDownState(IPlayer player)
         {
             this.player = player;
+            this.player.FacingDirection = Direction.South;
             this.player.Sprite = SpriteFactory.CreatePlayerIdleDownSprite();
         }
 
@@ -31,31 +32,31 @@ namespace MainGame.Players.PlayerStates
 
         public void UseArrow()
         {
-            player.UseArrow(CardinalDirections.South);
+            player.UseArrow(Direction.South);
             player.CurrentState = new PlayerUsingItemDownState(player);
         }
 
         public void UseBoomerang()
         {
-            player.UseBoomerang(CardinalDirections.South);
+            player.UseBoomerang(Direction.South);
             player.CurrentState = new PlayerUsingItemDownState(player);
         }
 
         public void UseFire()
         {
-            player.UseFire(CardinalDirections.South);
+            player.UseFire(Direction.South);
             player.CurrentState = new PlayerUsingItemDownState(player);
         }
 
         public void UseBomb()
         {
-            player.UseBomb(CardinalDirections.South);
+            player.UseBomb(Direction.South);
             player.CurrentState = new PlayerUsingItemDownState(player);
         }
 
         public void UseSwordBeam()
         {
-            player.UseSwordBeam(CardinalDirections.South);
+            player.UseSwordBeam(Direction.South);
             player.CurrentState = new PlayerUsingSwordDownState(player);
         }
     }

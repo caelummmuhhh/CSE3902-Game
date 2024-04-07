@@ -12,6 +12,7 @@ namespace MainGame.Players.PlayerStates
 		public PlayerMovingDownState(IPlayer player)
 		{
 			this.player = player;
+            this.player.FacingDirection = Direction.South;
 			this.player.Sprite = SpriteFactory.CreatePlayerWalkingDownSprite();
 
             player.Position = new Vector2(
@@ -28,7 +29,6 @@ namespace MainGame.Players.PlayerStates
         public void MoveDown()
 		{
             player.PreviousPosition = player.Position;
-			player.IsMoving = true;
 			player.Position = new Vector2(player.Position.X, player.Position.Y + Player.Speed);
 		}
 
@@ -54,31 +54,31 @@ namespace MainGame.Players.PlayerStates
 
         public void UseArrow()
         {
-            player.UseArrow(CardinalDirections.South);
+            player.UseArrow(Direction.South);
             player.CurrentState = new PlayerUsingItemDownState(player);
         }
 
         public void UseBoomerang()
         {
-            player.UseBoomerang(CardinalDirections.South);
+            player.UseBoomerang(Direction.South);
             player.CurrentState = new PlayerUsingItemDownState(player);
         }
 
         public void UseFire()
         {
-            player.UseFire(CardinalDirections.South);
+            player.UseFire(Direction.South);
             player.CurrentState = new PlayerUsingItemDownState(player);
         }
 
         public void UseBomb()
         {
-            player.UseBomb(CardinalDirections.South);
+            player.UseBomb(Direction.South);
             player.CurrentState = new PlayerUsingItemDownState(player);
         }
 
         public void UseSwordBeam()
         {
-            player.UseSwordBeam(CardinalDirections.South);
+            player.UseSwordBeam(Direction.South);
             player.CurrentState = new PlayerUsingSwordDownState(player);
         }
     }

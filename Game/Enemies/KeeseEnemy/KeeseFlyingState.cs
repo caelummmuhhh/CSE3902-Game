@@ -17,7 +17,7 @@ namespace MainGame.Enemies
             entity.Sprite = SpriteFactory.CreateKeeseFlightSprite();
             random = new();
 
-            flightDurationTimer = random.Next(1, 64) * 16;
+            flightDurationTimer = 1;//random.Next(1, 64) * 16;
             ChangeDirection();
         }
 
@@ -42,7 +42,7 @@ namespace MainGame.Enemies
         {
             if (flightDurationTimer % entity.MovementCoolDownFrame == 0)
             {
-                entity.Position = EnemyUtils.DirectionalMove(entity.Position, entity.MoveDirection, entity.MovementSpeed);
+                entity.Position = Utils.DirectionalMove(entity.Position, entity.MovingDirection, entity.MovementSpeed);
             }
         }
 

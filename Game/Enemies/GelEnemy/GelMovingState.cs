@@ -3,13 +3,12 @@
 	public class GelMovingState : IEnemyState
 	{
         private readonly GenericEnemy entity;
-        private readonly CardinalDirections moveDirection;
         private int stateDuration = 15;
 
         public GelMovingState(GenericEnemy enemy)
 		{
             entity = enemy;
-            moveDirection = EnemyUtils.GetRandomCardinalDirection();
+            entity.MovingDirection = Utils.GetRandomCardinalDirection();
         }
 
         public void Update()
@@ -27,8 +26,8 @@
 		{
 			if (stateDuration % entity.MovementCoolDownFrame == 0)
 			{
-				entity.Position = EnemyUtils.DirectionalMove(
-					entity.Position, moveDirection, entity.MovementSpeed
+				entity.Position = Utils.DirectionalMove(
+					entity.Position, entity.MovingDirection, entity.MovementSpeed
 				);
             }
         }

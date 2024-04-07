@@ -4,15 +4,15 @@ namespace MainGame.Commands.PlayerCommands
 {
     public class PlayerDamageCommand : ICommand
     {
-        private readonly IPlayer player;
-        public PlayerDamageCommand(IPlayer player)
+        private readonly Game1 game;
+        public PlayerDamageCommand(Game1 game)
         {
-            this.player = player;
+            this.game = game;
         }
 
         public void Execute()
         {
-            player.TakeDamage();
+            game.Player.TakeDamage();
         }
 
         public void UnExecute()

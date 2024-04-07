@@ -1,16 +1,12 @@
 ﻿using System;
+using System.Linq;
 using Microsoft.Xna.Framework;
 
 namespace MainGame
 {
-    public enum CardinalAndOrdinalDirection
+    public enum Direction
     {
         North, NorthEast, East, SouthEast, South, SouthWest, West, NorthWest
-    }
-
-    public enum CardinalDirections
-    {
-        North, East, South, West,
     }
 
     public static class Constants
@@ -27,11 +23,94 @@ namespace MainGame
         public static Rectangle CentralizeRectangle(int desiredX, int desiredY, Rectangle rectangle)
         {
             return new(
-                desiredX - rectangle.Width / 2, desiredY - rectangle.Height / 2,
+                desiredX + rectangle.Width / 2, desiredY + rectangle.Height / 2,
                 rectangle.Width, rectangle.Height
                 );
         }
-    }
 
+        public static Vector2 CalculateDirectionVector(Vector2 start, Vector2 end)
+        {
+            double dx = end.X - start.X;
+            double dy = end.Y - start.Y;
+
+            double distance = Math.Sqrt(dx * dx + dy * dy);
+
+            dx /= distance;
+            dy /= distance;
+
+            return new Vector2((float)dx, (float)dy);
+        }
+
+        public static Direction CalculateMoveDirection(double dx, double dy)
+        {
+            double angle = Math.Atan2(dy, dx);
+            int octant = Convert.ToInt32(8d * angle / (2d * Math.PI) + 8d) % 8;
+
+            return octant switch
+            {
+                0 => Direction.East,
+                1 => Direction.NorthEast,
+                2 => Direction.North,
+                3 => Direction.NorthWest,
+                4 => Direction.West,
+                5 => Direction.SouthWest,
+                6 => Direction.South,
+                7 => Direction.SouthEast,
+
+                _ => Direction.North // shouldn't be possible
+            };
+        }
+
+        public static Direction OppositeDirection(Direction direction)
+        {
+            return direction switch
+            {
+                Direction.North => Direction.South,
+                Direction.NorthEast => Direction.SouthWest,
+                Direction.East => Direction.West,
+                Direction.SouthEast => Direction.NorthWest,
+                Direction.South => Direction.North,
+                Direction.SouthWest => Direction.NorthEast,
+                Direction.West => Direction.East,
+                Direction.NorthWest => Direction.SouthEast,
+                _ => direction
+            };
+        }
+
+        public static Vector2 DirectionalMove(Vector2 startingPosition, Direction direction, float speed)
+        {
+            float x = startingPosition.X;
+            float y = startingPosition.Y;
+            return direction switch
+            {
+                Direction.North => new Vector2(x, y - speed),
+                Direction.NorthEast => new Vector2(x + speed, y - speed),
+                Direction.East => new Vector2(x + speed, y),
+                Direction.SouthEast => new Vector2(x + speed, y + speed),
+                Direction.South => new Vector2(x, y + speed),
+                Direction.SouthWest => new Vector2(x - speed, y + speed),
+                Direction.West => new Vector2(x - speed, y),
+                Direction.NorthWest => new Vector2(x - speed, y - speed),
+                _ => startingPosition
+            };
+        }
+
+        public static Direction GetRandomCardinalDirection()
+        {
+            return Randomize(Direction.North, Direction.East, Direction.South, Direction.West);
+        }
+
+        public static Direction GetRandomCardinalAndOrdinalDirection()
+        {
+            return Randomize(Enum.GetValues(typeof(Direction)).Cast<Direction>().ToArray());
+        }
+
+        public static T Randomize<T>(params T[] values)
+        {
+            Random random = new();
+            int randomIndex = random.Next(values.Length);
+            return values[randomIndex];
+        }
+    }
 }
 

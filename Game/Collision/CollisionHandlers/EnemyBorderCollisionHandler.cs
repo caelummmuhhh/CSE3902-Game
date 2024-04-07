@@ -7,19 +7,20 @@ namespace MainGame.Collision.CollisionHandlers
     public class EnemyBorderCollisionHandler : ICollisionHandler
 	{
         private readonly IEnemy enemy;
-        private readonly IHitBox border;
-        private readonly Rectangle overlap;
+        private readonly Rectangle border;
 
-		public EnemyBorderCollisionHandler(IEnemy enemy, IHitBox border, Rectangle overlap)
+		public EnemyBorderCollisionHandler(IEnemy enemy, Rectangle border)
 		{
             this.enemy = enemy;
             this.border = border;
-            this.overlap = overlap;
 		}
 
         public void HandleCollision()
         {
             enemy.Position = enemy.PreviousPosition;
+            Rectangle newEnemyHitBox = new(enemy.Position.ToPoint(), enemy.MovementHitBox.Size);
+            enemy.Position = CollisionManager.DecoupleRectangle(newEnemyHitBox, border, enemy.MovingDirection);
+
             if (enemy is KeeseEnemy keese)
             {
                 keese.ChangeDirection();

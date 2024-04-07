@@ -7,7 +7,7 @@ namespace MainGame.Collision.CollisionHandlers
 {
 	public class EnemyPlayerProjectileCollisionHandler: ICollisionHandler
     {
-		public EnemyPlayerProjectileCollisionHandler(IEnemy enemy, IProjectile projectile, Rectangle overlap)
+		public EnemyPlayerProjectileCollisionHandler(IEnemy enemy, IProjectile projectile)
 		{
 		}
 

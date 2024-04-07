@@ -7,13 +7,16 @@ namespace MainGame.Collision.CollisionHandlers
 {
 	public class PlayerEnemyCollisionHandler : ICollisionHandler
 	{
-		public PlayerEnemyCollisionHandler(IPlayer player, IEnemy enemy, Rectangle overlap)
-		{
+		private readonly IPlayer player;
 
+		public PlayerEnemyCollisionHandler(IPlayer player, IEnemy enemy)
+		{
+			this.player = player;
 		}
 
         public void HandleCollision()
         {
+			player.TakeDamage();
         }
     }
 }

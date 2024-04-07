@@ -69,40 +69,42 @@ namespace MainGame.Collision
 			foreach (IEnemy enemy in enemies) {
 				foreach (Block block in blocks)
 				{
-					Rectangle overlap = Rectangle.Intersect(enemy.HitBox, block.HitBox);
+					Rectangle overlap = Rectangle.Intersect(enemy.MovementHitBox, block.HitBox);
 					if (!overlap.IsEmpty)
 					{
-                        new EnemyBlockCollisionHandler(enemy, block, overlap).HandleCollision();
-                        Console.WriteLine("Enemy and Block");
+                        new EnemyBlockCollisionHandler(enemy, block).HandleCollision();
 					}
 				}
 
 				foreach (IProjectile playerProjectile in playerProjectiles)
 				{
-					Rectangle overlap = Rectangle.Intersect(enemy.HitBox, playerProjectile.HitBox);
+					Rectangle overlap = Rectangle.Intersect(enemy.AttackHitBox, playerProjectile.HitBox);
                     if (!overlap.IsEmpty)
                     {
                         Console.WriteLine("Enemy and Player Projectile");
+                        // TODO
                     }
                 }
 
                 foreach (Rectangle borderHitBox in enemyBorder.HitBoxes)
                 {
-                    Rectangle overlap = Rectangle.Intersect(enemy.HitBox, borderHitBox);
+                    Rectangle overlap = Rectangle.Intersect(enemy.MovementHitBox, borderHitBox);
                     if (!overlap.IsEmpty)
                     {
-                        new EnemyBorderCollisionHandler(enemy, enemyBorder, overlap).HandleCollision();
+                        new EnemyBorderCollisionHandler(enemy, borderHitBox).HandleCollision();
                     }
                 }
 
-                if (player.MainHitbox.Intersects(enemy.HitBox))
+                if (player.MainHitbox.Intersects(enemy.AttackHitBox))
 				{
-                    Console.WriteLine("Enemy and Player");
+                    new PlayerEnemyCollisionHandler(player, enemy).HandleCollision();
+                    // TODO: no cool down rn
                 }
 
-				if (player.SwordHitBox.Intersects(enemy.HitBox))
+                if (player.SwordHitBox.Intersects(enemy.AttackHitBox))
 				{
                     Console.WriteLine("Enemy and Player Sword");
+                    // TODO
                 }
             }
 		}
@@ -117,6 +119,7 @@ namespace MainGame.Collision
                     if (!overlap.IsEmpty)
                     {
                         Console.WriteLine("Enemy Projectile and Wall");
+                        // TODO
                     }
                 }
 
@@ -149,7 +152,7 @@ namespace MainGame.Collision
 				Rectangle overlap = Rectangle.Intersect(block.HitBox, player.BottomHalfHitBox);
 				if (!overlap.IsEmpty)
 				{
-                    new PlayerBlockCollisionHandler(player, block, overlap).HandleCollision();
+                    new PlayerBlockCollisionHandler(player, block).HandleCollision();
                 }
 			}
         }
@@ -161,7 +164,7 @@ namespace MainGame.Collision
                 Rectangle overlap = Rectangle.Intersect(player.MainHitbox, borderHitBox);
                 if (!overlap.IsEmpty)
                 {
-                    Console.WriteLine("Wall and Player");
+                    new PlayerBorderCollisionHandler(player, borderHitBox).HandleCollision();
                 }
             }
         }

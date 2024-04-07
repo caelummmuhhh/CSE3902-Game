@@ -12,6 +12,7 @@ namespace MainGame.Players.PlayerStates
         public PlayerDamagedUpState(IPlayer player)
         {
             this.player = player;
+            this.player.FacingDirection = Direction.North;
         }
 
         public void Stop() => player.CurrentState = new PlayerIdleUpState(player);

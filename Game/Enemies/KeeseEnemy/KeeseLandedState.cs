@@ -6,7 +6,7 @@ namespace MainGame.Enemies
 	public class KeeseLandedState : IEnemyState
 	{
 		private readonly KeeseEnemy entity;
-		private int landDurationTimer = 100; // TODO: Figure out how long duration actual is.
+		private int landDurationTimer = 1; // TODO: Figure out how long duration actual is.
 
 		public KeeseLandedState(KeeseEnemy enemy)
 		{

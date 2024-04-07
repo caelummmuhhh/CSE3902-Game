@@ -8,13 +8,11 @@ namespace MainGame.Collision.CollisionHandlers
     public class EnemyBlockCollisionHandler : ICollisionHandler
 	{
         private readonly IEnemy enemy;
-        private readonly Block block;
-        private readonly Rectangle overlap;
-		public EnemyBlockCollisionHandler(IEnemy enemy, Block block, Rectangle overlap)
+        private readonly IBlock block;
+		public EnemyBlockCollisionHandler(IEnemy enemy, IBlock block)
 		{
             this.enemy = enemy;
             this.block = block;
-            this.overlap = overlap;
 		}
 
         public void HandleCollision()
@@ -22,6 +20,8 @@ namespace MainGame.Collision.CollisionHandlers
             if (enemy is GoriyaEnemy || enemy is StalfosEnemy || enemy is GelEnemy)
             {
                 enemy.Position = enemy.PreviousPosition;
+                Rectangle newEnemyHitBox = new(enemy.Position.ToPoint(), enemy.MovementHitBox.Size);
+                enemy.Position = CollisionManager.DecoupleRectangle(newEnemyHitBox, block.HitBox, enemy.MovingDirection);
             }
         }
     }

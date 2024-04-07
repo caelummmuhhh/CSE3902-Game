@@ -34,8 +34,8 @@ namespace MainGame
 
         public static Point SnapToGridHalfStep(Point position)
 		{
-            int halfCellWidth = CellSize.X / 2;
-            int halfCellHeight = CellSize.Y / 2;
+            int halfCellWidth = CellSize.X / 4;
+            int halfCellHeight = CellSize.Y / 4;
 
             int roundedX = (int)Math.Round((decimal)position.X / halfCellWidth) * halfCellWidth;
             int roundedY = (int)Math.Round((decimal)position.Y / halfCellHeight) * halfCellHeight;

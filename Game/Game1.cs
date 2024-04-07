@@ -9,6 +9,8 @@ using MainGame.Rooms;
 
 using MainGame.Collision;
 using MainGame.SpriteHandlers.BlockSprites;
+using MainGame.Enemies;
+using MainGame.Projectiles;
 
 namespace MainGame;
 
@@ -51,7 +53,7 @@ public class Game1 : Game
         SpriteFactory.LoadAllTextures(Content);
         SpriteFactory.SpriteBatch = spriteBatch;
 
-        Player = new Player(this);
+        Player = new Player(this, new Vector2(96, 96));
         RoomManager = new(this);
 
         Collision = new(this);
@@ -82,17 +84,16 @@ public class Game1 : Game
         RoomManager.Draw();
         Player.Draw();
 
-        
+        /*
         if (RoomManager.CurrentRoom.RoomEnemies.Count > 0)
         {
             testBlock.Draw(
-            RoomManager.CurrentRoom.RoomEnemies[0].HitBox,
+            RoomManager.CurrentRoom.RoomEnemies[0].AttackHitBox,
             Color.White
             );
         }
+        */
 
-
-        testBlock.Draw(Player.SwordHitBox, Color.Wheat);
         //testBlock.Draw(Player.MainHitbox, Color.White);
 
         spriteBatch.End();

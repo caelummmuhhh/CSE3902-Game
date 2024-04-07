@@ -8,12 +8,8 @@ namespace MainGame.Projectiles
     {
         public Vector2 Position { get => position; }
         public bool IsActive { get => isActive; }
-        public Rectangle HitBox
-        {
-            get => Utils.CentralizeRectangle(
-                sprite.DestinationRectangle.X, sprite.DestinationRectangle.Y,
-                sprite.DestinationRectangle);
-        }
+        public Direction MovingDirection { get => direction; }
+        public Rectangle HitBox { get => new(position.ToPoint(), sprite.DestinationRectangle.Size); }
 
         private readonly ISprite sprite;
         private readonly float maxDistanceTravel = 200f;
@@ -22,9 +18,9 @@ namespace MainGame.Projectiles
         private bool isActive = true;
         private Vector2 position;
         private Vector2 startingPosition;
-        private readonly CardinalDirections direction;
+        private readonly Direction direction;
 
-        public FireBallProjectile(Vector2 startingPosition, CardinalDirections direction)
+        public FireBallProjectile(Vector2 startingPosition, Direction direction)
 		{
             this.direction = direction;
             this.startingPosition = startingPosition;
@@ -62,16 +58,16 @@ namespace MainGame.Projectiles
             float changeY = 0f;
             switch (direction)
             {
-                case CardinalDirections.North:
+                case Direction.North:
                     changeY = -1f * speed;
                     break;
-                case CardinalDirections.South:
+                case Direction.South:
                     changeY = speed;
                     break;
-                case CardinalDirections.East:
+                case Direction.East:
                     changeX = speed;
                     break;
-                case CardinalDirections.West:
+                case Direction.West:
                     changeX = -1f * speed;
                     break;
             }

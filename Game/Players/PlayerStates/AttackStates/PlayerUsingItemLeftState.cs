@@ -12,6 +12,7 @@ namespace MainGame.Players.PlayerStates
         public PlayerUsingItemLeftState(IPlayer player)
         {
             this.player = player;
+            this.player.FacingDirection = Direction.West;
             this.player.Sprite = SpriteFactory.CreatePlayerInteractingLeftSprite();
             stateDuration = Player.UsingItemsSpeed;
         }

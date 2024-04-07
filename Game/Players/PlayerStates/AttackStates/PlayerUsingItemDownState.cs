@@ -13,6 +13,7 @@ namespace MainGame.Players.PlayerStates
         public PlayerUsingItemDownState(IPlayer player)
         {
             this.player = player;
+            this.player.FacingDirection = Direction.South;
             this.player.Sprite = SpriteFactory.CreatePlayerInteractingDownSprite();
             stateDuration = Player.UsingItemsSpeed;
         }

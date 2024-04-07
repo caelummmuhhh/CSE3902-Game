@@ -15,7 +15,7 @@ namespace MainGame.Doors
         public ISprite SpriteTop;
         public ISprite SpriteBottom;
         public Vector2 Position;
-        public CardinalDirections Direction;
+        public Direction Direction;
         public int BottomXOffset = 0;
         public int BottomYOffset = 0;
 
@@ -24,24 +24,24 @@ namespace MainGame.Doors
             Position = position;
             SpriteTop = spriteTop;
             SpriteBottom = spriteBottom;
-            Direction = (CardinalDirections)Enum.Parse(typeof(CardinalDirections), direction);
+            Direction = (Direction)Enum.Parse(typeof(Direction), direction);
 
             SpriteTop.LayerDepth = 0f;
             SpriteBottom.LayerDepth = 1.0f;
 
-            if (Direction == CardinalDirections.North)
+            if (Direction == Direction.North)
             {
                 BottomYOffset = 16 * Constants.UniversalScale;
             }
-            else if (Direction == CardinalDirections.South)
+            else if (Direction == Direction.South)
             {
                 BottomYOffset = -16 * Constants.UniversalScale;
             }
-            else if (Direction == CardinalDirections.West)
+            else if (Direction == Direction.West)
             {
                 BottomXOffset = 16 * Constants.UniversalScale;
             }
-            else if (Direction == CardinalDirections.East)
+            else if (Direction == Direction.East)
             {
                 BottomXOffset = -16 * Constants.UniversalScale;
             }
