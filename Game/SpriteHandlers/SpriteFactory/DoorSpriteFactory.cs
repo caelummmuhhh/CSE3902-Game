@@ -8,12 +8,13 @@ namespace MainGame.SpriteHandlers
 {
     public static partial class SpriteFactory
     {
-        public enum dir { North, South, West, East };
-        public enum type { wallNormal, openDoor, keyDoor, diamondDoor, destroyedWall, wallDestructible = 0};
-        public static ISprite CreateDoorTopNorthSouth(String direction, String doorType)
+        private enum Dir { North, South, West, East };
+        public enum DoorTypes { wallNormal, openDoor, keyDoor, diamondDoor, destroyedWall, wallDestructible = 0};
+
+        public static ISprite CreateDoorTopNorthSouth(string direction, string doorType)
         {
-            type DoorType = (type)Enum.Parse(typeof(type), doorType);
-            dir Direction = (dir)Enum.Parse(typeof(dir), direction);
+            DoorTypes DoorType = (DoorTypes)Enum.Parse(typeof(DoorTypes), doorType);
+            Dir Direction = (Dir)Enum.Parse(typeof(Dir), direction);
             return new DoorSegmentNorthSouth(
                 TextureMap["RoomSprites"], SpriteBatch,
                 textureStartingY: (704 + 32 * (int)Direction),
@@ -21,10 +22,11 @@ namespace MainGame.SpriteHandlers
                 scale: Constants.UniversalScale
                 );
         }
-        public static ISprite CreateDoorBottomNorthSouth(String direction, String doorType)
+
+        public static ISprite CreateDoorBottomNorthSouth(string direction, string doorType)
         {
-            type DoorType = (type)Enum.Parse(typeof(type), doorType);
-            dir Direction = (dir)Enum.Parse(typeof(dir), direction);
+            DoorTypes DoorType = (DoorTypes)Enum.Parse(typeof(DoorTypes), doorType);
+            Dir Direction = (Dir)Enum.Parse(typeof(Dir), direction);
             return new DoorSegmentNorthSouth(
                 TextureMap["RoomSprites"], SpriteBatch,
                 textureStartingY: (704 + 16 + 32*(int)Direction),
@@ -32,10 +34,11 @@ namespace MainGame.SpriteHandlers
                 scale: Constants.UniversalScale
                 );
         }
-        public static ISprite CreateDoorTopWestEast(String direction, String doorType)
+
+        public static ISprite CreateDoorTopWestEast(string direction, string doorType)
         {
-            type DoorType = (type)Enum.Parse(typeof(type), doorType);
-            dir Direction = (dir)Enum.Parse(typeof(dir), direction);
+            DoorTypes DoorType = (DoorTypes)Enum.Parse(typeof(DoorTypes), doorType);
+            Dir Direction = (Dir)Enum.Parse(typeof(Dir), direction);
             return new DoorSegmentWestEast(
                 TextureMap["RoomSprites"], SpriteBatch,
                 textureStartingY: (704 + 32 * (int)Direction),
@@ -43,10 +46,11 @@ namespace MainGame.SpriteHandlers
                 scale: Constants.UniversalScale
                 );
         }
-        public static ISprite CreateDoorBottomWestEast(String direction, String doorType)
+
+        public static ISprite CreateDoorBottomWestEast(string direction, string doorType)
         {
-            type DoorType = (type)Enum.Parse(typeof(type), doorType);
-            dir Direction = (dir)Enum.Parse(typeof(dir), direction);
+            DoorTypes DoorType = (DoorTypes)Enum.Parse(typeof(DoorTypes), doorType);
+            Dir Direction = (Dir)Enum.Parse(typeof(Dir), direction);
             return new DoorSegmentWestEast(
                 TextureMap["RoomSprites"], SpriteBatch,
                 textureStartingY: (704 + 32 * (int)Direction),

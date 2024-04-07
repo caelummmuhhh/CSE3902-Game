@@ -9,6 +9,19 @@ namespace MainGame
         North, NorthEast, East, SouthEast, South, SouthWest, West, NorthWest
     }
 
+    public enum BlockTypes
+    {
+        BlueFloor, SquareBlock, StatueOneEntrance, StatueTwoEntrance, StatueOneEnd,
+        StatueTwoEnd, BlackSquare, BlueSand, BlueGap, Stairs, WhiteBrick, WhiteLadder,
+        PushableBlock
+    }
+
+    public enum ItemTypes
+    {
+        Heart, HeartContainer, Clock, FiveRupees, Rupee, Map, Boomerang, Bomb, Bow,
+        Arrow, Key, Compass, TriforcePiece, Fairy, Fire
+    }
+
     public static class Constants
     {
         /// <summary>
@@ -16,6 +29,11 @@ namespace MainGame
         /// "scaled up". Also represents the size of one "pixel".
         /// </summary>
         public static readonly int UniversalScale = 3;
+
+        /// <summary>
+        /// Represents the size of one grid block.
+        /// </summary>
+        public static readonly int BlockSize = 16 * UniversalScale;
     }
 
     public static class Utils

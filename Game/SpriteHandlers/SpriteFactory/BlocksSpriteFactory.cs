@@ -2,40 +2,25 @@
 
 namespace MainGame.SpriteHandlers
 {
-    public enum BlockSpriteTypes
-    {
-        BlueFloor,
-        SquareBlock,
-        StatueOneEntrance,
-        StatueTwoEntrance,
-        StatueOneEnd,
-        StatueTwoEnd,
-        BlackSquare,
-        BlueSand,
-        BlueGap,
-        Stairs,
-        WhiteBrick,
-        WhiteLadder
-    }
-
     public static partial class SpriteFactory
     {
-        public static ISprite CreateBlock(BlockSpriteTypes block)
+        public static ISprite CreateBlockSprite(BlockTypes block)
         {
             return block switch
             {
-                BlockSpriteTypes.BlueFloor => CreateBlueFloorSprite(),
-                BlockSpriteTypes.SquareBlock => CreateSquareBlockSprite(),
-                BlockSpriteTypes.StatueOneEntrance => CreateStatueOneEntranceSprite(),
-                BlockSpriteTypes.StatueTwoEntrance => CreateStatueTwoEntranceSprite(),
-                BlockSpriteTypes.StatueOneEnd => CreateStatueOneEndSprite(),
-                BlockSpriteTypes.StatueTwoEnd => CreateStatueTwoEndSprite(),
-                BlockSpriteTypes.BlackSquare => CreateBlackSquareSprite(),
-                BlockSpriteTypes.BlueSand => CreateBlueSandSprite(),
-                BlockSpriteTypes.BlueGap => CreateBlueGapSprite(),
-                BlockSpriteTypes.Stairs => CreateStairsSprite(),
-                BlockSpriteTypes.WhiteBrick => CreateWhiteBrickSprite(),
-                BlockSpriteTypes.WhiteLadder => CreateWhiteLadderSprite(),
+                BlockTypes.BlueFloor => CreateBlueFloorSprite(),
+                BlockTypes.SquareBlock => CreateSquareBlockSprite(),
+                BlockTypes.StatueOneEntrance => CreateStatueOneEntranceSprite(),
+                BlockTypes.StatueTwoEntrance => CreateStatueTwoEntranceSprite(),
+                BlockTypes.StatueOneEnd => CreateStatueOneEndSprite(),
+                BlockTypes.StatueTwoEnd => CreateStatueTwoEndSprite(),
+                BlockTypes.BlackSquare => CreateBlackSquareSprite(),
+                BlockTypes.BlueSand => CreateBlueSandSprite(),
+                BlockTypes.BlueGap => CreateBlueGapSprite(),
+                BlockTypes.Stairs => CreateStairsSprite(),
+                BlockTypes.WhiteBrick => CreateWhiteBrickSprite(),
+                BlockTypes.WhiteLadder => CreateWhiteLadderSprite(),
+                BlockTypes.PushableBlock => CreateSquareBlockSprite(),
                 _ => null,
             };
         }
@@ -46,16 +31,16 @@ namespace MainGame.SpriteHandlers
         /// <param name="blockName">The name of the block.</param>
         /// <returns>The ISprite object created based on the given block name</returns>
         /// <exception cref="ArgumentException">The block name does not match to a block.</exception>
-        public static ISprite CreateBlock(string blockName)
+        public static ISprite CreateBlockSprite(string blockName)
         {
-            bool conversionSuccess = Enum.TryParse(blockName, out BlockSpriteTypes block);
+            bool conversionSuccess = Enum.TryParse(blockName, out BlockTypes block);
 
             if (!conversionSuccess)
             {
                 throw new ArgumentException("Unable to parse block name string into a block.");
             }
 
-            return CreateBlock(block);
+            return CreateBlockSprite(block);
         }
 
 

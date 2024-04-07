@@ -6,9 +6,9 @@ namespace MainGame.Enemies
 	public class KeeseLandedState : IEnemyState
 	{
 		private readonly KeeseEnemy entity;
-		private int landDurationTimer = 1; // TODO: Figure out how long duration actual is.
+		private int landDurationTimer = new Random().Next(5, 20) * 10; // TODO: Figure out how long duration actual is.
 
-		public KeeseLandedState(KeeseEnemy enemy)
+        public KeeseLandedState(KeeseEnemy enemy)
 		{
 			entity = enemy;
 			entity.Sprite = SpriteFactory.CreateKeeseLandedSprite();

@@ -67,7 +67,7 @@ namespace MainGame.Collision
 		public void DetectEnemyCollisions()
 		{
 			foreach (IEnemy enemy in enemies) {
-				foreach (Block block in blocks)
+				foreach (IBlock block in blocks)
 				{
 					Rectangle overlap = Rectangle.Intersect(enemy.MovementHitBox, block.HitBox);
 					if (!overlap.IsEmpty)
@@ -147,7 +147,7 @@ namespace MainGame.Collision
 
         public void DetectBlockCollisions()
         {
-			foreach (Block block in blocks)
+			foreach (IBlock block in blocks)
 			{
 				Rectangle overlap = Rectangle.Intersect(block.HitBox, player.BottomHalfHitBox);
 				if (!overlap.IsEmpty)
@@ -171,7 +171,7 @@ namespace MainGame.Collision
 
         public void DetectItemCollisions()
         {
-            foreach (Item item in items)
+            foreach (IItem item in items)
             {
                 Rectangle overlap = Rectangle.Intersect(item.HitBox, player.MainHitbox);
                 if (!overlap.IsEmpty)

@@ -5,24 +5,37 @@ namespace MainGame.BlocksAndItems
 {
 	public class Block : IBlock
 	{
-		public ISprite Sprite;
-		public Vector2 Position;
-		public Rectangle HitBox { get => Sprite.DestinationRectangle; }
+        public Vector2 Position { get; protected set; }
+        public Rectangle HitBox
+		{
+			get
+			{
+                if (collidable)
+				{
+					return sprite.DestinationRectangle;
+                }
+				return new();
+            }
+		}
 
-        public Block(Vector2 position, ISprite sprite)
+        private readonly ISprite sprite;
+        private readonly bool collidable;
+
+        public Block(Vector2 position, ISprite sprite, bool collidable = true)
 		{
 			Position = position;
-			Sprite = sprite;
+			this.sprite = sprite;
+			this.collidable = collidable;
         }
 
 		public void Update()
 		{
-			Sprite.Update();
+			sprite.Update();
 		}
 
 		public void Draw()
 		{
-			Sprite.Draw(Position.X, Position.Y, Color.White);
+			sprite.Draw(Position.X, Position.Y, Color.White);
 		}
 
     }

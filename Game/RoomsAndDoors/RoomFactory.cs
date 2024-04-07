@@ -103,7 +103,7 @@ namespace MainGame.Rooms
                      new Vector2(112 * Constants.UniversalScale, 0 * Constants.UniversalScale),
                      SpriteFactory.CreateDoorTopNorthSouth("North", doors[0]),
                      SpriteFactory.CreateDoorBottomNorthSouth("North", doors[0]),
-                     "North"
+                     Direction.North
                  );
                 room.PlayerBorderHitBox.Add(new TopHorizontalDoorWallHitBox());
             }
@@ -119,7 +119,7 @@ namespace MainGame.Rooms
                 new Vector2(112 * Constants.UniversalScale, 160 * Constants.UniversalScale),
                 SpriteFactory.CreateDoorTopNorthSouth("South", doors[1]),
                 SpriteFactory.CreateDoorBottomNorthSouth("South", doors[1]),
-                "South"
+                Direction.South
                 );
                 room.PlayerBorderHitBox.Add(new BottomHorizontalDoorWallHitBox());
             }
@@ -135,7 +135,7 @@ namespace MainGame.Rooms
                 new Vector2(0 * Constants.UniversalScale, 72 * Constants.UniversalScale),
                 SpriteFactory.CreateDoorTopWestEast("West", doors[2]),
                 SpriteFactory.CreateDoorBottomWestEast("West", doors[2]),
-                "West"
+                Direction.West
                 );
                 room.PlayerBorderHitBox.Add(new RightVerticalDoorWallHitBox());
             }
@@ -151,7 +151,7 @@ namespace MainGame.Rooms
                 new Vector2(240 * Constants.UniversalScale, 72 * Constants.UniversalScale),
                 SpriteFactory.CreateDoorTopWestEast("East", doors[3]),
                 SpriteFactory.CreateDoorBottomWestEast("East", doors[3]),
-                "East"
+                Direction.East
                 );
                 room.PlayerBorderHitBox.Add(new LeftVerticalDoorWallHitBox());
             }
@@ -179,24 +179,21 @@ namespace MainGame.Rooms
                 }
 
                 // TODO: Maybe we should have a BlocksFactory instead of using block sprite type, so we can control the collideability
-                bool blockSuccess = Enum.TryParse(typeof(BlockSpriteTypes), objects[i], true, out object block);
+                bool blockSuccess = Enum.TryParse(objects[i], true, out BlockTypes block);
+                Vector2 position = new (wallOffsetX + i * columnWidth, wallOffsetY + yOffset * columnWidth);
                 if (blockSuccess)
                 {
-                    room.RoomBlocks.Add(
-                        new Block(
-                                new Vector2(wallOffsetX + i * columnWidth, wallOffsetY + yOffset * columnWidth),
-                                SpriteFactory.CreateBlock((BlockSpriteTypes)block)
-                            ));
+                    room.RoomBlocks.Add(BlockFactory.CreateBlock(block, position));
                 }
                 else
                 {
-                    bool itemSuccess = Enum.TryParse(typeof(ItemSpriteTypes), objects[i], true, out object item);
+                    bool itemSuccess = Enum.TryParse(typeof(ItemTypes), objects[i], true, out object item);
                     if (itemSuccess)
                     {
                         room.RoomItems.Add(
                             new Item(
                                     new Vector2(wallOffsetX + i * columnWidth, wallOffsetY + yOffset * columnWidth),
-                                    SpriteFactory.CreateItemSprite((ItemSpriteTypes)item)
+                                    SpriteFactory.CreateItemSprite((ItemTypes)item)
                                 ));
                     }
                 }

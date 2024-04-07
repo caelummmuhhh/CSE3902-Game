@@ -12,22 +12,22 @@ namespace MainGame.Doors
 
     public class Door : IDoor
     {
-        public ISprite SpriteTop;
-        public ISprite SpriteBottom;
         public Vector2 Position;
         public Direction Direction;
-        public int BottomXOffset = 0;
-        public int BottomYOffset = 0;
+        private readonly ISprite spriteTop;
+        private readonly ISprite spriteBottom;
+        private readonly int BottomXOffset = 0;
+        private readonly int BottomYOffset = 0;
 
-        public Door(Vector2 position, ISprite spriteTop, ISprite spriteBottom, string direction)
+        public Door(Vector2 position, ISprite spriteTop, ISprite spriteBottom, Direction direction)
         {
             Position = position;
-            SpriteTop = spriteTop;
-            SpriteBottom = spriteBottom;
-            Direction = (Direction)Enum.Parse(typeof(Direction), direction);
+            this.spriteTop = spriteTop;
+            this.spriteBottom = spriteBottom;
+            Direction = direction;
 
-            SpriteTop.LayerDepth = 0f;
-            SpriteBottom.LayerDepth = 1.0f;
+            this.spriteTop.LayerDepth = 0f;
+            this.spriteBottom.LayerDepth = 1.0f;
 
             if (Direction == Direction.North)
             {
@@ -49,15 +49,15 @@ namespace MainGame.Doors
 
         public void Update()
         {
-            SpriteTop.Update();
-            SpriteBottom.Update();
+            spriteTop.Update();
+            spriteBottom.Update();
 
         }
 
         public void Draw()
         {
-            SpriteTop.Draw(Position.X, Position.Y, Color.White);
-            SpriteBottom.Draw(Position.X + BottomXOffset, Position.Y + BottomYOffset, Color.White);
+            spriteTop.Draw(Position.X, Position.Y, Color.White);
+            spriteBottom.Draw(Position.X + BottomXOffset, Position.Y + BottomYOffset, Color.White);
         }
     }
 

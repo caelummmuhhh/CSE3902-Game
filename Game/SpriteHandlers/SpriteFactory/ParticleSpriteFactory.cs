@@ -1,21 +1,9 @@
-﻿using System;
-using MainGame.SpriteHandlers.ItemSprites;
-
-namespace MainGame.SpriteHandlers
+﻿namespace MainGame.SpriteHandlers
 {
-    public enum ParticleSpriteTypes
-    {
-
-    }
-
     public static partial class SpriteFactory
     {
-
-
         public static ISprite CreateDeathParticles()
         {
-
-
             return new ParticleSprites.DeathParticles(
                 TextureMap["ParticleSprites"], SpriteBatch,
                 numRows: 1,
@@ -25,8 +13,6 @@ namespace MainGame.SpriteHandlers
                 frameWidth: 16,
                 scale: Constants.UniversalScale) ;
         }
-
-
 
         public static ISprite CreateSwordBeamParticles()
         {
@@ -43,7 +29,6 @@ namespace MainGame.SpriteHandlers
 
         public static ISprite CreateSpawnParticles()
         {
-
             return new ParticleSprites.SpawnParticles(
                 TextureMap["ParticleSprites"], SpriteBatch,
                 numRows: 1,

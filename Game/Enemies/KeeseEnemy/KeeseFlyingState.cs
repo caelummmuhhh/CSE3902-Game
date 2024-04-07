@@ -17,7 +17,7 @@ namespace MainGame.Enemies
             entity.Sprite = SpriteFactory.CreateKeeseFlightSprite();
             random = new();
 
-            flightDurationTimer = 1;//random.Next(1, 64) * 16;
+            flightDurationTimer = random.Next(1, 64) * 16;
             ChangeDirection();
         }
 

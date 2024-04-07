@@ -3,46 +3,27 @@ using MainGame.SpriteHandlers.ItemSprites;
 
 namespace MainGame.SpriteHandlers
 {
-    public enum ItemSpriteTypes
-    {
-        Heart,
-        HeartContainer,
-        Clock,
-        FiveRupees,
-        Rupee,
-        Map,
-        Boomerang,
-        Bomb,
-        Bow,
-        Arrow,
-        Key,
-        Compass,
-        TriforcePiece,
-        Fairy,
-        Fire
-    }
-
     public static partial class SpriteFactory
     {
-        public static ISprite CreateItemSprite(ItemSpriteTypes item)
+        public static ISprite CreateItemSprite(ItemTypes item)
         {
             return item switch
             {
-                ItemSpriteTypes.Heart => CreateHeartItemSprite(),
-                ItemSpriteTypes.HeartContainer => CreateHeartContainerItemSprite(),
-                ItemSpriteTypes.Clock => CreateClockItemSprite(),
-                ItemSpriteTypes.FiveRupees => CreateFiveRupeesItemSprite(),
-                ItemSpriteTypes.Rupee => CreateRupeeItemSprite(),
-                ItemSpriteTypes.Map => CreateMapItemSprite(),
-                ItemSpriteTypes.Boomerang => CreateWoodenBoomerangItemSprite(),
-                ItemSpriteTypes.Bomb => CreateBombItemSprite(),
-                ItemSpriteTypes.Bow => CreateBowItemSprite(),
-                ItemSpriteTypes.Arrow => CreateArrowItemSprite(),
-                ItemSpriteTypes.Key => CreateKeyItemSprite(),
-                ItemSpriteTypes.Compass => CreateCompassItemSprite(),
-                ItemSpriteTypes.TriforcePiece => CreateTriforcePieceItemSprite(),
-                ItemSpriteTypes.Fairy => CreateFairyItemSprite(),
-                ItemSpriteTypes.Fire => CreateFireSprite(),
+                ItemTypes.Heart => CreateHeartItemSprite(),
+                ItemTypes.HeartContainer => CreateHeartContainerItemSprite(),
+                ItemTypes.Clock => CreateClockItemSprite(),
+                ItemTypes.FiveRupees => CreateFiveRupeesItemSprite(),
+                ItemTypes.Rupee => CreateRupeeItemSprite(),
+                ItemTypes.Map => CreateMapItemSprite(),
+                ItemTypes.Boomerang => CreateWoodenBoomerangItemSprite(),
+                ItemTypes.Bomb => CreateBombItemSprite(),
+                ItemTypes.Bow => CreateBowItemSprite(),
+                ItemTypes.Arrow => CreateArrowItemSprite(),
+                ItemTypes.Key => CreateKeyItemSprite(),
+                ItemTypes.Compass => CreateCompassItemSprite(),
+                ItemTypes.TriforcePiece => CreateTriforcePieceItemSprite(),
+                ItemTypes.Fairy => CreateFairyItemSprite(),
+                ItemTypes.Fire => CreateFireSprite(),
                 _ => null
             };
         }
@@ -55,7 +36,7 @@ namespace MainGame.SpriteHandlers
         /// <exception cref="ArgumentException">The item name does not match to an item.</exception>
         public static ISprite CreateItemSprite(string itemName)
         {
-            bool conversionSuccess = Enum.TryParse(itemName, out ItemSpriteTypes item);
+            bool conversionSuccess = Enum.TryParse(itemName, out ItemTypes item);
 
             if (!conversionSuccess)
             {
