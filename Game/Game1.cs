@@ -53,7 +53,7 @@ public class Game1 : Game
         SpriteFactory.LoadAllTextures(Content);
         SpriteFactory.SpriteBatch = spriteBatch;
 
-        Player = new Player(this, new Vector2(96, 96));
+        Player = new Player(new Vector2(96, 96));
         RoomManager = new(this);
 
         Collision = new(this);
@@ -101,7 +101,7 @@ public class Game1 : Game
         }*/
 
         //testBlock.Draw(Player.MainHitbox, Color.White);
-
+        /*
         foreach (IEnemy enemy in RoomManager.CurrentRoom.RoomEnemies)
         {
             if (enemy is AquamentusEnemy aq)
@@ -113,7 +113,7 @@ public class Game1 : Game
                     testBlock.Draw(aqp.DownProjectile.HitBox, Color.White);
                 }
             }
-        }
+        }*/
 
         spriteBatch.End();
 

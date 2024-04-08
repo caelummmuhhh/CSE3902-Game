@@ -16,7 +16,7 @@ namespace MainGame.Commands
         {
             game.controllers.Clear();
 
-            game.Player = new Player(game, new Vector2(96, 96));
+            game.Player = new Player(new Vector2(96, 96));
 
             game.controllers.Add(new KeyboardController(game, game.Player));
             game.controllers.Add(new MouseController(game, game.Player));

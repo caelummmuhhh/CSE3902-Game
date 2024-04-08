@@ -8,9 +8,11 @@ namespace MainGame.Players
     {
         public IPlayerState CurrentState { get; set; }
         public Vector2 Position { get; set; }
+        public Color SpriteColor { get; set; }
         public Vector2 PreviousPosition { get; set; }
         public ISprite Sprite { get; set; }
         public Direction FacingDirection { get; set; }
+        public bool IsInvulnerable { get; }
 
         public Rectangle MainHitbox { get; set; }
         public Rectangle BottomHalfHitBox { get; set; }
@@ -19,7 +21,8 @@ namespace MainGame.Players
         public void Update();
         public void Draw();
 
-        public void TakeDamage();
+        public void MakeInvulnerable(int duration);
+        public void TakeDamage(Direction sideHit);
 
         public void MoveUp();
         public void MoveDown();

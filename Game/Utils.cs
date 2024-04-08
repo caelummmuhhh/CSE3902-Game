@@ -79,6 +79,30 @@ namespace MainGame
             };
         }
 
+        public static Direction GetDirectionFrom(Vector2 source, Vector2 target)
+        {
+            float dx = target.X - source.X;
+            float dy = target.Y - source.Y;
+            return CalculateMoveDirection(dx, dy);
+        }
+
+        public static Direction GetCardinalDirectionFrom(Vector2 source, Vector2 target)
+        {
+            float dx = target.X - source.X;
+            float dy = target.Y - source.Y;
+            double angle = Math.Atan2(dy, dx);
+            int octant = Convert.ToInt32(4d * angle / (2d * Math.PI) + 4d) % 4;
+            return octant switch
+            {
+                0 => Direction.East,
+                1 => Direction.South,
+                2 => Direction.West,
+                3 => Direction.North,
+
+                _ => Direction.North // shouldn't be possible
+            };
+        }
+
         public static Direction OppositeDirection(Direction direction)
         {
             return direction switch

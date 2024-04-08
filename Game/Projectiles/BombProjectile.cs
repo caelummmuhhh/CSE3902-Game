@@ -94,7 +94,7 @@ namespace MainGame.Projectiles
             Color smokeColor = Color.White;
             if (detonationCountdown % 2 == 0)
             {
-                smokeColor = Color.DarkGray;
+                smokeColor = Color.Transparent;
             }
 
             int height = sprite.DestinationRectangle.Height * 3 / 4;

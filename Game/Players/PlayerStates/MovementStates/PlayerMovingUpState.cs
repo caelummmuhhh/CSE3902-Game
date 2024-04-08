@@ -1,7 +1,5 @@
-﻿using System;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using MainGame.SpriteHandlers;
-using MainGame.Projectiles;
 
 namespace MainGame.Players.PlayerStates
 {
@@ -20,7 +18,7 @@ namespace MainGame.Players.PlayerStates
 
         public void Draw()
         {
-            player.Sprite.Draw(player.Position.X, player.Position.Y, Color.White);
+            player.Sprite.Draw(player.Position.X, player.Position.Y, player.SpriteColor);
         }
 
         public void MoveUp()
@@ -32,7 +30,8 @@ namespace MainGame.Players.PlayerStates
         public void Update() => player.Sprite.Update();
         public void Stop() => player.CurrentState = new PlayerIdleUpState(player);
 
-        public void TakeDamage() => player.CurrentState = new PlayerDamagedUpState(player);
+        public void TakeDamage(Direction sideHit)
+            => player.CurrentState = new PlayerKnockedBackState(player, Utils.OppositeDirection(sideHit));
 
         public void MoveDown() => player.CurrentState = new PlayerMovingDownState(player);
         public void MoveRight()

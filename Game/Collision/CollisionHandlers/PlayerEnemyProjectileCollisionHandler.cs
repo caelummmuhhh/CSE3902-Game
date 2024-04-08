@@ -22,7 +22,8 @@ namespace MainGame.Collision.CollisionHandlers
                 || (projectile is BoomerangProjectile boomerang && !boomerang.Returning
                 && boomerang.MovingDirection != Utils.OppositeDirection(player.FacingDirection)))
             {
-                player.TakeDamage();
+                Direction playerSideDamaged = Utils.GetCardinalDirectionFrom(player.Position, projectile.Position);
+                player.TakeDamage(playerSideDamaged);
             }
 
             projectile.Collide();
