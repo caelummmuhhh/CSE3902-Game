@@ -2,12 +2,8 @@
 using Microsoft.Xna.Framework;
 namespace MainGame.Collision
 {
-	public class CollisionManager
+	public static class CollisionUtils
 	{
-		public CollisionManager()
-		{
-		}
-
 		public static Vector2 DecoupleRectangle(Rectangle source, Rectangle collidedInto, Direction movementDirection)
 		{
             Rectangle overlap = Rectangle.Intersect(source, collidedInto);

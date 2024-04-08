@@ -16,7 +16,7 @@ namespace MainGame.Collision.CollisionHandlers
 
         public void HandleCollision()
         {
-            player.Position = CollisionManager.DecoupleRectangle(player.MainHitbox, border);
+            player.Position = CollisionUtils.DecoupleRectangle(player.MainHitbox, border);
         }
     }
 }

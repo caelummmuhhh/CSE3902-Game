@@ -18,7 +18,7 @@ namespace MainGame.Collision.CollisionHandlers
 
         public void HandleCollision()
         {
-            Vector2 bottomHalfResolved = CollisionManager.DecoupleRectangle(player.BottomHalfHitBox, block.HitBox);
+            Vector2 bottomHalfResolved = CollisionUtils.DecoupleRectangle(player.BottomHalfHitBox, block.HitBox);
             player.Position = new Vector2(bottomHalfResolved.X, bottomHalfResolved.Y - player.BottomHalfHitBox.Height);
 
             if (block is PushableBlock)
