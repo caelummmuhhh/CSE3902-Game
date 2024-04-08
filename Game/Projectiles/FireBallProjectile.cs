@@ -12,9 +12,9 @@ namespace MainGame.Projectiles
         public Rectangle HitBox { get => new(position.ToPoint(), sprite.DestinationRectangle.Size); }
 
         private readonly ISprite sprite;
-        private readonly float maxDistanceTravel = 200f;
-        private int idletime = 20;
-        private readonly float speed = 10f;
+        private readonly float maxDistanceTravel = Constants.BlockSize;
+        private int idletime = 100;
+        private readonly float speed = 1f;
         private bool isActive = true;
         private Vector2 position;
         private Vector2 startingPosition;
@@ -24,7 +24,22 @@ namespace MainGame.Projectiles
 		{
             this.direction = direction;
             this.startingPosition = startingPosition;
-            position = startingPosition;
+            switch (direction)
+            {
+                case Direction.North:
+                    this.startingPosition = new(startingPosition.X, startingPosition.Y - Constants.BlockSize);
+                    break;
+                case Direction.South:
+                    this.startingPosition = new(startingPosition.X, startingPosition.Y + Constants.BlockSize);
+                    break;
+                case Direction.East:
+                    this.startingPosition = new(startingPosition.X + Constants.BlockSize, startingPosition.Y);
+                    break;
+                case Direction.West:
+                    this.startingPosition = new(startingPosition.X - Constants.BlockSize, startingPosition.Y);
+                    break;
+            }
+            position = this.startingPosition;
             sprite = SpriteFactory.CreateFireSprite();
         }
 
@@ -52,6 +67,8 @@ namespace MainGame.Projectiles
             sprite.Draw(Position.X, Position.Y, Color.White);
         }
 
+        public void Collide() { }
+
         private void Move()
         {
             float changeX = 0f;
@@ -76,4 +93,3 @@ namespace MainGame.Projectiles
         }
     }
 }
-

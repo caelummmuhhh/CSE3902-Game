@@ -1,26 +1,24 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
 namespace MainGame.SpriteHandlers.ParticleSprites
 {
-    public class SwordBeamParticles : AnimatedSpriteWithOffset
+    public class SwordBeamParticle : AnimatedSpriteWithOffset
     {
         private readonly Dictionary<int, int> frameDisplayTimeMap;
         private readonly SpriteBatch spriteBatch;
         private int spriteDisplayTimeLapse;
+        private readonly SpriteEffects effects;
 
-        public SwordBeamParticles(Texture2D texture,
+        public SwordBeamParticle(Texture2D texture,
             SpriteBatch spriteBatch,
             int numRows,
             int numColumns,
             int numberOfFrames,
             int frameHeight,
             int frameWidth,
+            Direction facingDirection,
             int textureStartingX = 0,
             int textureStartingY = 0,
             int scale = 1,
@@ -37,14 +35,16 @@ namespace MainGame.SpriteHandlers.ParticleSprites
                 { 2, 1 },
                 { 3, 1 }
             };
-        }
 
-        public override void Draw(float x, float y, Color color)
-        {
-            Rectangle srcRectangle = GetSourceRectangle();
-            Rectangle destRectangle = GetDestinationRectangle(x, y);
-
-            spriteBatch.Draw(Texture, destRectangle, srcRectangle, color, rotation, origin, SpriteEffects.None, layer);
+            origin = new(FrameWidth / 2f, FrameHeight / 2f);
+            effects = facingDirection switch
+            {
+                Direction.NorthWest => SpriteEffects.None,
+                Direction.NorthEast => SpriteEffects.FlipHorizontally,
+                Direction.SouthEast => SpriteEffects.FlipVertically | SpriteEffects.FlipHorizontally,
+                Direction.SouthWest => SpriteEffects.FlipVertically,
+                _ => SpriteEffects.None
+            };
         }
 
         public override void Update()
@@ -56,6 +56,16 @@ namespace MainGame.SpriteHandlers.ParticleSprites
             }
 
             spriteDisplayTimeLapse++;
+        }
+
+        public override void Draw(float x, float y, Color color)
+        {
+            Rectangle srcRectangle = GetSourceRectangle();
+            Rectangle destRectangle = GetDestinationRectangle(
+                x + FrameWidth * Constants.UniversalScale / 2f,
+                y + FrameHeight * Constants.UniversalScale / 2f);
+
+            spriteBatch.Draw(Texture, destRectangle, srcRectangle, color, rotation, origin, effects, layer);
         }
     }
 }

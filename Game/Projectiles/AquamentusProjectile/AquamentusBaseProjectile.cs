@@ -13,9 +13,13 @@ namespace MainGame.Projectiles
         {
             get
             {
+				if (!isActive)
+				{
+					return new();
+				}
                 Rectangle destRect = sprite.DestinationRectangle;
                 Rectangle resized = new(destRect.X, destRect.Y, destRect.Width / 2, destRect.Height / 2);
-                return Utils.CentralizeRectangle(destRect.X, destRect.Y, resized);
+                return Utils.CentralizeRectangle((int)Position.X, (int)Position.Y, resized);
             }
         }
 
@@ -59,6 +63,7 @@ namespace MainGame.Projectiles
 			sprite.Draw(position.X, position.Y, Color.White);
 		}
 
+		public virtual void Collide() => isActive = false;
 		public abstract void Move();
 		public abstract void InitialMovement();
     }

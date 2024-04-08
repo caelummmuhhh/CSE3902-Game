@@ -63,6 +63,8 @@ namespace MainGame.Projectiles
             sprite.Draw(position.X, position.Y, Color.White);
         }
 
+        public void Collide() { }
+
         private void DetonateBomb()
         {
             if (!detonated)

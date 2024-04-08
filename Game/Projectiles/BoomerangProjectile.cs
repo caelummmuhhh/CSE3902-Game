@@ -8,21 +8,22 @@ namespace MainGame.Projectiles
 		public Vector2 Position { get => position; }
 		public bool IsActive { get => isActive; }
         public Direction MovingDirection { get => direction; }
+		public bool Returning { get => returning;  }
         public Rectangle HitBox
         {
             get
             {
                 Rectangle destRect = sprite.DestinationRectangle;
                 Rectangle resized = new((int)Position.X, (int)Position.Y, destRect.Width / 2, destRect.Height / 2);
-                return Utils.CentralizeRectangle(destRect.X, destRect.Y, resized);
+                return Utils.CentralizeRectangle(resized.X, resized.Y, resized);
             }
         }
 
         private readonly ISprite sprite;
 		private readonly ISprite collideEffect;
 		private Vector2 collidePosition;
-		private int collideSpriteDuration = 3;
-		private bool collided = false;
+		private int collideSpriteDuration = 10;
+		private bool showCollideSprite = false;
 		private Vector2 position;
 		private Vector2 startingPosition;
 		private bool isActive = true;
@@ -48,10 +49,10 @@ namespace MainGame.Projectiles
 			sprite.Update();
 			Move();
 
-			if (collided)
+			if (showCollideSprite)
 			{
 				collideSpriteDuration--;
-				collided = collideSpriteDuration < 0;
+				showCollideSprite = collideSpriteDuration > 0;
 			}
 
 			if (returning && Vector2.Distance(position, startingPosition) < 10f)
@@ -65,7 +66,7 @@ namespace MainGame.Projectiles
 		public void Draw()
 		{
 			sprite.Draw(Position.X, Position.Y, Color.White);
-			if (collided && collideSpriteDuration > 0)
+			if (showCollideSprite && collideSpriteDuration > 0)
 			{
 				collideEffect.Draw(collidePosition.X, collidePosition.Y, Color.White);
 			}
@@ -75,10 +76,9 @@ namespace MainGame.Projectiles
 		{
 			if (!returning)
 			{
-				collided = true;
+				showCollideSprite = true;
 				returning = true;
                 direction = Utils.OppositeDirection(direction);
-                speed *= -1;
 				collidePosition = position;
             }
 		}

@@ -10,6 +10,7 @@ namespace MainGame.Projectiles
 		public bool IsActive { get; }
 		public void Update();
 		public void Draw();
+		public void Collide();
 	}
 }
 

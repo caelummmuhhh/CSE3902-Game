@@ -9,8 +9,8 @@ using MainGame.Rooms;
 
 using MainGame.Collision;
 using MainGame.SpriteHandlers.BlockSprites;
-using MainGame.Enemies;
 using MainGame.Projectiles;
+using MainGame.Enemies;
 
 namespace MainGame;
 
@@ -94,7 +94,26 @@ public class Game1 : Game
         }
         */
 
+        /*
+        foreach(IProjectile p in ((Player)Player).ProjectilesManager.ActiveProjectiles)
+        {
+            testBlock.Draw(p.HitBox, Color.White);
+        }*/
+
         //testBlock.Draw(Player.MainHitbox, Color.White);
+
+        foreach (IEnemy enemy in RoomManager.CurrentRoom.RoomEnemies)
+        {
+            if (enemy is AquamentusEnemy aq)
+            {
+                foreach (AquamentusAttackProjectiles aqp in aq.ProjectilesManager.ActiveProjectiles)
+                {
+                    testBlock.Draw(aqp.UpProjectile.HitBox, Color.White);
+                    testBlock.Draw(aqp.StraightProjectile.HitBox, Color.White);
+                    testBlock.Draw(aqp.DownProjectile.HitBox, Color.White);
+                }
+            }
+        }
 
         spriteBatch.End();
 

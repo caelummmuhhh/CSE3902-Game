@@ -62,7 +62,7 @@ namespace MainGame.Players
 		public void MoveRight() => CurrentState.MoveRight();
 
 		public void UseSword() => CurrentState.UseSword();
-		public void UseBoomerang(Direction direction) => ProjectilesManager.AddProjectile(new BoomerangProjectile(Position, direction));
+		public void UseBoomerang(Direction direction) => ProjectilesManager.AddProjectile(new PlayerBoomerangProjectile(this, direction));
         public void UseArrow(Direction direction) => ProjectilesManager.AddProjectile(new ArrowProjectile(Position, direction));
         public void UseFire(Direction direction) => ProjectilesManager.AddProjectile(new FireBallProjectile(Position, direction));
 		public void UseBomb(Direction direction) => ProjectilesManager.AddProjectile(new BombProjectile(Position, direction));

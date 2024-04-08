@@ -2,9 +2,9 @@
 {
     public static partial class SpriteFactory
     {
-        public static ISprite CreateDeathParticles()
+        public static ISprite CreateDeathParticle()
         {
-            return new ParticleSprites.DeathParticles(
+            return new ParticleSprites.DeathParticle(
                 TextureMap["ParticleSprites"], SpriteBatch,
                 numRows: 1,
                 numColumns: 2,
@@ -14,22 +14,23 @@
                 scale: Constants.UniversalScale) ;
         }
 
-        public static ISprite CreateSwordBeamParticles()
+        public static ISprite CreateSwordBeamParticle(Direction facingDirection)
         {
-            return new ParticleSprites.SwordBeamParticles(
+            return new ParticleSprites.SwordBeamParticle(
                 TextureMap["ParticleSprites"], SpriteBatch,
                 numRows: 1,
                 numColumns: 4,
                 numberOfFrames: 4,
                 textureStartingY: 18,               
-                frameHeight: 8,
+                frameHeight: 10,
                 frameWidth: 8,
+                facingDirection: facingDirection,
                 scale: Constants.UniversalScale);
         }
 
-        public static ISprite CreateSpawnParticles()
+        public static ISprite CreateSpawnParticle()
         {
-            return new ParticleSprites.SpawnParticles(
+            return new ParticleSprites.SpawnParticle(
                 TextureMap["ParticleSprites"], SpriteBatch,
                 numRows: 1,
                 numColumns: 3,

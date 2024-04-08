@@ -6,23 +6,22 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-
 namespace MainGame.SpriteHandlers.ParticleSprites
 {
-    public class SpawnParticles : AnimatedSpriteWithOffset
+    
+    public class DeathParticle : AnimatedSpriteWithOffset
     {
-
         private readonly Dictionary<int, int> frameDisplayTimeMap;
         private readonly SpriteBatch spriteBatch;
         private int spriteDisplayTimeLapse;
-
-        public SpawnParticles(Texture2D texture,
+        //real values not present yet just framework atm
+        public DeathParticle(Texture2D texture,
             SpriteBatch spriteBatch,
             int numRows,
             int numColumns,
             int numberOfFrames,
-            int frameHeight,
-            int frameWidth,
+            int frameHeight = 16,
+            int frameWidth = 16,
             int textureStartingX = 0,
             int textureStartingY = 0,
             int scale = 1,
@@ -34,10 +33,10 @@ namespace MainGame.SpriteHandlers.ParticleSprites
             spriteDisplayTimeLapse = 0;
             frameDisplayTimeMap = new()
             {
-                { 0, 3 },
+                { 0, 6 },
                 { 1, 6 },
-                { 2, 6 }
             };
+
         }
 
         public override void Draw(float x, float y, Color color)
@@ -59,4 +58,5 @@ namespace MainGame.SpriteHandlers.ParticleSprites
             spriteDisplayTimeLapse++;
         }
     }
+    
 }

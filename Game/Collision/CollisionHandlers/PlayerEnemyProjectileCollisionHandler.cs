@@ -17,8 +17,15 @@ namespace MainGame.Collision.CollisionHandlers
 
         public void HandleCollision()
         {
-            player.TakeDamage();
-            // TODO handle projectile
+            // Shield
+            if (projectile is AquamentusBaseProjectile
+                || (projectile is BoomerangProjectile boomerang && !boomerang.Returning
+                && boomerang.MovingDirection != Utils.OppositeDirection(player.FacingDirection)))
+            {
+                player.TakeDamage();
+            }
+
+            projectile.Collide();
         }
     }
 }

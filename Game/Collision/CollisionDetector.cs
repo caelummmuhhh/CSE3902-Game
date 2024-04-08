@@ -38,6 +38,7 @@ namespace MainGame.Collision
 
             playerBorders = currentRoom.PlayerBorderHitBox;
             enemyBorder = currentRoom.EnemiesBorderHitBox;
+            GetAllEnemyProjectiles();
             // TODO: Get enemy projectiles
         }
 
@@ -50,6 +51,7 @@ namespace MainGame.Collision
             playerProjectiles = new List<IProjectile>(player.ProjectilesManager.ActiveProjectiles);
             playerBorders = currentRoom.PlayerBorderHitBox;
             enemyBorder = currentRoom.EnemiesBorderHitBox;
+            GetAllEnemyProjectiles();
 
             DetectAllCollisions();
         }
@@ -118,28 +120,27 @@ namespace MainGame.Collision
                     Rectangle overlap = Rectangle.Intersect(enemyProjectile.HitBox, borderHitBox);
                     if (!overlap.IsEmpty)
                     {
-                        Console.WriteLine("Enemy Projectile and Wall");
-                        // TODO
+                        new ProjectileBorderCollisionHandler(enemyProjectile, borderHitBox).HandleCollision();
                     }
                 }
 
                 if (player.MainHitbox.Intersects(enemyProjectile.HitBox))
                 {
-                    Console.WriteLine("Enemy Projectile and Player");
+                    new PlayerEnemyProjectileCollisionHandler(player, enemyProjectile).HandleCollision();
                 }
             }
         }
 
 		public void DetectPlayerProjectileCollisions()
 		{
-            foreach (IProjectile playerProjectile in enemyProjectiles)
+            foreach (IProjectile playerProjectile in playerProjectiles)
             {
-                foreach (Rectangle borderHitBox in playerBorders.HitBoxes)
+                foreach (Rectangle borderHitBox in enemyBorder.HitBoxes)
                 {
                     Rectangle overlap = Rectangle.Intersect(playerProjectile.HitBox, borderHitBox);
                     if (!overlap.IsEmpty)
                     {
-                        Console.WriteLine("Player Projectile and Wall");
+                        new ProjectileBorderCollisionHandler(playerProjectile, borderHitBox).HandleCollision();
                     }
                 }
             }
@@ -177,6 +178,27 @@ namespace MainGame.Collision
                 if (!overlap.IsEmpty)
                 {
                     
+                }
+            }
+        }
+
+        private void GetAllEnemyProjectiles()
+        {
+            enemyProjectiles.Clear();
+            foreach (IEnemy enemy in enemies)
+            {
+                if (enemy is GoriyaEnemy goriya && goriya.State is GoriyaAttackingState goriyaAttackingState)
+                {
+                    enemyProjectiles.Add(goriyaAttackingState.Boomerang);
+                }
+                else if (enemy is AquamentusEnemy aquamentus)
+                {
+                    foreach (AquamentusAttackProjectiles projectile in aquamentus.ProjectilesManager.ActiveProjectiles)
+                    {
+                        enemyProjectiles.Add(projectile.UpProjectile);
+                        enemyProjectiles.Add(projectile.StraightProjectile);
+                        enemyProjectiles.Add(projectile.DownProjectile);
+                    }
                 }
             }
         }
