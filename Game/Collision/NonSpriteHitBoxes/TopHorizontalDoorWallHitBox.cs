@@ -9,15 +9,15 @@ namespace MainGame.Collision
             Rectangle leftWall = new(
                 x: 0,
                 y: 0,
-                width: 112 * Constants.UniversalScale,
-                height: 32 * Constants.UniversalScale
+                width: (int)(7.5f * Constants.BlockSize),
+                height: 2 * Constants.BlockSize
                 );
 
             Rectangle rightWall = new(
-                x: leftWall.Width + 32 * Constants.UniversalScale,
+                x: leftWall.Width + Constants.BlockSize,
                 y: leftWall.Y,
-                width: 112 * Constants.UniversalScale,
-                height: 32 * Constants.UniversalScale
+                width: (int)(7.5f * Constants.BlockSize),
+                height: 2 * Constants.BlockSize
                 );
 
             HitBoxes.Add(leftWall);

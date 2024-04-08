@@ -4,12 +4,6 @@ using System;
 
 namespace MainGame.Doors
 {
-    public interface IDoor
-    {
-        public void Update();
-        public void Draw();
-    }
-
     public class Door : IDoor
     {
         public Vector2 Position;

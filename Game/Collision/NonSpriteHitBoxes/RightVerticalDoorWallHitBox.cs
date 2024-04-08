@@ -7,17 +7,17 @@ namespace MainGame.Collision
         public RightVerticalDoorWallHitBox()
         {
             Rectangle topWall = new(
-                x: (32 + 192) * Constants.UniversalScale,
+                x: 14 * Constants.BlockSize,
                 y: 0,
-                width: 32 * Constants.UniversalScale,
-                height: 72 * Constants.UniversalScale
+                width: 2 * Constants.BlockSize,
+                height: 5 * Constants.BlockSize
                 );
 
             Rectangle bottomWall = new(
                 x: topWall.X,
-                y: topWall.Height + 32 * Constants.UniversalScale,
-                width: 32 * Constants.UniversalScale,
-                height: 72 * Constants.UniversalScale
+                y: topWall.Height + Constants.BlockSize,
+                width: 2 * Constants.BlockSize,
+                height: 5 * Constants.BlockSize
                 );
 
             HitBoxes.Add(topWall);

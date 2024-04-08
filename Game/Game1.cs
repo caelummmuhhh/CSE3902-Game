@@ -122,6 +122,12 @@ public class Game1 : Game
             testBlock.Draw(item.HitBox, Color.White);
         }*/
 
+        /*
+        foreach (Rectangle hb in RoomManager.CurrentRoom.PlayerBorderHitBox.HitBoxes)
+        {
+            testBlock.Draw(hb, Color.White);
+        }*/
+
         spriteBatch.End();
 
         base.Draw(gameTime);
