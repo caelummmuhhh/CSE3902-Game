@@ -10,6 +10,8 @@ namespace MainGame.Enemies
         public Direction MovingDirection { get; set; }
         public ISprite Sprite { get; set; }
         public IEnemyState State { get; set; }
+        public bool IsInvulnerable { get; }
+        public bool IsStunned { get; }
 
         public Rectangle AttackHitBox { get; }
         public Rectangle MovementHitBox { get; }
@@ -17,6 +19,7 @@ namespace MainGame.Enemies
         public void Update();
 		public void Draw();
         public void Move();
-        public void TakeDamage();
+        public void TakeDamage(Direction sideHit);
+        public void Stun(int duration);
     }
 }

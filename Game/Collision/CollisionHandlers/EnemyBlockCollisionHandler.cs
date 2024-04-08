@@ -21,7 +21,7 @@ namespace MainGame.Collision.CollisionHandlers
             {
                 enemy.Position = enemy.PreviousPosition;
                 Rectangle newEnemyHitBox = new(enemy.Position.ToPoint(), enemy.MovementHitBox.Size);
-                enemy.Position = CollisionManager.DecoupleRectangle(newEnemyHitBox, block.HitBox, enemy.MovingDirection);
+                enemy.Position = CollisionManager.DecoupleRectangle(newEnemyHitBox, block.HitBox);
             }
         }
     }

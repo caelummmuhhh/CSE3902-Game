@@ -47,7 +47,7 @@ namespace MainGame.Enemies
         private bool AttemptBoomerang()
         {
             Random random = new();
-            if (random.Next(12) == 0)
+            if (random.Next(12) == 0 && !entity.IsStunned)
             {
                 entity.State = new GoriyaAttackingState(entity);
                 return true;

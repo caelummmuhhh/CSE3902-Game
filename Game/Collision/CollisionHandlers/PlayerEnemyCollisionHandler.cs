@@ -1,8 +1,5 @@
-﻿using System;
-using Microsoft.Xna.Framework;
-using MainGame.Enemies;
+﻿using MainGame.Enemies;
 using MainGame.Players;
-using MainGame.Projectiles;
 
 namespace MainGame.Collision.CollisionHandlers
 {
@@ -19,8 +16,11 @@ namespace MainGame.Collision.CollisionHandlers
 
         public void HandleCollision()
         {
-            Direction playerSideDamaged = Utils.GetCardinalDirectionFrom(player.Position, enemy.Position);
-            player.TakeDamage(playerSideDamaged);
+			if (!enemy.IsStunned)
+			{
+                Direction playerSideDamaged = Utils.GetCardinalDirectionFrom(player.Position, enemy.Position);
+                player.TakeDamage(playerSideDamaged);
+            }
         }
     }
 }

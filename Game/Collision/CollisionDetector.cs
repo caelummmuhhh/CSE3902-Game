@@ -7,7 +7,6 @@ using MainGame.Players;
 using MainGame.Enemies;
 using MainGame.Projectiles;
 using MainGame.Rooms;
-using System;
 using MainGame.Collision.CollisionHandlers;
 
 namespace MainGame.Collision
@@ -83,8 +82,7 @@ namespace MainGame.Collision
 					Rectangle overlap = Rectangle.Intersect(enemy.AttackHitBox, playerProjectile.HitBox);
                     if (!overlap.IsEmpty)
                     {
-                        Console.WriteLine("Enemy and Player Projectile");
-                        // TODO
+                        new EnemyPlayerProjectileCollisionHandler(enemy, playerProjectile).HandleCollision();
                     }
                 }
 
@@ -104,8 +102,7 @@ namespace MainGame.Collision
 
                 if (player.SwordHitBox.Intersects(enemy.AttackHitBox))
 				{
-                    Console.WriteLine("Enemy and Player Sword");
-                    // TODO
+                    new EnemyPlayerSwordCollisionHandler(enemy, player).HandleCollision();
                 }
             }
 		}
@@ -141,6 +138,11 @@ namespace MainGame.Collision
                     {
                         new ProjectileBorderCollisionHandler(playerProjectile, borderHitBox).HandleCollision();
                     }
+                }
+
+                if (player.MainHitbox.Intersects(playerProjectile.HitBox))
+                {
+                    new PlayerPlayerProjectileCollisionHandler(player, playerProjectile).HandleCollision();
                 }
             }
         }

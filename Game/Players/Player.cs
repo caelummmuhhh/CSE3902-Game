@@ -47,7 +47,8 @@ namespace MainGame.Players
 			{
 				invulnerableTimer--;
 				FlashColors();
-			} else
+			}
+			else
 			{
 				SpriteColor = Color.White;
 			}
