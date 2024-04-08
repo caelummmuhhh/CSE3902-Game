@@ -45,6 +45,7 @@
     <None Remove="Collision\CollisionHandlers\" />
     <None Remove="Collision\NonSpriteHitBoxes\" />
     <None Remove="GridUtils\" />
+    <None Remove="Blocks\" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Icon.ico" />
@@ -82,6 +83,7 @@
     <Folder Include="Collision\CollisionHandlers\" />
     <Folder Include="Collision\NonSpriteHitBoxes\" />
     <Folder Include="GridUtils\" />
+    <Folder Include="Blocks\" />
   </ItemGroup>
   <ItemGroup>
     <None Update="Content\Rooms\Room_1.csv">

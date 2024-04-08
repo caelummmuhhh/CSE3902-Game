@@ -3,7 +3,8 @@ using System.Collections.Generic;
 
 using MainGame.Doors;
 using MainGame.SpriteHandlers;
-using MainGame.BlocksAndItems;
+using MainGame.Blocks;
+using MainGame.Items;
 using MainGame.Enemies;
 using MainGame.Players;
 using MainGame.Particles;

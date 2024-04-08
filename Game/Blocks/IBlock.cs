@@ -1,8 +1,8 @@
 ﻿using Microsoft.Xna.Framework;
 
-namespace MainGame.BlocksAndItems
+namespace MainGame.Blocks
 {
-	public interface IBlock
+    public interface IBlock
 	{
 		public Vector2 Position { get; }
 		public Rectangle HitBox { get; }

@@ -1,6 +1,6 @@
 ﻿using System;
 using Microsoft.Xna.Framework;
-using MainGame.BlocksAndItems;
+using MainGame.Blocks;
 using MainGame.Players;
 
 namespace MainGame.Collision.CollisionHandlers

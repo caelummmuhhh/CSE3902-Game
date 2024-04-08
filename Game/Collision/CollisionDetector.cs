@@ -1,12 +1,12 @@
 ﻿using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 
-using MainGame.BlocksAndItems;
+using MainGame.Blocks;
+using MainGame.Items;
 using MainGame.Players;
 using MainGame.Enemies;
 using MainGame.Projectiles;
 using MainGame.Rooms;
-using MainGame;
 using System;
 using MainGame.Collision.CollisionHandlers;
 
@@ -100,7 +100,6 @@ namespace MainGame.Collision
                 if (player.MainHitbox.Intersects(enemy.AttackHitBox))
 				{
                     new PlayerEnemyCollisionHandler(player, enemy).HandleCollision();
-                    // TODO: no cool down rn
                 }
 
                 if (player.SwordHitBox.Intersects(enemy.AttackHitBox))
@@ -177,7 +176,7 @@ namespace MainGame.Collision
                 Rectangle overlap = Rectangle.Intersect(item.HitBox, player.MainHitbox);
                 if (!overlap.IsEmpty)
                 {
-                    
+                    new PlayerItemCollisionHandler(player, item).HandleCollision();
                 }
             }
         }

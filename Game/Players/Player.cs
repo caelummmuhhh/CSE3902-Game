@@ -7,7 +7,7 @@ namespace MainGame.Players
 {
 	public class Player : IPlayer
 	{
-		public static readonly float Speed = Constants.UniversalScale;
+		public static readonly float Speed = Constants.UniversalScale + 2;
 		public static readonly int UsingItemsSpeed = 6;
 		public static readonly float KnockedBackSpeed = 10f;
 		public static readonly int ImmunityFrame = 100;

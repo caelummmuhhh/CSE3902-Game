@@ -11,6 +11,7 @@ using MainGame.Collision;
 using MainGame.SpriteHandlers.BlockSprites;
 using MainGame.Projectiles;
 using MainGame.Enemies;
+using MainGame.Items;
 
 namespace MainGame;
 
@@ -113,6 +114,12 @@ public class Game1 : Game
                     testBlock.Draw(aqp.DownProjectile.HitBox, Color.White);
                 }
             }
+        }*/
+
+        /*
+        foreach (IItem item in RoomManager.CurrentRoom.RoomItems)
+        {
+            testBlock.Draw(item.HitBox, Color.White);
         }*/
 
         spriteBatch.End();

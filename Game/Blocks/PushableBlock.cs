@@ -1,7 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using MainGame.SpriteHandlers;
 
-namespace MainGame.BlocksAndItems
+namespace MainGame.Blocks
 {
     public class PushableBlock : IBlock
     {

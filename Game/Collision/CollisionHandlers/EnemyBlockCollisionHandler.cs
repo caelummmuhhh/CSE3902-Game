@@ -1,7 +1,7 @@
 ﻿using System;
 using Microsoft.Xna.Framework;
 using MainGame.Enemies;
-using MainGame.BlocksAndItems;
+using MainGame.Blocks;
 
 namespace MainGame.Collision.CollisionHandlers
 {

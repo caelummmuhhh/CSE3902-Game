@@ -1,12 +1,12 @@
 ﻿using System;
-using System.Diagnostics;
 using System.IO;
 using Microsoft.Xna.Framework;
 
 using MainGame.Doors;
 using MainGame.Rooms;
 using MainGame.SpriteHandlers;
-using MainGame.BlocksAndItems;
+using MainGame.Blocks;
+using MainGame.Items;
 using MainGame.Enemies;
 using MainGame.Players;
 using MainGame.Collision;
@@ -36,7 +36,7 @@ namespace MainGame.Rooms
 
             for (int i = 2; i < lines.Length; i++)
             {
-                ParseItemsAndBlocks(lines[i], room, i - 2);
+                ParseItemsAndBlocks(ref lines[i], room, i - 2);
                 ParseEnemies(lines[i], room, player, i - 2);
             }
 
@@ -162,7 +162,7 @@ namespace MainGame.Rooms
             }
         }
 
-        private static void ParseItemsAndBlocks(string line, IRoom room, int yOffset)
+        private static void ParseItemsAndBlocks(ref string line, IRoom room, int yOffset)
         {
             int wallOffsetX = 32 * Constants.UniversalScale;
             int wallOffsetY = 32 * Constants.UniversalScale;
@@ -184,6 +184,7 @@ namespace MainGame.Rooms
                 if (blockSuccess)
                 {
                     room.RoomBlocks.Add(BlockFactory.CreateBlock(block, position));
+                    objects[i] = "-";
                 }
                 else
                 {
@@ -191,14 +192,15 @@ namespace MainGame.Rooms
                     if (itemSuccess)
                     {
                         room.RoomItems.Add(
-                            new Item(
+                            new GenericItem(
                                     new Vector2(wallOffsetX + i * columnWidth, wallOffsetY + yOffset * columnWidth),
                                     SpriteFactory.CreateItemSprite((ItemTypes)item)
                                 ));
+                        objects[i] = "-";
                     }
                 }
-                objects[i] = "-";
             }
+            line = string.Join(',', objects);
         }
 
         private static void ParseEnemies(string line, IRoom room, IPlayer player, int yOffset)
@@ -214,14 +216,19 @@ namespace MainGame.Rooms
                 if (objects[i].Equals("-")) {
                     continue;
                 }
+                Vector2 spawnPosition = new(wallOffsetX + i * columnWidth, wallOffsetY + yOffset * columnWidth);
 
                 try
                 {
-                    Vector2 spawnPosition = new(wallOffsetX + i * columnWidth, wallOffsetY + yOffset * columnWidth);
                     IEnemy enemy = EnemyUtils.CreateEnemy(objects[i], spawnPosition, player);
                     room.RoomEnemies.Add(enemy);
                 }
-                catch { /* nothing to do for now */ }
+                catch
+                {
+                    IEnemy createdEnemy = EnemyUtils.CreateItemBindedEnemy(objects[i], spawnPosition, out IItem createdItem, player);
+                    room.RoomEnemies.Add(createdEnemy);
+                    room.RoomItems.Add(createdItem);
+                }
             }
         }
     }

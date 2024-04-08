@@ -2,9 +2,9 @@
 using Microsoft.Xna.Framework;
 using MainGame.SpriteHandlers;
 
-namespace MainGame.BlocksAndItems
+namespace MainGame.Blocks
 {
-	public static class BlockFactory
+    public static class BlockFactory
 	{
 		public static IBlock CreateBlock(BlockTypes block, Vector2 position)
 		{
