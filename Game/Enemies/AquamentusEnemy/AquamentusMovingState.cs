@@ -4,14 +4,13 @@ namespace MainGame.Enemies
 	public class AquamentusMovingState : IEnemyState
 	{
 		private readonly AquamentusEnemy entity;
-        private CardinalDirections direction;
         private readonly int maxMoveDuration = 67;
 		private int moveDuration = 0;
 
 		public AquamentusMovingState(AquamentusEnemy enemy)
 		{
 			entity = enemy;
-			direction = EnemyUtils.Randomize(CardinalDirections.East, CardinalDirections.West);
+			entity.MovingDirection = Utils.Randomize(Direction.East, Direction.West);
         }
 
 		public void Update()
@@ -29,12 +28,13 @@ namespace MainGame.Enemies
 
 		public void Move()
 		{
-			if (moveDuration % entity.MovementCoolDownFrame == 0)
+            entity.PreviousPosition = new(entity.Position.X, entity.Position.Y);
+            if (moveDuration % entity.MovementCoolDownFrame == 0)
 			{
-				entity.Position = EnemyUtils.DirectionalMove(entity.Position, direction, entity.MovementSpeed);
+				entity.Position = Utils.DirectionalMove(entity.Position, entity.MovingDirection, entity.MovementSpeed);
 			}
 
-			if (direction == CardinalDirections.East)
+			if (entity.MovingDirection == Direction.East)
 			{
                 entity.MovedDistance += entity.MovementSpeed;
             }
@@ -49,18 +49,18 @@ namespace MainGame.Enemies
 			moveDuration = 0;
 			if (entity.MovedDistance >= entity.MaxMoveDistance || entity.MovedDistance <= -entity.MaxMoveDistance)
 			{
-				direction = EnemyUtils.OppositeDirection(direction);
+                entity.MovingDirection = Utils.OppositeDirection(entity.MovingDirection);
 			}
 			else
             {
-                direction = EnemyUtils.Randomize(CardinalDirections.East, CardinalDirections.West);
+                entity.MovingDirection = Utils.Randomize(Direction.East, Direction.West);
             }
         }
 
 		private void AttemptAttack()
 		{
 			Random random = new();
-			if (random.Next(1) == 0)
+			if (random.Next(2) == 0)
 			{
 				entity.State = new AquamentusAttackingState(this, entity);
 			}

@@ -12,10 +12,10 @@
 		public void Update();
 		public void Draw();
 		public void Stop();
-		public void TakeDamage();
+		public void TakeDamage(Direction sideHit);
 
-		// sprint2 specific
-		public void UseArrow();
+        // sprint2 specific
+        public void UseArrow();
 		public void UseBoomerang();
 		public void UseFire();
 		public void UseBomb();

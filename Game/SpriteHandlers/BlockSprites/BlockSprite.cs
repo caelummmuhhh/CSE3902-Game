@@ -31,6 +31,14 @@ namespace MainGame.SpriteHandlers.BlockSprites
 
             spriteBatch.Draw(Texture, destRectangle, srcRectangle, color, rotation, origin, SpriteEffects.None, layer);
         }
+
+        public void Draw(Rectangle destRect, Color color)
+        {
+            Rectangle srcRectangle = GetSourceRectangle();
+
+            spriteBatch.Draw(Texture, destRect, srcRectangle, color, rotation, origin, SpriteEffects.None, layer);
+
+        }
     }
 }
 

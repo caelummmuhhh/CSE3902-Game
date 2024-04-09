@@ -1,6 +1,4 @@
-﻿using Microsoft.Xna.Framework;
-using MainGame.SpriteHandlers;
-using MainGame.Projectiles;
+﻿using MainGame.SpriteHandlers;
 
 namespace MainGame.Players.PlayerStates
 {
@@ -11,17 +9,19 @@ namespace MainGame.Players.PlayerStates
         public PlayerIdleRightState(IPlayer player)
         {
             this.player = player;
+            this.player.FacingDirection = Direction.East;
             this.player.Sprite = SpriteFactory.CreatePlayerIdleRightSprite();
         }
 
         public void Draw()
         {
-            player.Sprite.Draw(player.Position.X, player.Position.Y, Color.White);
+            player.Sprite.Draw(player.Position.X, player.Position.Y, player.SpriteColor);
         }
         public void Update() => player.Sprite.Update();
         public void Stop() { }
 
-        public void TakeDamage() => player.CurrentState = new PlayerDamagedRightState(player);
+        public void TakeDamage(Direction sideHit)
+            => player.CurrentState = new PlayerKnockedBackState(player, Utils.OppositeDirection(sideHit));
 
         public void MoveUp() => player.CurrentState = new PlayerMovingUpState(player);
         public void MoveDown() => player.CurrentState = new PlayerMovingDownState(player);
@@ -31,31 +31,31 @@ namespace MainGame.Players.PlayerStates
 
         public void UseArrow()
         {
-            player.UseArrow(CardinalDirections.East);
+            player.UseArrow(Direction.East);
             player.CurrentState = new PlayerUsingItemRightState(player);
         }
 
         public void UseBoomerang()
         {
-            player.UseBoomerang(CardinalDirections.East);
+            player.UseBoomerang(Direction.East);
             player.CurrentState = new PlayerUsingItemRightState(player);
         }
 
         public void UseFire()
         {
-            player.UseFire(CardinalDirections.East);
+            player.UseFire(Direction.East);
             player.CurrentState = new PlayerUsingItemRightState(player);
         }
 
         public void UseBomb()
         {
-            player.UseBomb(CardinalDirections.East);
+            player.UseBomb(Direction.East);
             player.CurrentState = new PlayerUsingItemRightState(player);
         }
 
         public void UseSwordBeam()
         {
-            player.UseSwordBeam(CardinalDirections.East);
+            player.UseSwordBeam(Direction.East);
             player.CurrentState = new PlayerUsingSwordRightState(player);
         }
     }

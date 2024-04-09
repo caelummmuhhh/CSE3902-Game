@@ -32,6 +32,7 @@ namespace MainGame.SpriteHandlers.ProjectileSprites
             this.spriteBatch = spriteBatch;
             spriteDisplayTimeLapse = 0;
             rotation = MathHelper.ToRadians(180f);
+            origin = new(FrameWidth / 2f, FrameHeight / 2f);
             frameDisplayTimeMap = new()
             {
                 { 0, 1 },
@@ -55,7 +56,9 @@ namespace MainGame.SpriteHandlers.ProjectileSprites
         public override void Draw(float x, float y, Color color)
         {
             Rectangle srcRectangle = GetSourceRectangle();
-            Rectangle destRectangle = GetDestinationRectangle(x, y);
+            Rectangle destRectangle = GetDestinationRectangle(
+                x + FrameWidth * Constants.UniversalScale / 2f,
+                y + FrameHeight * Constants.UniversalScale / 2f);
 
             spriteBatch.Draw(Texture, destRectangle, srcRectangle, color, rotation, origin, SpriteEffects.None, layer);
         }

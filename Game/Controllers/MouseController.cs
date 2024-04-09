@@ -29,7 +29,6 @@ namespace MainGame.Controllers
         public void Update()
         {
             MouseState mouseState = Mouse.GetState();
-            ICommand command = null;
         }
     }
 }

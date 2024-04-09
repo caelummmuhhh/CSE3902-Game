@@ -18,7 +18,7 @@ namespace MainGame.Enemies
             this.undecoratedState = undecoratedState;
             entity = enemy;
 
-            Vector2 mouthPosition = new(entity.Position.X - 36, entity.Position.Y - 36);
+            Vector2 mouthPosition = new(entity.Position.X - 16, entity.Position.Y - 12);
             entity.ProjectilesManager.AddProjectile(new AquamentusAttackProjectiles(mouthPosition, entity.Player));
 		}
 

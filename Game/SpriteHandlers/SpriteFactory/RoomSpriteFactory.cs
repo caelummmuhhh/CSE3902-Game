@@ -12,15 +12,15 @@ namespace MainGame.SpriteHandlers
             return new UndergroundRoomSprite(
                 TextureMap["RoomSprites"], SpriteBatch,
                 textureStartingY: 0,
-                scale: 3
-                );
+                scale: Constants.UniversalScale
+                ); ;
         }
         public static ISprite CreateRoomOuterBorderSprite()
         {
             return new RoomOuterBorderSprite(
                 TextureMap["RoomSprites"], SpriteBatch,
                 textureStartingY: 176,
-                scale: 3
+                scale: Constants.UniversalScale
                 );
         }
         public static ISprite CreateRoomInnerBorderSprite()
@@ -28,7 +28,7 @@ namespace MainGame.SpriteHandlers
             return new RoomInnerBorderSprite(
                 TextureMap["RoomSprites"], SpriteBatch,
                 textureStartingY: 352,
-                scale: 3
+                scale: Constants.UniversalScale
                 );
         }
         public static ISprite CreateDungeonTilesSprite()
@@ -36,7 +36,7 @@ namespace MainGame.SpriteHandlers
             return new RoomDungeonTilesSprite(
                 TextureMap["RoomSprites"], SpriteBatch,
                 textureStartingY: 528,
-                scale: 3
+                scale: Constants.UniversalScale
                 );
         }
 
@@ -45,7 +45,7 @@ namespace MainGame.SpriteHandlers
             return new EmptyRoomSprite(
                 TextureMap["RoomSprites"], SpriteBatch,
                 textureStartingY: 0,
-                scale: 3
+                scale: Constants.UniversalScale
                 );
         }
     }

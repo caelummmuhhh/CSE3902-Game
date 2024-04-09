@@ -41,6 +41,12 @@
     <None Remove="Enemies\WallMasterEnemy\" />
     <None Remove="Enemies\AquamentusEnemy\" />
     <None Remove="Projectiles\AquamentusProjectile\" />
+    <None Remove="Collision\" />
+    <None Remove="Collision\CollisionHandlers\" />
+    <None Remove="Collision\NonSpriteHitBoxes\" />
+    <None Remove="GridUtils\" />
+    <None Remove="Blocks\" />
+    <None Remove="Doors\" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Icon.ico" />
@@ -74,6 +80,12 @@
     <Folder Include="Enemies\WallMasterEnemy\" />
     <Folder Include="Enemies\AquamentusEnemy\" />
     <Folder Include="Projectiles\AquamentusProjectile\" />
+    <Folder Include="Collision\" />
+    <Folder Include="Collision\CollisionHandlers\" />
+    <Folder Include="Collision\NonSpriteHitBoxes\" />
+    <Folder Include="GridUtils\" />
+    <Folder Include="Blocks\" />
+    <Folder Include="Doors\" />
   </ItemGroup>
   <ItemGroup>
     <None Update="Content\Rooms\Room_1.csv">

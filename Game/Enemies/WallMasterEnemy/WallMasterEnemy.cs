@@ -14,7 +14,7 @@ namespace MainGame.Enemies
 			Sprite = SpriteFactory.CreateWallMasterSprite();
             Player = player;
             Position = startingPosition;
-
+            PreviousPosition = new(Position.X, Position.Y);
         }
 
         public override void Move()
