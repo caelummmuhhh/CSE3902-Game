@@ -10,7 +10,8 @@ namespace MainGame.Enemies
         public OldManEnemy(Vector2 startingPosition)
 		{
 			Position = startingPosition;
-			Sprite = SpriteFactory.CreateOldManSprite();
+            PreviousPosition = new(Position.X, Position.Y);
+            Sprite = SpriteFactory.CreateOldManSprite();
 		}
 
 		public override void Move() { /* bro is too old to move... */ }

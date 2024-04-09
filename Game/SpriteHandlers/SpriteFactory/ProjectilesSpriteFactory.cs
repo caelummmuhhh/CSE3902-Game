@@ -11,28 +11,28 @@ namespace MainGame.SpriteHandlers
         {
             return new ArrowDownProjectileSprite(
                 TextureMap["ProjectilesSprites"], SpriteBatch,
-                scale: UniversalScaleMultiplier);
+                scale: Constants.UniversalScale);
         }
 
         public static ISprite CreateArrowUpProjectileSprite()
         {
             return new ArrowUpProjectileSprite(
                 TextureMap["ProjectilesSprites"], SpriteBatch,
-                scale: UniversalScaleMultiplier);
+                scale: Constants.UniversalScale);
         }
 
         public static ISprite CreateArrowLeftProjectileSprite()
         {
             return new ArrowLeftProjectileSprite(
                 TextureMap["ProjectilesSprites"], SpriteBatch,
-                scale: UniversalScaleMultiplier);
+                scale: Constants.UniversalScale);
         }
 
         public static ISprite CreateArrowRightProjectileSprite()
         {
             return new ArrowRightProjectileSprite(
                 TextureMap["ProjectilesSprites"], SpriteBatch,
-                scale: UniversalScaleMultiplier);
+                scale: Constants.UniversalScale);
         }
 
         public static ISprite CreateArrowProjectileHitSprite()
@@ -40,7 +40,7 @@ namespace MainGame.SpriteHandlers
             return new ArrowProjectileHitSprite(
                 TextureMap["ProjectilesSprites"], SpriteBatch,
                 textureStartingX: 16,
-                scale: UniversalScaleMultiplier);
+                scale: Constants.UniversalScale);
         }
 
 
@@ -53,7 +53,7 @@ namespace MainGame.SpriteHandlers
                 numColumns: 4,
                 numberOfFrames: 4,
                 textureStartingY: 48,
-                scale: UniversalScaleMultiplier);
+                scale: Constants.UniversalScale);
         }
 
         public static ISprite CreateSwordBeamUpProjectileSprite()
@@ -64,7 +64,7 @@ namespace MainGame.SpriteHandlers
                 numColumns: 4,
                 numberOfFrames: 4,
                 textureStartingY: 48,
-                scale: UniversalScaleMultiplier);
+                scale: Constants.UniversalScale);
         }
 
         public static ISprite CreateSwordBeamLeftProjectileSprite()
@@ -75,7 +75,7 @@ namespace MainGame.SpriteHandlers
                 numColumns: 4,
                 numberOfFrames: 4,
                 textureStartingY: 48,
-                scale: UniversalScaleMultiplier);
+                scale: Constants.UniversalScale);
         }
 
         public static ISprite CreateSwordBeamRightProjectileSprite()
@@ -86,7 +86,7 @@ namespace MainGame.SpriteHandlers
                 numColumns: 4,
                 numberOfFrames: 4,
                 textureStartingY: 48,
-                scale: UniversalScaleMultiplier);
+                scale: Constants.UniversalScale);
         }
 
 
@@ -99,7 +99,7 @@ namespace MainGame.SpriteHandlers
                 numColumns: 3,
                 numberOfFrames: 3,
                 textureStartingY: 16,
-                scale: UniversalScaleMultiplier);
+                scale: Constants.UniversalScale);
 
         }
 
@@ -111,7 +111,7 @@ namespace MainGame.SpriteHandlers
                 numColumns: 4,
                 numberOfFrames: 4,
                 textureStartingY: 32,
-                scale: UniversalScaleMultiplier);
+                scale: Constants.UniversalScale);
         }
 
         public static ISprite CreateBombSprite()
@@ -119,7 +119,7 @@ namespace MainGame.SpriteHandlers
             return new BombSprite(
                 TextureMap["ProjectilesSprites"], SpriteBatch,
                 textureStartingY: 32,
-                scale: UniversalScaleMultiplier);
+                scale: Constants.UniversalScale);
         }
 
         

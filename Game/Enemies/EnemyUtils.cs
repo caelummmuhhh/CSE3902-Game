@@ -1,87 +1,89 @@
 ﻿using System;
-using System.Linq;
+using MainGame.Items;
+using MainGame.Players;
 using Microsoft.Xna.Framework;
 
 namespace MainGame.Enemies
 {
-    // TODO: Add a constants class or something to hold all the magic numbers
+    public enum EnemyTypes
+    {
+        Aquamentus, Gel, Goriya, Keese, OldMan, SpikeCross, Stalfos, WallMaster
+    }
+
+    public enum ItemBindedEnemyTypes
+    {
+        KeyStalfos
+    }
+
     public static class EnemyUtils
 	{
-        public static CardinalDirections GetRandomCardinalDirection()
+        public static IEnemy CreateEnemy(EnemyTypes enemy, Vector2 position, IPlayer player)
         {
-            return Randomize(Enum.GetValues(typeof(CardinalDirections)).Cast<CardinalDirections>().ToArray());
-        }
-
-        public static CardinalAndOrdinalDirection GetRandomCardinalAndOrdinalDirection()
-        {
-            return Randomize(Enum.GetValues(typeof(CardinalAndOrdinalDirection)).Cast<CardinalAndOrdinalDirection>().ToArray());
-        }
-
-        public static T Randomize<T>(params T[] values)
-        {
-            Random random = new();
-            int randomIndex = random.Next(values.Length);
-            return values[randomIndex];
-        }
-
-        public static CardinalDirections OppositeDirection(CardinalDirections direction)
-        {
-            return direction switch
+            return enemy switch
             {
-                CardinalDirections.North => CardinalDirections.South,
-                CardinalDirections.East => CardinalDirections.West,
-                CardinalDirections.South => CardinalDirections.North,
-                CardinalDirections.West => CardinalDirections.East,
-                _ => direction
+                EnemyTypes.Aquamentus => new AquamentusEnemy(position, player),
+                EnemyTypes.Gel => new GelEnemy(position),
+                EnemyTypes.Goriya => new GoriyaEnemy(position),
+                EnemyTypes.Keese => new KeeseEnemy(position),
+                EnemyTypes.OldMan => new OldManEnemy(position),
+                EnemyTypes.SpikeCross => new SpikeCrossEnemy(position, player),
+                EnemyTypes.Stalfos => new StalfosEnemy(position),
+                EnemyTypes.WallMaster => new WallMasterEnemy(position, player),
+                _ => null,
             };
         }
 
-        public static CardinalAndOrdinalDirection OppositeDirection(CardinalAndOrdinalDirection direction)
+        /// <summary>
+        /// Tries to create an enemy based on given name.
+        /// </summary>
+        /// <param name="enemyName">The name of the enemy.</param>
+        /// <returns>The ISprite object created based on the given enemy name</returns>
+        /// <exception cref="ArgumentException">The enemy name does not match to a enemy.</exception>
+        public static IEnemy CreateEnemy(string enemyName, Vector2 position, IPlayer player)
         {
-            return direction switch
+            bool conversionSuccess = Enum.TryParse(enemyName, true, out EnemyTypes enemy);
+
+            if (!conversionSuccess)
             {
-                CardinalAndOrdinalDirection.North => CardinalAndOrdinalDirection.South,
-                CardinalAndOrdinalDirection.NorthEast => CardinalAndOrdinalDirection.SouthWest,
-                CardinalAndOrdinalDirection.East => CardinalAndOrdinalDirection.West,
-                CardinalAndOrdinalDirection.SouthEast => CardinalAndOrdinalDirection.NorthWest,
-                CardinalAndOrdinalDirection.South => CardinalAndOrdinalDirection.North,
-                CardinalAndOrdinalDirection.SouthWest => CardinalAndOrdinalDirection.NorthEast,
-                CardinalAndOrdinalDirection.West => CardinalAndOrdinalDirection.East,
-                CardinalAndOrdinalDirection.NorthWest => CardinalAndOrdinalDirection.SouthEast,
-                _ => direction
-            };
+                throw new ArgumentException("Unable to parse enemy name string into an enemy.");
+            }
+
+            return CreateEnemy(enemy, position, player);
         }
 
-        public static Vector2 DirectionalMove(Vector2 startingPosition, CardinalAndOrdinalDirection direction, int speed)
+
+
+
+
+
+        public static IEnemy CreateItemBindedEnemy(ItemBindedEnemyTypes itemEnemyType, Vector2 position, out IItem itemHolder, IPlayer player)
         {
-            float x = startingPosition.X;
-            float y = startingPosition.Y;
-            return direction switch
+            IEnemy enemy;
+            switch (itemEnemyType)
             {
-                CardinalAndOrdinalDirection.North => new Vector2(x, y - speed),
-                CardinalAndOrdinalDirection.NorthEast => new Vector2(x + speed, y - speed),
-                CardinalAndOrdinalDirection.East => new Vector2(x + speed, y),
-                CardinalAndOrdinalDirection.SouthEast => new Vector2(x + speed, y + speed),
-                CardinalAndOrdinalDirection.South => new Vector2(x, y + speed),
-                CardinalAndOrdinalDirection.SouthWest => new Vector2(x - speed, y + speed),
-                CardinalAndOrdinalDirection.West => new Vector2(x - speed, y),
-                CardinalAndOrdinalDirection.NorthWest => new Vector2(x - speed, y - speed),
-                _ => startingPosition
-            };
+                case ItemBindedEnemyTypes.KeyStalfos:
+                    enemy = CreateEnemy(EnemyTypes.Stalfos, position, player);
+                    itemHolder = new EnemyBindedItemDecorator(enemy, ItemFactory.CreateItem(ItemTypes.Key, position));
+                    break;
+                default:
+                    throw new ArgumentException("Unable to parse provided item enemy type.");
+            }
+
+            return enemy;
         }
 
-        public static Vector2 DirectionalMove(Vector2 startingPosition, CardinalDirections direction, int speed)
+
+
+        public static IEnemy CreateItemBindedEnemy(string enemyName, Vector2 position, out IItem itemHolder, IPlayer player)
         {
-            float x = startingPosition.X;
-            float y = startingPosition.Y;
-            return direction switch
+            bool conversionSuccess = Enum.TryParse(enemyName, true, out ItemBindedEnemyTypes enemy);
+
+            if (!conversionSuccess)
             {
-                CardinalDirections.North => new Vector2(x, y - speed),
-                CardinalDirections.East => new Vector2(x + speed, y),
-                CardinalDirections.South => new Vector2(x, y + speed),
-                CardinalDirections.West => new Vector2(x - speed, y),
-                _ => startingPosition
-            };
+                throw new ArgumentException("Unable to parse enemy name string into an enemy.");
+            }
+
+            return CreateItemBindedEnemy(enemy, position, out itemHolder, player);
         }
     }
 }

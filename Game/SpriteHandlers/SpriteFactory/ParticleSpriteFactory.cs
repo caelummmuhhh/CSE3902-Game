@@ -1,50 +1,36 @@
-﻿using System;
-using MainGame.SpriteHandlers.ItemSprites;
-
-namespace MainGame.SpriteHandlers
+﻿namespace MainGame.SpriteHandlers
 {
-    public enum ParticleSpriteTypes
-    {
-
-    }
-
     public static partial class SpriteFactory
     {
-
-
-        public static ISprite CreateDeathParticles()
+        public static ISprite CreateDeathParticle()
         {
-
-
-            return new ParticleSprites.DeathParticles(
+            return new ParticleSprites.DeathParticle(
                 TextureMap["ParticleSprites"], SpriteBatch,
                 numRows: 1,
                 numColumns: 2,
                 numberOfFrames: 2,
                 frameHeight: 16,
                 frameWidth: 16,
-                scale: UniversalScaleMultiplier) ;
+                scale: Constants.UniversalScale) ;
         }
 
-
-
-        public static ISprite CreateSwordBeamParticles()
+        public static ISprite CreateSwordBeamParticle(Direction facingDirection)
         {
-            return new ParticleSprites.SwordBeamParticles(
+            return new ParticleSprites.SwordBeamParticle(
                 TextureMap["ParticleSprites"], SpriteBatch,
                 numRows: 1,
                 numColumns: 4,
                 numberOfFrames: 4,
                 textureStartingY: 18,               
-                frameHeight: 8,
+                frameHeight: 10,
                 frameWidth: 8,
-                scale: UniversalScaleMultiplier);
+                facingDirection: facingDirection,
+                scale: Constants.UniversalScale);
         }
 
-        public static ISprite CreateSpawnParticles()
+        public static ISprite CreateSpawnParticle()
         {
-
-            return new ParticleSprites.SpawnParticles(
+            return new ParticleSprites.SpawnParticle(
                 TextureMap["ParticleSprites"], SpriteBatch,
                 numRows: 1,
                 numColumns: 3,
@@ -52,7 +38,7 @@ namespace MainGame.SpriteHandlers
                  textureStartingY: 32,
                 frameHeight: 16,
                 frameWidth: 16,
-                scale: UniversalScaleMultiplier);
+                scale: Constants.UniversalScale);
         }
     }
 }

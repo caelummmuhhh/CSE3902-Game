@@ -19,6 +19,7 @@ namespace MainGame.SpriteHandlers.ProjectileSprites
             : base(texture, spriteHeight, spriteWidth, textureStartingX, textureStartingY, scale, layerDepth)
         {
             this.spriteBatch = spriteBatch;
+            origin = new(spriteWidth / 2f, spriteHeight / 2f);
             rotation = MathHelper.ToRadians(180f);
         }
 
@@ -27,7 +28,9 @@ namespace MainGame.SpriteHandlers.ProjectileSprites
         public override void Draw(float x, float y, Color color)
         {
             Rectangle srcRectangle = GetSourceRectangle();
-            Rectangle destRectangle = GetDestinationRectangle(x, y);
+            Rectangle destRectangle = GetDestinationRectangle(
+                x + FrameWidth * Constants.UniversalScale / 2f,
+                y + FrameHeight * Constants.UniversalScale / 2f);
 
             spriteBatch.Draw(Texture, destRectangle, srcRectangle, color, rotation, origin, SpriteEffects.None, layer);
         }

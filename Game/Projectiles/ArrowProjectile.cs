@@ -8,34 +8,44 @@ namespace MainGame.Projectiles
 	{
         public Vector2 Position { get => position; }
         public bool IsActive { get => isActive; }
+        public Direction MovingDirection { get => direction; }
+        public Rectangle HitBox
+        {
+            get
+            {
+                Rectangle destRect = sprite.DestinationRectangle;
+                Rectangle resized = new(destRect.X, destRect.Y, destRect.Width / 2, destRect.Height / 2);
+                return Utils.CentralizeRectangle((int)position.X, (int)position.Y, resized);
+            }
+        }
 
-		private ISprite sprite;
-		private readonly float maxDistanceTravel = 250f;
+        private ISprite sprite;
+        private bool collided = false;
+		private readonly float maxDistanceTravel = 1000f;
         private readonly float speed = 15f;
-        private int collisionTimer = 3;
+        private int collisionTimer = 10;
         private bool isActive = true;
         private Vector2 position;
         private Vector2 startingPosition;
-		private readonly CardinalDirections direction;
+		private readonly Direction direction;
 
-
-		public ArrowProjectile(Vector2 startingPosition, CardinalDirections direction)
+		public ArrowProjectile(Vector2 startingPosition, Direction direction)
 		{
 			this.direction = direction;
             this.startingPosition = startingPosition;
             position = startingPosition;
             switch (direction)
             {
-                case CardinalDirections.North:
+                case Direction.North:
                     sprite = SpriteFactory.CreateArrowUpProjectileSprite();
                     break;
-                case CardinalDirections.South:
+                case Direction.South:
                     sprite = SpriteFactory.CreateArrowDownProjectileSprite();
                     break;
-                case CardinalDirections.East:
+                case Direction.East:
                     sprite = SpriteFactory.CreateArrowRightProjectileSprite();
                     break;
-                case CardinalDirections.West:
+                case Direction.West:
                     sprite = SpriteFactory.CreateArrowLeftProjectileSprite();
                     break;
             }
@@ -45,7 +55,7 @@ namespace MainGame.Projectiles
         public void Update()
         {
             float distanceTravelled = Math.Abs(position.X - startingPosition.X) + Math.Abs(position.Y - startingPosition.Y);
-            if (distanceTravelled < maxDistanceTravel)
+            if (distanceTravelled < maxDistanceTravel && !collided)
             {
                 Move();
             }
@@ -53,7 +63,6 @@ namespace MainGame.Projectiles
             {
                 Collide();
             }
-
             sprite.Update();
         }
 
@@ -68,16 +77,16 @@ namespace MainGame.Projectiles
             float changeY = 0f;
             switch (direction)
             {
-                case CardinalDirections.North:
+                case Direction.North:
                     changeY = -1f * speed;
                     break;
-                case CardinalDirections.South:
+                case Direction.South:
                     changeY = speed;
                     break;
-                case CardinalDirections.East:
+                case Direction.East:
                     changeX = speed;
                     break;
-                case CardinalDirections.West:
+                case Direction.West:
                     changeX = -1f * speed;
                     break;
             }
@@ -85,16 +94,20 @@ namespace MainGame.Projectiles
             position = new(position.X + changeX, position.Y + changeY);
         }
 
-        private void Collide()
+        public void Collide()
         {
             if (collisionTimer < 0)
             {
                 isActive = false;
                 return;
             }
-            sprite = SpriteFactory.CreateArrowProjectileHitSprite();
+
+            if (!collided)
+            {
+                sprite = SpriteFactory.CreateArrowProjectileHitSprite();
+                collided = true;
+            }
             collisionTimer--;
         }
     }
 }
-

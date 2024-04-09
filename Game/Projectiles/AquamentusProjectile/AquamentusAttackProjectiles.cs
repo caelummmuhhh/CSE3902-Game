@@ -6,8 +6,11 @@ namespace MainGame.Projectiles
 	public class AquamentusAttackProjectiles
 	{
         public bool IsActive { get; private set; } = true;
+        public AquamentusUpwardProjectile UpProjectile { get => upProjectile;  }
+        public AquamentusForwardProjectile StraightProjectile { get => straightProjectile; }
+        public AquamentusDownwardProjectile DownProjectile { get => downProjectile; }
 
-		private readonly AquamentusUpwardProjectile upProjectile;
+        private readonly AquamentusUpwardProjectile upProjectile;
         private readonly AquamentusForwardProjectile straightProjectile;
         private readonly AquamentusDownwardProjectile downProjectile;
 
@@ -21,21 +24,36 @@ namespace MainGame.Projectiles
 
         public void Update()
         {
-            upProjectile.Update();
-            straightProjectile.Update();
-            downProjectile.Update();
-
-            if (!upProjectile.IsActive && !upProjectile.IsActive && !upProjectile.IsActive)
+            if (upProjectile.IsActive)
             {
-                IsActive = false;
+                upProjectile.Update();
             }
+            if (straightProjectile.IsActive)
+            {
+                straightProjectile.Update();
+            }
+            if (downProjectile.IsActive)
+            {
+                downProjectile.Update();
+            }
+
+            IsActive = upProjectile.IsActive || straightProjectile.IsActive || downProjectile.IsActive;
         }
 
         public void Draw()
         {
-            upProjectile.Draw();
-            straightProjectile.Draw();
-            downProjectile.Draw();
+            if (upProjectile.IsActive)
+            {
+                upProjectile.Draw();
+            }
+            if (straightProjectile.IsActive)
+            {
+                straightProjectile.Draw();
+            }
+            if (downProjectile.IsActive)
+            {
+                downProjectile.Draw();
+            }
         }
     }
 }

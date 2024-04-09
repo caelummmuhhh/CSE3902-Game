@@ -5,8 +5,6 @@ using Microsoft.Xna.Framework.Input;
 using MainGame.Commands;
 using MainGame.Commands.PlayerCommands;
 using MainGame.Players;
-using MainGame.Blocks;
-using MainGame.Items;
 
 using MainGame.SpriteHandlers;
 using MainGame.Commands.RoomSwitchingCommands;
@@ -20,7 +18,7 @@ namespace MainGame.Controllers
 		private readonly IPlayer player;
 		private readonly Game game;
 
-        public KeyboardController(Game1 game, IPlayer player, Block block, List<ISprite> blocks, Item item, List<ISprite> items)
+        public KeyboardController(Game1 game, IPlayer player)
 		{
 			this.game = game;
 			this.player = player;
@@ -29,10 +27,6 @@ namespace MainGame.Controllers
             {
                 { Keys.Q, new QuitGameCommand(game) },
                 { Keys.R, new ResetGameCommand(game) },
-                { Keys.T, new PreviousBlockCommand(game, block, blocks) },
-                { Keys.Y, new NextBlockCommand(game, block, blocks) },
-                { Keys.U, new PreviousItemCommand(game, block, blocks, item, items) },
-                { Keys.I, new NextItemCommand(game, block, blocks, item, items) },
 
                 { Keys.W, new PlayerMoveUpCommand(player) },
                 { Keys.A, new PlayerMoveLeftCommand(player) },
@@ -42,7 +36,7 @@ namespace MainGame.Controllers
                 { Keys.N, new PlayerUseSwordCommand(player) },
                 { Keys.Z, new PlayerUseSwordBeamCommand(player) },
 
-                { Keys.E, new PlayerDamageCommand(player) },
+                { Keys.E, new PlayerDamageCommand(game) },
 
                 { Keys.D1, new PlayerUseBombCommand(player) },
                 { Keys.D2, new PlayerUseArrowCommand(player) },

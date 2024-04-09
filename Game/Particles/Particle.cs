@@ -1,36 +1,29 @@
-﻿using MainGame.Players.PlayerStates;
-using MainGame.SpriteHandlers;
-using MainGame.SpriteHandlers.ParticleSprites;
+﻿using MainGame.SpriteHandlers;
 using Microsoft.Xna.Framework;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
 
 namespace MainGame.Particles
 {
-    public class Particle : IParticle
+    public class GenericParticle : IParticle
     {
-        public ISprite Part;
-        private readonly Game1 game;
-        public Particle(Game1 game)
+        public bool IsActive { get; set; }
+        private readonly ISprite sprite;
+        private Vector2 position;
+        private int lifeTime;
+
+        public GenericParticle(Vector2 spawnPosition, ISprite sprite, int lifeTime)
         {
-          
-           
-            Part = SpriteFactory.CreateSpawnParticles();
-            this.game = game;
+            IsActive = true;
+            this.lifeTime = lifeTime;
+            position = spawnPosition;
+            this.sprite = sprite;
         }
-       
-        public void Draw()
-        {
-            Part.Draw(game.GraphicsManager.PreferredBackBufferWidth / 4, game.GraphicsManager.PreferredBackBufferHeight / 4, Color.White);
-        }
+
+        public void Draw() => sprite.Draw(position.X, position.Y, Color.White);
 
         public void Update()
         {
-            Part.Update();
+            lifeTime--;
+            IsActive = lifeTime > 0;
         }
     }
 }

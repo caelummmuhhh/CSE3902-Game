@@ -7,21 +7,21 @@ namespace MainGame.Enemies
 	{
 		public override int MovementCoolDownFrame { get; protected set; } = 2;
 
-        private CardinalDirections moveDirection;
 		private int moveDuration;
 		private readonly int maxMoveDuration = 32;
 
 		public StalfosEnemy(Vector2 startingPosition)
 		{
 			Position = startingPosition;
-			Sprite = SpriteFactory.CreateStalfosSprite();
+            PreviousPosition = new(Position.X, Position.Y);
+            Sprite = SpriteFactory.CreateStalfosSprite();
 		}
 
 		public override void Update()
 		{
 			if (moveDuration <= 0)
 			{
-                moveDirection = EnemyUtils.GetRandomCardinalDirection();
+                MovingDirection = Utils.GetRandomCardinalDirection();
                 moveDuration = maxMoveDuration;
                 return;
             }
@@ -31,9 +31,10 @@ namespace MainGame.Enemies
 
         public override void Move()
         {
-			if (moveDuration % MovementCoolDownFrame == 0)
+            PreviousPosition = new(Position.X, Position.Y);
+            if (moveDuration % MovementCoolDownFrame == 0)
 			{
-				Position = EnemyUtils.DirectionalMove(Position, moveDirection, MovementSpeed);
+				Position = Utils.DirectionalMove(Position, MovingDirection, MovementSpeed);
 			}
         }
     }

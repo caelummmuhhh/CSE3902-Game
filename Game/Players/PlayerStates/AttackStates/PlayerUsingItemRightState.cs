@@ -1,5 +1,4 @@
-﻿using Microsoft.Xna.Framework;
-using MainGame.SpriteHandlers;
+﻿using MainGame.SpriteHandlers;
 
 namespace MainGame.Players.PlayerStates
 {
@@ -12,6 +11,7 @@ namespace MainGame.Players.PlayerStates
         public PlayerUsingItemRightState(IPlayer player)
         {
             this.player = player;
+            this.player.FacingDirection = Direction.East;
             this.player.Sprite = SpriteFactory.CreatePlayerInteractingRightSprite();
             stateDuration = Player.UsingItemsSpeed;
         }
@@ -28,10 +28,11 @@ namespace MainGame.Players.PlayerStates
         public void Draw()
         {
             currentFrame++;
-            player.Sprite.Draw(player.Position.X, player.Position.Y, Color.White);
+            player.Sprite.Draw(player.Position.X, player.Position.Y, player.SpriteColor);
         }
 
-        public void TakeDamage() => player.CurrentState = new PlayerDamagedRightState(player);
+        public void TakeDamage(Direction sideHit)
+            => player.CurrentState = new PlayerKnockedBackState(player, Utils.OppositeDirection(sideHit));
 
         /* Not useable in this state, therefore not implemented. */
         public void Stop() { }

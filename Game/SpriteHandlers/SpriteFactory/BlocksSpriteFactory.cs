@@ -2,40 +2,25 @@
 
 namespace MainGame.SpriteHandlers
 {
-    public enum BlockSpriteTypes
-    {
-        BlueFloor,
-        SquareBlock,
-        StatueOneEntrance,
-        StatueTwoEntrance,
-        StatueOneEnd,
-        StatueTwoEnd,
-        BlackSquare,
-        BlueSand,
-        BlueGap,
-        Stairs,
-        WhiteBrick,
-        WhiteLadder
-    }
-
     public static partial class SpriteFactory
     {
-        public static ISprite CreateBlock(BlockSpriteTypes block)
+        public static ISprite CreateBlockSprite(BlockTypes block)
         {
             return block switch
             {
-                BlockSpriteTypes.BlueFloor => CreateBlueFloorSprite(),
-                BlockSpriteTypes.SquareBlock => CreateSquareBlockSprite(),
-                BlockSpriteTypes.StatueOneEntrance => CreateStatueOneEntranceSprite(),
-                BlockSpriteTypes.StatueTwoEntrance => CreateStatueTwoEntranceSprite(),
-                BlockSpriteTypes.StatueOneEnd => CreateStatueOneEndSprite(),
-                BlockSpriteTypes.StatueTwoEnd => CreateStatueTwoEndSprite(),
-                BlockSpriteTypes.BlackSquare => CreateBlackSquareSprite(),
-                BlockSpriteTypes.BlueSand => CreateBlueSandSprite(),
-                BlockSpriteTypes.BlueGap => CreateBlueGapSprite(),
-                BlockSpriteTypes.Stairs => CreateStairsSprite(),
-                BlockSpriteTypes.WhiteBrick => CreateWhiteBrickSprite(),
-                BlockSpriteTypes.WhiteLadder => CreateWhiteLadderSprite(),
+                BlockTypes.BlueFloor => CreateBlueFloorSprite(),
+                BlockTypes.SquareBlock => CreateSquareBlockSprite(),
+                BlockTypes.StatueOneEntrance => CreateStatueOneEntranceSprite(),
+                BlockTypes.StatueTwoEntrance => CreateStatueTwoEntranceSprite(),
+                BlockTypes.StatueOneEnd => CreateStatueOneEndSprite(),
+                BlockTypes.StatueTwoEnd => CreateStatueTwoEndSprite(),
+                BlockTypes.BlackSquare => CreateBlackSquareSprite(),
+                BlockTypes.BlueSand => CreateBlueSandSprite(),
+                BlockTypes.BlueGap => CreateBlueGapSprite(),
+                BlockTypes.Stairs => CreateStairsSprite(),
+                BlockTypes.WhiteBrick => CreateWhiteBrickSprite(),
+                BlockTypes.WhiteLadder => CreateWhiteLadderSprite(),
+                BlockTypes.PushableBlock => CreateSquareBlockSprite(),
                 _ => null,
             };
         }
@@ -46,16 +31,16 @@ namespace MainGame.SpriteHandlers
         /// <param name="blockName">The name of the block.</param>
         /// <returns>The ISprite object created based on the given block name</returns>
         /// <exception cref="ArgumentException">The block name does not match to a block.</exception>
-        public static ISprite CreateBlock(string blockName)
+        public static ISprite CreateBlockSprite(string blockName)
         {
-            bool conversionSuccess = Enum.TryParse(blockName, out BlockSpriteTypes block);
+            bool conversionSuccess = Enum.TryParse(blockName, out BlockTypes block);
 
             if (!conversionSuccess)
             {
                 throw new ArgumentException("Unable to parse block name string into a block.");
             }
 
-            return CreateBlock(block);
+            return CreateBlockSprite(block);
         }
 
 
@@ -66,7 +51,7 @@ namespace MainGame.SpriteHandlers
             return new BlockSprites.BlockSprite(
                 TextureMap["BlocksSprites"], SpriteBatch,
                 textureStartingY: 0,
-                scale: UniversalScaleMultiplier);
+                scale: Constants.UniversalScale);
         }
 
         public static ISprite CreateSquareBlockSprite()
@@ -74,7 +59,7 @@ namespace MainGame.SpriteHandlers
             return new BlockSprites.BlockSprite(
                 TextureMap["BlocksSprites"], SpriteBatch,
                 textureStartingY: 16,
-                scale: UniversalScaleMultiplier);
+                scale: Constants.UniversalScale);
         }
 
         public static ISprite CreateStatueOneEntranceSprite()
@@ -82,7 +67,7 @@ namespace MainGame.SpriteHandlers
             return new BlockSprites.BlockSprite(
                 TextureMap["BlocksSprites"], SpriteBatch,
                 textureStartingY: 32,
-                scale: UniversalScaleMultiplier);
+                scale: Constants.UniversalScale);
         }
 
         public static ISprite CreateStatueTwoEntranceSprite()
@@ -90,7 +75,7 @@ namespace MainGame.SpriteHandlers
             return new BlockSprites.BlockSprite(
                 TextureMap["BlocksSprites"], SpriteBatch,
                 textureStartingY: 48,
-                scale: UniversalScaleMultiplier);
+                scale: Constants.UniversalScale);
         }
 
         public static ISprite CreateStatueOneEndSprite()
@@ -98,7 +83,7 @@ namespace MainGame.SpriteHandlers
             return new BlockSprites.BlockSprite(
                 TextureMap["BlocksSprites"], SpriteBatch,
                 textureStartingY: 64,
-                scale: UniversalScaleMultiplier);
+                scale: Constants.UniversalScale);
         }
 
         public static ISprite CreateStatueTwoEndSprite()
@@ -106,7 +91,7 @@ namespace MainGame.SpriteHandlers
             return new BlockSprites.BlockSprite(
                 TextureMap["BlocksSprites"], SpriteBatch,
                 textureStartingY: 80,
-                scale: UniversalScaleMultiplier);
+                scale: Constants.UniversalScale);
         }
 
         public static ISprite CreateBlackSquareSprite()
@@ -114,7 +99,7 @@ namespace MainGame.SpriteHandlers
             return new BlockSprites.BlockSprite(
                 TextureMap["BlocksSprites"], SpriteBatch,
                 textureStartingY: 96,
-                scale: UniversalScaleMultiplier);
+                scale: Constants.UniversalScale);
         }
 
         public static ISprite CreateBlueSandSprite()
@@ -122,7 +107,7 @@ namespace MainGame.SpriteHandlers
             return new BlockSprites.BlockSprite(
                 TextureMap["BlocksSprites"], SpriteBatch,
                 textureStartingY: 112,
-                scale: UniversalScaleMultiplier);
+                scale: Constants.UniversalScale);
         }
 
         public static ISprite CreateBlueGapSprite()
@@ -130,7 +115,7 @@ namespace MainGame.SpriteHandlers
             return new BlockSprites.BlockSprite(
                 TextureMap["BlocksSprites"], SpriteBatch,
                 textureStartingY: 128,
-                scale: UniversalScaleMultiplier);
+                scale: Constants.UniversalScale);
         }
 
         public static ISprite CreateStairsSprite()
@@ -138,7 +123,7 @@ namespace MainGame.SpriteHandlers
             return new BlockSprites.BlockSprite(
                 TextureMap["BlocksSprites"], SpriteBatch,
                 textureStartingY: 144,
-                scale: UniversalScaleMultiplier);
+                scale: Constants.UniversalScale);
         }
 
         public static ISprite CreateWhiteBrickSprite()
@@ -146,7 +131,7 @@ namespace MainGame.SpriteHandlers
             return new BlockSprites.BlockSprite(
                 TextureMap["BlocksSprites"], SpriteBatch,
                 textureStartingY: 160,
-                scale: UniversalScaleMultiplier);
+                scale: Constants.UniversalScale);
         }
 
         public static ISprite CreateWhiteLadderSprite()
@@ -154,7 +139,7 @@ namespace MainGame.SpriteHandlers
             return new BlockSprites.BlockSprite(
                 TextureMap["BlocksSprites"], SpriteBatch,
                 textureStartingY: 176,
-                scale: UniversalScaleMultiplier);
+                scale: Constants.UniversalScale);
         }
     }
 }
