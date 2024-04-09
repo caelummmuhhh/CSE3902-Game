@@ -22,6 +22,8 @@ namespace MainGame.SpriteHandlers
                 layer = value;
             }
         }
+        public Rectangle DestinationRectangle { get; protected set; }
+
 
         private readonly SpriteBatch spriteBatch;
         private readonly SpriteFont font;
@@ -39,6 +41,7 @@ namespace MainGame.SpriteHandlers
 
         public void Draw(float x, float y, Color color)
         {
+            DestinationRectangle = new((int)x, (int)y, 0, 0);
             spriteBatch.Begin();
             spriteBatch.DrawString(font, Text, new Vector2(x, y), color);
             spriteBatch.End();

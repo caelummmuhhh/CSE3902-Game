@@ -43,7 +43,7 @@ namespace MainGame.SpriteHandlers.PlayerSprites
                   textureStartingX, textureStartingY, scale, layerDepth)
         {
             this.spriteBatch = spriteBatch;
-            origin = new(FrameWidth / 2f, FrameHeight - 8);
+            origin = new(0f, 11f);
             spriteDisplayTimeLapse = 0;
             frameDisplayTimeMap = new()
             {
@@ -71,6 +71,13 @@ namespace MainGame.SpriteHandlers.PlayerSprites
             Rectangle destRectangle = GetDestinationRectangle(x, y);
 
             spriteBatch.Draw(Texture, destRectangle, srcRectangle, color, rotation, origin, SpriteEffects.None, layer);
+        }
+
+        protected override Rectangle GetDestinationRectangle(float x, float y)
+        {
+            Rectangle rectangle = base.GetDestinationRectangle(x, y);
+            DestinationRectangle = new(rectangle.X, rectangle.Y, rectangle.Width, 16 * Constants.UniversalScale);
+            return rectangle;
         }
     }
 }

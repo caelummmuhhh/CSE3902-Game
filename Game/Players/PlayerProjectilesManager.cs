@@ -5,7 +5,7 @@ namespace MainGame.Players
 {
 	public class PlayerProjectilesManager
 	{
-		private List<IProjectile> activeProjectiles = new();
+		public List<IProjectile> ActiveProjectiles { get; } = new();
 		private readonly Player player;
 
 		public PlayerProjectilesManager(Player player)
@@ -15,21 +15,21 @@ namespace MainGame.Players
 
 		public void Update()
 		{
-			for (int i = 0; i < activeProjectiles.Count; i++)
+			for (int i = 0; i < ActiveProjectiles.Count; i++)
 			{
-				IProjectile projectile = activeProjectiles[i];
+				IProjectile projectile = ActiveProjectiles[i];
 				projectile.Update();
 
                 if (!projectile.IsActive)
                 {
-					activeProjectiles.RemoveAt(i);
+					ActiveProjectiles.RemoveAt(i);
                 }
             }
 		}
 
 		public void Draw()
 		{
-			foreach (IProjectile projectile in activeProjectiles)
+			foreach (IProjectile projectile in ActiveProjectiles)
 			{
 				projectile.Draw();
 			}
@@ -37,7 +37,7 @@ namespace MainGame.Players
 
 		public void AddProjectile(IProjectile projectile)
 		{
-			activeProjectiles.Add(projectile);
+			ActiveProjectiles.Add(projectile);
 		}
 	}
 }

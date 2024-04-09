@@ -1,7 +1,5 @@
-﻿using System;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using MainGame.SpriteHandlers;
-using MainGame.Projectiles;
 
 namespace MainGame.Players.PlayerStates
 {
@@ -12,58 +10,72 @@ namespace MainGame.Players.PlayerStates
 		public PlayerMovingLeftState(IPlayer player)
 		{
             this.player = player;
+            this.player.FacingDirection = Direction.West;
             this.player.Sprite = SpriteFactory.CreatePlayerWalkingLeftSprite();
-		}
+
+            player.Position = new Vector2(player.Position.X, GridHandler.SnapToGridHalfStep(player.Position).Y);
+        }
 
         public void Draw()
         {
-            player.Sprite.Draw(player.Position.X, player.Position.Y, Color.White);
+            player.Sprite.Draw(player.Position.X, player.Position.Y, player.SpriteColor);
         }
 
         public void MoveLeft()
         {
-            player.IsMoving = true;
+            player.PreviousPosition = player.Position;
             player.Position = new(player.Position.X - Player.Speed, player.Position.Y);
         }
 
         public void Update() => player.Sprite.Update();
         public void Stop() => player.CurrentState = new PlayerIdleLeftState(player);
 
-        public void TakeDamage() => player.CurrentState = new PlayerDamagedLeftState(player);
+        public void TakeDamage(Direction sideHit)
+            => player.CurrentState = new PlayerKnockedBackState(player, Utils.OppositeDirection(sideHit));
 
-        public void MoveUp() => player.CurrentState = new PlayerMovingUpState(player);
-        public void MoveDown() => player.CurrentState = new PlayerMovingDownState(player);
+        public void MoveUp()
+        {
+            player.Position = new(player.Position.X - 1f * Constants.UniversalScale, player.Position.Y);
+            player.CurrentState = new PlayerMovingUpState(player);
+        }
+
+        public void MoveDown()
+        {
+            player.Position = new(player.Position.X + 1f * Constants.UniversalScale, player.Position.Y);
+            player.CurrentState = new PlayerMovingDownState(player);
+        }
+
         public void MoveRight() => player.CurrentState = new PlayerMovingRightState(player);
 
         public void UseSword() => player.CurrentState = new PlayerUsingSwordLeftState(player);
 
         public void UseArrow()
         {
-            player.UseArrow(CardinalDirections.West);
+            player.UseArrow(Direction.West);
             player.CurrentState = new PlayerUsingItemLeftState(player);
         }
 
         public void UseBoomerang()
         {
-            player.UseBoomerang(CardinalDirections.West);
+            player.UseBoomerang(Direction.West);
             player.CurrentState = new PlayerUsingItemLeftState(player);
         }
 
         public void UseFire()
         {
-            player.UseFire(CardinalDirections.West);
+            player.UseFire(Direction.West);
             player.CurrentState = new PlayerUsingItemLeftState(player);
         }
 
         public void UseBomb()
         {
-            player.UseBomb(CardinalDirections.West);
+            player.UseBomb(Direction.West);
             player.CurrentState = new PlayerUsingItemLeftState(player);
         }
 
         public void UseSwordBeam()
         {
-            player.UseSwordBeam(CardinalDirections.West);
+            player.UseSwordBeam(Direction.West);
             player.CurrentState = new PlayerUsingSwordLeftState(player);
         }
     }

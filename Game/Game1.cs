@@ -1,23 +1,17 @@
-﻿using Microsoft.Xna.Framework;
+﻿using System.Collections.Generic;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Input;
+
 using MainGame.SpriteHandlers;
 using MainGame.Controllers;
 using MainGame.Players;
 using MainGame.Rooms;
-using MainGame.Doors;
-using MainGame.Blocks;
-using MainGame.Items;
-using System.Collections.Generic;
+
+using MainGame.Collision;
+using MainGame.SpriteHandlers.BlockSprites;
+using MainGame.Projectiles;
 using MainGame.Enemies;
-using MainGame.Particles;
-
-using MainGame.Managers;
-using System;
-
-using MainGame.SpriteHandlers.ParticleSprites;
-using MainGame.RoomsAndDoors;
-
+using MainGame.Items;
 
 namespace MainGame;
 
@@ -28,32 +22,27 @@ public class Game1 : Game
     public List<IController> controllers;
 
     public IPlayer Player;
-    public GenericEnemy Enemy;
+    public CollisionDetector Collision;
+    public GameRoomManager RoomManager;
 
-    public Room Room;
-
-    public BlockManager blockManager;
-    public ItemManager itemManager;
-    public Particle Particle;
+    public BlockSprite testBlock; // TODO: DELETE ME
 
     public Game1()
     {
         GraphicsManager = new GraphicsDeviceManager(this)
         {
-            PreferredBackBufferWidth = 768,
-            PreferredBackBufferHeight = 528  //768 in sprint 4+
+            PreferredBackBufferWidth = 256 * Constants.UniversalScale,
+            PreferredBackBufferHeight = 176 * Constants.UniversalScale  //768 in sprint 4+
         };
 
+        //this.TargetElapsedTime = TimeSpan.FromSeconds(1d / 30d); //60);
         Content.RootDirectory = "Content";
         IsMouseVisible = true;
-        //TargetElapsedTime = TimeSpan.FromSeconds(1d / 30d);
     }
 
     protected override void Initialize()
     {
         controllers = new List<IController>();
-        blockManager = new BlockManager();
-        itemManager = new ItemManager();
 
         base.Initialize();
     }
@@ -65,24 +54,14 @@ public class Game1 : Game
         SpriteFactory.LoadAllTextures(Content);
         SpriteFactory.SpriteBatch = spriteBatch;
 
-        Particle = new Particle(this);
+        Player = new Player(new Vector2(96, 96));
+        RoomManager = new(this);
 
-        blockManager.LoadBlocks();
-        itemManager.LoadItems();
+        Collision = new(this);
 
-        Player = new Player(this);
-        //Enemy = new GoriyaEnemy(new Vector2(465, 224));
-        //Enemy = new KeeseEnemy(new Vector2(465, 224));
-        //Enemy = new GelEnemy(new Vector2(465, 224));
-        //Enemy = new SpikeCrossEnemy(new Vector2(465, 224), Player);
-        //Enemy = new StalfosEnemy(new Vector2(465, 224));
-        //Enemy = new WallMasterEnemy(new Vector2(465, 224), Player);
-        //Enemy = new OldManEnemy(new Vector2(465, 224));
-        Enemy = new AquamentusEnemy(new Vector2(465+3*48, 224+48), Player);
+        testBlock = (BlockSprite)SpriteFactory.CreateBlackSquareSprite(); // TODO: DELETE ME
 
-        Room = RoomFactory.GenerateRoom("Room_1", this);
-
-        controllers.Add(new KeyboardController(this, Player, null, blockManager.GetBlocks(), null, itemManager.GetItems()));
+        controllers.Add(new KeyboardController(this, Player));
         controllers.Add(new MouseController(this, Player));
     }
 
@@ -92,13 +71,9 @@ public class Game1 : Game
         {
             controllers[i].Update();
         }
-
+        RoomManager.Update();
         Player.Update();
-        Particle.Update();
-
-        Enemy.Update();
-        Room.Update();
-        
+        Collision.Update();
         base.Update(gameTime);
     }
 
@@ -107,12 +82,51 @@ public class Game1 : Game
         GraphicsDevice.Clear(Color.Black);
         spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, SamplerState.PointClamp);
 
-        Room.Draw();
-
+        RoomManager.Draw();
         Player.Draw();
-        Particle.Draw();
 
-        Enemy.Draw();
+        /*
+        if (RoomManager.CurrentRoom.RoomEnemies.Count > 0)
+        {
+            testBlock.Draw(
+            RoomManager.CurrentRoom.RoomEnemies[0].AttackHitBox,
+            Color.White
+            );
+        }
+        */
+
+        /*
+        foreach(IProjectile p in ((Player)Player).ProjectilesManager.ActiveProjectiles)
+        {
+            testBlock.Draw(p.HitBox, Color.White);
+        }*/
+
+        //testBlock.Draw(Player.MainHitbox, Color.White);
+        /*
+        foreach (IEnemy enemy in RoomManager.CurrentRoom.RoomEnemies)
+        {
+            if (enemy is AquamentusEnemy aq)
+            {
+                foreach (AquamentusAttackProjectiles aqp in aq.ProjectilesManager.ActiveProjectiles)
+                {
+                    testBlock.Draw(aqp.UpProjectile.HitBox, Color.White);
+                    testBlock.Draw(aqp.StraightProjectile.HitBox, Color.White);
+                    testBlock.Draw(aqp.DownProjectile.HitBox, Color.White);
+                }
+            }
+        }*/
+
+        /*
+        foreach (IItem item in RoomManager.CurrentRoom.RoomItems)
+        {
+            testBlock.Draw(item.HitBox, Color.White);
+        }*/
+
+        /*
+        foreach (Rectangle hb in RoomManager.CurrentRoom.PlayerBorderHitBox.HitBoxes)
+        {
+            testBlock.Draw(hb, Color.White);
+        }*/
 
         spriteBatch.End();
 

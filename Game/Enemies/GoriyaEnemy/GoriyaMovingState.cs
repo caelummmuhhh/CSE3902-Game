@@ -9,13 +9,12 @@ namespace MainGame.Enemies
         private readonly GoriyaEnemy entity;
         private readonly int maxMoveDuration = 31;
         private int moveDuration;
-        private CardinalDirections direction;
 
         public GoriyaMovingState(GoriyaEnemy goriya)
         {
             entity = goriya;
             moveDuration = maxMoveDuration;
-            direction = EnemyUtils.GetRandomCardinalDirection();
+            entity.MovingDirection = Utils.GetRandomCardinalDirection();
             GetSprite();
         }
 
@@ -28,7 +27,7 @@ namespace MainGame.Enemies
             }
             if (!AttemptBoomerang())
             {
-                direction = EnemyUtils.GetRandomCardinalDirection();
+                entity.MovingDirection = Utils.GetRandomCardinalDirection();
                 moveDuration = maxMoveDuration;
                 GetSprite();
             }
@@ -38,18 +37,19 @@ namespace MainGame.Enemies
 
         public void Move()
         {
+            entity.PreviousPosition = new(entity.Position.X, entity.Position.Y);
             if (moveDuration % entity.MovementCoolDownFrame == 0)
             {
-                entity.Position = EnemyUtils.DirectionalMove(entity.Position, direction, entity.MovementSpeed);
+                entity.Position = Utils.DirectionalMove(entity.Position, entity.MovingDirection, entity.MovementSpeed);
             }
         }
 
         private bool AttemptBoomerang()
         {
             Random random = new();
-            if (random.Next(15) == 0)
+            if (random.Next(12) == 0 && !entity.IsStunned)
             {
-                entity.State = new GoriyaAttackingState(entity, direction);
+                entity.State = new GoriyaAttackingState(entity);
                 return true;
             }
             return false;
@@ -57,12 +57,12 @@ namespace MainGame.Enemies
 
         private void GetSprite()
         {
-            entity.Sprite = direction switch
+            entity.Sprite = entity.MovingDirection switch
             {
-                CardinalDirections.North => SpriteFactory.CreateGoriyaWalkingUpSprite(),
-                CardinalDirections.East => SpriteFactory.CreateGoriyaWalkingRightSprite(),
-                CardinalDirections.South => SpriteFactory.CreateGoriyaWalkingDownSprite(),
-                CardinalDirections.West => SpriteFactory.CreateGoriyaWalkingLeftSprite(),
+                Direction.North => SpriteFactory.CreateGoriyaWalkingUpSprite(),
+                Direction.East => SpriteFactory.CreateGoriyaWalkingRightSprite(),
+                Direction.South => SpriteFactory.CreateGoriyaWalkingDownSprite(),
+                Direction.West => SpriteFactory.CreateGoriyaWalkingLeftSprite(),
                 _ => SpriteFactory.CreateGoriyaWalkingUpSprite()
             };
         }
