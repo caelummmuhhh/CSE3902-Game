@@ -7,7 +7,7 @@ namespace MainGame.SpriteHandlers
     {
         public readonly int StartXPosition;
         public readonly int StartYPosition;
-        public override Rectangle DestinationRectangle { get; protected set; }
+        public override Rectangle DestinationRectangle { get; set; }
 
         protected float rotation;
         protected Vector2 origin;

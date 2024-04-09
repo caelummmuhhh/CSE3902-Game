@@ -44,6 +44,11 @@ namespace MainGame.Rooms
             int[] connectingRooms = ParseConnectingRooms(lines[lines.Length-1]);
             room.ConnectingRooms = connectingRooms;
 
+            room.DoorLocations[0] = room.NorthDoor.Position;
+            room.DoorLocations[1] = room.SouthDoor.Position;
+            room.DoorLocations[2] = room.EastDoor.Position;
+            room.DoorLocations[3] = room.WestDoor.Position;
+
             return room;
         }
 

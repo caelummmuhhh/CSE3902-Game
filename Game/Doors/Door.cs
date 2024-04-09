@@ -1,12 +1,13 @@
 ﻿using MainGame.SpriteHandlers;
 using Microsoft.Xna.Framework;
 using System;
+using System.Diagnostics;
 
 namespace MainGame.Doors
 {
     public class Door : IDoor
     {
-        public Vector2 Position;
+        public Vector2 Position { get; set; }
         public Direction Direction;
         private readonly ISprite spriteTop;
         private readonly ISprite spriteBottom;
@@ -45,11 +46,10 @@ namespace MainGame.Doors
         {
             spriteTop.Update();
             spriteBottom.Update();
-
         }
 
         public void Draw()
-        {
+        {   
             spriteTop.Draw(Position.X, Position.Y, Color.White);
             spriteBottom.Draw(Position.X + BottomXOffset, Position.Y + BottomYOffset, Color.White);
         }
@@ -57,6 +57,8 @@ namespace MainGame.Doors
 
     public class BlankDoor : IDoor
     {
+        public Vector2 Position { get; set; }
+
         // Nothing to do for a blank door
         public void Draw() { }
         public void Update() { }

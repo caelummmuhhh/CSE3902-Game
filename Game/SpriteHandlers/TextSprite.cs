@@ -22,7 +22,7 @@ namespace MainGame.SpriteHandlers
                 layer = value;
             }
         }
-        public Rectangle DestinationRectangle { get; protected set; }
+        public Rectangle DestinationRectangle { get; set; }
 
 
         private readonly SpriteBatch spriteBatch;

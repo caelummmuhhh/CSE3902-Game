@@ -8,7 +8,7 @@ namespace MainGame.SpriteHandlers
     {
         public readonly Texture2D Texture;
         public int Scale { get => scale; }
-        public abstract Rectangle DestinationRectangle { get; protected set; }
+        public abstract Rectangle DestinationRectangle { get; set; }
         public float LayerDepth
         {
             get => layer;

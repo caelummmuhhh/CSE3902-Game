@@ -9,7 +9,7 @@ namespace MainGame.SpriteHandlers
         public readonly Texture2D Texture;
         public readonly int RowCount;
         public readonly int ColumnCount;
-        public abstract Rectangle DestinationRectangle { get; protected set; }
+        public abstract Rectangle DestinationRectangle { get; set; }
 
         public virtual int AnimationFrameDuration { get => totalFrameCount; }
         public virtual int FrameWidth { get => frameWidth; }

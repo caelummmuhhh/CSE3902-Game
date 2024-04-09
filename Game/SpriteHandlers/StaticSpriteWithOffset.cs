@@ -9,7 +9,7 @@ namespace MainGame.SpriteHandlers
         public readonly int StartYPosition;
         public virtual int FrameWidth { get => frameWidth; }
         public virtual int FrameHeight { get => frameHeight; }
-        public override Rectangle DestinationRectangle { get; protected set; }
+        public override Rectangle DestinationRectangle { get; set; }
 
         protected int frameWidth;
         protected int frameHeight;

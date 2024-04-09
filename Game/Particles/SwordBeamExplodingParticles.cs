@@ -22,6 +22,7 @@ namespace MainGame.Particles
         }
 
         public bool IsActive { get; set; }
+        public Vector2 Position { get; set; }
 
         private readonly int particleMoveSpeed = 5;
         private int particleLifetime = 10;

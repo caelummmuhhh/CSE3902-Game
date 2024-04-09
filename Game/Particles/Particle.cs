@@ -6,19 +6,19 @@ namespace MainGame.Particles
     public class GenericParticle : IParticle
     {
         public bool IsActive { get; set; }
+        public Vector2 Position { get; set; }
         private readonly ISprite sprite;
-        private Vector2 position;
         private int lifeTime;
 
         public GenericParticle(Vector2 spawnPosition, ISprite sprite, int lifeTime)
         {
             IsActive = true;
             this.lifeTime = lifeTime;
-            position = spawnPosition;
+            Position = spawnPosition;
             this.sprite = sprite;
         }
 
-        public void Draw() => sprite.Draw(position.X, position.Y, Color.White);
+        public void Draw() => sprite.Draw(Position.X, Position.Y, Color.White);
 
         public void Update()
         {

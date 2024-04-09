@@ -2,23 +2,25 @@
 using System.Diagnostics;
 using System.IO;
 using MainGame.Players;
+using Microsoft.Xna.Framework;
 
 namespace MainGame.Rooms
 {
 	public class GameRoomManager
 	{
 		public IRoom CurrentRoom { get; set; }
+		public IRoom SwitchingRoom { get; set; }
+
 		public List<IRoom> AllRooms { get => AllRooms; }
 
 		private readonly List<IRoom> allRooms = new();
 
-		private int roomChangeDebounce = 20;
-		private int startingRoom = 0;
+		private bool roomChangeDebounce = true;
 
 		public GameRoomManager(Game1 game)
 		{
 			LoadAllRooms(game.Player);
-			CurrentRoom = allRooms[startingRoom];
+			CurrentRoom = allRooms[0];
         }
 
 		private void LoadAllRooms(IPlayer player)
@@ -27,7 +29,6 @@ namespace MainGame.Rooms
 
 			foreach (string roomFile in roomFiles)
 			{
-				Debug.WriteLine(roomFile);
 				allRooms.Add(RoomFactory.GenerateRoom(roomFile, player));
 			}
         }
@@ -35,13 +36,32 @@ namespace MainGame.Rooms
 		public void Update()
 		{
 			CurrentRoom.Update();
-			roomChangeDebounce--;
+			CurrentRoom.Position += new Vector2(1, 0);
+			// Code for scrolling rooms
+			if(SwitchingRoom != null)
+			{
+				roomChangeDebounce = false;
+
+                SwitchingRoom.Position += new Vector2(1f, 0);
+				CurrentRoom.Position += new Vector2(-1f, 0);
+                if (SwitchingRoom.Position.X == 0 && SwitchingRoom.Position.Y == 0)
+                {
+                    CurrentRoom = SwitchingRoom;
+                    SwitchingRoom = null;
+                    roomChangeDebounce = true;
+                }
+            }
 		}
 
 		public void Draw()
 		{
 			CurrentRoom.Draw();
-		}
+            if (SwitchingRoom != null)
+            {
+                SwitchingRoom.Draw();
+
+            }
+        }
 
 		public void GetNorthRoom()
 		{
@@ -66,12 +86,13 @@ namespace MainGame.Rooms
         public void NextRoom(int RoomNumber)
 		{
 			// RoomNumber == -1 means room does not exist
-			if (roomChangeDebounce > 0 || RoomNumber == -1)
+			if (!roomChangeDebounce || RoomNumber == -1)
 			{
 				return;
 			}
-			roomChangeDebounce = 20;
-			CurrentRoom = allRooms[RoomNumber];
+
+			//SwitchingRoom = allRooms[RoomNumber];
+			//SwitchingRoom.Position = new Vector2(-500, 0);
         }
     }
 }
