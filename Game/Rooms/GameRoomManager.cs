@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using MainGame.Players;
 
@@ -11,15 +12,13 @@ namespace MainGame.Rooms
 
 		private readonly List<IRoom> allRooms = new();
 
-		private int currentRoomIndex = 0; // TODO: delete, this is for testing only
-		private readonly Game1 game; // TODO: we might not even need this tbh
 		private int roomChangeDebounce = 20;
+		private int startingRoom = 0;
 
 		public GameRoomManager(Game1 game)
 		{
-			this.game = game;
 			LoadAllRooms(game.Player);
-			CurrentRoom = allRooms[currentRoomIndex];
+			CurrentRoom = allRooms[startingRoom];
         }
 
 		private void LoadAllRooms(IPlayer player)
@@ -28,6 +27,7 @@ namespace MainGame.Rooms
 
 			foreach (string roomFile in roomFiles)
 			{
+				Debug.WriteLine(roomFile);
 				allRooms.Add(RoomFactory.GenerateRoom(roomFile, player));
 			}
         }
@@ -36,7 +36,6 @@ namespace MainGame.Rooms
 		{
 			CurrentRoom.Update();
 			roomChangeDebounce--;
-
 		}
 
 		public void Draw()
@@ -46,33 +45,33 @@ namespace MainGame.Rooms
 
 		public void GetNorthRoom()
 		{
-
-		}
+            NextRoom(CurrentRoom.ConnectingRooms[0]);
+        }
 
         public void GetSouthRoom()
         {
-
+            NextRoom(CurrentRoom.ConnectingRooms[1]);
         }
 
         public void GetEastRoom()
         {
-
+            NextRoom(CurrentRoom.ConnectingRooms[2]);
         }
 
         public void GetWestRoom()
         {
-
+			NextRoom(CurrentRoom.ConnectingRooms[3]);
         }
 
-        public void NextRoom()
+        public void NextRoom(int RoomNumber)
 		{
-			if (roomChangeDebounce > 0)
+			// RoomNumber == -1 means room does not exist
+			if (roomChangeDebounce > 0 || RoomNumber == -1)
 			{
 				return;
 			}
 			roomChangeDebounce = 20;
-			currentRoomIndex = (currentRoomIndex + 1) % allRooms.Count;
-			CurrentRoom = allRooms[currentRoomIndex];
+			CurrentRoom = allRooms[RoomNumber];
         }
     }
 }

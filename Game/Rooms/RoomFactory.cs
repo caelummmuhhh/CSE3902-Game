@@ -10,6 +10,7 @@ using MainGame.Items;
 using MainGame.Enemies;
 using MainGame.Players;
 using MainGame.Collision;
+using System.Diagnostics;
 
 namespace MainGame.Rooms
 {
@@ -40,7 +41,7 @@ namespace MainGame.Rooms
                 ParseEnemies(lines[i], room, player, i - 2);
             }
 
-            int[] connectingRooms = ParseConnectingRooms(lines[lines.Length]);
+            int[] connectingRooms = ParseConnectingRooms(lines[lines.Length-1]);
             room.ConnectingRooms = connectingRooms;
 
             return room;
@@ -53,11 +54,11 @@ namespace MainGame.Rooms
         {
             int[] connectingRoomNumbers = new int[4];
             string[] connections = line.Split(',');
-            for(int i = 0; i < connections.Length; i++)
+            for (int i = 0; i < connections.Length; i++)
             {
-                if (!connections[i].Equals('-'))
+                if (!Int32.TryParse(connections[i], out connectingRoomNumbers[i])) 
                 {
-                    connectingRoomNumbers[i] = Int32.Parse(connections[i]);
+                    connectingRoomNumbers[i] = -1; // Room does not exist
                 }
             }
             return connectingRoomNumbers;

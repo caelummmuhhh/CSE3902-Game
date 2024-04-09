@@ -21,7 +21,7 @@ namespace MainGame.Commands.RoomSwitchingCommands
 
         public void Execute()
         {
-            game.Room = game.Room.getNorthRoom();
+            game.RoomManager.GetNorthRoom();
         }
 
         public void UnExecute()
