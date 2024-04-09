@@ -34,13 +34,33 @@ namespace MainGame.Rooms
             ParseDoors(lines[1], room);
             room.RoomPlayer = player;
 
-            for (int i = 2; i < lines.Length; i++)
+            for (int i = 2; i < lines.Length-1; i++)
             {
                 ParseItemsAndBlocks(ref lines[i], room, i - 2);
                 ParseEnemies(lines[i], room, player, i - 2);
             }
 
+            int[] connectingRooms = ParseConnectingRooms(lines[lines.Length]);
+            room.ConnectingRooms = connectingRooms;
+
             return room;
+        }
+
+        /*
+         * Method for parsing out connecting rooms 
+         */
+        private static int[] ParseConnectingRooms(string line)
+        {
+            int[] connectingRoomNumbers = new int[4];
+            string[] connections = line.Split(',');
+            for(int i = 0; i < connections.Length; i++)
+            {
+                if (!connections[i].Equals('-'))
+                {
+                    connectingRoomNumbers[i] = Int32.Parse(connections[i]);
+                }
+            }
+            return connectingRoomNumbers;
         }
 
         /*

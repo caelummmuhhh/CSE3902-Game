@@ -44,7 +44,27 @@ namespace MainGame.Rooms
 			CurrentRoom.Draw();
 		}
 
-		public void NextRoom()
+		public void GetNorthRoom()
+		{
+
+		}
+
+        public void GetSouthRoom()
+        {
+
+        }
+
+        public void GetEastRoom()
+        {
+
+        }
+
+        public void GetWestRoom()
+        {
+
+        }
+
+        public void NextRoom()
 		{
 			if (roomChangeDebounce > 0)
 			{

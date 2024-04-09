@@ -26,6 +26,8 @@ namespace MainGame.Rooms
         public IDoor EastDoor { get; set; }
         public IDoor SouthDoor { get; set; }
 
+        public int[] ConnectingRooms { get; set; }
+
         public IHitBox EnemiesBorderHitBox { get; set; }
         public IHitBox PlayerBorderHitBox { get; set; }
 

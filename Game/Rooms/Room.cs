@@ -30,6 +30,8 @@ namespace MainGame.Rooms
         public IDoor EastDoor { get; set; }
         public IDoor SouthDoor { get; set; }
 
+        public int[] ConnectingRooms { get; set; }
+
         public ISprite OuterBorderSprite { get; set; }
         public ISprite InnerBorderSprite { get; set; }
         public ISprite TilesSprite { get; set; }
