@@ -17,9 +17,6 @@ namespace MainGame.Collision
                 x: topWall.X,
                 y: topWall.Bottom + Constants.BlockSize,
                 width: 2 * Constants.BlockSize,
-                height: 5 * Constants.BlockSize
-                );
-
             HitBoxes.Add(topWall);
             HitBoxes.Add(bottomWall);
         }
