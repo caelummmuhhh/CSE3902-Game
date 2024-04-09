@@ -6,14 +6,13 @@ namespace MainGame.Enemies
 {
 	public class KeeseTakeOffState : IEnemyState
 	{
-		private readonly GenericEnemy entity;
-		private readonly CardinalAndOrdinalDirection direction;
+		private readonly KeeseEnemy entity;
 		private readonly int stateDuration;
 		private int stateTimeRemaining;
 
-		public KeeseTakeOffState(GenericEnemy enemy)
+		public KeeseTakeOffState(KeeseEnemy enemy)
 		{
-            direction = EnemyUtils.GetRandomCardinalAndOrdinalDirection();
+			enemy.ChangeDirection();
 
             entity = enemy;
 			entity.Sprite = SpriteFactory.CreateKeeseTakeOffSprite();
@@ -45,7 +44,7 @@ namespace MainGame.Enemies
 			{
 				return;
 			}
-            entity.Position = EnemyUtils.DirectionalMove(entity.Position, direction, entity.MovementSpeed);
+            entity.Position = Utils.DirectionalMove(entity.Position, entity.MovingDirection, entity.MovementSpeed);
         }
     }
 }

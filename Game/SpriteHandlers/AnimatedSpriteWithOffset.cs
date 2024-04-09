@@ -1,5 +1,4 @@
-﻿using System;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
 namespace MainGame.SpriteHandlers
@@ -8,6 +7,7 @@ namespace MainGame.SpriteHandlers
     {
         public readonly int StartXPosition;
         public readonly int StartYPosition;
+        public override Rectangle DestinationRectangle { get; protected set; }
 
         protected float rotation;
         protected Vector2 origin;
@@ -30,9 +30,10 @@ namespace MainGame.SpriteHandlers
             totalFrameCount = numberOfFrames;
             StartXPosition = textureStartingX;
             StartYPosition = textureStartingY;
-            origin = new Vector2(FrameWidth / 2f, FrameHeight / 2f);
+            origin = new(0, 0);
             rotation = 0f;
             layer = layerDepth;
+            DestinationRectangle = new(0, 0, FrameWidth * Scale, FrameHeight * Scale);
         }
 
         protected override Rectangle GetSourceRectangle()
@@ -44,13 +45,14 @@ namespace MainGame.SpriteHandlers
                 FrameHeight);
         }
 
-        protected Rectangle GetDestinationRectangle(float x, float y)
+        protected override Rectangle GetDestinationRectangle(float x, float y)
         {
-            return new Rectangle(
-                (int)(x - origin.X),
-                (int)(y - origin.Y),
+            Rectangle destRect =  new(
+                (int)x, (int)y,
                 FrameWidth * Scale,
                 FrameHeight * Scale);
+            DestinationRectangle = destRect;
+            return destRect;
         }
     }
 }

@@ -15,6 +15,7 @@ namespace MainGame.Enemies
         public AquamentusEnemy(Vector2 startingPosition, IPlayer player)
 		{
             Position = startingPosition;
+            PreviousPosition = new(Position.X, Position.Y);
             Sprite = SpriteFactory.CreateAquamentusSprite();
             Player = player;
             State = new AquamentusAttackingState(new AquamentusMovingState(this), this);

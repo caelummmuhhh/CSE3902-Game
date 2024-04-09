@@ -8,8 +8,22 @@ namespace MainGame.Projectiles
 	{
         public Vector2 Position { get => position; set => position = value; }
         public bool IsActive { get => isActive; }
+		public abstract Direction MovingDirection { get; }
+        public Rectangle HitBox
+        {
+            get
+            {
+				if (!isActive)
+				{
+					return new();
+				}
+                Rectangle destRect = sprite.DestinationRectangle;
+                Rectangle resized = new(destRect.X, destRect.Y, destRect.Width / 2, destRect.Height / 2);
+                return Utils.CentralizeRectangle((int)Position.X, (int)Position.Y, resized);
+            }
+        }
 
-		private bool isActive = true;
+        private bool isActive = true;
 		private Vector2 position;
 		protected readonly ISprite sprite;
 		protected int horizontalSpeed = Constants.UniversalScale;
@@ -49,21 +63,8 @@ namespace MainGame.Projectiles
 			sprite.Draw(position.X, position.Y, Color.White);
 		}
 
+		public virtual void Collide() => isActive = false;
 		public abstract void Move();
 		public abstract void InitialMovement();
-
-		public static Vector2 CalculateDirectionVector(Vector2 start, Vector2 end)
-        {
-            double dx = end.X - start.X;
-            double dy = end.Y - start.Y;
-
-            double distance = Math.Sqrt(dx * dx + dy * dy);
-
-            dx /= distance;
-            dy /= distance;
-
-            return new Vector2((float)dx, (float)dy);
-        }
     }
 }
-

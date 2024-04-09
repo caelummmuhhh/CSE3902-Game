@@ -8,21 +8,38 @@ namespace MainGame.Projectiles
     {
         public Vector2 Position { get => position; }
         public bool IsActive { get => isActive; }
+        public Direction MovingDirection { get => direction; }
+        public Rectangle HitBox { get => new(position.ToPoint(), sprite.DestinationRectangle.Size); }
 
         private readonly ISprite sprite;
-        private readonly float maxDistanceTravel = 200f;
-        private int idletime = 20;
-        private readonly float speed = 10f;
+        private readonly float maxDistanceTravel = Constants.BlockSize;
+        private int idletime = 100;
+        private readonly float speed = 1f;
         private bool isActive = true;
         private Vector2 position;
         private Vector2 startingPosition;
-        private readonly CardinalDirections direction;
+        private readonly Direction direction;
 
-        public FireBallProjectile(Vector2 startingPosition, CardinalDirections direction)
+        public FireBallProjectile(Vector2 startingPosition, Direction direction)
 		{
             this.direction = direction;
             this.startingPosition = startingPosition;
-            position = startingPosition;
+            switch (direction)
+            {
+                case Direction.North:
+                    this.startingPosition = new(startingPosition.X, startingPosition.Y - Constants.BlockSize);
+                    break;
+                case Direction.South:
+                    this.startingPosition = new(startingPosition.X, startingPosition.Y + Constants.BlockSize);
+                    break;
+                case Direction.East:
+                    this.startingPosition = new(startingPosition.X + Constants.BlockSize, startingPosition.Y);
+                    break;
+                case Direction.West:
+                    this.startingPosition = new(startingPosition.X - Constants.BlockSize, startingPosition.Y);
+                    break;
+            }
+            position = this.startingPosition;
             sprite = SpriteFactory.CreateFireSprite();
         }
 
@@ -50,22 +67,24 @@ namespace MainGame.Projectiles
             sprite.Draw(Position.X, Position.Y, Color.White);
         }
 
+        public void Collide() { }
+
         private void Move()
         {
             float changeX = 0f;
             float changeY = 0f;
             switch (direction)
             {
-                case CardinalDirections.North:
+                case Direction.North:
                     changeY = -1f * speed;
                     break;
-                case CardinalDirections.South:
+                case Direction.South:
                     changeY = speed;
                     break;
-                case CardinalDirections.East:
+                case Direction.East:
                     changeX = speed;
                     break;
-                case CardinalDirections.West:
+                case Direction.West:
                     changeX = -1f * speed;
                     break;
             }
@@ -74,4 +93,3 @@ namespace MainGame.Projectiles
         }
     }
 }
-

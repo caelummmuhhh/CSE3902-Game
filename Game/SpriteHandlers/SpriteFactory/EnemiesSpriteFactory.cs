@@ -11,7 +11,7 @@ namespace MainGame.SpriteHandlers
                 numRows: 1,
                 numColumns: 2,
                 numberOfFrames: 2,
-                scale: UniversalScaleMultiplier);
+                scale: Constants.UniversalScale);
         }
 
         public static ISprite CreateKeeseTakeOffSprite()
@@ -21,7 +21,7 @@ namespace MainGame.SpriteHandlers
                 numRows: 1,
                 numColumns: 2,
                 numberOfFrames: 2,
-                scale: UniversalScaleMultiplier);
+                scale: Constants.UniversalScale);
         }
 
         public static ISprite CreateKeeseLandingSprite()
@@ -31,7 +31,7 @@ namespace MainGame.SpriteHandlers
                 numRows: 1,
                 numColumns: 2,
                 numberOfFrames: 2,
-                scale: UniversalScaleMultiplier);
+                scale: Constants.UniversalScale);
         }
 
         public static ISprite CreateKeeseLandedSprite()
@@ -39,7 +39,7 @@ namespace MainGame.SpriteHandlers
             return new EnemySprites.KeeseLandedSprite(
                 TextureMap["EnemiesSprites"], SpriteBatch,
                 textureStartingX: 16,
-                scale: UniversalScaleMultiplier);
+                scale: Constants.UniversalScale);
         }
 
         public static ISprite CreateStalfosSprite()
@@ -50,7 +50,7 @@ namespace MainGame.SpriteHandlers
                 numColumns: 1,
                 numberOfFrames: 1,
                 textureStartingY: 16,
-                scale: UniversalScaleMultiplier);
+                scale: Constants.UniversalScale);
         }
 
         public static ISprite CreateGelSprite()
@@ -61,7 +61,7 @@ namespace MainGame.SpriteHandlers
                 numColumns: 2,
                 numberOfFrames: 2,
                 textureStartingY: 32,
-                scale: UniversalScaleMultiplier);
+                scale: Constants.UniversalScale);
         }
 
         public static ISprite CreateWallMasterSprite()
@@ -72,7 +72,7 @@ namespace MainGame.SpriteHandlers
                 numColumns: 2,
                 numberOfFrames: 2,
                 textureStartingY: 96,
-                scale: UniversalScaleMultiplier);
+                scale: Constants.UniversalScale);
         }
 
         public static ISprite CreateOldManSprite()
@@ -81,7 +81,7 @@ namespace MainGame.SpriteHandlers
                 TextureMap["EnemiesSprites"], SpriteBatch,
                 textureStartingX: 0,
                 textureStartingY: 112,
-                scale: UniversalScaleMultiplier);
+                scale: Constants.UniversalScale);
         }
 
         public static ISprite CreateSpikeCrossSprite()
@@ -89,7 +89,7 @@ namespace MainGame.SpriteHandlers
             return new EnemySprites.SpikeCrossSprite(
                 TextureMap["EnemiesSprites"], SpriteBatch,
                 textureStartingY: 128,
-                scale: UniversalScaleMultiplier);
+                scale: Constants.UniversalScale);
         }
 
         public static ISprite CreateAquamentusSprite()
@@ -102,7 +102,7 @@ namespace MainGame.SpriteHandlers
                 frameWidth: 24,
                 numberOfFrames: 2,
                 textureStartingY: 144,
-                scale: UniversalScaleMultiplier);
+                scale: Constants.UniversalScale);
         }
 
         public static ISprite CreateAquamentusAttackingSprite()
@@ -116,7 +116,7 @@ namespace MainGame.SpriteHandlers
                 numberOfFrames: 2,
                 textureStartingX: 48,
                 textureStartingY: 144,
-                scale: UniversalScaleMultiplier);
+                scale: Constants.UniversalScale);
         }
 
        
@@ -128,7 +128,7 @@ namespace MainGame.SpriteHandlers
                 numColumns: 4,
                 numberOfFrames: 4,
                 textureStartingY: 64,
-                scale: UniversalScaleMultiplier);
+                scale: Constants.UniversalScale);
         }
 
 
@@ -140,7 +140,7 @@ namespace MainGame.SpriteHandlers
                 numColumns: 1,
                 numberOfFrames: 1,
                 textureStartingY: 64,
-                scale: UniversalScaleMultiplier);
+                scale: Constants.UniversalScale);
         }
 
         public static ISprite CreateGoriyaWalkingDownSprite()
@@ -151,7 +151,7 @@ namespace MainGame.SpriteHandlers
                 numColumns: 2,
                 numberOfFrames: 2,
                 textureStartingY: 48,
-                scale: UniversalScaleMultiplier);
+                scale: Constants.UniversalScale);
         }
 
         public static ISprite CreateGoriyaWalkingLeftSprite()
@@ -162,7 +162,7 @@ namespace MainGame.SpriteHandlers
                 numColumns: 2,
                 numberOfFrames: 2,
                 textureStartingY: 80,
-                scale: UniversalScaleMultiplier);
+                scale: Constants.UniversalScale);
         }
 
         public static ISprite CreateGoriyaWalkingRightSprite()
@@ -173,7 +173,7 @@ namespace MainGame.SpriteHandlers
                 numColumns: 2,
                 numberOfFrames: 2,
                 textureStartingY: 80,
-                scale: UniversalScaleMultiplier);
+                scale: Constants.UniversalScale);
         }
     }
 }

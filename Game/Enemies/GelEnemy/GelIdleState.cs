@@ -14,7 +14,8 @@ namespace MainGame.Enemies
 
 		public void Update()
 		{
-			if (stateDuration <= 0)
+            entity.PreviousPosition = new(entity.Position.X, entity.Position.Y);
+            if (stateDuration <= 0)
 			{
 				entity.State = new GelMovingState(entity);
 			}

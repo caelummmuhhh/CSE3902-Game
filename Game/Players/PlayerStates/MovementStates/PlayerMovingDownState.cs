@@ -1,7 +1,5 @@
-﻿using System;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using MainGame.SpriteHandlers;
-using MainGame.Projectiles;
 
 namespace MainGame.Players.PlayerStates
 {
@@ -12,58 +10,74 @@ namespace MainGame.Players.PlayerStates
 		public PlayerMovingDownState(IPlayer player)
 		{
 			this.player = player;
+            this.player.FacingDirection = Direction.South;
 			this.player.Sprite = SpriteFactory.CreatePlayerWalkingDownSprite();
-		}
+
+            player.Position = new Vector2(
+                GridHandler.SnapToGridHalfStep(player.Position).X,
+                player.Position.Y
+                );
+        }
 
         public void Draw()
 		{
-            player.Sprite.Draw(player.Position.X, player.Position.Y, Color.White);
+            player.Sprite.Draw(player.Position.X, player.Position.Y, player.SpriteColor);
         }
 
         public void MoveDown()
 		{
-			player.IsMoving = true;
+            player.PreviousPosition = player.Position;
 			player.Position = new Vector2(player.Position.X, player.Position.Y + Player.Speed);
 		}
 
         public void Update() => player.Sprite.Update();
         public void Stop() => player.CurrentState = new PlayerIdleDownState(player);
 
-        public void TakeDamage() => player.CurrentState = new PlayerDamagedDownState(player);
+        public void TakeDamage(Direction sideHit)
+            => player.CurrentState = new PlayerKnockedBackState(player, Utils.OppositeDirection(sideHit));
 
         public void MoveUp() { player.CurrentState = new PlayerMovingUpState(player); }
-		public void MoveRight() { player.CurrentState = new PlayerMovingRightState(player); }
-		public void MoveLeft() { player.CurrentState = new PlayerMovingLeftState(player); }
+
+		public void MoveRight()
+        {
+            player.Position = new(player.Position.X, player.Position.Y + 1f * Constants.UniversalScale);
+            player.CurrentState = new PlayerMovingRightState(player);
+        }
+		public void MoveLeft()
+        {
+            player.Position = new(player.Position.X, player.Position.Y - 1f * Constants.UniversalScale);
+            player.CurrentState = new PlayerMovingLeftState(player);
+        }
 
         public void UseSword() => player.CurrentState = new PlayerUsingSwordDownState(player);
 
         public void UseArrow()
         {
-            player.UseArrow(CardinalDirections.South);
+            player.UseArrow(Direction.South);
             player.CurrentState = new PlayerUsingItemDownState(player);
         }
 
         public void UseBoomerang()
         {
-            player.UseBoomerang(CardinalDirections.South);
+            player.UseBoomerang(Direction.South);
             player.CurrentState = new PlayerUsingItemDownState(player);
         }
 
         public void UseFire()
         {
-            player.UseFire(CardinalDirections.South);
+            player.UseFire(Direction.South);
             player.CurrentState = new PlayerUsingItemDownState(player);
         }
 
         public void UseBomb()
         {
-            player.UseBomb(CardinalDirections.South);
+            player.UseBomb(Direction.South);
             player.CurrentState = new PlayerUsingItemDownState(player);
         }
 
         public void UseSwordBeam()
         {
-            player.UseSwordBeam(CardinalDirections.South);
+            player.UseSwordBeam(Direction.South);
             player.CurrentState = new PlayerUsingSwordDownState(player);
         }
     }
