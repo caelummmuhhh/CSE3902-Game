@@ -29,8 +29,8 @@ namespace MainGame.SpriteHandlers.ItemSprites
         {
             Rectangle srcRectangle = GetSourceRectangle();
             Rectangle destRectangle = new(
-                0,
-                0,
+                (int)x,
+                (int)y,
                 FrameWidth * scale,
                 FrameHeight * scale);
 

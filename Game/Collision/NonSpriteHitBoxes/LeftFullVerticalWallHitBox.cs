@@ -8,7 +8,7 @@ namespace MainGame.Collision
 		{
 			Rectangle wallHitBox = new(
 				x: 0,
-				y: 0,
+				y: Constants.HudAndMenuHeight,
 				width: 32 * Constants.UniversalScale,
 				height: 176 * Constants.UniversalScale
 				);

@@ -101,7 +101,7 @@ namespace MainGame.Rooms
             {
                 DoorTypes doorType = SpriteFactory.DoorTypeFromString(doors[0]);
                 room.NorthDoor = new Door(
-                     new Vector2(112 * Constants.UniversalScale, 0 * Constants.UniversalScale),
+                     new Vector2(112 * Constants.UniversalScale, Constants.HudAndMenuHeight),
                      SpriteFactory.CreateDoorTopNorthSouth(Direction.North, doorType),
                      SpriteFactory.CreateDoorBottomNorthSouth(Direction.North, doorType),
                      Direction.North
@@ -125,7 +125,7 @@ namespace MainGame.Rooms
             {
                 DoorTypes doorType = SpriteFactory.DoorTypeFromString(doors[1]);
                 room.SouthDoor = new Door(
-                new Vector2(112 * Constants.UniversalScale, 160 * Constants.UniversalScale),
+                new Vector2(112 * Constants.UniversalScale, 160 * Constants.UniversalScale + Constants.HudAndMenuHeight),
                 SpriteFactory.CreateDoorTopNorthSouth(Direction.South, doorType),
                 SpriteFactory.CreateDoorBottomNorthSouth(Direction.South, doorType),
                 Direction.South
@@ -149,7 +149,7 @@ namespace MainGame.Rooms
             {
                 DoorTypes doorType = SpriteFactory.DoorTypeFromString(doors[2]);
                 room.EastDoor = new Door(
-                new Vector2(0 * Constants.UniversalScale, 72 * Constants.UniversalScale),
+                new Vector2(0 * Constants.UniversalScale, 72 * Constants.UniversalScale + Constants.HudAndMenuHeight),
                 SpriteFactory.CreateDoorTopWestEast(Direction.West, doorType),
                 SpriteFactory.CreateDoorBottomWestEast(Direction.West, doorType),
                 Direction.West
@@ -173,7 +173,7 @@ namespace MainGame.Rooms
             {
                 DoorTypes doorType = SpriteFactory.DoorTypeFromString(doors[3]);
                 room.WestDoor = new Door(
-                new Vector2(240 * Constants.UniversalScale, 72 * Constants.UniversalScale),
+                new Vector2(240 * Constants.UniversalScale, 72 * Constants.UniversalScale + Constants.HudAndMenuHeight),
                 SpriteFactory.CreateDoorTopWestEast(Direction.East, doorType),
                 SpriteFactory.CreateDoorBottomWestEast(Direction.East, doorType),
                 Direction.East
@@ -197,7 +197,7 @@ namespace MainGame.Rooms
         private static void ParseItemsAndBlocks(ref string line, IRoom room, int yOffset)
         {
             int wallOffsetX = 32 * Constants.UniversalScale;
-            int wallOffsetY = 32 * Constants.UniversalScale;
+            int wallOffsetY = 32 * Constants.UniversalScale + Constants.HudAndMenuHeight;
             int columnWidth = 16 * Constants.UniversalScale;
 
             string[] objects = line.Split(',');
@@ -238,7 +238,7 @@ namespace MainGame.Rooms
         private static void ParseEnemies(string line, IRoom room, IPlayer player, int yOffset)
         {
             int wallOffsetX = 32 * Constants.UniversalScale;
-            int wallOffsetY = 32 * Constants.UniversalScale;
+            int wallOffsetY = 32 * Constants.UniversalScale + Constants.HudAndMenuHeight;
             int columnWidth = 16 * Constants.UniversalScale;
 
             string[] objects = line.Split(',');

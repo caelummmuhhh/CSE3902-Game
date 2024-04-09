@@ -7,10 +7,10 @@ namespace MainGame.Collision
         public RightFullVerticalWallHitBox()
         {
             Rectangle wallHitBox = new(
-                x: (32 + 192) * Constants.UniversalScale,
-                y: 0,
-                width: 32 * Constants.UniversalScale,
-                height: 176 * Constants.UniversalScale
+                x: 14 * Constants.BlockSize,
+                y: Constants.HudAndMenuHeight,
+                width: 2 * Constants.BlockSize,
+                height: 11 * Constants.BlockSize
                 );
             HitBoxes.Add(wallHitBox);
         }
