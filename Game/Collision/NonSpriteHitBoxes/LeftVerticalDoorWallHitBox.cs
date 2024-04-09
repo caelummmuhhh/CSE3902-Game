@@ -8,14 +8,14 @@ namespace MainGame.Collision
 		{
             Rectangle topWall = new(
                 x: 0,
-                y: 0,
+                y: Constants.HudAndMenuHeight,
                 width: 2 * Constants.BlockSize,
                 height: 5 * Constants.BlockSize
                 );
 
             Rectangle bottomWall = new(
                 x: 0,
-                y: topWall.Height + Constants.BlockSize,
+                y: topWall.Bottom + Constants.BlockSize,
                 width: 2 * Constants.BlockSize,
                 height: 5 * Constants.BlockSize
                 );
