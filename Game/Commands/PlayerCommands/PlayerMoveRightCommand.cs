@@ -4,20 +4,20 @@ namespace MainGame.Commands.PlayerCommands
 {
     public class PlayerMoveRightCommand : ICommand
     {
-        private readonly IPlayer player;
-        public PlayerMoveRightCommand(IPlayer player)
+        private readonly Game1 game;
+        public PlayerMoveRightCommand(Game1 game)
         {
-            this.player = player;
+            this.game = game;
         }
 
         public void Execute()
         {
-            player.MoveRight();
+            game.Player.MoveRight();
         }
 
         public void UnExecute()
         {
-            player.Stop();
+            game.Player.Stop();
         }
     }
 }

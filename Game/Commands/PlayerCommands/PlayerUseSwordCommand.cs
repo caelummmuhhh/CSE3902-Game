@@ -12,7 +12,14 @@ namespace MainGame.Commands.PlayerCommands
 
         public void Execute()
         {
-            player.UseSword();
+            if (player.CurrentHealth == player.MaxHealth)
+            {
+                player.CurrentState.UseSwordBeam();
+            }
+            else
+            {
+                player.CurrentState.UseSword();
+            }
         }
 
         public void UnExecute() { /* not needed */ }
