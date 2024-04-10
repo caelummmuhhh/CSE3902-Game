@@ -28,7 +28,7 @@ namespace MainGame.Rooms
         public GameRoomManager(Game1 game)
 		{
 			LoadAllRooms(game.Player);
-			CurrentRoom = allRooms[2];
+			CurrentRoom = allRooms[1];
             CurrentRoom.isCurrentRoom = true;
             gameArea = new Rectangle(0, 0, game.GraphicsManager.PreferredBackBufferWidth, game.GraphicsManager.PreferredBackBufferHeight);
             ScrollSpeed = 3;
@@ -57,9 +57,8 @@ namespace MainGame.Rooms
 				CurrentRoom.Position += new Vector2(SpeedX, SpeedY);
                 if (SwitchingRoom.Position.X == 0 && SwitchingRoom.Position.Y == 0)
                 {
-                    CurrentRoom.isCurrentRoom = false;
-                    SwitchingRoom.isCurrentRoom = true;
                     CurrentRoom = SwitchingRoom;
+                    CurrentRoom.isCurrentRoom = true;
                     SwitchingRoom = null;
                     roomChangeDebounce = true;
                     SpeedX = 0;
@@ -84,7 +83,7 @@ namespace MainGame.Rooms
             {
                 return;
             }
-
+            CurrentRoom.isCurrentRoom = false;
             SwitchingRoom = allRooms[CurrentRoom.ConnectingRooms[0]];
             SwitchingRoom.Position = new Vector2(0, gameArea.Top - gameArea.Height);
             SpeedY = ScrollSpeed;
@@ -97,7 +96,7 @@ namespace MainGame.Rooms
             {
                 return;
             }
-
+            CurrentRoom.isCurrentRoom = false;
             SwitchingRoom = allRooms[CurrentRoom.ConnectingRooms[1]];
             SwitchingRoom.Position = new Vector2(0, gameArea.Bottom);
             SpeedY = -ScrollSpeed;
@@ -110,7 +109,7 @@ namespace MainGame.Rooms
             {
                 return;
             }
-
+            CurrentRoom.isCurrentRoom = false;
             SwitchingRoom = allRooms[CurrentRoom.ConnectingRooms[2]];
             SwitchingRoom.Position = new Vector2(gameArea.Right, 0);
             SpeedX = -ScrollSpeed;
@@ -123,7 +122,7 @@ namespace MainGame.Rooms
             {
                 return;
             }
-
+            CurrentRoom.isCurrentRoom = false;
             SwitchingRoom = allRooms[CurrentRoom.ConnectingRooms[3]];
             SwitchingRoom.Position = new Vector2(gameArea.Left - gameArea.Width, 0);
             SpeedX = ScrollSpeed;        

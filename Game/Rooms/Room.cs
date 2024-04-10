@@ -103,7 +103,7 @@ namespace MainGame.Rooms
 
         public void Update()
         {
-            AlignPosition();
+            if(!isCurrentRoom) AlignPosition();
             //RoomPlayer.Update();
             OuterBorderSprite.Update();
             InnerBorderSprite.Update();
