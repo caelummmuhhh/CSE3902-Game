@@ -29,13 +29,13 @@ namespace MainGame.SpriteHandlers.ProjectileSprites
             int numRows,
             int numColumns,
             int numberOfFrames,
-            int frameHeight = 16,
-            int frameWidth = 16,
-            int textureStartingX = 0,
-            int textureStartingY = 0,
-            int scale = 1,
-            float layerDepth = 0.5f) :
-            base(texture, numRows, numColumns, frameWidth, frameHeight, numberOfFrames,
+    int frameHeight = GameConstants.WoodenBoomerangSpriteDefaultFrameHeight,
+    int frameWidth = GameConstants.WoodenBoomerangSpriteDefaultFrameWidth,
+    int textureStartingX = GameConstants.WoodenBoomerangSpriteDefaultTextureStartingX,
+    int textureStartingY = GameConstants.WoodenBoomerangSpriteDefaultTextureStartingY,
+    int scale = GameConstants.WoodenBoomerangSpriteDefaultScale,
+    float layerDepth = GameConstants.WoodenBoomerangSpriteDefaultLayerDepth):            
+    base(texture, numRows, numColumns, frameWidth, frameHeight, numberOfFrames,
                 textureStartingX, textureStartingY, scale, layerDepth)
         {
             this.spriteBatch = spriteBatch;

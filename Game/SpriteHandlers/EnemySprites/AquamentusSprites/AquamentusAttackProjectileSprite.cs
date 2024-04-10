@@ -20,26 +20,25 @@ namespace MainGame.SpriteHandlers.EnemySprites.AquamentusSprites
             int numRows,
             int numColumns,
             int numberOfFrames,
-            int frameHeight = 16,
-            int frameWidth = 16,
-            int textureStartingX = 0,
-            int textureStartingY = 0,
-            int scale = 1,
-            float layerDepth = 0.5f)
-            : base(texture, numRows, numColumns, frameWidth, frameHeight, numberOfFrames,
-                  textureStartingX, textureStartingY, scale, layerDepth)
-        {
-            this.spriteBatch = spriteBatch;
-            spriteDisplayTimeLapse = 0;
-            frameDisplayTimeMap = new()
-            {
-                { 0, 1 },
-                { 1, 1 },
-                { 2, 1 },
-                { 3, 1 }
-            };
-        }
-
+int frameHeight = GameConstants.AquamentusAttackProjectileSpriteDefaultFrameHeight,
+    int frameWidth = GameConstants.AquamentusAttackProjectileSpriteDefaultFrameWidth,
+    int textureStartingX = GameConstants.AquamentusAttackProjectileSpriteDefaultTextureStartingX,
+    int textureStartingY = GameConstants.AquamentusAttackProjectileSpriteDefaultTextureStartingY,
+    int scale = GameConstants.AquamentusAttackProjectileSpriteDefaultScale,
+    float layerDepth = GameConstants.AquamentusAttackProjectileSpriteDefaultLayerDepth)
+    : base(texture, numRows, numColumns, frameWidth, frameHeight, numberOfFrames,
+          textureStartingX, textureStartingY, scale, layerDepth)
+{
+    this.spriteBatch = spriteBatch;
+    spriteDisplayTimeLapse = GameConstants.AquamentusAttackProjectileSpriteInitialDisplayTimeLapse;
+    frameDisplayTimeMap = new()
+    {
+        { GameConstants.AquamentusAttackProjectileSpriteInitialFrame, GameConstants.AquamentusAttackProjectileSpriteFrameDisplayTime },
+        { GameConstants.AquamentusAttackProjectileSpriteNextFrame1, GameConstants.AquamentusAttackProjectileSpriteFrameDisplayTime },
+        { GameConstants.AquamentusAttackProjectileSpriteNextFrame2, GameConstants.AquamentusAttackProjectileSpriteFrameDisplayTime },
+        { GameConstants.AquamentusAttackProjectileSpriteNextFrame3, GameConstants.AquamentusAttackProjectileSpriteFrameDisplayTime },
+    };
+}
         public override void Update()
         {
             if (spriteDisplayTimeLapse == frameDisplayTimeMap[currentFrame])

@@ -10,27 +10,27 @@ namespace MainGame.SpriteHandlers.ItemSprites
         public EmptyRoomSprite(
             Texture2D texture,
             SpriteBatch spriteBatch,
-            int spriteHeight = 0,
-            int spriteWidth = 0,
-            int textureStartingX = 0,
-            int textureStartingY = 0,
-            int scale = 1,
-            float layerDepth = 1.0f)
-            : base(texture, spriteHeight, spriteWidth, textureStartingX, textureStartingY, scale, layerDepth)
-        {
-            this.spriteBatch = spriteBatch;
-            origin = new Vector2(0, 0);
-            rotation = 0f;
-        }
+    int spriteHeight = GameConstants.EmptyRoomSpriteDefaultSpriteHeight,
+    int spriteWidth = GameConstants.EmptyRoomSpriteDefaultSpriteWidth,
+    int textureStartingX = GameConstants.EmptyRoomSpriteDefaultTextureStartingX,
+    int textureStartingY = GameConstants.EmptyRoomSpriteDefaultTextureStartingY,
+    int scale = GameConstants.EmptyRoomSpriteDefaultScale,
+    float layerDepth = GameConstants.EmptyRoomSpriteDefaultLayerDepth)
+    : base(texture, spriteHeight, spriteWidth, textureStartingX, textureStartingY, scale, layerDepth)
+{
+    this.spriteBatch = spriteBatch;
+    origin = new Vector2(GameConstants.EmptyRoomSpriteDefaultOriginX, GameConstants.EmptyRoomSpriteDefaultOriginY);
+    rotation = GameConstants.EmptyRoomSpriteDefaultRotation;
+}        
 
-        public override void Update() { /* not needed here */ }
+public override void Update() { /* not needed here */ }
 
         public override void Draw(float x, float y, Color color)
         {
             Rectangle srcRectangle = GetSourceRectangle();
             Rectangle destRectangle = new(
-                0,
-                0,
+                (int)x,
+                (int)y,
                 FrameWidth * scale,
                 FrameHeight * scale);
 

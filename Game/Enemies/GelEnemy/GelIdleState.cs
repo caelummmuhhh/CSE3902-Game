@@ -9,7 +9,7 @@ namespace MainGame.Enemies
 		public GelIdleState(GenericEnemy enemy)
 		{
 			entity = enemy;
-			stateDuration = new Random().Next(0, 8) * 16;
+        stateDuration = new Random().Next(GameConstants.GelIdleStateDurationMin, GameConstants.GelIdleStateDurationMax) * GameConstants.GelIdleStateDurationFactor;
         }
 
 		public void Update()
@@ -27,4 +27,3 @@ namespace MainGame.Enemies
 		public void Move() { /* no movement during idle... */ }
 	}
 }
-

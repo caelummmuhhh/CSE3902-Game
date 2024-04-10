@@ -15,7 +15,7 @@ namespace MainGame.SpriteHandlers
             set
             {
                 // Protect setter; SpriteBatch.Draw only allows [0, 1]f values
-                if (value < 0.0f || value > 1.0f)
+                if (value < GameConstants.MinLayerDepth || value > GameConstants.MaxLayerDepth)
                 {
                     throw new ArgumentOutOfRangeException(
                         nameof(value),

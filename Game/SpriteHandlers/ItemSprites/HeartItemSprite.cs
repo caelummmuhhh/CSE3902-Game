@@ -21,24 +21,23 @@ namespace MainGame.SpriteHandlers.ItemSprites
             int numRows,
             int numColumns,
             int numberOfFrames,
-            int frameHeight = 16,
-            int frameWidth = 16,
-            int textureStartingX = 0,
-            int textureStartingY = 0,
-            int scale = 1,
-            float layerDepth = 0.5f)
-            : base(texture, numRows, numColumns, frameWidth, frameHeight, numberOfFrames,
-                  textureStartingX, textureStartingY, scale, layerDepth)
-        {
-            this.spriteBatch = spriteBatch;
-            spriteDisplayTimeLapse = 0;
-            frameDisplayTimeMap = new()
-            {
-                { 0, 8 },
-                { 1, 8 },
-            };
-        }
-
+    int frameHeight = GameConstants.HeartItemSpriteDefaultFrameHeight,
+    int frameWidth = GameConstants.HeartItemSpriteDefaultFrameWidth,
+    int textureStartingX = GameConstants.HeartItemSpriteDefaultTextureStartingX,
+    int textureStartingY = GameConstants.HeartItemSpriteDefaultTextureStartingY,
+    int scale = GameConstants.HeartItemSpriteDefaultScale,
+    float layerDepth = GameConstants.HeartItemSpriteDefaultLayerDepth)
+    : base(texture, numRows, numColumns, frameWidth, frameHeight, numberOfFrames,
+          textureStartingX, textureStartingY, scale, layerDepth)
+{
+    this.spriteBatch = spriteBatch;
+    spriteDisplayTimeLapse = GameConstants.HeartItemSpriteInitialDisplayTimeLapse;
+    frameDisplayTimeMap = new()
+    {
+        { GameConstants.HeartItemSpriteInitialFrame, GameConstants.HeartItemSpriteFrameDisplayTime },
+        { GameConstants.HeartItemSpriteNextFrame, GameConstants.HeartItemSpriteFrameDisplayTime },
+    };
+}
         public override void Update()
         {
             if (spriteDisplayTimeLapse == frameDisplayTimeMap[currentFrame])
@@ -59,4 +58,3 @@ namespace MainGame.SpriteHandlers.ItemSprites
         }
     }
 }
-

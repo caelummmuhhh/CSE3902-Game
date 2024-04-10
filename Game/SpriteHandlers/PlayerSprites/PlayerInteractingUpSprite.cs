@@ -10,17 +10,16 @@ namespace MainGame.SpriteHandlers.PlayerSprites
         public PlayerInteractingUpSprite(
             Texture2D texture,
             SpriteBatch spriteBatch,
-            int spriteHeight = 16,
-            int spriteWidth = 16,
-            int textureStartingX = 0,
-            int textureStartingY = 0,
-            int scale = 1,
-            float layerDepth = 0.5f)
-            : base(texture, spriteHeight, spriteWidth, textureStartingX, textureStartingY, scale, layerDepth)
-        {
-            this.spriteBatch = spriteBatch;
-        }
-
+    int spriteHeight = GameConstants.PlayerInteractingUpSpriteDefaultSpriteHeight,
+    int spriteWidth = GameConstants.PlayerInteractingUpSpriteDefaultSpriteWidth,
+    int textureStartingX = GameConstants.PlayerInteractingUpSpriteDefaultTextureStartingX,
+    int textureStartingY = GameConstants.PlayerInteractingUpSpriteDefaultTextureStartingY,
+    int scale = GameConstants.PlayerInteractingUpSpriteDefaultScale,
+    float layerDepth = GameConstants.PlayerInteractingUpSpriteDefaultLayerDepth)
+    : base(texture, spriteHeight, spriteWidth, textureStartingX, textureStartingY, scale, layerDepth)
+{
+    this.spriteBatch = spriteBatch;
+}
         public override void Update() { /* not needed here */ }
 
         public override void Draw(float x, float y, Color color)
@@ -32,4 +31,3 @@ namespace MainGame.SpriteHandlers.PlayerSprites
         }
     }
 }
-

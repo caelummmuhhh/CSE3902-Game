@@ -10,27 +10,26 @@ namespace MainGame.SpriteHandlers.ItemSprites
         public RoomDungeonTilesSprite(
             Texture2D texture,
             SpriteBatch spriteBatch,
-            int spriteHeight = 176,
-            int spriteWidth = 256,
-            int textureStartingX = 0,
-            int textureStartingY = 0,
-            int scale = 1,
-            float layerDepth = 0.5f)
-            : base(texture, spriteHeight, spriteWidth, textureStartingX, textureStartingY, scale, layerDepth)
-        {
-            this.spriteBatch = spriteBatch;
-            origin = new Vector2(0, 0);
-            rotation = 0f;
-        }
-
+    int spriteHeight = GameConstants.RoomDungeonTilesSpriteDefaultSpriteHeight,
+    int spriteWidth = GameConstants.RoomDungeonTilesSpriteDefaultSpriteWidth,
+    int textureStartingX = GameConstants.RoomDungeonTilesSpriteDefaultTextureStartingX,
+    int textureStartingY = GameConstants.RoomDungeonTilesSpriteDefaultTextureStartingY,
+    int scale = GameConstants.RoomDungeonTilesSpriteDefaultScale,
+    float layerDepth = GameConstants.RoomDungeonTilesSpriteDefaultLayerDepth)
+    : base(texture, spriteHeight, spriteWidth, textureStartingX, textureStartingY, scale, layerDepth)
+{
+    this.spriteBatch = spriteBatch;
+    origin = new Vector2(GameConstants.RoomDungeonTilesSpriteDefaultOriginX, GameConstants.RoomDungeonTilesSpriteDefaultOriginY);
+    rotation = GameConstants.RoomDungeonTilesSpriteDefaultRotation;
+}
         public override void Update() { /* not needed here */ }
 
         public override void Draw(float x, float y, Color color)
         {
             Rectangle srcRectangle = GetSourceRectangle();
             Rectangle destRectangle = new(
-                0,
-                0,
+                (int)x,
+                (int)y,
                 FrameWidth * scale,
                 FrameHeight * scale);
 

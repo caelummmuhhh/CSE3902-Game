@@ -7,7 +7,7 @@ namespace MainGame.Enemies
     public class GoriyaMovingState : IEnemyState
     {
         private readonly GoriyaEnemy entity;
-        private readonly int maxMoveDuration = 31;
+        private readonly int maxMoveDuration = GameConstants.GoriyaMaxMoveDuration;
         private int moveDuration;
 
         public GoriyaMovingState(GoriyaEnemy goriya)
@@ -47,7 +47,7 @@ namespace MainGame.Enemies
         private bool AttemptBoomerang()
         {
             Random random = new();
-            if (random.Next(12) == 0 && !entity.IsStunned)
+            if (random.Next(GameConstants.GoriyaBoomerangProbability) == 0 && !entity.IsStunned)
             {
                 entity.State = new GoriyaAttackingState(entity);
                 return true;
@@ -68,4 +68,3 @@ namespace MainGame.Enemies
         }
     }
 }
-

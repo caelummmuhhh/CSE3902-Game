@@ -10,19 +10,18 @@ namespace MainGame.SpriteHandlers.ProjectileSprites
         public ArrowLeftProjectileSprite(
             Texture2D texture,
             SpriteBatch spriteBatch,
-            int spriteHeight = 16,
-            int spriteWidth = 16,
-            int textureStartingX = 0,
-            int textureStartingY = 0,
-            int scale = 1,
-            float layerDepth = 0.5f)
-            : base(texture, spriteHeight, spriteWidth, textureStartingX, textureStartingY, scale, layerDepth)
-        {
-            this.spriteBatch = spriteBatch;
-            origin = new(spriteWidth / 2f, spriteHeight / 2f);
-            rotation = MathHelper.ToRadians(180f);
-        }
-
+    int spriteHeight = GameConstants.ArrowLeftProjectileSpriteDefaultSpriteHeight,
+    int spriteWidth = GameConstants.ArrowLeftProjectileSpriteDefaultSpriteWidth,
+    int textureStartingX = GameConstants.ArrowLeftProjectileSpriteDefaultTextureStartingX,
+    int textureStartingY = GameConstants.ArrowLeftProjectileSpriteDefaultTextureStartingY,
+    int scale = GameConstants.ArrowLeftProjectileSpriteDefaultScale,
+    float layerDepth = GameConstants.ArrowLeftProjectileSpriteDefaultLayerDepth)
+    : base(texture, spriteHeight, spriteWidth, textureStartingX, textureStartingY, scale, layerDepth)
+{
+    this.spriteBatch = spriteBatch;
+    origin = new(spriteWidth / 2f, spriteHeight / 2f);
+    rotation = MathHelper.ToRadians(GameConstants.ArrowLeftProjectileSpriteDefaultRotation);
+}
         public override void Update() { /* not needed here */ }
 
         public override void Draw(float x, float y, Color color)

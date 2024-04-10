@@ -34,6 +34,8 @@ namespace MainGame
         /// Represents the size of one grid block.
         /// </summary>
         public static readonly int BlockSize = 16 * UniversalScale;
+
+        public static readonly int HudAndMenuHeight = 56 * UniversalScale;
     }
 
     public static class Utils

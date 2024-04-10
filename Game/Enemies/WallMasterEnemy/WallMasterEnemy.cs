@@ -6,7 +6,7 @@ namespace MainGame.Enemies
 {
 	public class WallMasterEnemy : GenericEnemy
 	{
-		public override int MovementCoolDownFrame { get; protected set; } = 1;
+		public override int MovementCoolDownFrame { get; protected set; } = GameConstants.WallMasterMovementCoolDownFrame;
         public readonly IPlayer Player;
 
         public WallMasterEnemy(Vector2 startingPosition, IPlayer player)
@@ -23,4 +23,3 @@ namespace MainGame.Enemies
         }
     }
 }
-

@@ -13,11 +13,11 @@ namespace MainGame.Enemies
         public void Update()
         {
             // FIXME: Spike Cross actually start moving when player is in the same grid block it's in
-            if (Math.Abs(entity.Player.Position.X - entity.Position.X) <= 48)
+            if (Math.Abs(entity.Player.Position.X - entity.Position.X) <= GameConstants.SpikeCrossIdleStateMoveTrigger)
             {
                 entity.MovingDirection = entity.Player.Position.Y < entity.Position.Y ? Direction.North : Direction.South;
             }
-            else if (Math.Abs(entity.Player.Position.Y - entity.Position.Y) <= 48)
+            else if (Math.Abs(entity.Player.Position.Y - entity.Position.Y) <= GameConstants.SpikeCrossIdleStateMoveTrigger)
             {
                 entity.MovingDirection = entity.Player.Position.X < entity.Position.X ? Direction.West : Direction.East;
             }
@@ -34,4 +34,3 @@ namespace MainGame.Enemies
         public void Move() { }
     }
 }
-

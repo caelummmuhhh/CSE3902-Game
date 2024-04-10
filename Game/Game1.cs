@@ -6,12 +6,14 @@ using MainGame.SpriteHandlers;
 using MainGame.Controllers;
 using MainGame.Players;
 using MainGame.Rooms;
-
+using MainGame.Doors;
+using MainGame.Blocks;
+using MainGame.Items;
+using MainGame.HudAndMenu;
 using MainGame.Collision;
 using MainGame.SpriteHandlers.BlockSprites;
 using MainGame.Projectiles;
 using MainGame.Enemies;
-using MainGame.Items;
 
 namespace MainGame;
 
@@ -27,12 +29,16 @@ public class Game1 : Game
 
     public BlockSprite testBlock; // TODO: DELETE ME
 
+    public Hud Hud;
+    public Menu Menu;
+
+
     public Game1()
     {
         GraphicsManager = new GraphicsDeviceManager(this)
         {
-            PreferredBackBufferWidth = 256 * Constants.UniversalScale,
-            PreferredBackBufferHeight = 176 * Constants.UniversalScale  //768 in sprint 4+
+            PreferredBackBufferWidth = GameConstants.BackBufferWidth,
+            PreferredBackBufferHeight = GameConstants.BackBufferHeight
         };
 
         //this.TargetElapsedTime = TimeSpan.FromSeconds(1d / 30d); //60);
@@ -54,11 +60,13 @@ public class Game1 : Game
         SpriteFactory.LoadAllTextures(Content);
         SpriteFactory.SpriteBatch = spriteBatch;
 
-        Player = new Player(new Vector2(96, 96));
+        Player = new Player(new Vector2(GameConstants.PlayerStartPositionX, GameConstants.PlayerStartPositionY + Constants.HudAndMenuHeight));
         RoomManager = new(this);
 
         Collision = new(this);
 
+        Hud = new Hud("1", "B", "A", this);
+        Menu = new Menu("B", this);
         testBlock = (BlockSprite)SpriteFactory.CreateBlackSquareSprite(); // TODO: DELETE ME
 
         controllers.Add(new KeyboardController(this, Player));
@@ -73,7 +81,10 @@ public class Game1 : Game
         }
         RoomManager.Update();
         Player.Update();
+        Hud.Update();
+        Menu.Update();
         Collision.Update();
+
         base.Update(gameTime);
     }
 
@@ -127,6 +138,9 @@ public class Game1 : Game
         {
             testBlock.Draw(hb, Color.White);
         }*/
+
+        Hud.Draw();
+        //Menu.Draw();
 
         spriteBatch.End();
 
