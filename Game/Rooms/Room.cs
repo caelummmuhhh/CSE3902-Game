@@ -38,7 +38,7 @@ namespace MainGame.Rooms
 
         public Room(ISprite outerBorder, ISprite innerBorder, ISprite tiles)
         {
-            Position = new Vector2(GameConstants.RoomInitialPosition, GameConstants.RoomInitialPosition);
+            Position = new Vector2(GameConstants.RoomInitialPosition, Constants.HudAndMenuHeight);
             OuterBorderSprite = outerBorder;
             InnerBorderSprite = innerBorder;
             TilesSprite = tiles;

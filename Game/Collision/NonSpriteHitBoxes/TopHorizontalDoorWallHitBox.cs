@@ -8,13 +8,13 @@ namespace MainGame.Collision
 		{
             Rectangle leftWall = new(
             x: GameConstants.TopHorizontalDoorWallX,
-            y: GameConstants.TopHorizontalDoorWallY,
+            y: Constants.HudAndMenuHeight,
             width: (int)(GameConstants.TopHorizontalDoorWallWidthFactor * Constants.BlockSize),
             height: GameConstants.TopHorizontalDoorWallHeight * Constants.BlockSize
             );
 
         Rectangle rightWall = new(
-            x: leftWall.Width + Constants.BlockSize,
+            x: leftWall.Right + Constants.BlockSize,
             y: leftWall.Y,
             width: (int)(GameConstants.TopHorizontalDoorWallWidthFactor * Constants.BlockSize),
             height: GameConstants.TopHorizontalDoorWallHeight * Constants.BlockSize
