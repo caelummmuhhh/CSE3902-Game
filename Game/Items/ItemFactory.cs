@@ -11,7 +11,7 @@ namespace MainGame.Items
 			ISprite sprite = SpriteFactory.CreateItemSprite(itemType);
 			return itemType switch
 			{
-				_ => new GenericItem(position, sprite, active)
+				_ => new GenericItem(position, sprite, itemType, active)
 			};
 		}
 

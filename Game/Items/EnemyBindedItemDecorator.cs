@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using MainGame.Enemies;
+using MainGame.Players;
 
 namespace MainGame.Items
 {
@@ -38,9 +39,9 @@ namespace MainGame.Items
             item.Collide();
         }
 
-        public void ActivateAbility()
+        public void ActivateAbility(IPlayer player)
         {
-            item.ActivateAbility();
+            
         }
     }
 }
