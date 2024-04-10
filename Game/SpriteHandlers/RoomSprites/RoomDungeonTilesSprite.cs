@@ -10,19 +10,18 @@ namespace MainGame.SpriteHandlers.ItemSprites
         public RoomInnerBorderSprite(
             Texture2D texture,
             SpriteBatch spriteBatch,
-            int spriteHeight = 176,
-            int spriteWidth = 256,
-            int textureStartingX = 0,
-            int textureStartingY = 0,
-            int scale = 1,
-            float layerDepth = 0.5f)
-            : base(texture, spriteHeight, spriteWidth, textureStartingX, textureStartingY, scale, layerDepth)
-        {
-            this.spriteBatch = spriteBatch;
-            origin = new Vector2(0, 0);
-            rotation = 0f;
-        }
-
+    int spriteHeight = GameConstants.RoomInnerBorderSpriteDefaultSpriteHeight,
+    int spriteWidth = GameConstants.RoomInnerBorderSpriteDefaultSpriteWidth,
+    int textureStartingX = GameConstants.RoomInnerBorderSpriteDefaultTextureStartingX,
+    int textureStartingY = GameConstants.RoomInnerBorderSpriteDefaultTextureStartingY,
+    int scale = GameConstants.RoomInnerBorderSpriteDefaultScale,
+    float layerDepth = GameConstants.RoomInnerBorderSpriteDefaultLayerDepth)
+    : base(texture, spriteHeight, spriteWidth, textureStartingX, textureStartingY, scale, layerDepth)
+{
+    this.spriteBatch = spriteBatch;
+    origin = new Vector2(GameConstants.RoomInnerBorderSpriteDefaultOriginX, GameConstants.RoomInnerBorderSpriteDefaultOriginY);
+    rotation = GameConstants.RoomInnerBorderSpriteDefaultRotation;
+}
         public override void Update() { /* not needed here */ }
 
         public override void Draw(float x, float y, Color color)

@@ -19,18 +19,18 @@ namespace MainGame.Projectiles
                     return new();
                 }
                 Rectangle destRect = sprite.DestinationRectangle;
-                Rectangle resized = new(destRect.X, destRect.Y, destRect.Width / 2, destRect.Height / 2);
+                Rectangle resized = new(destRect.X, destRect.Y, destRect.Width / GameConstants.SwordBeamProjectileHitBoxDivisor, destRect.Height / GameConstants.SwordBeamProjectileHitBoxDivisor);
                 return Utils.CentralizeRectangle((int)position.X, (int)position.Y, resized);
             }
         }
 
         private readonly ISprite sprite;
-        private readonly float maxDistanceTravel = float.MaxValue;
-        private readonly float speed = 10f;
+        private readonly float maxDistanceTravel = GameConstants.SwordBeamProjectileMaxDistanceTravel;
+        private readonly float speed = GameConstants.SwordBeamProjectileSpeed;
         private readonly Vector2 directionVector;
-        private bool exploding = false;
+        private bool exploding = GameConstants.SwordBeamProjectileInitialExploding;
         private IParticle explodingParticles; 
-        private bool isActive = true;
+        private bool isActive = GameConstants.SwordBeamProjectileInitialIsActive;
         private Vector2 position;
         private Vector2 startingPosition;
         private readonly Direction direction;
@@ -44,19 +44,19 @@ namespace MainGame.Projectiles
             {
                 case Direction.North:
                     sprite = SpriteFactory.CreateSwordBeamUpProjectileSprite();
-                    directionVector = new(0, -1);
+                    directionVector = new(GameConstants.SwordBeamProjectileInitialDirectionVector, GameConstants.SwordBeamProjectileNorthDirectionVector);
                     break;
                 case Direction.South:
                     sprite = SpriteFactory.CreateSwordBeamDownProjectileSprite();
-                    directionVector = new(0, 1);
+                    directionVector = new(GameConstants.SwordBeamProjectileInitialDirectionVector, GameConstants.SwordBeamProjectileSouthDirectionVector);
                     break;
                 case Direction.East:
                     sprite = SpriteFactory.CreateSwordBeamRightProjectileSprite();
-                    directionVector = new(1, 0);
+                    directionVector = new(GameConstants.SwordBeamProjectileEastDirectionVector, GameConstants.SwordBeamProjectileInitialDirectionVector);
                     break;
                 case Direction.West:
                     sprite = SpriteFactory.CreateSwordBeamLeftProjectileSprite();
-                    directionVector = new(-1, 0);
+                    directionVector = new(GameConstants.SwordBeamProjectileWestDirectionVector, GameConstants.SwordBeamProjectileInitialDirectionVector);
                     break;
             }
         }

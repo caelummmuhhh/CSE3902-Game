@@ -23,25 +23,24 @@ namespace MainGame.SpriteHandlers.EnemySprites
             int numRows,
             int numColumns,
             int numberOfFrames,
-            int frameHeight = 16,
-            int frameWidth = 16,
-            int textureStartingX = 0,
-            int textureStartingY = 0,
-            int scale = 1,
-            float layerDepth = 0.5f)
-            : base(texture, numRows, numColumns, frameWidth, frameHeight, numberOfFrames,
-                  textureStartingX, textureStartingY, scale, layerDepth)
-        {
-            this.spriteBatch = spriteBatch;
-            spriteDisplayTimeLapse = 0;
-            spriteFlip = false;
-            frameDisplayTimeMap = new()
-            {
-                { 0, 8 },
-                { 1, 8 },
-            };
-        }
-
+    int frameHeight = GameConstants.StalfosSpriteDefaultFrameHeight,
+    int frameWidth = GameConstants.StalfosSpriteDefaultFrameWidth,
+    int textureStartingX = GameConstants.StalfosSpriteDefaultTextureStartingX,
+    int textureStartingY = GameConstants.StalfosSpriteDefaultTextureStartingY,
+    int scale = GameConstants.StalfosSpriteDefaultScale,
+    float layerDepth = GameConstants.StalfosSpriteDefaultLayerDepth)
+    : base(texture, numRows, numColumns, frameWidth, frameHeight, numberOfFrames,
+          textureStartingX, textureStartingY, scale, layerDepth)
+{
+    this.spriteBatch = spriteBatch;
+    spriteDisplayTimeLapse = GameConstants.StalfosSpriteInitialDisplayTimeLapse;
+    spriteFlip = GameConstants.StalfosSpriteInitialFlipState;
+    frameDisplayTimeMap = new()
+    {
+        { GameConstants.StalfosSpriteInitialFrame, GameConstants.StalfosSpriteFrameDisplayTime },
+        { GameConstants.StalfosSpriteNextFrame, GameConstants.StalfosSpriteFrameDisplayTime },
+    };
+}
         public override void Update()
         {
             if (spriteDisplayTimeLapse != frameDisplayTimeMap[currentFrame])

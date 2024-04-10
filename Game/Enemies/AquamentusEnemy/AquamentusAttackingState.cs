@@ -9,8 +9,7 @@ namespace MainGame.Enemies
         private readonly IEnemyState undecoratedState;
         private readonly AquamentusEnemy entity;
         private readonly ISprite originalSprite;
-        private int attackDuration = 32;
-
+        private int attackDuration = GameConstants.AquamentusAttackDuration;
 		public AquamentusAttackingState(IEnemyState undecoratedState, AquamentusEnemy enemy)
 		{
             originalSprite = enemy.Sprite;
@@ -18,7 +17,7 @@ namespace MainGame.Enemies
             this.undecoratedState = undecoratedState;
             entity = enemy;
 
-            Vector2 mouthPosition = new(entity.Position.X - 16, entity.Position.Y - 12);
+            Vector2 mouthPosition = new(entity.Position.X - GameConstants.AquamentusMouthPositionXOffset, entity.Position.Y - GameConstants.AquamentusMouthPositionYOffset);
             entity.ProjectilesManager.AddProjectile(new AquamentusAttackProjectiles(mouthPosition, entity.Player));
 		}
 
@@ -43,4 +42,3 @@ namespace MainGame.Enemies
         }
     }
 }
-

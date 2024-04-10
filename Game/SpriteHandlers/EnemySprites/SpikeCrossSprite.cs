@@ -10,17 +10,16 @@ namespace MainGame.SpriteHandlers.EnemySprites
         public SpikeCrossSprite(
             Texture2D texture,
             SpriteBatch spriteBatch,
-            int spriteHeight = 16,
-            int spriteWidth = 16,
-            int textureStartingX = 0,
-            int textureStartingY = 0,
-            int scale = 1,
-            float layerDepth = 0.5f)
-            : base(texture, spriteHeight, spriteWidth, textureStartingX, textureStartingY, scale, layerDepth)
-        {
-            this.spriteBatch = spriteBatch;
-        }
-
+    int spriteHeight = GameConstants.SpikeCrossSpriteDefaultSpriteHeight,
+    int spriteWidth = GameConstants.SpikeCrossSpriteDefaultSpriteWidth,
+    int textureStartingX = GameConstants.SpikeCrossSpriteDefaultTextureStartingX,
+    int textureStartingY = GameConstants.SpikeCrossSpriteDefaultTextureStartingY,
+    int scale = GameConstants.SpikeCrossSpriteDefaultScale,
+    float layerDepth = GameConstants.SpikeCrossSpriteDefaultLayerDepth)
+    : base(texture, spriteHeight, spriteWidth, textureStartingX, textureStartingY, scale, layerDepth)
+{
+    this.spriteBatch = spriteBatch;
+}
         public override void Update() { /* not needed here */ }
 
         public override void Draw(float x, float y, Color color)
@@ -32,4 +31,3 @@ namespace MainGame.SpriteHandlers.EnemySprites
         }
     }
 }
-

@@ -21,9 +21,9 @@ namespace MainGame.Projectiles
 
         private ISprite sprite;
         private bool collided = false;
-		private readonly float maxDistanceTravel = 1000f;
-        private readonly float speed = 15f;
-        private int collisionTimer = 10;
+		private readonly float maxDistanceTravel = GameConstants.ArrowProjectileMaxDistanceTravel;
+        private readonly float speed = GameConstants.ArrowProjectileSpeed;
+        private int collisionTimer = GameConstants.ArrowProjectileCollisionTimer;
         private bool isActive = true;
         private Vector2 position;
         private Vector2 startingPosition;
@@ -73,8 +73,8 @@ namespace MainGame.Projectiles
 
         private void Move()
         {
-            float changeX = 0f;
-            float changeY = 0f;
+            float changeX = GameConstants.ArrowProjectileInitialChange;
+            float changeY = GameConstants.ArrowProjectileInitialChange;
             switch (direction)
             {
                 case Direction.North:

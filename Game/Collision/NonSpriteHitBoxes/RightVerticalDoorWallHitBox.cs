@@ -7,22 +7,21 @@ namespace MainGame.Collision
         public RightVerticalDoorWallHitBox()
         {
             Rectangle topWall = new(
-                x: 14 * Constants.BlockSize,
-                y: 0,
-                width: 2 * Constants.BlockSize,
-                height: 5 * Constants.BlockSize
-                );
+            x: GameConstants.RightVerticalDoorWallXFactor * Constants.BlockSize,
+            y: GameConstants.RightVerticalDoorWallY,
+            width: GameConstants.RightVerticalDoorWallWidth * Constants.BlockSize,
+            height: GameConstants.RightVerticalDoorWallTopHeight * Constants.BlockSize
+            );
 
-            Rectangle bottomWall = new(
-                x: topWall.X,
-                y: topWall.Height + Constants.BlockSize,
-                width: 2 * Constants.BlockSize,
-                height: 5 * Constants.BlockSize
-                );
+        Rectangle bottomWall = new(
+            x: topWall.X,
+            y: topWall.Height + Constants.BlockSize,
+            width: GameConstants.RightVerticalDoorWallWidth * Constants.BlockSize,
+            height: GameConstants.RightVerticalDoorWallBottomHeight * Constants.BlockSize
+            );
 
-            HitBoxes.Add(topWall);
-            HitBoxes.Add(bottomWall);
+        HitBoxes.Add(topWall);
+        HitBoxes.Add(bottomWall);
         }
     }
 }
-

@@ -21,24 +21,23 @@ namespace MainGame.SpriteHandlers.ItemSprites
             int numRows,
             int numColumns,
             int numberOfFrames,
-            int frameHeight = 16,
-            int frameWidth = 16,
-            int textureStartingX = 0,
-            int textureStartingY = 0,
-            int scale = 1,
-            float layerDepth = 0.5f)
-            : base(texture, numRows, numColumns, frameWidth, frameHeight, numberOfFrames,
-                  textureStartingX, textureStartingY, scale, layerDepth)
-        {
-            this.spriteBatch = spriteBatch;
-            spriteDisplayTimeLapse = 0;
-            frameDisplayTimeMap = new()
-            {
-                { 0, 8 },
-                { 1, 8 },
-            };
-        }
-
+    int frameHeight = GameConstants.RupeeItemSpriteDefaultFrameHeight,
+    int frameWidth = GameConstants.RupeeItemSpriteDefaultFrameWidth,
+    int textureStartingX = GameConstants.RupeeItemSpriteDefaultTextureStartingX,
+    int textureStartingY = GameConstants.RupeeItemSpriteDefaultTextureStartingY,
+    int scale = GameConstants.RupeeItemSpriteDefaultScale,
+    float layerDepth = GameConstants.RupeeItemSpriteDefaultLayerDepth)
+    : base(texture, numRows, numColumns, frameWidth, frameHeight, numberOfFrames,
+          textureStartingX, textureStartingY, scale, layerDepth)
+{
+    this.spriteBatch = spriteBatch;
+    spriteDisplayTimeLapse = GameConstants.RupeeItemSpriteInitialDisplayTimeLapse;
+    frameDisplayTimeMap = new()
+    {
+        { GameConstants.RupeeItemSpriteInitialFrame, GameConstants.RupeeItemSpriteFrameDisplayTime },
+        { GameConstants.RupeeItemSpriteNextFrame, GameConstants.RupeeItemSpriteFrameDisplayTime },
+    };
+}
 
         public override void Update()
         {
@@ -60,4 +59,3 @@ namespace MainGame.SpriteHandlers.ItemSprites
         }
     }
 }
-

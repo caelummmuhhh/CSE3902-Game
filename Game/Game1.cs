@@ -31,8 +31,8 @@ public class Game1 : Game
     {
         GraphicsManager = new GraphicsDeviceManager(this)
         {
-            PreferredBackBufferWidth = 256 * Constants.UniversalScale,
-            PreferredBackBufferHeight = 176 * Constants.UniversalScale  //768 in sprint 4+
+            PreferredBackBufferWidth = GameConstants.BackBufferWidthFactor * Constants.UniversalScale,
+            PreferredBackBufferHeight = GameConstants.BackBufferHeightFactor * Constants.UniversalScale
         };
 
         //this.TargetElapsedTime = TimeSpan.FromSeconds(1d / 30d); //60);
@@ -54,7 +54,7 @@ public class Game1 : Game
         SpriteFactory.LoadAllTextures(Content);
         SpriteFactory.SpriteBatch = spriteBatch;
 
-        Player = new Player(new Vector2(96, 96));
+        Player = new Player(new Vector2(GameConstants.PlayerStartPositionX, GameConstants.PlayerStartPositionY));
         RoomManager = new(this);
 
         Collision = new(this);

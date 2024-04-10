@@ -20,23 +20,23 @@ namespace MainGame.SpriteHandlers.EnemySprites
             int numRows,
             int numColumns,
             int numberOfFrames,
-            int frameHeight = 16,
-            int frameWidth = 16,
-            int textureStartingX = 0,
-            int textureStartingY = 0,
-            int scale = 1,
-            float layerDepth = 0f)
-            : base(texture, numRows, numColumns, frameWidth, frameHeight, numberOfFrames,
-                  textureStartingX, textureStartingY, scale, layerDepth)
-        {
-            this.spriteBatch = spriteBatch;
-            spriteDisplayTimeLapse = 0;
-            frameDisplayTimeMap = new()
-            {
-                { 0, 16 },
-                { 1, 16 },
-            };
-        }
+            int frameHeight = GameConstants.AquamentusAttackingSpriteDefaultFrameHeight,
+    int frameWidth = GameConstants.AquamentusAttackingSpriteDefaultFrameWidth,
+    int textureStartingX = GameConstants.AquamentusAttackingSpriteDefaultTextureStartingX,
+    int textureStartingY = GameConstants.AquamentusAttackingSpriteDefaultTextureStartingY,
+    int scale = GameConstants.AquamentusAttackingSpriteDefaultScale,
+    float layerDepth = GameConstants.AquamentusAttackingSpriteDefaultLayerDepth)
+    : base(texture, numRows, numColumns, frameWidth, frameHeight, numberOfFrames,
+          textureStartingX, textureStartingY, scale, layerDepth)
+{
+    this.spriteBatch = spriteBatch;
+    spriteDisplayTimeLapse = GameConstants.AquamentusAttackingSpriteInitialDisplayTimeLapse;
+    frameDisplayTimeMap = new()
+    {
+        { GameConstants.AquamentusAttackingSpriteInitialFrame, GameConstants.AquamentusAttackingSpriteFrameDisplayTime },
+        { GameConstants.AquamentusAttackingSpriteNextFrame, GameConstants.AquamentusAttackingSpriteFrameDisplayTime },
+    };
+}
 
         public override void Update()
         {

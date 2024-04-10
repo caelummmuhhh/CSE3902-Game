@@ -39,15 +39,15 @@ namespace MainGame.SpriteHandlers.EnemySprites
             int numRows,
             int numColumns,
             int numberOfFrames,
-            int frameHeight = 16,
-            int frameWidth = 16,
-            int textureStartingX = 0,
-            int textureStartingY = 0,
-            int scale = 1,
-            float layerDepth = 0.5f)
-            : base(texture, numRows, numColumns, frameWidth, frameHeight, numberOfFrames,
-                  textureStartingX, textureStartingY, scale, layerDepth)
-        {
+    int frameHeight = GameConstants.KeeseTakeOffSpriteDefaultFrameHeight,
+    int frameWidth = GameConstants.KeeseTakeOffSpriteDefaultFrameWidth,
+    int textureStartingX = GameConstants.KeeseTakeOffSpriteDefaultTextureStartingX,
+    int textureStartingY = GameConstants.KeeseTakeOffSpriteDefaultTextureStartingY,
+    int scale = GameConstants.KeeseTakeOffSpriteDefaultScale,
+    float layerDepth = GameConstants.KeeseTakeOffSpriteDefaultLayerDepth)
+    : base(texture, numRows, numColumns, frameWidth, frameHeight, numberOfFrames,
+          textureStartingX, textureStartingY, scale, layerDepth)
+{
             this.spriteBatch = spriteBatch;
             currentAnimationFrameData = new()
             {

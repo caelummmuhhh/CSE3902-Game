@@ -27,12 +27,12 @@ namespace MainGame.Projectiles
 		private Vector2 position;
 		protected readonly ISprite sprite;
 		protected int horizontalSpeed = Constants.UniversalScale;
-		protected int initialMovementDuration = 20;
-		protected int movementDuration = 500; // TODO: or until it hits something
+protected int initialMovementDuration = GameConstants.AquamentusProjectileInitialMovementDuration;
+		protected int movementDuration = GameConstants.AquamentusProjectileMovementDuration; // TODO: or until it hits something
 
-		protected float initalMovementSpeed = 1f;
-		protected float mainMovementSpeed = Constants.UniversalScale * 2;
-		protected float projectionOffset = (float)Math.Sin(15d * Math.PI / 180d);
+		protected float initalMovementSpeed = GameConstants.AquamentusProjectileInitialMovementSpeed;
+		protected float mainMovementSpeed = Constants.UniversalScale * GameConstants.AquamentusProjectileMainMovementSpeedFactor;
+		protected float projectionOffset = (float)Math.Sin(GameConstants.AquamentusProjectileProjectionOffsetFactor * Math.PI / GameConstants.AquamentusProjectileProjectionOffsetDivisor);
 
         public AquamentusBaseProjectile(Vector2 spawnPosition)
 		{

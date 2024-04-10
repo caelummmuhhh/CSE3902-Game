@@ -10,18 +10,18 @@ namespace MainGame.SpriteHandlers.ItemSprites
         public DoorSegmentNorthSouth(
             Texture2D texture,
             SpriteBatch spriteBatch,
-            int spriteHeight = 16,
-            int spriteWidth = 32,
-            int textureStartingX = 0,
-            int textureStartingY = 0,
-            int scale = 1,
-            float layerDepth = 0.5f)
-            : base(texture, spriteHeight, spriteWidth, textureStartingX, textureStartingY, scale, layerDepth)
-        {
-            this.spriteBatch = spriteBatch;
-            origin = new Vector2(0, 0);
-            rotation = 0f;
-        }
+            int spriteHeight = GameConstants.DoorSegmentNorthSouthDefaultSpriteHeight,
+        int spriteWidth = GameConstants.DoorSegmentNorthSouthDefaultSpriteWidth,
+        int textureStartingX = GameConstants.DoorSegmentNorthSouthDefaultTextureStartingX,
+        int textureStartingY = GameConstants.DoorSegmentNorthSouthDefaultTextureStartingY,
+        int scale = GameConstants.DoorSegmentNorthSouthDefaultScale,
+        float layerDepth = GameConstants.DoorSegmentNorthSouthDefaultLayerDepth)
+        : base(texture, spriteHeight, spriteWidth, textureStartingX, textureStartingY, scale, layerDepth)
+    {
+        this.spriteBatch = spriteBatch;
+        origin = new Vector2(GameConstants.DoorSegmentNorthSouthDefaultOrigin, GameConstants.DoorSegmentNorthSouthDefaultOrigin);
+        rotation = GameConstants.DoorSegmentNorthSouthDefaultRotation;
+    }
 
         public override void Update() { /* not needed here */ }
 

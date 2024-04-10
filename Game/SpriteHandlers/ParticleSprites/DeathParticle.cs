@@ -20,25 +20,23 @@ namespace MainGame.SpriteHandlers.ParticleSprites
             int numRows,
             int numColumns,
             int numberOfFrames,
-            int frameHeight = 16,
-            int frameWidth = 16,
-            int textureStartingX = 0,
-            int textureStartingY = 0,
-            int scale = 1,
-            float layerDepth = 0.5f)
-            : base(texture, numRows, numColumns, frameWidth, frameHeight, numberOfFrames,
-                  textureStartingX, textureStartingY, scale, layerDepth)
-        {
-            this.spriteBatch = spriteBatch;
-            spriteDisplayTimeLapse = 0;
-            frameDisplayTimeMap = new()
-            {
-                { 0, 6 },
-                { 1, 6 },
-            };
-
-        }
-
+    int frameHeight = GameConstants.DeathParticleDefaultFrameHeight,
+    int frameWidth = GameConstants.DeathParticleDefaultFrameWidth,
+    int textureStartingX = GameConstants.DeathParticleDefaultTextureStartingX,
+    int textureStartingY = GameConstants.DeathParticleDefaultTextureStartingY,
+    int scale = GameConstants.DeathParticleDefaultScale,
+    float layerDepth = GameConstants.DeathParticleDefaultLayerDepth)
+    : base(texture, numRows, numColumns, frameWidth, frameHeight, numberOfFrames,
+          textureStartingX, textureStartingY, scale, layerDepth)
+{
+    this.spriteBatch = spriteBatch;
+    spriteDisplayTimeLapse = GameConstants.DeathParticleInitialDisplayTimeLapse;
+    frameDisplayTimeMap = new()
+    {
+        { GameConstants.DeathParticleInitialFrame, GameConstants.DeathParticleFrameDisplayTime },
+        { GameConstants.DeathParticleNextFrame, GameConstants.DeathParticleFrameDisplayTime },
+    };
+}
         public override void Draw(float x, float y, Color color)
         {
             Rectangle srcRectangle = GetSourceRectangle();

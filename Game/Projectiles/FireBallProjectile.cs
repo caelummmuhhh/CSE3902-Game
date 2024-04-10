@@ -13,8 +13,8 @@ namespace MainGame.Projectiles
 
         private readonly ISprite sprite;
         private readonly float maxDistanceTravel = Constants.BlockSize;
-        private int idletime = 100;
-        private readonly float speed = 1f;
+        private int idletime = GameConstants.FireBallProjectileInitialIdleTime;
+        private readonly float speed = GameConstants.FireBallProjectileSpeed;
         private bool isActive = true;
         private Vector2 position;
         private Vector2 startingPosition;
@@ -71,8 +71,8 @@ namespace MainGame.Projectiles
 
         private void Move()
         {
-            float changeX = 0f;
-            float changeY = 0f;
+            float changeX = GameConstants.FireBallProjectileInitialChange;
+            float changeY = GameConstants.FireBallProjectileInitialChange;
             switch (direction)
             {
                 case Direction.North:

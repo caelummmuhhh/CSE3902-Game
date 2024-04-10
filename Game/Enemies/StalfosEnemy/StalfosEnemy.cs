@@ -5,10 +5,10 @@ namespace MainGame.Enemies
 {
 	public class StalfosEnemy : GenericEnemy
 	{
-		public override int MovementCoolDownFrame { get; protected set; } = 2;
+		public override int MovementCoolDownFrame { get; protected set; } = GameConstants.StalfosMovementCoolDownFrame;
 
 		private int moveDuration;
-		private readonly int maxMoveDuration = 32;
+		private readonly int maxMoveDuration = GameConstants.StalfosMaxMoveDuration;
 
 		public StalfosEnemy(Vector2 startingPosition)
 		{
@@ -39,4 +39,3 @@ namespace MainGame.Enemies
         }
     }
 }
-

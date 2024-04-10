@@ -6,14 +6,12 @@ namespace MainGame.Collision
     {
         public BottomFullHorizontalWallHitBox()
         {
-            Rectangle wallHitBox = new(
-                x: 0,
-                y: (112 + 32) * Constants.UniversalScale,
-                width: 256 * Constants.UniversalScale,
-                height: 32 * Constants.UniversalScale
-                );
-            HitBoxes.Add(wallHitBox);
-        }
+        Rectangle wallHitBox = new(
+            x: GameConstants.BottomFullHorizontalWallX,
+            y: (GameConstants.BottomFullHorizontalWallYFactor1 + GameConstants.BottomFullHorizontalWallYFactor2) * Constants.UniversalScale,
+            width: GameConstants.BottomFullHorizontalWallWidth * Constants.UniversalScale,
+            height: GameConstants.BottomFullHorizontalWallHeight * Constants.UniversalScale
+            );
+        HitBoxes.Add(wallHitBox);        }
     }
 }
-
