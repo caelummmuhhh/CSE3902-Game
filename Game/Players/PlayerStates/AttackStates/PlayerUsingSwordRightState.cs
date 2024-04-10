@@ -7,7 +7,7 @@ namespace MainGame.Players.PlayerStates
     {
 		private readonly IPlayer player;
 		private readonly int stateDuration;
-        private int currentFrame = 0;
+        private int currentFrame = GameConstants.AttackStateInitialCurrentFrame;
 
         public PlayerUsingSwordRightState(IPlayer player)
 		{
@@ -67,4 +67,3 @@ namespace MainGame.Players.PlayerStates
         }
     }
 }
-

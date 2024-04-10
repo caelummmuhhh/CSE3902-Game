@@ -10,17 +10,16 @@ namespace MainGame.SpriteHandlers.EnemySprites
         public OldManSprite(
             Texture2D texture,
             SpriteBatch spriteBatch,
-            int spriteHeight = 16,
-            int spriteWidth = 16,
-            int textureStartingX = 0,
-            int textureStartingY = 0,
-            int scale = 1,
-            float layerDepth = 0.5f)
-            : base(texture, spriteHeight, spriteWidth, textureStartingX, textureStartingY, scale, layerDepth)
-        {
-            this.spriteBatch = spriteBatch;
-        }
-
+    int spriteHeight = GameConstants.OldManSpriteDefaultSpriteHeight,
+    int spriteWidth = GameConstants.OldManSpriteDefaultSpriteWidth,
+    int textureStartingX = GameConstants.OldManSpriteDefaultTextureStartingX,
+    int textureStartingY = GameConstants.OldManSpriteDefaultTextureStartingY,
+    int scale = GameConstants.OldManSpriteDefaultScale,
+    float layerDepth = GameConstants.OldManSpriteDefaultLayerDepth)
+    : base(texture, spriteHeight, spriteWidth, textureStartingX, textureStartingY, scale, layerDepth)
+{
+    this.spriteBatch = spriteBatch;
+}
         public override void Update() { /* not needed here */ }
 
         public override void Draw(float x, float y, Color color)

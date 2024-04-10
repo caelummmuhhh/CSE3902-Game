@@ -39,8 +39,8 @@ namespace MainGame.Enemies
         public void Move()
         {
             // Move in direction every 4 frames for first half, then 8 frames for second
-            if ((stateTimeRemaining < stateDuration / 2 && stateTimeRemaining % 8 != 0)
-                || (stateTimeRemaining >= stateDuration / 2 && stateTimeRemaining % 4 != 0))
+        if ((stateTimeRemaining < stateDuration / GameConstants.KeeseLandingStateHalf && stateTimeRemaining % GameConstants.KeeseLandingStateMoveSlow != 0)
+            || (stateTimeRemaining >= stateDuration / GameConstants.KeeseLandingStateHalf && stateTimeRemaining % GameConstants.KeeseLandingStateMoveFast != 0))
             {
                 return;
             }

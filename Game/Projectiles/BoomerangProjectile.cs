@@ -14,7 +14,7 @@ namespace MainGame.Projectiles
             get
             {
                 Rectangle destRect = sprite.DestinationRectangle;
-                Rectangle resized = new((int)Position.X, (int)Position.Y, destRect.Width / 2, destRect.Height / 2);
+                Rectangle resized = new((int)Position.X, (int)Position.Y, destRect.Width / GameConstants.BoomerangProjectileHitBoxDivisor, destRect.Height / GameConstants.BoomerangProjectileHitBoxDivisor);
                 return Utils.CentralizeRectangle(resized.X, resized.Y, resized);
             }
         }
@@ -22,15 +22,15 @@ namespace MainGame.Projectiles
         private readonly ISprite sprite;
 		private readonly ISprite collideEffect;
 		private Vector2 collidePosition;
-		private int collideSpriteDuration = 10;
-		private bool showCollideSprite = false;
+		private int collideSpriteDuration = GameConstants.BoomerangProjectileCollideSpriteDuration;
+		private bool showCollideSprite = GameConstants.BoomerangProjectileInitialShowCollideSprite;
 		private Vector2 position;
 		private Vector2 startingPosition;
-		private bool isActive = true;
-        private bool returning = false;
-        private readonly float acceleration = 0.02f;
+		private bool isActive = GameConstants.BoomerangProjectileInitialIsActive;
+        private bool returning = GameConstants.BoomerangProjectileInitialReturning;
+        private readonly float acceleration = GameConstants.BoomerangProjectileAcceleration;
         private float speed;
-        private int timer = 0;
+        private int timer = GameConstants.BoomerangProjectileInitialTimer;
         private Direction direction;
 
 		public BoomerangProjectile(Vector2 entityPosition, Direction direction)
@@ -41,7 +41,7 @@ namespace MainGame.Projectiles
 			collideEffect = SpriteFactory.CreateArrowProjectileHitSprite();
 
             this.direction = direction;
-			speed = 10;
+			speed = GameConstants.BoomerangProjectileInitialSpeed;
         }
 
 		public void Update()
@@ -55,7 +55,7 @@ namespace MainGame.Projectiles
 				showCollideSprite = collideSpriteDuration > 0;
 			}
 
-			if (returning && Vector2.Distance(position, startingPosition) < 10f)
+			if (returning && Vector2.Distance(position, startingPosition) < GameConstants.BoomerangProjectileReturnDistance)
 			{
 				isActive = false;
 			}

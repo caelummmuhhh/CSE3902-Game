@@ -10,17 +10,16 @@ namespace MainGame.SpriteHandlers.ProjectileSprites
         public ArrowProjectileHitSprite(
             Texture2D texture,
             SpriteBatch spriteBatch,
-            int spriteHeight = 16,
-            int spriteWidth = 16,
-            int textureStartingX = 0,
-            int textureStartingY = 0,
-            int scale = 1,
-            float layerDepth = 0.5f)
-            : base(texture, spriteHeight, spriteWidth, textureStartingX, textureStartingY, scale, layerDepth)
-        {
-            this.spriteBatch = spriteBatch;
-        }
-
+    int spriteHeight = GameConstants.ArrowProjectileHitSpriteDefaultSpriteHeight,
+    int spriteWidth = GameConstants.ArrowProjectileHitSpriteDefaultSpriteWidth,
+    int textureStartingX = GameConstants.ArrowProjectileHitSpriteDefaultTextureStartingX,
+    int textureStartingY = GameConstants.ArrowProjectileHitSpriteDefaultTextureStartingY,
+    int scale = GameConstants.ArrowProjectileHitSpriteDefaultScale,
+    float layerDepth = GameConstants.ArrowProjectileHitSpriteDefaultLayerDepth)
+    : base(texture, spriteHeight, spriteWidth, textureStartingX, textureStartingY, scale, layerDepth)
+{
+    this.spriteBatch = spriteBatch;
+}
         public override void Update() { /* not needed here */ }
 
         public override void Draw(float x, float y, Color color)

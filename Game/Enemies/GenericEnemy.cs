@@ -5,9 +5,9 @@ namespace MainGame.Enemies
 {
 	public abstract class GenericEnemy : IEnemy
 	{
-        public static readonly int ImmunityFrame = 10;
+        public static readonly int ImmunityFrame = GameConstants.GenericEnemyImmunityFrame;
         public static readonly float MaxKnockedBackDistance = Constants.BlockSize;
-        public static readonly float KnockBackSpeed = 10f;
+        public static readonly float KnockBackSpeed = GameConstants.GenericEnemyKnockBackSpeed;
         /// <summary>
         /// If moving, the entity can only move once every MovementCoolDownFrame.
         /// </summary>
@@ -26,9 +26,9 @@ namespace MainGame.Enemies
         public virtual IEnemyState State { get; set; }
 
         protected Color spriteColor = Color.White;
-        protected int invulnerableTimer = 0;
-        protected int stunDuration = 0;
-        protected float knockedBackDistance = 0f;
+        protected int invulnerableTimer = GameConstants.GenericEnemyInitialInvulnerableTimer;
+        protected int stunDuration = GameConstants.GenericEnemyInitialStunDuration;
+        protected float knockedBackDistance = GameConstants.GenericEnemyInitialKnockedBackDistance;
         protected Direction knockBackDirection;
 
         public GenericEnemy() { }
@@ -84,7 +84,7 @@ namespace MainGame.Enemies
         protected virtual void FlashColors()
         {
             spriteColor = Color.White;
-            if (invulnerableTimer % 4 == 0 || invulnerableTimer % 4 == 1)
+            if (invulnerableTimer % GameConstants.GenericEnemyFlashColorFactor == 0 || invulnerableTimer % GameConstants.GenericEnemyFlashColorFactor == 1)
             {
                 spriteColor = Color.IndianRed;
             }

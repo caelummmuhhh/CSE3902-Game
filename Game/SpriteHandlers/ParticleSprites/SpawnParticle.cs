@@ -23,23 +23,22 @@ namespace MainGame.SpriteHandlers.ParticleSprites
             int numberOfFrames,
             int frameHeight,
             int frameWidth,
-            int textureStartingX = 0,
-            int textureStartingY = 0,
-            int scale = 1,
-            float layerDepth = 0.5f)
-            : base(texture, numRows, numColumns, frameWidth, frameHeight, numberOfFrames,
-                  textureStartingX, textureStartingY, scale, layerDepth)
-        {
-            this.spriteBatch = spriteBatch;
-            spriteDisplayTimeLapse = 0;
-            frameDisplayTimeMap = new()
-            {
-                { 0, 3 },
-                { 1, 6 },
-                { 2, 6 }
-            };
-        }
-
+    int textureStartingX = GameConstants.SpawnParticleDefaultTextureStartingX,
+    int textureStartingY = GameConstants.SpawnParticleDefaultTextureStartingY,
+    int scale = GameConstants.SpawnParticleDefaultScale,
+    float layerDepth = GameConstants.SpawnParticleDefaultLayerDepth)
+    : base(texture, numRows, numColumns, frameWidth, frameHeight, numberOfFrames,
+          textureStartingX, textureStartingY, scale, layerDepth)
+{
+    this.spriteBatch = spriteBatch;
+    spriteDisplayTimeLapse = GameConstants.SpawnParticleInitialDisplayTimeLapse;
+    frameDisplayTimeMap = new()
+    {
+        { GameConstants.SpawnParticleInitialFrame, GameConstants.SpawnParticleInitialFrameDisplayTime },
+        { GameConstants.SpawnParticleNextFrame1, GameConstants.SpawnParticleNextFrameDisplayTime },
+        { GameConstants.SpawnParticleNextFrame2, GameConstants.SpawnParticleNextFrameDisplayTime },
+    };
+}
         public override void Draw(float x, float y, Color color)
         {
             Rectangle srcRectangle = GetSourceRectangle();

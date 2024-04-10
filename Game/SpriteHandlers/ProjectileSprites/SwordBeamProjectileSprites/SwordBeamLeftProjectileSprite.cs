@@ -20,28 +20,27 @@ namespace MainGame.SpriteHandlers.ProjectileSprites
             int numRows,
             int numColumns,
             int numberOfFrames,
-            int frameHeight = 16,
-            int frameWidth = 16,
-            int textureStartingX = 0,
-            int textureStartingY = 0,
-            int scale = 1,
-            float layerDepth = 0.5f)
-            : base(texture, numRows, numColumns, frameWidth, frameHeight, numberOfFrames,
-                  textureStartingX, textureStartingY, scale, layerDepth)
-        {
-            this.spriteBatch = spriteBatch;
-            spriteDisplayTimeLapse = 0;
-            rotation = MathHelper.ToRadians(180f);
-            origin = new(FrameWidth / 2f, FrameHeight / 2f);
-            frameDisplayTimeMap = new()
-            {
-                { 0, 1 },
-                { 1, 1 },
-                { 2, 1 },
-                { 3, 1 }
-            };
-        }
-
+     int frameHeight = GameConstants.SwordBeamLeftProjectileSpriteDefaultFrameHeight,
+    int frameWidth = GameConstants.SwordBeamLeftProjectileSpriteDefaultFrameWidth,
+    int textureStartingX = GameConstants.SwordBeamLeftProjectileSpriteDefaultTextureStartingX,
+    int textureStartingY = GameConstants.SwordBeamLeftProjectileSpriteDefaultTextureStartingY,
+    int scale = GameConstants.SwordBeamLeftProjectileSpriteDefaultScale,
+    float layerDepth = GameConstants.SwordBeamLeftProjectileSpriteDefaultLayerDepth)
+    : base(texture, numRows, numColumns, frameWidth, frameHeight, numberOfFrames,
+          textureStartingX, textureStartingY, scale, layerDepth)
+{
+    this.spriteBatch = spriteBatch;
+    spriteDisplayTimeLapse = 0;
+    rotation = MathHelper.ToRadians(GameConstants.SwordBeamLeftProjectileSpriteDefaultRotation);
+    origin = new(FrameWidth / 2f, FrameHeight / 2f);
+    frameDisplayTimeMap = new()
+    {
+        { 0, GameConstants.SwordBeamLeftProjectileSpriteDefaultFrame0DisplayTime },
+        { 1, GameConstants.SwordBeamLeftProjectileSpriteDefaultFrame1DisplayTime },
+        { 2, GameConstants.SwordBeamLeftProjectileSpriteDefaultFrame2DisplayTime },
+        { 3, GameConstants.SwordBeamLeftProjectileSpriteDefaultFrame3DisplayTime }
+    };
+}
         public override void Update()
         {
             if (spriteDisplayTimeLapse == frameDisplayTimeMap[currentFrame])

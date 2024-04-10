@@ -5,7 +5,7 @@ namespace MainGame.Enemies
 	public class GoriyaEnemy : GenericEnemy
 	{
 		public Direction FacingDirection { get; set; }
-		public override int MovementCoolDownFrame { get; protected set; } = 2;
+		public override int MovementCoolDownFrame { get; protected set; } = GameConstants.GoriyaMovementCoolDownFrame;
 
         public GoriyaEnemy(Vector2 startingPosition)
 		{
@@ -32,4 +32,3 @@ namespace MainGame.Enemies
 		}
 	}
 }
-

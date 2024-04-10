@@ -7,46 +7,44 @@ namespace MainGame.SpriteHandlers
 {
     public static partial class SpriteFactory
     {
-        public static ISprite CreateUndergroundRoomSprite()
-        {
-            return new UndergroundRoomSprite(
-                TextureMap["RoomSprites"], SpriteBatch,
-                textureStartingY: 0,
-                scale: Constants.UniversalScale
-                ); ;
-        }
-        public static ISprite CreateRoomOuterBorderSprite()
-        {
-            return new RoomOuterBorderSprite(
-                TextureMap["RoomSprites"], SpriteBatch,
-                textureStartingY: 176,
-                scale: Constants.UniversalScale
-                );
-        }
-        public static ISprite CreateRoomInnerBorderSprite()
-        {
-            return new RoomInnerBorderSprite(
-                TextureMap["RoomSprites"], SpriteBatch,
-                textureStartingY: 352,
-                scale: Constants.UniversalScale
-                );
-        }
-        public static ISprite CreateDungeonTilesSprite()
-        {
-            return new RoomDungeonTilesSprite(
-                TextureMap["RoomSprites"], SpriteBatch,
-                textureStartingY: 528,
-                scale: Constants.UniversalScale
-                );
-        }
+public static ISprite CreateUndergroundRoomSprite()
+{
+    return new UndergroundRoomSprite(
+        TextureMap["RoomSprites"], SpriteBatch,
+        textureStartingY: GameConstants.UndergroundRoomSpriteTextureStartingY,
+        scale: Constants.UniversalScale);
+}
 
-        public static ISprite CreateEmptyRoomSprite()
-        {
-            return new EmptyRoomSprite(
-                TextureMap["RoomSprites"], SpriteBatch,
-                textureStartingY: 0,
-                scale: Constants.UniversalScale
-                );
-        }
-    }
+public static ISprite CreateRoomOuterBorderSprite()
+{
+    return new RoomOuterBorderSprite(
+        TextureMap["RoomSprites"], SpriteBatch,
+        textureStartingY: GameConstants.RoomOuterBorderSpriteTextureStartingY,
+        scale: Constants.UniversalScale);
+}
+
+public static ISprite CreateRoomInnerBorderSprite()
+{
+    return new RoomInnerBorderSprite(
+        TextureMap["RoomSprites"], SpriteBatch,
+        textureStartingY: GameConstants.RoomInnerBorderSpriteTextureStartingY,
+        scale: Constants.UniversalScale);
+}
+
+public static ISprite CreateDungeonTilesSprite()
+{
+    return new RoomDungeonTilesSprite(
+        TextureMap["RoomSprites"], SpriteBatch,
+        textureStartingY: GameConstants.RoomDungeonTilesSpriteTextureStartingY,
+        scale: Constants.UniversalScale);
+}
+
+public static ISprite CreateEmptyRoomSprite()
+{
+    return new EmptyRoomSprite(
+        TextureMap["RoomSprites"], SpriteBatch,
+        textureStartingY: GameConstants.EmptyRoomSpriteTextureStartingY,
+        scale: Constants.UniversalScale);
+}    
+}
 }

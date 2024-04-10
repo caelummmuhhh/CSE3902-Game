@@ -21,24 +21,23 @@ namespace MainGame.SpriteHandlers.ItemSprites
             int numRows,
             int numColumns,
             int numberOfFrames,
-            int frameHeight = 16,
-            int frameWidth = 16,
-            int textureStartingX = 0,
-            int textureStartingY = 0,
-            int scale = 1,
-            float layerDepth = 0.5f)
-            : base(texture, numRows, numColumns, frameWidth, frameHeight, numberOfFrames,
-                  textureStartingX, textureStartingY, scale, layerDepth)
-        {
-            this.spriteBatch = spriteBatch;
-            spriteDisplayTimeLapse = 0;
-            frameDisplayTimeMap = new()
-            {
-                { 0, 8 },
-                { 1, 8 },
-            };
-        }
-
+    int frameHeight = GameConstants.TriforcePieceItemSpriteDefaultFrameHeight,
+    int frameWidth = GameConstants.TriforcePieceItemSpriteDefaultFrameWidth,
+    int textureStartingX = GameConstants.TriforcePieceItemSpriteDefaultTextureStartingX,
+    int textureStartingY = GameConstants.TriforcePieceItemSpriteDefaultTextureStartingY,
+    int scale = GameConstants.TriforcePieceItemSpriteDefaultScale,
+    float layerDepth = GameConstants.TriforcePieceItemSpriteDefaultLayerDepth)
+    : base(texture, numRows, numColumns, frameWidth, frameHeight, numberOfFrames,
+          textureStartingX, textureStartingY, scale, layerDepth)
+{
+    this.spriteBatch = spriteBatch;
+    spriteDisplayTimeLapse = GameConstants.TriforcePieceItemSpriteInitialDisplayTimeLapse;
+    frameDisplayTimeMap = new()
+    {
+        { GameConstants.TriforcePieceItemSpriteInitialFrame, GameConstants.TriforcePieceItemSpriteFrameDisplayTime },
+        { GameConstants.TriforcePieceItemSpriteNextFrame, GameConstants.TriforcePieceItemSpriteFrameDisplayTime },
+    };
+}
         public override void Update()
         {
             if (spriteDisplayTimeLapse == frameDisplayTimeMap[currentFrame])
@@ -59,4 +58,3 @@ namespace MainGame.SpriteHandlers.ItemSprites
         }
     }
 }
-

@@ -20,24 +20,23 @@ namespace MainGame.SpriteHandlers.EnemySprites
             int numRows,
             int numColumns,
             int numberOfFrames,
-            int frameHeight = 16,
-            int frameWidth = 16,
-            int textureStartingX = 0,
-            int textureStartingY = 0,
-            int scale = 1,
-            float layerDepth = 0.5f)
-            : base(texture, numRows, numColumns, frameWidth, frameHeight, numberOfFrames,
-                  textureStartingX, textureStartingY, scale, layerDepth)
-        {
-            this.spriteBatch = spriteBatch;
-            spriteDisplayTimeLapse = 0;
-            frameDisplayTimeMap = new()
-            {
-                { 0, 3 },
-                { 1, 3 },
-            };
-        }
-
+    int frameHeight = GameConstants.KeeseFlightSpriteDefaultFrameHeight,
+    int frameWidth = GameConstants.KeeseFlightSpriteDefaultFrameWidth,
+    int textureStartingX = GameConstants.KeeseFlightSpriteDefaultTextureStartingX,
+    int textureStartingY = GameConstants.KeeseFlightSpriteDefaultTextureStartingY,
+    int scale = GameConstants.KeeseFlightSpriteDefaultScale,
+    float layerDepth = GameConstants.KeeseFlightSpriteDefaultLayerDepth)
+    : base(texture, numRows, numColumns, frameWidth, frameHeight, numberOfFrames,
+          textureStartingX, textureStartingY, scale, layerDepth)
+{
+    this.spriteBatch = spriteBatch;
+    spriteDisplayTimeLapse = GameConstants.KeeseFlightSpriteInitialDisplayTimeLapse;
+    frameDisplayTimeMap = new()
+    {
+        { GameConstants.KeeseFlightSpriteInitialFrame, GameConstants.KeeseFlightSpriteFrameDisplayTime },
+        { GameConstants.KeeseFlightSpriteNextFrame, GameConstants.KeeseFlightSpriteFrameDisplayTime },
+    };
+}
         public override void Update()
         {
             if (spriteDisplayTimeLapse == frameDisplayTimeMap[currentFrame])

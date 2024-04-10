@@ -6,9 +6,9 @@ namespace MainGame.Enemies
 {
 	public class AquamentusEnemy : GenericEnemy
 	{
-        public override int MovementCoolDownFrame { get; protected set; } = 8;
-        public int MovedDistance = 0;
-        public readonly int MaxMoveDistance = 16 * 10 * Constants.UniversalScale;
+        public override int MovementCoolDownFrame { get; protected set; } = GameConstants.AquamentusMovementCoolDownFrame;
+        public int MovedDistance = GameConstants.InitialMovedDistance;
+        public readonly int MaxMoveDistance = GameConstants.AquamentusMaxMoveDistanceFactor * GameConstants.AquamentusMaxMoveDistanceMultiplier * Constants.UniversalScale;
         public readonly IPlayer Player;
         public readonly AquamentusProjectilesManager ProjectilesManager = new();
 
@@ -37,4 +37,3 @@ namespace MainGame.Enemies
         public override void Move() => State.Move();
     }
 }
-

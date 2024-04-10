@@ -8,6 +8,7 @@ namespace MainGame.Players
 {
 	public class Player : IPlayer
 	{
+
 		public int MaxHealth { get; set; }
         public int CurrentHealth { get; set; }
         public int RupeeCount { get; set; }
@@ -17,11 +18,12 @@ namespace MainGame.Players
 		public int NumItems { get; set; }
         public ItemTypes CurrentItem { get; set; }
 
-        public static readonly float Speed = Constants.UniversalScale + 2;
-		public static readonly int UsingItemsSpeed = 6;
-		public static readonly float KnockedBackSpeed = 10f;
-		public static readonly int ImmunityFrame = 100;
-		public static readonly int KnockedBackDistance = 2 * Constants.BlockSize;
+
+		public static readonly float Speed = Constants.UniversalScale + GameConstants.PlayerSpeedIncrease;
+		public static readonly int UsingItemsSpeed = GameConstants.PlayerUsingItemsSpeed;
+		public static readonly float KnockedBackSpeed = GameConstants.PlayerKnockedBackSpeed;
+		public static readonly int ImmunityFrame = GameConstants.PlayerImmunityFrame;
+		public static readonly int KnockedBackDistance = GameConstants.PlayerKnockedBackDistanceFactor * Constants.BlockSize;
 
         public ISprite Sprite { get; set; }
         public IPlayerState CurrentState { get; set; }
@@ -136,15 +138,15 @@ namespace MainGame.Players
 			MainHitbox = new(Position.ToPoint(), new Point(Constants.BlockSize, Constants.BlockSize));
 
 			BottomHalfHitBox = new(
-				MainHitbox.X, MainHitbox.Y + MainHitbox.Height / 2,
-				MainHitbox.Width, MainHitbox.Height / 2
+				MainHitbox.X, MainHitbox.Y + MainHitbox.Height / GameConstants.PlayerHitBoxDivisor,
+				MainHitbox.Width, MainHitbox.Height / GameConstants.PlayerHitBoxDivisor
 				);
 		}
 
 		private void FlashColors()
 		{
             SpriteColor = Color.White;
-			if (invulnerableTimer % 4 == 0 || invulnerableTimer % 4 == 1)
+			if (invulnerableTimer % GameConstants.PlayerFlashColorFactor == 0 || invulnerableTimer % GameConstants.PlayerFlashColorFactor == 1)
 			{
                 SpriteColor = Color.IndianRed;
             }

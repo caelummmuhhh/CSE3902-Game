@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Media;
 
 using MainGame.SpriteHandlers;
 using MainGame.Controllers;
@@ -29,6 +30,7 @@ public class Game1 : Game
     public IPlayer Player;
     public CollisionDetector Collision;
     public GameRoomManager RoomManager;
+    public Song song;
 
     public BlockSprite testBlock; // TODO: DELETE ME
 
@@ -43,8 +45,8 @@ public class Game1 : Game
     {
         GraphicsManager = new GraphicsDeviceManager(this)
         {
-            PreferredBackBufferWidth = 768,
-            PreferredBackBufferHeight = 696
+            PreferredBackBufferWidth = GameConstants.BackBufferWidth,
+            PreferredBackBufferHeight = GameConstants.BackBufferHeight
         };
 
         //this.TargetElapsedTime = TimeSpan.FromSeconds(1d / 30d); //60);
@@ -89,6 +91,7 @@ public class Game1 : Game
         Player = new Player(new Vector2(120 * Constants.UniversalScale, (128 * Constants.UniversalScale) + Constants.HudAndMenuHeight), 
             int.Parse(playerValues[0]), int.Parse(playerValues[1]), int.Parse(playerValues[2]), int.Parse(playerValues[3]), playerItems);
 
+
         RoomManager = new(this);
 
         Collision = new(this);
@@ -100,6 +103,10 @@ public class Game1 : Game
 
         controllers.Add(new KeyboardController(this, Player));
         controllers.Add(new MouseController(this, Player));
+
+        // temporary fuctionality check
+        song = Content.Load<Song>("Audio/song");
+        MediaPlayer.Play(song);
     }
 
     protected override void Update(GameTime gameTime)
@@ -123,6 +130,7 @@ public class Game1 : Game
             Menu.Update();
             ++PauseDebounce;
         }
+
 
         base.Update(gameTime);
     }

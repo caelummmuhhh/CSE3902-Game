@@ -10,19 +10,18 @@ namespace MainGame.SpriteHandlers.ProjectileSprites
         public ArrowUpProjectileSprite(
             Texture2D texture,
             SpriteBatch spriteBatch,
-            int spriteHeight = 16,
-            int spriteWidth = 16,
-            int textureStartingX = 0,
-            int textureStartingY = 0,
-            int scale = 1,
-            float layerDepth = 0.5f)
-            : base(texture, spriteHeight, spriteWidth, textureStartingX, textureStartingY, scale, layerDepth)
-        {
-            this.spriteBatch = spriteBatch;
-            origin = new(spriteWidth / 2f, spriteHeight / 2f);
-            rotation = MathHelper.ToRadians(270f);
-        }
-
+    int spriteHeight = GameConstants.ArrowUpProjectileSpriteDefaultSpriteHeight,
+    int spriteWidth = GameConstants.ArrowUpProjectileSpriteDefaultSpriteWidth,
+    int textureStartingX = GameConstants.ArrowUpProjectileSpriteDefaultTextureStartingX,
+    int textureStartingY = GameConstants.ArrowUpProjectileSpriteDefaultTextureStartingY,
+    int scale = GameConstants.ArrowUpProjectileSpriteDefaultScale,
+    float layerDepth = GameConstants.ArrowUpProjectileSpriteDefaultLayerDepth)
+    : base(texture, spriteHeight, spriteWidth, textureStartingX, textureStartingY, scale, layerDepth)
+{
+    this.spriteBatch = spriteBatch;
+    origin = new(spriteWidth / 2f, spriteHeight / 2f);
+    rotation = MathHelper.ToRadians(GameConstants.ArrowUpProjectileSpriteDefaultRotation);
+}
         public override void Update() { /* not needed here */ }
 
         public override void Draw(float x, float y, Color color)

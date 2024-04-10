@@ -4,9 +4,8 @@ namespace MainGame.Enemies
 	public class AquamentusMovingState : IEnemyState
 	{
 		private readonly AquamentusEnemy entity;
-        private readonly int maxMoveDuration = 67;
-		private int moveDuration = 0;
-
+		private readonly int maxMoveDuration = GameConstants.AquamentusMaxMoveDuration;
+		private int moveDuration = GameConstants.InitialMoveDuration;
 		public AquamentusMovingState(AquamentusEnemy enemy)
 		{
 			entity = enemy;
@@ -46,7 +45,7 @@ namespace MainGame.Enemies
 
 		private void ChangeDirection()
 		{
-			moveDuration = 0;
+        moveDuration = GameConstants.InitialMoveDuration;
 			if (entity.MovedDistance >= entity.MaxMoveDistance || entity.MovedDistance <= -entity.MaxMoveDistance)
 			{
                 entity.MovingDirection = Utils.OppositeDirection(entity.MovingDirection);
@@ -60,11 +59,10 @@ namespace MainGame.Enemies
 		private void AttemptAttack()
 		{
 			Random random = new();
-			if (random.Next(2) == 0)
+			if (random.Next(GameConstants.AquamentusAttackProbability) == 0)
 			{
 				entity.State = new AquamentusAttackingState(this, entity);
 			}
 		}
     }
 }
-

@@ -21,25 +21,24 @@ namespace MainGame.SpriteHandlers.EnemySprites
             int numRows,
             int numColumns,
             int numberOfFrames,
-            int frameHeight = 16,
-            int frameWidth = 16,
-            int textureStartingX = 0,
-            int textureStartingY = 0,
-            int scale = 1,
-            float layerDepth = 0.5f)
-            : base(texture, numRows, numColumns, frameWidth, frameHeight, numberOfFrames,
-                  textureStartingX, textureStartingY, scale, layerDepth)
-        {
-            this.spriteBatch = spriteBatch;
-            spriteDisplayTimeLapse = 0;
-            spriteFlip = false;
-            frameDisplayTimeMap = new()
-            {
-                { 0, 6 },
-                { 1, 6 },
-            };
-        }
-
+    int frameHeight = GameConstants.GoriyaWalkingDownSpriteDefaultFrameHeight,
+    int frameWidth = GameConstants.GoriyaWalkingDownSpriteDefaultFrameWidth,
+    int textureStartingX = GameConstants.GoriyaWalkingDownSpriteDefaultTextureStartingX,
+    int textureStartingY = GameConstants.GoriyaWalkingDownSpriteDefaultTextureStartingY,
+    int scale = GameConstants.GoriyaWalkingDownSpriteDefaultScale,
+    float layerDepth = GameConstants.GoriyaWalkingDownSpriteDefaultLayerDepth)
+    : base(texture, numRows, numColumns, frameWidth, frameHeight, numberOfFrames,
+          textureStartingX, textureStartingY, scale, layerDepth)
+{
+    this.spriteBatch = spriteBatch;
+    spriteDisplayTimeLapse = GameConstants.GoriyaWalkingDownSpriteInitialDisplayTimeLapse;
+    spriteFlip = GameConstants.GoriyaWalkingDownSpriteInitialFlip;
+    frameDisplayTimeMap = new()
+    {
+        { GameConstants.GoriyaWalkingDownSpriteInitialFrame, GameConstants.GoriyaWalkingDownSpriteFrameDisplayTime },
+        { GameConstants.GoriyaWalkingDownSpriteNextFrame, GameConstants.GoriyaWalkingDownSpriteFrameDisplayTime },
+    };
+}
         public override void Update()
         {
             if (spriteDisplayTimeLapse != frameDisplayTimeMap[currentFrame])

@@ -19,7 +19,7 @@ namespace MainGame.Collision.CollisionHandlers
             projectile.Collide();
             if ((enemy is GoriyaEnemy || enemy is StalfosEnemy) && projectile is PlayerBoomerangProjectile)
             {
-                enemy.Stun(100);
+                enemy.Stun(GameConstants.EnemyStunDuration);
                 return;
             }
 
@@ -28,4 +28,3 @@ namespace MainGame.Collision.CollisionHandlers
         }
     }
 }
-
