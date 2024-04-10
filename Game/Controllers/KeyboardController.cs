@@ -50,8 +50,6 @@ namespace MainGame.Controllers
                 { Keys.Left, new WestRoomCommand(game) },
                 { Keys.Right, new EastRoomCommand(game) },
 
-                { Keys.Up, new NextRoomCommand(game) },
-
                 { Keys.P, new PauseMenuCommand(game) },
 
             };
