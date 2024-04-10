@@ -45,6 +45,7 @@ namespace MainGame.Rooms
         public ISprite InnerBorderSprite { get; set; }
         public ISprite TilesSprite { get; set; }
 
+
         public Vector2 Position { get; set; }
         public Vector2 Size { get; set; }
         public Vector2[] DoorLocations { get; set; } // TODO: Fix this. I don't really like the way its set up but its the only way I can think to do it
@@ -55,13 +56,16 @@ namespace MainGame.Rooms
         {
             Position = new Vector2(0, 0);
             Size = new Vector2(0, 0);
+
+            Position = new Vector2(GameConstants.RoomInitialPosition, Constants.HudAndMenuHeight);
+
             OuterBorderSprite = outerBorder;
             InnerBorderSprite = innerBorder;
             TilesSprite = tiles;
 
-            OuterBorderSprite.LayerDepth = 0f;
-            InnerBorderSprite.LayerDepth = 1.0f;
-            TilesSprite.LayerDepth = 1.0f;
+            OuterBorderSprite.LayerDepth = GameConstants.RoomOuterBorderSpriteLayerDepth;
+            InnerBorderSprite.LayerDepth = GameConstants.RoomInnerBorderSpriteLayerDepth;
+            TilesSprite.LayerDepth = GameConstants.RoomTilesSpriteLayerDepth;
 
             EnemiesBorderHitBox = new AllFullWallHitBox();
             PlayerBorderHitBox = new GenericHitBox();

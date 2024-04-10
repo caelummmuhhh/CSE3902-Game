@@ -13,7 +13,7 @@ namespace MainGame.SpriteHandlers
             set
             {
                 // Protect setter; SpriteBatch.Draw only allows [0, 1]f values
-                if (value < 0.0f || value > 1.0f)
+                if (value < GameConstants.MinLayerDepth || value > GameConstants.MaxLayerDepth)
                 {
                     throw new ArgumentOutOfRangeException(
                         nameof(value),
@@ -22,7 +22,7 @@ namespace MainGame.SpriteHandlers
                 layer = value;
             }
         }
-        public Rectangle DestinationRectangle { get; set; }
+        public Rectangle DestinationRectangle { get; protected set; }
 
 
         private readonly SpriteBatch spriteBatch;
@@ -33,7 +33,7 @@ namespace MainGame.SpriteHandlers
 		{
             this.spriteBatch = spriteBatch;
             this.font = font;
-            layer = 0.5f;
+            layer = GameConstants.TextSpriteInitialLayerDepth;
             Text = text;
 		}
 
@@ -41,10 +41,8 @@ namespace MainGame.SpriteHandlers
 
         public void Draw(float x, float y, Color color)
         {
-            DestinationRectangle = new((int)x, (int)y, 0, 0);
-            spriteBatch.Begin();
+            DestinationRectangle = new((int)x, (int)y, GameConstants.TextSpriteInitialXPosition, GameConstants.TextSpriteInitialYPosition);
             spriteBatch.DrawString(font, Text, new Vector2(x, y), color);
-            spriteBatch.End();
         }
 
     }

@@ -7,13 +7,12 @@ namespace MainGame.Collision
         public TopFullHorizontalWallHitBox()
 		{
             Rectangle wallHitBox = new(
-                x: 0,
-                y: 0,
-                width: 256 * Constants.UniversalScale,
-                height: 32 * Constants.UniversalScale
-                );
-            HitBoxes.Add(wallHitBox);
+            x: GameConstants.TopFullHorizontalWallX,
+            y: Constants.HudAndMenuHeight,
+            width: GameConstants.TopFullHorizontalWallWidth * Constants.BlockSize,
+            height: GameConstants.TopFullHorizontalWallHeight * Constants.BlockSize
+            );
+        HitBoxes.Add(wallHitBox);
         }
     }
 }
-

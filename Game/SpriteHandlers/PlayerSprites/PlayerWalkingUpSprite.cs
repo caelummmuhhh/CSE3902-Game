@@ -21,26 +21,25 @@ namespace MainGame.SpriteHandlers.PlayerSprites
             int numRows,
             int numColumns,
             int numberOfFrames,
-            int frameHeight = 16,
-            int frameWidth = 16,
-            int textureStartingX = 0,
-            int textureStartingY = 0,
-            int scale = 1,
-            float layerDepth = 0.5f)
-            : base(texture, numRows, numColumns, frameWidth, frameHeight, numberOfFrames,
-                  textureStartingX, textureStartingY, scale, layerDepth)
-        {
-            this.spriteBatch = spriteBatch;
-            spriteDisplayTimeLapse = 0;
-            frameDisplayTimeMap = new()
-            {
-                { 0, 4 },
-                { 1, 8 },
-                { 2, 1 },
-                { 3, 1 }
-            };
-        }
-
+    int frameHeight = GameConstants.PlayerWalkingUpSpriteDefaultFrameHeight,
+    int frameWidth = GameConstants.PlayerWalkingUpSpriteDefaultFrameWidth,
+    int textureStartingX = GameConstants.PlayerWalkingUpSpriteDefaultTextureStartingX,
+    int textureStartingY = GameConstants.PlayerWalkingUpSpriteDefaultTextureStartingY,
+    int scale = GameConstants.PlayerWalkingUpSpriteDefaultScale,
+    float layerDepth = GameConstants.PlayerWalkingUpSpriteDefaultLayerDepth)
+    : base(texture, numRows, numColumns, frameWidth, frameHeight, numberOfFrames,
+          textureStartingX, textureStartingY, scale, layerDepth)
+{
+    this.spriteBatch = spriteBatch;
+    spriteDisplayTimeLapse = 0;
+    frameDisplayTimeMap = new()
+    {
+        { 0, GameConstants.PlayerWalkingUpSpriteDefaultFrame0DisplayTime },
+        { 1, GameConstants.PlayerWalkingUpSpriteDefaultFrame1DisplayTime },
+        { 2, GameConstants.PlayerWalkingUpSpriteDefaultFrame2DisplayTime },
+        { 3, GameConstants.PlayerWalkingUpSpriteDefaultFrame3DisplayTime }
+    };
+}
         public override void Update()
         {
             if (spriteDisplayTimeLapse == frameDisplayTimeMap[currentFrame])

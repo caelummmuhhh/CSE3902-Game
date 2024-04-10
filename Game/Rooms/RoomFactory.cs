@@ -31,7 +31,7 @@ namespace MainGame.Rooms
             {
                 throw new IOException($"Could not read CSV file to room: {roomFile}");
             }
-            
+
             IRoom room = ParseRoomType(lines[0]); // Parse and set room to a new room object
             room.RoomId = roomNumber;
             ParseDoors(lines[1], room);
@@ -150,7 +150,7 @@ namespace MainGame.Rooms
             {
                 DoorTypes doorType = SpriteFactory.DoorTypeFromString(doors[0]);
                 room.NorthDoor = new Door(
-                     new Vector2(112 * Constants.UniversalScale, 0 * Constants.UniversalScale),
+                     new Vector2(112 * Constants.UniversalScale, Constants.HudAndMenuHeight),
                      SpriteFactory.CreateDoorTopNorthSouth(Direction.North, doorType),
                      SpriteFactory.CreateDoorBottomNorthSouth(Direction.North, doorType),
                      Direction.North
@@ -174,7 +174,7 @@ namespace MainGame.Rooms
             {
                 DoorTypes doorType = SpriteFactory.DoorTypeFromString(doors[1]);
                 room.SouthDoor = new Door(
-                new Vector2(112 * Constants.UniversalScale, 160 * Constants.UniversalScale),
+                new Vector2(112 * Constants.UniversalScale, 160 * Constants.UniversalScale + Constants.HudAndMenuHeight),
                 SpriteFactory.CreateDoorTopNorthSouth(Direction.South, doorType),
                 SpriteFactory.CreateDoorBottomNorthSouth(Direction.South, doorType),
                 Direction.South
@@ -198,7 +198,7 @@ namespace MainGame.Rooms
             {
                 DoorTypes doorType = SpriteFactory.DoorTypeFromString(doors[2]);
                 room.EastDoor = new Door(
-                new Vector2(0 * Constants.UniversalScale, 72 * Constants.UniversalScale),
+                new Vector2(0 * Constants.UniversalScale, 72 * Constants.UniversalScale + Constants.HudAndMenuHeight),
                 SpriteFactory.CreateDoorTopWestEast(Direction.West, doorType),
                 SpriteFactory.CreateDoorBottomWestEast(Direction.West, doorType),
                 Direction.West
@@ -222,7 +222,7 @@ namespace MainGame.Rooms
             {
                 DoorTypes doorType = SpriteFactory.DoorTypeFromString(doors[3]);
                 room.WestDoor = new Door(
-                new Vector2(240 * Constants.UniversalScale, 72 * Constants.UniversalScale),
+                new Vector2(240 * Constants.UniversalScale, 72 * Constants.UniversalScale + Constants.HudAndMenuHeight),
                 SpriteFactory.CreateDoorTopWestEast(Direction.East, doorType),
                 SpriteFactory.CreateDoorBottomWestEast(Direction.East, doorType),
                 Direction.East
@@ -245,9 +245,9 @@ namespace MainGame.Rooms
 
         private static void ParseItemsAndBlocks(ref string line, IRoom room, int yOffset)
         {
-            int wallOffsetX = 32 * Constants.UniversalScale;
-            int wallOffsetY = 32 * Constants.UniversalScale;
-            int columnWidth = 16 * Constants.UniversalScale;
+            int wallOffsetX = GameConstants.RoomFactoryWallOffsetX * Constants.UniversalScale;
+            int wallOffsetY = GameConstants.RoomFactoryWallOffsetY * Constants.UniversalScale + Constants.HudAndMenuHeight;
+            int columnWidth = GameConstants.RoomFactoryColumnWidth * Constants.UniversalScale;
 
             string[] objects = line.Split(',');
             // Each block/item in objects[] will try to be parsed into either a block or object
@@ -275,7 +275,7 @@ namespace MainGame.Rooms
                         room.RoomItems.Add(
                             new GenericItem(
                                     new Vector2(wallOffsetX + i * columnWidth, wallOffsetY + yOffset * columnWidth),
-                                    SpriteFactory.CreateItemSprite((ItemTypes)item)
+                                    SpriteFactory.CreateItemSprite((ItemTypes)item), (ItemTypes)item
                                 ));
                         objects[i] = "-";
                     }
@@ -286,9 +286,9 @@ namespace MainGame.Rooms
 
         private static void ParseEnemies(string line, IRoom room, IPlayer player, int yOffset)
         {
-            int wallOffsetX = 32 * Constants.UniversalScale;
-            int wallOffsetY = 32 * Constants.UniversalScale;
-            int columnWidth = 16 * Constants.UniversalScale;
+            int wallOffsetX = GameConstants.RoomFactoryWallOffsetX * Constants.UniversalScale;
+            int wallOffsetY = GameConstants.RoomFactoryWallOffsetY * Constants.UniversalScale+ Constants.HudAndMenuHeight;
+            int columnWidth = GameConstants.RoomFactoryColumnWidth * Constants.UniversalScale;
 
             string[] objects = line.Split(',');
             

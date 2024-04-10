@@ -20,24 +20,23 @@ namespace MainGame.SpriteHandlers.EnemySprites
             int numRows,
             int numColumns,
             int numberOfFrames,
-            int frameHeight = 16,
-            int frameWidth = 16,
-            int textureStartingX = 0,
-            int textureStartingY = 0,
-            int scale = 1,
-            float layerDepth = 0.5f)
-            : base(texture, numRows, numColumns, frameWidth, frameHeight, numberOfFrames,
-                  textureStartingX, textureStartingY, scale, layerDepth)
-        {
-            this.spriteBatch = spriteBatch;
-            spriteDisplayTimeLapse = 0;
-            frameDisplayTimeMap = new()
-            {
-                { 0, 16 },
-                { 1, 16 },
-            };
-        }
-
+    int frameHeight = GameConstants.AquamentusSpriteDefaultFrameHeight,
+    int frameWidth = GameConstants.AquamentusSpriteDefaultFrameWidth,
+    int textureStartingX = GameConstants.AquamentusSpriteDefaultTextureStartingX,
+    int textureStartingY = GameConstants.AquamentusSpriteDefaultTextureStartingY,
+    int scale = GameConstants.AquamentusSpriteDefaultScale,
+    float layerDepth = GameConstants.AquamentusSpriteDefaultLayerDepth)
+    : base(texture, numRows, numColumns, frameWidth, frameHeight, numberOfFrames,
+          textureStartingX, textureStartingY, scale, layerDepth)
+{
+    this.spriteBatch = spriteBatch;
+    spriteDisplayTimeLapse = GameConstants.AquamentusSpriteInitialDisplayTimeLapse;
+    frameDisplayTimeMap = new()
+    {
+        { GameConstants.AquamentusSpriteInitialFrame, GameConstants.AquamentusSpriteFrameDisplayTime },
+        { GameConstants.AquamentusSpriteNextFrame, GameConstants.AquamentusSpriteFrameDisplayTime },
+    };
+}
         public override void Update()
         {
             if (spriteDisplayTimeLapse == frameDisplayTimeMap[currentFrame])

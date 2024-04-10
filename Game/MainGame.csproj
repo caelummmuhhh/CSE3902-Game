@@ -67,7 +67,6 @@
     <Folder Include="SpriteHandlers\ProjectileSprites\ArrowProjectileSprites\" />
     <Folder Include="SpriteHandlers\ProjectileSprites\SwordBeamProjectileSprites\" />
     <Folder Include="Players\PlayerStates\AttackStates\" />
-    <Folder Include="Commands\PlayerCommands\" />
     <Folder Include="Projectiles\" />
     <Folder Include="Players\PlayerStates\DamagedStates\" />
     <Folder Include="Enemies\KeeseEnemy\" />

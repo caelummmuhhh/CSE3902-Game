@@ -19,22 +19,23 @@ namespace MainGame.SpriteHandlers.ParticleSprites
             int frameHeight,
             int frameWidth,
             Direction facingDirection,
-            int textureStartingX = 0,
-            int textureStartingY = 0,
-            int scale = 1,
-            float layerDepth = 0.5f)
-            : base(texture, numRows, numColumns, frameWidth, frameHeight, numberOfFrames,
-                  textureStartingX, textureStartingY, scale, layerDepth)
+                int textureStartingX = GameConstants.SwordBeamParticleDefaultTextureStartingX,
+    int textureStartingY = GameConstants.SwordBeamParticleDefaultTextureStartingY,
+    int scale = GameConstants.SwordBeamParticleDefaultScale,
+    float layerDepth = GameConstants.SwordBeamParticleDefaultLayerDepth)
+    : base(texture, numRows, numColumns, frameWidth, frameHeight, numberOfFrames,
+          textureStartingX, textureStartingY, scale, layerDepth)
         {
             this.spriteBatch = spriteBatch;
-            spriteDisplayTimeLapse = 0;
+            spriteDisplayTimeLapse = GameConstants.SwordBeamParticleInitialDisplayTimeLapse;
             frameDisplayTimeMap = new()
-            {
-                { 0, 1 },
-                { 1, 1 },
-                { 2, 1 },
-                { 3, 1 }
-            };
+    {
+        { GameConstants.SwordBeamParticleInitialFrame, GameConstants.SwordBeamParticleFrameDisplayTime },
+        { GameConstants.SwordBeamParticleNextFrame1, GameConstants.SwordBeamParticleFrameDisplayTime },
+        { GameConstants.SwordBeamParticleNextFrame2, GameConstants.SwordBeamParticleFrameDisplayTime },
+        { GameConstants.SwordBeamParticleNextFrame3, GameConstants.SwordBeamParticleFrameDisplayTime },
+    };
+        
 
             origin = new(FrameWidth / 2f, FrameHeight / 2f);
             effects = facingDirection switch

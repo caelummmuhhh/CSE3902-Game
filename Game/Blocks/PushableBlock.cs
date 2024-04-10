@@ -9,26 +9,23 @@ namespace MainGame.Blocks
         public Rectangle HitBox { get => sprite.DestinationRectangle; }
 
         private readonly ISprite sprite;
-        private readonly int maxPushDuration = 25;
         private readonly Vector2 originalPosition;
-        private readonly int speed = 1;
         private readonly int maxMoveDistance = Constants.BlockSize;
 
-        private bool canPush = true; // TODO: make false after testing
+        private bool canPush = GameConstants.InitialCanPush;
         private Direction pushDirection;
         private int pushedDuration;
 
-        private readonly int maxNotCollisionTimer = 5;
         private int notCollidingTimer;
-        private bool isBeingPushed = false;
+        private bool isBeingPushed = GameConstants.InitialIsBeingPushed;
 
         public PushableBlock(Vector2 position, ISprite sprite)
         {
             Position = position;
             originalPosition = position;
             this.sprite = sprite;
-            pushedDuration = maxPushDuration;
-            notCollidingTimer = maxNotCollisionTimer;
+            pushedDuration = GameConstants.MaxPushDuration;
+            notCollidingTimer = GameConstants.MaxNotCollisionTimer;
         }
 
         public void Update()
@@ -40,10 +37,10 @@ namespace MainGame.Blocks
             }
             if (notCollidingTimer <= 0 && pushedDuration > 0)
             {
-                notCollidingTimer = maxNotCollisionTimer;
+                notCollidingTimer = GameConstants.MaxNotCollisionTimer;
 
-                isBeingPushed = false;
-                pushedDuration = maxPushDuration;
+                isBeingPushed = GameConstants.InitialIsBeingPushed;
+                pushedDuration = GameConstants.MaxPushDuration;
             }
 
 
@@ -67,13 +64,13 @@ namespace MainGame.Blocks
             {
                 this.pushDirection = pushDirection;
                 isBeingPushed = true;
-                notCollidingTimer = maxNotCollisionTimer;
+                notCollidingTimer = GameConstants.MaxNotCollisionTimer;
                 pushedDuration--;
             }
         }
 
         public void MakePushable() => canPush = true;
 
-        public void Move() => Position = Utils.DirectionalMove(Position, pushDirection, speed);
+        public void Move() => Position = Utils.DirectionalMove(Position, pushDirection, GameConstants.PushableBlockSpeed);
     }
 }

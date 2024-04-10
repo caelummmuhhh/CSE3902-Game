@@ -10,15 +10,15 @@ namespace MainGame.Enemies
         {
             get
             {
-                Rectangle hitbox = new(Position.ToPoint(), Sprite.DestinationRectangle.Size);
-                hitbox.Height = hitbox.Height / 2 + Constants.UniversalScale;
-                hitbox.Width /= 2;
+            Rectangle hitbox = new(Position.ToPoint(), Sprite.DestinationRectangle.Size);
+            hitbox.Height = hitbox.Height / GameConstants.GelHitboxHeightFactor + Constants.UniversalScale;
+            hitbox.Width /= GameConstants.GelHitboxWidthFactor;
 
-                return Utils.CentralizeRectangle((int)Position.X, (int)Position.Y, hitbox);
-            }
+            return Utils.CentralizeRectangle((int)Position.X, (int)Position.Y, hitbox);
         }
+    }
 
-        public override int MovementCoolDownFrame { get; protected set; } = 1;
+    public override int MovementCoolDownFrame { get; protected set; } = GameConstants.GelMovementCoolDownFrame;
 
         public GelEnemy(Vector2 startingPosition)
 		{
@@ -37,4 +37,3 @@ namespace MainGame.Enemies
         }
     }
 }
-

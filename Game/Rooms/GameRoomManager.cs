@@ -15,17 +15,16 @@ namespace MainGame.Rooms
 
 		private readonly List<IRoom> allRooms = new();
 
+
 		private bool roomChangeDebounce = true;
 
 		private float SpeedX { get; set; }
-        private float SpeedY { get; set; }
-        private float ScrollSpeed;
+    private float SpeedY { get; set; }
+    private float ScrollSpeed;
 
 		public Rectangle gameArea;
 		
-
-
-        public GameRoomManager(Game1 game)
+    public GameRoomManager(Game1 game)
 		{
 			LoadAllRooms(game.Player);
 			CurrentRoom = allRooms[1];
@@ -78,6 +77,7 @@ namespace MainGame.Rooms
 
 		public void GetNorthRoom()
 		{
+
             // RoomNumber == -1 means room does not exist
             if (!roomChangeDebounce || CurrentRoom.ConnectingRooms[0] == -1)
             {
@@ -126,7 +126,7 @@ namespace MainGame.Rooms
             SwitchingRoom = allRooms[CurrentRoom.ConnectingRooms[3]];
             SwitchingRoom.Position = new Vector2(gameArea.Left - gameArea.Width, 0);
             SpeedX = ScrollSpeed;        
+
         }
     }
 }
-

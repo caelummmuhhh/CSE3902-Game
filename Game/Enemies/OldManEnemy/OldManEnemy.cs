@@ -5,7 +5,7 @@ namespace MainGame.Enemies
 {
 	public class OldManEnemy : GenericEnemy
 	{
-		public override int MovementCoolDownFrame { get; protected set; } = 0;
+		public override int MovementCoolDownFrame { get; protected set; } = GameConstants.OldManMovementCoolDownFrame;
 
         public OldManEnemy(Vector2 startingPosition)
 		{
@@ -17,4 +17,3 @@ namespace MainGame.Enemies
 		public override void Move() { /* bro is too old to move... */ }
     }
 }
-

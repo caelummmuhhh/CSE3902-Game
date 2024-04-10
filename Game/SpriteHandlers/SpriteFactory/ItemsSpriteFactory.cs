@@ -49,139 +49,137 @@ namespace MainGame.SpriteHandlers
 
         /* Create methods for each individual sprite. */
 
-        public static ISprite CreateHeartItemSprite()
-        {
-            return new HeartItemSprite(
-                TextureMap["ItemsSprites"], SpriteBatch,
-                numRows: 1,
-                numColumns: 2,
-                numberOfFrames: 2,
-                scale: Constants.UniversalScale);
-        }
+public static ISprite CreateHeartItemSprite()
+{
+    return new HeartItemSprite(
+        TextureMap["ItemsSprites"], SpriteBatch,
+        numRows: GameConstants.StandardSpriteRows,
+        numColumns: GameConstants.HeartItemSpriteColumns,
+        numberOfFrames: GameConstants.HeartItemSpriteFrames,
+        scale: Constants.UniversalScale);
+}
 
-        public static ISprite CreateHeartContainerItemSprite()
-        {
-            return new StaticItemSprite(
-                TextureMap["ItemsSprites"], SpriteBatch,
-                textureStartingY: 16,
-                scale: Constants.UniversalScale);
-        }
+public static ISprite CreateHeartContainerItemSprite()
+{
+    return new StaticItemSprite(
+        TextureMap["ItemsSprites"], SpriteBatch,
+        textureStartingY: GameConstants.HeartContainerItemSpriteTextureStartingY,
+        scale: Constants.UniversalScale);
+}
 
-        public static ISprite CreateClockItemSprite()
-        {
-            return new StaticItemSprite(
-                TextureMap["ItemsSprites"], SpriteBatch,
-                textureStartingY: 32,
-                scale: Constants.UniversalScale);
-        }
+public static ISprite CreateClockItemSprite()
+{
+    return new StaticItemSprite(
+        TextureMap["ItemsSprites"], SpriteBatch,
+        textureStartingY: GameConstants.ClockItemSpriteTextureStartingY,
+        scale: Constants.UniversalScale);
+}
 
-        public static ISprite CreateFiveRupeesItemSprite()
-        {
-            return new StaticItemSprite(
-                TextureMap["ItemsSprites"], SpriteBatch,
-                textureStartingY: 48,
-                scale: Constants.UniversalScale);
-        }
+public static ISprite CreateFiveRupeesItemSprite()
+{
+    return new StaticItemSprite(
+        TextureMap["ItemsSprites"], SpriteBatch,
+        textureStartingY: GameConstants.FiveRupeesItemSpriteTextureStartingY,
+        scale: Constants.UniversalScale);
+}
 
-        public static ISprite CreateRupeeItemSprite()
-        {
-            return new RupeeItemSprite(
-                TextureMap["ItemsSprites"], SpriteBatch,
-                numRows: 1,
-                numColumns: 2,
-                numberOfFrames: 2,
-                textureStartingY: 48,
-                scale: Constants.UniversalScale);
-        }
+public static ISprite CreateRupeeItemSprite()
+{
+    return new RupeeItemSprite(
+        TextureMap["ItemsSprites"], SpriteBatch,
+        numRows: GameConstants.StandardSpriteRows,
+        numColumns: GameConstants.RupeeItemSpriteColumns,
+        numberOfFrames: GameConstants.RupeeItemSpriteFrames,
+        textureStartingY: GameConstants.RupeeItemSpriteTextureStartingY,
+        scale: Constants.UniversalScale);
+}
 
-        public static ISprite CreateMapItemSprite()
-        {
-            return new StaticItemSprite(
-                TextureMap["ItemsSprites"], SpriteBatch,
-                textureStartingY: 64,
-                scale: Constants.UniversalScale);
-        }
+public static ISprite CreateMapItemSprite()
+{
+    return new StaticItemSprite(
+        TextureMap["ItemsSprites"], SpriteBatch,
+        textureStartingY: GameConstants.MapItemSpriteTextureStartingY,
+        scale: Constants.UniversalScale);
+}
 
-        public static ISprite CreateWoodenBoomerangItemSprite()
-        {
-            return new StaticItemSprite(
-                TextureMap["ItemsSprites"], SpriteBatch,
-                textureStartingY: 80,
-                scale: Constants.UniversalScale);
-        }
+public static ISprite CreateWoodenBoomerangItemSprite()
+{
+    return new StaticItemSprite(
+        TextureMap["ItemsSprites"], SpriteBatch,
+        textureStartingY: GameConstants.WoodenBoomerangItemSpriteTextureStartingY,
+        scale: Constants.UniversalScale);
+}
 
-        public static ISprite CreateBombItemSprite()
-        {
-            return new StaticItemSprite(
-                TextureMap["ItemsSprites"], SpriteBatch,
-                textureStartingY: 96,
-                scale: Constants.UniversalScale);
-        }
+public static ISprite CreateBombItemSprite()
+{
+    return new StaticItemSprite(
+        TextureMap["ItemsSprites"], SpriteBatch,
+        textureStartingY: GameConstants.BombItemSpriteTextureStartingY,
+        scale: Constants.UniversalScale);
+}
 
-        public static ISprite CreateBowItemSprite()
-        {
-            return new StaticItemSprite(
-                TextureMap["ItemsSprites"], SpriteBatch,
-                textureStartingY: 112,
-                scale: Constants.UniversalScale);
-        }
+public static ISprite CreateBowItemSprite()
+{
+    return new StaticItemSprite(
+        TextureMap["ItemsSprites"], SpriteBatch,
+        textureStartingY: GameConstants.BowItemSpriteTextureStartingY,
+        scale: Constants.UniversalScale);
+}
 
-        public static ISprite CreateArrowItemSprite()
-        {
-            return new StaticItemSprite(
-                TextureMap["ItemsSprites"], SpriteBatch,
-                textureStartingY: 128,
-                scale: Constants.UniversalScale);
-        }
+public static ISprite CreateArrowItemSprite()
+{
+    return new StaticItemSprite(
+        TextureMap["ItemsSprites"], SpriteBatch,
+        textureStartingY: GameConstants.ArrowItemSpriteTextureStartingY,
+        scale: Constants.UniversalScale);
+}
 
-        public static ISprite CreateKeyItemSprite()
-        {
-            return new StaticItemSprite(
-                TextureMap["ItemsSprites"], SpriteBatch,
-                textureStartingY: 144,
-                scale: Constants.UniversalScale);
-        }
+public static ISprite CreateKeyItemSprite()
+{
+    return new StaticItemSprite(
+        TextureMap["ItemsSprites"], SpriteBatch,
+        textureStartingY: GameConstants.KeyItemSpriteTextureStartingY,
+        scale: Constants.UniversalScale);
+}
 
-        public static ISprite CreateCompassItemSprite()
-        {
-            return new StaticItemSprite(
-                TextureMap["ItemsSprites"], SpriteBatch,
-                textureStartingY: 160,
-                scale: Constants.UniversalScale);
-        }
+public static ISprite CreateCompassItemSprite()
+{
+    return new StaticItemSprite(
+        TextureMap["ItemsSprites"], SpriteBatch,
+        textureStartingY: GameConstants.CompassItemSpriteTextureStartingY,
+        scale: Constants.UniversalScale);
+}
 
-        public static ISprite CreateTriforcePieceItemSprite()
-        {
-            return new TriforcePieceItemSprite(
-                TextureMap["ItemsSprites"], SpriteBatch,
-                numRows: 1,
-                numColumns: 2,
-                numberOfFrames: 2,
-                textureStartingY: 176,
-                scale: Constants.UniversalScale);
-        }
+public static ISprite CreateTriforcePieceItemSprite()
+{
+    return new TriforcePieceItemSprite(
+        TextureMap["ItemsSprites"], SpriteBatch,
+        numRows: GameConstants.StandardSpriteRows,
+        numColumns: GameConstants.TriforcePieceItemSpriteColumns,
+        numberOfFrames: GameConstants.TriforcePieceItemSpriteFrames,
+        textureStartingY: GameConstants.TriforcePieceItemSpriteTextureStartingY,
+        scale: Constants.UniversalScale);
+}
 
-        public static ISprite CreateFairyItemSprite()
-        {
-            return new FairyItemSprite(
-                TextureMap["ItemsSprites"], SpriteBatch,
-                numRows: 1,
-                numColumns: 2,
-                numberOfFrames: 2,
-                textureStartingY: 192,
-                scale: Constants.UniversalScale);
-        }
+public static ISprite CreateFairyItemSprite()
+{
+    return new FairyItemSprite(
+        TextureMap["ItemsSprites"], SpriteBatch,
+        numRows: GameConstants.StandardSpriteRows,
+        numColumns: GameConstants.FairyItemSpriteColumns,
+        numberOfFrames: GameConstants.FairyItemSpriteFrames,
+        textureStartingY: GameConstants.FairyItemSpriteTextureStartingY,
+        scale: Constants.UniversalScale);
+}
 
-        public static ISprite CreateFireSprite()
-        {
-            return new FireSprite(
-                TextureMap["ItemsSprites"], SpriteBatch,
-                numRows: 1,
-                numColumns: 1,
-                numberOfFrames: 1,
-                textureStartingY: 208,
-                scale: Constants.UniversalScale);
-
-        }
-    }
+public static ISprite CreateFireSprite()
+{
+    return new FireSprite(
+        TextureMap["ItemsSprites"], SpriteBatch,
+        numRows: GameConstants.StandardSpriteRows,
+        numColumns: GameConstants.StandardSpriteColumns,
+        numberOfFrames: GameConstants.StandardSpriteFrames,
+        textureStartingY: GameConstants.FireSpriteTextureStartingY,
+        scale: Constants.UniversalScale);
+}    }
 }
