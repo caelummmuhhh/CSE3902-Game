@@ -60,7 +60,7 @@ public class Game1 : Game
         SpriteFactory.LoadAllTextures(Content);
         SpriteFactory.SpriteBatch = spriteBatch;
 
-        Player = new Player(new Vector2(GameConstants.PlayerStartPositionX, GameConstants.PlayerStartPositionY));
+        Player = new Player(new Vector2(GameConstants.PlayerStartPositionX, GameConstants.PlayerStartPositionY + Constants.HudAndMenuHeight));
         RoomManager = new(this);
 
         Collision = new(this);
