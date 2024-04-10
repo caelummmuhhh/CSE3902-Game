@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using MainGame.Players;
 using MainGame.SpriteHandlers;
 using Microsoft.Xna.Framework;
 
@@ -11,6 +12,7 @@ namespace MainGame.HudAndMenu
     public class Hud
     {
         public ISprite HudBase;
+        private int pauseShift;
 
         public Vector2 Position;
         private readonly Game1 game;
@@ -23,6 +25,9 @@ namespace MainGame.HudAndMenu
         private ISprite textAttackKey;
         private ISprite textLife;
 
+        private ISprite swordDisplay;
+        private ISprite itemDisplay;
+
         private ISprite[] heartsDisplay;
         public Hud(String dungeonID, String itemKey, String attackKey, Game1 game) 
         {
@@ -32,56 +37,80 @@ namespace MainGame.HudAndMenu
             heartsDisplay = new ISprite[16];
 
             textLevel = SpriteFactory.CreateTextSprite("LEVEL-" + dungeonID);
-            textRupees = SpriteFactory.CreateTextSprite("999");
-            textKeys = SpriteFactory.CreateTextSprite("X99");
-            textBombs = SpriteFactory.CreateTextSprite("X99");
             textItemKey = SpriteFactory.CreateTextSprite(itemKey);
             textAttackKey = SpriteFactory.CreateTextSprite(attackKey);
             textLife = SpriteFactory.CreateTextSprite("-LIFE-");
 
-            // This is temporary theoretical stuff until the player class is finalized (this code doesn't do it right)
-            int max = 12;
-            float hp = 6.5f;
-            for (int i = 0; i < max; ++i)
+            swordDisplay = SpriteFactory.CreateSwordBeamUpProjectileSprite();
+            switch (game.Player.CurrentItem)
             {
-                if (i < hp)
-                {
-                    heartsDisplay[i] = SpriteFactory.CreateFullHeartDisplaySprite();
-                }
-                else if (i > hp)
-                {
-                    heartsDisplay[i] = SpriteFactory.CreateEmptyHeartDisplaySprite();
-                } else
-                {
-                    heartsDisplay[i] = SpriteFactory.CreateHalfHeartDisplaySprite();
-                }
+                case ItemTypes.Bomb:
+                    itemDisplay = SpriteFactory.CreateBombItemSprite();
+                    break;
+                case ItemTypes.Fire:
+                    // Candle item not in reqirements
+                    break;
+                case ItemTypes.Boomerang:
+                    itemDisplay = SpriteFactory.CreateWoodenBoomerangItemSprite();
+                    break;
+                case ItemTypes.Arrow:
+                    itemDisplay = SpriteFactory.CreateArrowItemSprite();
+                    break;
+                default:
+                    throw new FormatException("Default in Hud should not be possible");
             }
+
+        }
+        public void PauseUpdate()
+        {
+            pauseShift = 176 * Constants.UniversalScale;
         }
         public void Update()
         {
-            HudBase.Update();
+            pauseShift = 0;
+            for (int i = 0; i < this.game.Player.MaxHealth / 2; ++i)
+            {
+                if (2 * (i + 1) <= this.game.Player.CurrentHealth)
+                {
+                    heartsDisplay[i] = SpriteFactory.CreateFullHeartDisplaySprite();
+                }
+                else if (this.game.Player.CurrentHealth - (2 * (i + 1)) == -1)
+                {
+                    heartsDisplay[i] = SpriteFactory.CreateHalfHeartDisplaySprite();
+                }
+                else
+                {
+                    heartsDisplay[i] = SpriteFactory.CreateEmptyHeartDisplaySprite();
+                }
+            }
+            textRupees = SpriteFactory.CreateTextSprite("X" + this.game.Player.RupeeCount.ToString());
+            textKeys = SpriteFactory.CreateTextSprite("X" + this.game.Player.KeyCount.ToString());
+            textBombs = SpriteFactory.CreateTextSprite("X" + this.game.Player.BombCount.ToString());
         }
         public void Draw()
         {
-            HudBase.Draw(0, 0, Color.White);
-            textLevel.Draw(16 * 3, 8 * 3, Color.White);
-            textRupees.Draw(96 * 3, 16 * 3, Color.White);
-            textKeys.Draw(96 * 3, 32 * 3, Color.White);
-            textBombs.Draw(96 * 3, 40 * 3, Color.White);
-            textItemKey.Draw(128 * 3, 16 * 3, Color.White);
-            textAttackKey.Draw(152 * 3, 16 * 3, Color.White);
-            textLife.Draw(184 * 3, 16 * 3, Color.Red);
+            HudBase.Draw(0, pauseShift, Color.White);
+            textLevel.Draw(16 * Constants.UniversalScale, 8 * Constants.UniversalScale + pauseShift, Color.White);
+            textRupees.Draw(96 * Constants.UniversalScale, 16 * Constants.UniversalScale + pauseShift, Color.White);
+            textKeys.Draw(96 * Constants.UniversalScale, 32 * Constants.UniversalScale + pauseShift, Color.White);
+            textBombs.Draw(96 * Constants.UniversalScale, 40 * Constants.UniversalScale + pauseShift, Color.White);
+            textItemKey.Draw(128 * Constants.UniversalScale, 16 * Constants.UniversalScale + pauseShift, Color.White);
+            textAttackKey.Draw(152 * Constants.UniversalScale, 16 * Constants.UniversalScale + pauseShift, Color.White);
+            textLife.Draw(184 * Constants.UniversalScale, 16 * Constants.UniversalScale + pauseShift, Color.Red);
 
-            for (int i = 0; i < 12; ++i)
+            swordDisplay.Draw(148 * Constants.UniversalScale, 24 * Constants.UniversalScale + pauseShift, Color.White);
+            itemDisplay.Draw(124 * Constants.UniversalScale, 24 * Constants.UniversalScale + pauseShift, Color.White);
+
+            for (int i = 0; i < this.game.Player.MaxHealth / 2; ++i)
             {
                 if (i < 8)
                 {
-                    heartsDisplay[i].Draw((176 + (8 * i)) * 3, 40 * 3, Color.White);
+                    heartsDisplay[i].Draw((176 + (8 * i)) * Constants.UniversalScale, 40 * Constants.UniversalScale + pauseShift, Color.White);
 
                 }
                 else
                 {
-                    heartsDisplay[i].Draw((176 + (8 * (i - 8))) * 3, 32 * 3, Color.White);
+                    heartsDisplay[i].Draw((176 + (8 * (i - 8))) * Constants.UniversalScale, 32 * Constants.UniversalScale + pauseShift, Color.White);
                 }
             }
         }

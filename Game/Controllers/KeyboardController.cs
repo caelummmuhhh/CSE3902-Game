@@ -26,14 +26,16 @@ namespace MainGame.Controllers
                 { Keys.R, new ResetGameCommand(game) },
 
                 { Keys.W, new PlayerMoveUpCommand(player) },
-                { Keys.A, new PlayerMoveLeftCommand(player) },
+                { Keys.A, new PlayerMoveLeftCommand(game) },
                 { Keys.S, new PlayerMoveDownCommand(player) },
-                { Keys.D, new PlayerMoveRightCommand(player) },
+                { Keys.D, new PlayerMoveRightCommand(game) },
 
-                { Keys.N, new PlayerUseSwordCommand(player) },
+                { Keys.K, new PlayerUseSwordCommand(player) },
                 { Keys.Z, new PlayerUseSwordBeamCommand(player) },
 
                 { Keys.E, new PlayerDamageCommand(game) },
+
+                { Keys.J, new PlayerUseItemCommand(player) },
 
                 { Keys.D1, new PlayerUseBombCommand(player) },
                 { Keys.D2, new PlayerUseArrowCommand(player) },
@@ -41,6 +43,8 @@ namespace MainGame.Controllers
                 { Keys.D4, new PlayerUseFireCommand(player) },
 
                 { Keys.Up, new NextRoomCommand(game) },
+
+                { Keys.P, new PauseMenuCommand(game) },
             };
         }
 

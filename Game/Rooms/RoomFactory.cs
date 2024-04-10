@@ -28,7 +28,7 @@ namespace MainGame.Rooms
             {
                 throw new IOException($"Could not read CSV file to room: {roomFile}");
             }
-            
+
             IRoom room = ParseRoomType(lines[0]); // Parse and set room to a new room object
             room.RoomId = roomNumber;
             ParseDoors(lines[1], room);
@@ -226,7 +226,7 @@ namespace MainGame.Rooms
                         room.RoomItems.Add(
                             new GenericItem(
                                     new Vector2(wallOffsetX + i * columnWidth, wallOffsetY + yOffset * columnWidth),
-                                    SpriteFactory.CreateItemSprite((ItemTypes)item)
+                                    SpriteFactory.CreateItemSprite((ItemTypes)item), (ItemTypes)item
                                 ));
                         objects[i] = "-";
                     }
