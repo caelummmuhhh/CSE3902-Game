@@ -23,6 +23,14 @@ namespace MainGame.Rooms
         public List<IItem> RoomItems { get; set; } = new();
         public List<IParticle> RoomParticles { get; set; } = new();
 
+        // TODO: Change this. I am not sure the best way to do this right now but this is my current attempt to get something to work
+        // Not very happy with this solution but will come back and fix -Landon
+        public Vector2[] BaseRoomEnemies { get; set; }
+        public Vector2[] BaseRoomBlocks { get; set; }
+        public Vector2[] BaseRoomItems { get; set; }
+        public Vector2[] BaseRoomParticles { get; set; }
+
+
         public IHitBox EnemiesBorderHitBox { get; set; }
         public IHitBox PlayerBorderHitBox { get; set; }
 
@@ -71,24 +79,23 @@ namespace MainGame.Rooms
             EastDoor.Position = DoorLocations[2] + Position;
             WestDoor.Position = DoorLocations[3] + Position;
 
-            Debug.WriteLine(DoorLocations[0]);
+            for (int i = 0; i < RoomBlocks.Count; i++)
+            {
+                RoomBlocks[i].Position = BaseRoomBlocks[i] + Position;
+            }
+            for(int i = 0; i < RoomEnemies.Count; i++) 
+            {
+                RoomEnemies[i].Position = BaseRoomEnemies[i] + Position;
+            }
+            for (int i = 0; i < RoomItems.Count; i++)
+            {
+                RoomItems[i].Position = BaseRoomItems[i] + Position;
+            }
+            for (int i = 0; i < RoomParticles.Count; i++)
+            {
+                RoomParticles[i].Position = BaseRoomParticles[i] + Position;
+            }
 
-            foreach (IBlock block in RoomBlocks)
-            {
-                block.Position = Position;
-            }
-            foreach (IItem item in RoomItems)
-            {
-                item.Position = Position;
-            }
-            foreach (IEnemy enemy in RoomEnemies)
-            {
-                enemy.Position = Position;
-            }
-            foreach (IParticle particle in RoomParticles)
-            {
-                particle.Position = Position;
-            }
         }
 
         public void Update()

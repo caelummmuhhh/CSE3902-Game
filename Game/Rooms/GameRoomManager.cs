@@ -17,10 +17,20 @@ namespace MainGame.Rooms
 
 		private bool roomChangeDebounce = true;
 
-		public GameRoomManager(Game1 game)
+		private float SpeedX { get; set; }
+        private float SpeedY { get; set; }
+        private float ScrollSpeed;
+
+		public Rectangle gameArea;
+		
+
+
+        public GameRoomManager(Game1 game)
 		{
 			LoadAllRooms(game.Player);
 			CurrentRoom = allRooms[0];
+            gameArea = new Rectangle(0, 0, game.GraphicsManager.PreferredBackBufferWidth, game.GraphicsManager.PreferredBackBufferHeight);
+            ScrollSpeed = 3;
         }
 
 		private void LoadAllRooms(IPlayer player)
@@ -36,19 +46,21 @@ namespace MainGame.Rooms
 		public void Update()
 		{
 			CurrentRoom.Update();
-			CurrentRoom.Position += new Vector2(1, 0);
 			// Code for scrolling rooms
 			if(SwitchingRoom != null)
 			{
+				SwitchingRoom.Update();
 				roomChangeDebounce = false;
 
-                SwitchingRoom.Position += new Vector2(1f, 0);
-				CurrentRoom.Position += new Vector2(-1f, 0);
+                SwitchingRoom.Position += new Vector2(SpeedX, SpeedY);
+				CurrentRoom.Position += new Vector2(SpeedX, SpeedY);
                 if (SwitchingRoom.Position.X == 0 && SwitchingRoom.Position.Y == 0)
                 {
                     CurrentRoom = SwitchingRoom;
                     SwitchingRoom = null;
                     roomChangeDebounce = true;
+                    SpeedX = 0;
+                    SpeedY = 0;
                 }
             }
 		}
@@ -59,40 +71,59 @@ namespace MainGame.Rooms
             if (SwitchingRoom != null)
             {
                 SwitchingRoom.Draw();
-
             }
         }
 
 		public void GetNorthRoom()
 		{
-            NextRoom(CurrentRoom.ConnectingRooms[0]);
+            // RoomNumber == -1 means room does not exist
+            if (!roomChangeDebounce || CurrentRoom.ConnectingRooms[0] == -1)
+            {
+                return;
+            }
+
+            SwitchingRoom = allRooms[CurrentRoom.ConnectingRooms[0]];
+            SwitchingRoom.Position = new Vector2(0, gameArea.Top - gameArea.Height);
+            SpeedY = ScrollSpeed;
         }
 
         public void GetSouthRoom()
         {
-            NextRoom(CurrentRoom.ConnectingRooms[1]);
+            // RoomNumber == -1 means room does not exist
+            if (!roomChangeDebounce || CurrentRoom.ConnectingRooms[1] == -1)
+            {
+                return;
+            }
+
+            SwitchingRoom = allRooms[CurrentRoom.ConnectingRooms[1]];
+            SwitchingRoom.Position = new Vector2(0, gameArea.Bottom);
+            SpeedY = -ScrollSpeed;
         }
 
         public void GetEastRoom()
         {
-            NextRoom(CurrentRoom.ConnectingRooms[2]);
+            // RoomNumber == -1 means room does not exist
+            if (!roomChangeDebounce || CurrentRoom.ConnectingRooms[2] == -1)
+            {
+                return;
+            }
+
+            SwitchingRoom = allRooms[CurrentRoom.ConnectingRooms[2]];
+            SwitchingRoom.Position = new Vector2(gameArea.Right, 0);
+            SpeedX = -ScrollSpeed;
         }
 
         public void GetWestRoom()
         {
-			NextRoom(CurrentRoom.ConnectingRooms[3]);
-        }
+            // RoomNumber == -1 means room does not exist
+            if (!roomChangeDebounce || CurrentRoom.ConnectingRooms[3] == -1)
+            {
+                return;
+            }
 
-        public void NextRoom(int RoomNumber)
-		{
-			// RoomNumber == -1 means room does not exist
-			if (!roomChangeDebounce || RoomNumber == -1)
-			{
-				return;
-			}
-
-			//SwitchingRoom = allRooms[RoomNumber];
-			//SwitchingRoom.Position = new Vector2(-500, 0);
+            SwitchingRoom = allRooms[CurrentRoom.ConnectingRooms[3]];
+            SwitchingRoom.Position = new Vector2(gameArea.Left - gameArea.Width, 0);
+            SpeedX = ScrollSpeed;        
         }
     }
 }

@@ -21,6 +21,11 @@ namespace MainGame.Rooms
 		public List<IItem> RoomItems { get; set; }
 		public List<IParticle> RoomParticles { get; set; }
 
+        public Vector2[] BaseRoomEnemies { get; set; }
+        public Vector2[] BaseRoomBlocks { get; set; }
+        public Vector2[] BaseRoomItems { get; set; }
+        public Vector2[] BaseRoomParticles { get; set; } 
+
         public IDoor NorthDoor { get; set; }
         public IDoor WestDoor { get; set; }
         public IDoor EastDoor { get; set; }

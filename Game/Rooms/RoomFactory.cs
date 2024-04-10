@@ -11,6 +11,8 @@ using MainGame.Enemies;
 using MainGame.Players;
 using MainGame.Collision;
 using System.Diagnostics;
+using System.Collections.Generic;
+using MainGame.Particles;
 
 namespace MainGame.Rooms
 {
@@ -49,6 +51,27 @@ namespace MainGame.Rooms
             room.DoorLocations[2] = room.EastDoor.Position;
             room.DoorLocations[3] = room.WestDoor.Position;
 
+            // Again still in progress but I have to do some weird stuff to avoid refrences... gonna come back and clean up later
+            room.BaseRoomBlocks = new Vector2[room.RoomBlocks.Count];
+            room.BaseRoomEnemies = new Vector2[room.RoomEnemies.Count];
+            room.BaseRoomItems = new Vector2[room.RoomItems.Count];
+            room.BaseRoomParticles = new Vector2[room.RoomParticles.Count];
+            for (int i = 0; i < room.RoomBlocks.Count; i++)
+            {
+                room.BaseRoomBlocks[i] = new Vector2(room.RoomBlocks[i].Position.X, room.RoomBlocks[i].Position.Y);
+            }
+            for (int i = 0; i < room.RoomEnemies.Count; i++)
+            {
+                room.BaseRoomEnemies[i] = new Vector2(room.RoomEnemies[i].Position.X, room.RoomEnemies[i].Position.Y);
+            }
+            for (int i = 0; i < room.RoomItems.Count; i++)
+            {
+                room.BaseRoomItems[i] = new Vector2(room.RoomItems[i].Position.X, room.RoomItems[i].Position.Y);
+            }
+            for (int i = 0; i < room.RoomParticles.Count; i++)
+            {
+                room.BaseRoomParticles[i] = new Vector2(room.RoomParticles[i].Position.X, room.RoomParticles[i].Position.Y);
+            }
             return room;
         }
 
