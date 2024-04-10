@@ -3,8 +3,8 @@ namespace MainGame
 public static class GameConstants
 {
     //Game1.cs
-    public const int BackBufferWidthFactor = 256;
-    public const int BackBufferHeightFactor = 176; //768 in sprint 4+
+    public const int BackBufferWidth = 768;
+    public const int BackBufferHeight = 696;
     public const int PlayerStartPositionX = 96;
     public const int PlayerStartPositionY = 96;
     //PushableBlock.cs
@@ -17,10 +17,9 @@ public static class GameConstants
     public const int EnemyStunDuration = 100;
     //BottomFullHorizontalWallHitBox.cs
     public const int BottomFullHorizontalWallX = 0;
-    public const int BottomFullHorizontalWallYFactor1 = 112;
-    public const int BottomFullHorizontalWallYFactor2 = 32;
-    public const int BottomFullHorizontalWallWidth = 256;
-    public const int BottomFullHorizontalWallHeight = 32;
+    public const int BottomFullHorizontalWallY = 9;
+    public const int BottomFullHorizontalWallWidth = 16;
+    public const int BottomFullHorizontalWallHeight = 2;
     //BottomHorizontalDoorWallHitBox.cs
     public const int BottomHorizontalDoorWallX = 0;
     public const int BottomHorizontalDoorWallYFactor = 9;
@@ -43,11 +42,9 @@ public static class GameConstants
     public const int LeftVerticalDoorWallTopHeight = 5;
     public const int LeftVerticalDoorWallBottomHeight = 5;
     //RightFullVerticalWallHitBox.cs
-    public const int RightFullVerticalWallXFactor1 = 32;
-    public const int RightFullVerticalWallXFactor2 = 192;
-    public const int RightFullVerticalWallY = 0;
-    public const int RightFullVerticalWallWidth = 32;
-    public const int RightFullVerticalWallHeight = 176;
+    public const int RightFullVerticalWallX=14;
+    public const int RightFullVerticalWallWidth = 2;
+    public const int RightFullVerticalWallHeight = 11;
     //RightVerticalDoorWallHitBox.cs
     public const int RightVerticalDoorWallXFactor = 14;
     public const int RightVerticalDoorWallY = 0;
@@ -57,8 +54,8 @@ public static class GameConstants
     //TopFullHorizontalWallHitBox.cs
     public const int TopFullHorizontalWallX = 0;
     public const int TopFullHorizontalWallY = 0;
-    public const int TopFullHorizontalWallWidth = 256;
-    public const int TopFullHorizontalWallHeight = 32;
+    public const int TopFullHorizontalWallWidth = 16;
+    public const int TopFullHorizontalWallHeight = 2;
     //TopHorizontalDoorWallHitBox.cs
     public const int TopHorizontalDoorWallX = 0;
     public const int TopHorizontalDoorWallY = 0;
