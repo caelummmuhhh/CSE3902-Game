@@ -6,9 +6,9 @@ namespace MainGame.Enemies
 	{
 		private readonly SpikeCrossEnemy entity;
 		private readonly Vector2 originalPosition;
-		private readonly int maxMoveDistance = 48 * 3 + 24; // TODO: Actually depends, and x and y could be different
-		private readonly int forwardSpeed = 4; // TODO: Double check these speeds, this is a guess
-		private readonly int returnSpeed = 2;
+		private readonly int maxMoveDistance = GameConstants.SpikeCrossMoveDistanceFactor1 * GameConstants.SpikeCrossMoveDistanceFactor2 + GameConstants.SpikeCrossMoveDistanceFactor3; // TODO: Actually depends, and x and y could be different
+		private readonly int forwardSpeed = GameConstants.SpikeCrossForwardSpeed; // TODO: Double check these speeds, this is a guess
+		private readonly int returnSpeed = GameConstants.SpikeCrossReturnSpeed;
 
 		private bool returnToOriginalPosition = false;
 		private int movedDistance = 0;
@@ -51,4 +51,3 @@ namespace MainGame.Enemies
         }
     }
 }
-

@@ -50,7 +50,7 @@ namespace MainGame.SpriteHandlers
         {
             return new BlockSprites.BlockSprite(
                 TextureMap["BlocksSprites"], SpriteBatch,
-                textureStartingY: 0,
+                textureStartingY: GameConstants.BlueFloorSpriteTextureStartingY,
                 scale: Constants.UniversalScale);
         }
 
@@ -58,7 +58,7 @@ namespace MainGame.SpriteHandlers
         {
             return new BlockSprites.BlockSprite(
                 TextureMap["BlocksSprites"], SpriteBatch,
-                textureStartingY: 16,
+                textureStartingY: GameConstants.SquareBlockSpriteTextureStartingY,
                 scale: Constants.UniversalScale);
         }
 
@@ -66,7 +66,7 @@ namespace MainGame.SpriteHandlers
         {
             return new BlockSprites.BlockSprite(
                 TextureMap["BlocksSprites"], SpriteBatch,
-                textureStartingY: 32,
+                textureStartingY: GameConstants.StatueOneEntranceSpriteTextureStartingY,
                 scale: Constants.UniversalScale);
         }
 
@@ -74,7 +74,7 @@ namespace MainGame.SpriteHandlers
         {
             return new BlockSprites.BlockSprite(
                 TextureMap["BlocksSprites"], SpriteBatch,
-                textureStartingY: 48,
+                textureStartingY: GameConstants.StatueTwoEntranceSpriteTextureStartingY,
                 scale: Constants.UniversalScale);
         }
 
@@ -82,7 +82,7 @@ namespace MainGame.SpriteHandlers
         {
             return new BlockSprites.BlockSprite(
                 TextureMap["BlocksSprites"], SpriteBatch,
-                textureStartingY: 64,
+                textureStartingY: GameConstants.StatueOneEndSpriteTextureStartingY,
                 scale: Constants.UniversalScale);
         }
 
@@ -90,7 +90,7 @@ namespace MainGame.SpriteHandlers
         {
             return new BlockSprites.BlockSprite(
                 TextureMap["BlocksSprites"], SpriteBatch,
-                textureStartingY: 80,
+                textureStartingY: GameConstants.StatueTwoEndSpriteTextureStartingY,
                 scale: Constants.UniversalScale);
         }
 
@@ -98,7 +98,7 @@ namespace MainGame.SpriteHandlers
         {
             return new BlockSprites.BlockSprite(
                 TextureMap["BlocksSprites"], SpriteBatch,
-                textureStartingY: 96,
+                textureStartingY: GameConstants.BlackSquareSpriteTextureStartingY,
                 scale: Constants.UniversalScale);
         }
 
@@ -106,7 +106,7 @@ namespace MainGame.SpriteHandlers
         {
             return new BlockSprites.BlockSprite(
                 TextureMap["BlocksSprites"], SpriteBatch,
-                textureStartingY: 112,
+                textureStartingY: GameConstants.BlueSandSpriteTextureStartingY,
                 scale: Constants.UniversalScale);
         }
 
@@ -114,7 +114,7 @@ namespace MainGame.SpriteHandlers
         {
             return new BlockSprites.BlockSprite(
                 TextureMap["BlocksSprites"], SpriteBatch,
-                textureStartingY: 128,
+                textureStartingY: GameConstants.BlueGapSpriteTextureStartingY,
                 scale: Constants.UniversalScale);
         }
 
@@ -122,7 +122,7 @@ namespace MainGame.SpriteHandlers
         {
             return new BlockSprites.BlockSprite(
                 TextureMap["BlocksSprites"], SpriteBatch,
-                textureStartingY: 144,
+                textureStartingY: GameConstants.StairsSpriteTextureStartingY,
                 scale: Constants.UniversalScale);
         }
 
@@ -130,7 +130,7 @@ namespace MainGame.SpriteHandlers
         {
             return new BlockSprites.BlockSprite(
                 TextureMap["BlocksSprites"], SpriteBatch,
-                textureStartingY: 160,
+                textureStartingY: GameConstants.WhiteBrickSpriteTextureStartingY,
                 scale: Constants.UniversalScale);
         }
 
@@ -138,7 +138,7 @@ namespace MainGame.SpriteHandlers
         {
             return new BlockSprites.BlockSprite(
                 TextureMap["BlocksSprites"], SpriteBatch,
-                textureStartingY: 176,
+                textureStartingY: GameConstants.WhiteLadderSpriteTextureStartingY,
                 scale: Constants.UniversalScale);
         }
     }

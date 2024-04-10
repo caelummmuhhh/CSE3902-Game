@@ -15,10 +15,10 @@ namespace MainGame.Projectiles
         private bool isActive = true;
         private readonly Vector2 position;
         private Rectangle hitBox = new();
-        private readonly int bombSpawnOffset = 48;
+        private readonly int bombSpawnOffset = GameConstants.BombProjectileSpawnOffset;
 
-        private int detonationCountdown = 64;
-        private int explosionTime = 0;
+        private int detonationCountdown = GameConstants.BombProjectileDetonationCountdown;
+        private int explosionTime = GameConstants.BombProjectileInitialExplosionTime;
         private bool detonated = false;
         private readonly Direction direction;
 
@@ -69,11 +69,11 @@ namespace MainGame.Projectiles
         {
             if (!detonated)
             {
-                int height = sprite.DestinationRectangle.Height * 5 / 2;
-                int width = sprite.DestinationRectangle.Width * 3;
+                int height = sprite.DestinationRectangle.Height * GameConstants.BombProjectileDetonationHeightFactor / GameConstants.BombProjectileDetonationDivisor;
+                int width = sprite.DestinationRectangle.Width * GameConstants.BombProjectileDetonationWidthFactor;
                 hitBox = new Rectangle(
                     (int)position.X - sprite.DestinationRectangle.Width,
-                    (int)position.Y - sprite.DestinationRectangle.Height * 3 / 4,
+                    (int)position.Y - sprite.DestinationRectangle.Height *  GameConstants.BombProjectileExplosionHeightFactor / GameConstants.BombProjectileExplosionDivisor,
                     width, height);
 
                 AnimatedSprite explodingBombSprite = (AnimatedSprite)SpriteFactory.CreateBombExplodingSprite();
@@ -97,19 +97,18 @@ namespace MainGame.Projectiles
                 smokeColor = Color.Transparent;
             }
 
-            int height = sprite.DestinationRectangle.Height * 3 / 4;
+            int height = sprite.DestinationRectangle.Height *  GameConstants.BombProjectileExplosionHeightFactor / GameConstants.BombProjectileExplosionDivisor;
             int width = sprite.DestinationRectangle.Width;
 
-            sprite.Draw(position.X + width / 2, position.Y - height, smokeColor);
-            sprite.Draw(position.X - width / 2, position.Y - height, smokeColor);
+            sprite.Draw(position.X + width / GameConstants.BombProjectileDrawExplosionDivisor, position.Y - height, smokeColor);
+            sprite.Draw(position.X - width / GameConstants.BombProjectileDrawExplosionDivisor, position.Y - height, smokeColor);
 
             sprite.Draw(position.X - width, position.Y, smokeColor);
             sprite.Draw(position.X, position.Y, Color.White);
             sprite.Draw(position.X + width, position.Y, smokeColor);
 
-            sprite.Draw(position.X + width / 2, position.Y + height, smokeColor);
-            sprite.Draw(position.X - width / 2, position.Y + height, smokeColor);
+            sprite.Draw(position.X + width / GameConstants.BombProjectileDrawExplosionDivisor, position.Y + height, smokeColor);
+            sprite.Draw(position.X - width / GameConstants.BombProjectileDrawExplosionDivisor, position.Y + height, smokeColor);
         }
     }
 }
-

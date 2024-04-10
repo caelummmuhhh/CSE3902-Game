@@ -3,8 +3,7 @@
 	public class GelMovingState : IEnemyState
 	{
         private readonly GenericEnemy entity;
-        private int stateDuration = 15;
-
+		private int stateDuration = GameConstants.GelMovingStateDuration; 
         public GelMovingState(GenericEnemy enemy)
 		{
             entity = enemy;

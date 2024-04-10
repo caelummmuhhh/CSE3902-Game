@@ -6,8 +6,8 @@ namespace MainGame
 {
 	public static class GridHandler
 	{
-		public static readonly Point GridStart = new(0);
-		public static readonly Point CellSize = new(16 * Constants.UniversalScale);
+		public static readonly Point GridStart = new(GameConstants.GridStartValue);
+		public static readonly Point CellSize = new(GameConstants.CellSizeFactor * Constants.UniversalScale);
 		public static readonly Point GridEnd = new(
             GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width,
             GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height);
@@ -19,8 +19,8 @@ namespace MainGame
 
 			if (centerAlign)
 			{
-				roundedX += CellSize.X / 2;
-				roundedY += CellSize.Y / 2; // TODO: + or - ??
+				roundedX += CellSize.X / GameConstants.FullStepDivisor;
+				roundedY += CellSize.Y / GameConstants.FullStepDivisor; // TODO: + or - ??
 			}
 
 			return new Point(roundedX, roundedY);
@@ -34,8 +34,8 @@ namespace MainGame
 
         public static Point SnapToGridHalfStep(Point position)
 		{
-            int halfCellWidth = CellSize.X / 4;
-            int halfCellHeight = CellSize.Y / 4;
+            int halfCellWidth = CellSize.X / GameConstants.HalfStepDivisor;
+            int halfCellHeight = CellSize.Y / GameConstants.HalfStepDivisor;
 
             int roundedX = (int)Math.Round((decimal)position.X / halfCellWidth) * halfCellWidth;
             int roundedY = (int)Math.Round((decimal)position.Y / halfCellHeight) * halfCellHeight;

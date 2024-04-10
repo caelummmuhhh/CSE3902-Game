@@ -10,16 +10,16 @@ namespace MainGame.SpriteHandlers.BlockSprites
         public BlockSprite(
             Texture2D texture,
             SpriteBatch spriteBatch,
-            int spriteHeight = 16,
-            int spriteWidth = 16,
-            int textureStartingX = 0,
-            int textureStartingY = 0,
-            int scale = 1,
-            float layerDepth = 0.5f)
+            int spriteHeight = GameConstants.BlockSpriteDefaultSpriteHeight,
+            int spriteWidth = GameConstants.BlockSpriteDefaultSpriteWidth,
+            int textureStartingX = GameConstants.BlockSpriteDefaultTextureStartingX,
+            int textureStartingY = GameConstants.BlockSpriteDefaultTextureStartingY,
+            int scale = GameConstants.BlockSpriteDefaultScale,
+            float layerDepth = GameConstants.BlockSpriteDefaultLayerDepth)
             : base(texture, spriteHeight, spriteWidth, textureStartingX, textureStartingY, scale, layerDepth)
         {
             this.spriteBatch = spriteBatch;
-            origin = new Vector2(0, 0);
+            origin = new Vector2(GameConstants.BlockSpriteDefaultOrigin, GameConstants.BlockSpriteDefaultOrigin);
         }
 
         public override void Update() { /* not needed here */ }
@@ -41,4 +41,3 @@ namespace MainGame.SpriteHandlers.BlockSprites
         }
     }
 }
-

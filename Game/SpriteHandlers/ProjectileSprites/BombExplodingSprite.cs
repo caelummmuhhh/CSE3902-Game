@@ -33,26 +33,25 @@ namespace MainGame.SpriteHandlers.ProjectileSprites
             int numRows,
             int numColumns,
             int numberOfFrames,
-            int frameHeight = 16,
-            int frameWidth = 16,
-            int textureStartingX = 0,
-            int textureStartingY = 0,
-            int scale = 1,
-            float layerDepth = 0.5f) :
-            base(texture, numRows, numColumns, frameWidth, frameHeight, numberOfFrames,
-                textureStartingX, textureStartingY, scale, layerDepth)
-        {
-            this.spriteBatch = spriteBatch;
-            spriteDisplayTimeLapse = 0;
-            frameDisplayTimeMap = new()
-            {
-                { 0, 1 },
-                { 1, 8 },
-                { 2, 4 },
-                { 3, 2 }
-            };
-        }
-
+    int frameHeight = GameConstants.BombExplodingSpriteDefaultFrameHeight,
+    int frameWidth = GameConstants.BombExplodingSpriteDefaultFrameWidth,
+    int textureStartingX = GameConstants.BombExplodingSpriteDefaultTextureStartingX,
+    int textureStartingY = GameConstants.BombExplodingSpriteDefaultTextureStartingY,
+    int scale = GameConstants.BombExplodingSpriteDefaultScale,
+    float layerDepth = GameConstants.BombExplodingSpriteDefaultLayerDepth)
+    : base(texture, numRows, numColumns, frameWidth, frameHeight, numberOfFrames,
+          textureStartingX, textureStartingY, scale, layerDepth)
+{
+    this.spriteBatch = spriteBatch;
+    spriteDisplayTimeLapse = 0;
+    frameDisplayTimeMap = new()
+    {
+        { 0, GameConstants.BombExplodingSpriteDefaultFrame0DisplayTime },
+        { 1, GameConstants.BombExplodingSpriteDefaultFrame1DisplayTime },
+        { 2, GameConstants.BombExplodingSpriteDefaultFrame2DisplayTime },
+        { 3, GameConstants.BombExplodingSpriteDefaultFrame3DisplayTime }
+    };
+}
         public override void Update()
         {
             if (spriteDisplayTimeLapse == frameDisplayTimeMap[currentFrame])

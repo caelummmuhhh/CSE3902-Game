@@ -34,18 +34,18 @@ namespace MainGame.Rooms
         public ISprite InnerBorderSprite { get; set; }
         public ISprite TilesSprite { get; set; }
 
-        private Vector2 Position = new(0, 0);
+        private Vector2 Position = new(GameConstants.RoomInitialPosition, GameConstants.RoomInitialPosition);
 
         public Room(ISprite outerBorder, ISprite innerBorder, ISprite tiles)
         {
-            Position = new Vector2(0, Constants.HudAndMenuHeight);
+            Position = new Vector2(GameConstants.RoomInitialPosition, Constants.HudAndMenuHeight);
             OuterBorderSprite = outerBorder;
             InnerBorderSprite = innerBorder;
             TilesSprite = tiles;
 
-            OuterBorderSprite.LayerDepth = 0f;
-            InnerBorderSprite.LayerDepth = 1.0f;
-            TilesSprite.LayerDepth = 1.0f;
+            OuterBorderSprite.LayerDepth = GameConstants.RoomOuterBorderSpriteLayerDepth;
+            InnerBorderSprite.LayerDepth = GameConstants.RoomInnerBorderSpriteLayerDepth;
+            TilesSprite.LayerDepth = GameConstants.RoomTilesSpriteLayerDepth;
 
             EnemiesBorderHitBox = new AllFullWallHitBox();
             PlayerBorderHitBox = new GenericHitBox();

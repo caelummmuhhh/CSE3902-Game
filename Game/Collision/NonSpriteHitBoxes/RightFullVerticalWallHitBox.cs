@@ -7,13 +7,12 @@ namespace MainGame.Collision
         public RightFullVerticalWallHitBox()
         {
             Rectangle wallHitBox = new(
-                x: 14 * Constants.BlockSize,
+                x: GameConstants.RightFullVerticalWallX * Constants.BlockSize,
                 y: Constants.HudAndMenuHeight,
-                width: 2 * Constants.BlockSize,
-                height: 11 * Constants.BlockSize
+                width: GameConstants.RightFullVerticalWallWidth * Constants.BlockSize,
+                height: GameConstants.RightFullVerticalWallHeight * Constants.BlockSize
                 );
             HitBoxes.Add(wallHitBox);
         }
     }
 }
-

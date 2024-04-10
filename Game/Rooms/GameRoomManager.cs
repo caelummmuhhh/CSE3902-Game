@@ -11,9 +11,9 @@ namespace MainGame.Rooms
 
 		private readonly List<IRoom> allRooms = new();
 
-		private int currentRoomIndex = 0; // TODO: delete, this is for testing only
+		private int currentRoomIndex = GameConstants.GameRoomManagerInitialRoomIndex; // TODO: delete, this is for testing only
 		private readonly Game1 game; // TODO: we might not even need this tbh
-		private int roomChangeDebounce = 20;
+		private int roomChangeDebounce = GameConstants.GameRoomManagerInitialRoomChangeDebounce;
 
 		public GameRoomManager(Game1 game)
 		{
@@ -50,10 +50,9 @@ namespace MainGame.Rooms
 			{
 				return;
 			}
-			roomChangeDebounce = 20;
+			roomChangeDebounce = GameConstants.GameRoomManagerInitialRoomChangeDebounce;
 			currentRoomIndex = (currentRoomIndex + 1) % allRooms.Count;
 			CurrentRoom = allRooms[currentRoomIndex];
         }
     }
 }
-

@@ -20,27 +20,26 @@ namespace MainGame.SpriteHandlers.ProjectileSprites
             int numRows,
             int numColumns,
             int numberOfFrames,
-            int frameHeight = 16,
-            int frameWidth = 16,
-            int textureStartingX = 0,
-            int textureStartingY = 0,
-            int scale = 1,
-            float layerDepth = 0.5f)
-            : base(texture, numRows, numColumns, frameWidth, frameHeight, numberOfFrames,
-                  textureStartingX, textureStartingY, scale, layerDepth)
-        {
-            this.spriteBatch = spriteBatch;
-            spriteDisplayTimeLapse = 0;
-            rotation = 0f;
-            frameDisplayTimeMap = new()
-            {
-                { 0, 1 },
-                { 1, 1 },
-                { 2, 1 },
-                { 3, 1 }
-            };
-        }
-
+    int frameHeight = GameConstants.SwordBeamRightProjectileSpriteDefaultFrameHeight,
+    int frameWidth = GameConstants.SwordBeamRightProjectileSpriteDefaultFrameWidth,
+    int textureStartingX = GameConstants.SwordBeamRightProjectileSpriteDefaultTextureStartingX,
+    int textureStartingY = GameConstants.SwordBeamRightProjectileSpriteDefaultTextureStartingY,
+    int scale = GameConstants.SwordBeamRightProjectileSpriteDefaultScale,
+    float layerDepth = GameConstants.SwordBeamRightProjectileSpriteDefaultLayerDepth)
+    : base(texture, numRows, numColumns, frameWidth, frameHeight, numberOfFrames,
+          textureStartingX, textureStartingY, scale, layerDepth)
+{
+    this.spriteBatch = spriteBatch;
+    spriteDisplayTimeLapse = 0;
+    rotation = GameConstants.SwordBeamRightProjectileSpriteDefaultRotation;
+    frameDisplayTimeMap = new()
+    {
+        { 0, GameConstants.SwordBeamRightProjectileSpriteDefaultFrame0DisplayTime },
+        { 1, GameConstants.SwordBeamRightProjectileSpriteDefaultFrame1DisplayTime },
+        { 2, GameConstants.SwordBeamRightProjectileSpriteDefaultFrame2DisplayTime },
+        { 3, GameConstants.SwordBeamRightProjectileSpriteDefaultFrame3DisplayTime }
+    };
+}
         public override void Update()
         {
             if (spriteDisplayTimeLapse == frameDisplayTimeMap[currentFrame])

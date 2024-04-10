@@ -20,24 +20,23 @@ namespace MainGame.SpriteHandlers.ItemSprites
             int numRows,
             int numColumns,
             int numberOfFrames,
-            int frameHeight = 16,
-            int frameWidth = 16,
-            int textureStartingX = 0,
-            int textureStartingY = 0,
-            int scale = 1,
-            float layerDepth = 0.5f)
-            : base(texture, numRows, numColumns, frameWidth, frameHeight, numberOfFrames,
-                  textureStartingX, textureStartingY, scale, layerDepth)
-        {
-            this.spriteBatch = spriteBatch;
-            spriteDisplayTimeLapse = 0;
-            frameDisplayTimeMap = new()
-            {
-                { 0, 4 },
-                { 1, 4 },
-            };
-        }
-
+    int frameHeight = GameConstants.FairyItemSpriteDefaultFrameHeight,
+    int frameWidth = GameConstants.FairyItemSpriteDefaultFrameWidth,
+    int textureStartingX = GameConstants.FairyItemSpriteDefaultTextureStartingX,
+    int textureStartingY = GameConstants.FairyItemSpriteDefaultTextureStartingY,
+    int scale = GameConstants.FairyItemSpriteDefaultScale,
+    float layerDepth = GameConstants.FairyItemSpriteDefaultLayerDepth)
+    : base(texture, numRows, numColumns, frameWidth, frameHeight, numberOfFrames,
+          textureStartingX, textureStartingY, scale, layerDepth)
+{
+    this.spriteBatch = spriteBatch;
+    spriteDisplayTimeLapse = GameConstants.FairyItemSpriteInitialDisplayTimeLapse;
+    frameDisplayTimeMap = new()
+    {
+        { GameConstants.FairyItemSpriteInitialFrame, GameConstants.FairyItemSpriteFrameDisplayTime },
+        { GameConstants.FairyItemSpriteNextFrame, GameConstants.FairyItemSpriteFrameDisplayTime },
+    };
+}
         public override void Update()
         {
             if (spriteDisplayTimeLapse == frameDisplayTimeMap[currentFrame])
@@ -58,4 +57,3 @@ namespace MainGame.SpriteHandlers.ItemSprites
         }
     }
 }
-

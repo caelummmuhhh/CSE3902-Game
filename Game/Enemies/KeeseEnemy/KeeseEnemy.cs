@@ -9,14 +9,14 @@ namespace MainGame.Enemies
             get
             {
                 Rectangle hitbox = new(Position.ToPoint(), Sprite.DestinationRectangle.Size);
-                hitbox.Height /= 2;
+                hitbox.Height /= GameConstants.KeeseHitboxHeightFactor;
                 hitbox.Y = Utils.CentralizeRectangle((int)Position.X, (int)Position.Y, hitbox).Y;
 
                 return hitbox;
             }
         }
 
-        public override int MovementCoolDownFrame { get; protected set; } = 1;
+        public override int MovementCoolDownFrame { get; protected set; } = GameConstants.KeeseMovementCoolDownFrame;
 
         public KeeseEnemy(Vector2 spawnPosition)
         {
@@ -43,4 +43,3 @@ namespace MainGame.Enemies
         }
     }
 }
-

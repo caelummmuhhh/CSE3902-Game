@@ -20,24 +20,23 @@ namespace MainGame.SpriteHandlers.EnemySprites
             int numRows,
             int numColumns,
             int numberOfFrames,
-            int frameHeight = 16,
-            int frameWidth = 16,
-            int textureStartingX = 0,
-            int textureStartingY = 0,
-            int scale = 1,
-            float layerDepth = 0.5f)
-            : base(texture, numRows, numColumns, frameWidth, frameHeight, numberOfFrames,
-                  textureStartingX, textureStartingY, scale, layerDepth)
-        {
-            this.spriteBatch = spriteBatch;
-            spriteDisplayTimeLapse = 0;
-            frameDisplayTimeMap = new()
-            {
-                { 0, 8 },
-                { 1, 8 },
-            };
-        }
-
+    int frameHeight = GameConstants.WallMasterSpriteDefaultFrameHeight,
+    int frameWidth = GameConstants.WallMasterSpriteDefaultFrameWidth,
+    int textureStartingX = GameConstants.WallMasterSpriteDefaultTextureStartingX,
+    int textureStartingY = GameConstants.WallMasterSpriteDefaultTextureStartingY,
+    int scale = GameConstants.WallMasterSpriteDefaultScale,
+    float layerDepth = GameConstants.WallMasterSpriteDefaultLayerDepth)
+    : base(texture, numRows, numColumns, frameWidth, frameHeight, numberOfFrames,
+          textureStartingX, textureStartingY, scale, layerDepth)
+{
+    this.spriteBatch = spriteBatch;
+    spriteDisplayTimeLapse = GameConstants.WallMasterSpriteInitialDisplayTimeLapse;
+    frameDisplayTimeMap = new()
+    {
+        { GameConstants.WallMasterSpriteInitialFrame, GameConstants.WallMasterSpriteFrameDisplayTime },
+        { GameConstants.WallMasterSpriteNextFrame, GameConstants.WallMasterSpriteFrameDisplayTime },
+    };
+}
         public override void Update()
         {
             if (spriteDisplayTimeLapse == frameDisplayTimeMap[currentFrame])

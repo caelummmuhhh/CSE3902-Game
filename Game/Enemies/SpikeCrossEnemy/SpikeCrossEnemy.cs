@@ -6,7 +6,7 @@ namespace MainGame.Enemies
 {
 	public class SpikeCrossEnemy : GenericEnemy
 	{
-        public override int MovementCoolDownFrame { get; protected set; } = 1;
+    public override int MovementCoolDownFrame { get; protected set; } = GameConstants.SpikeCrossMovementCoolDownFrame;
         public override Rectangle AttackHitBox => new(); // No attack hitbox, you can't hit these
         public readonly IPlayer Player;
 
@@ -28,4 +28,3 @@ namespace MainGame.Enemies
 		}
     }
 }
-

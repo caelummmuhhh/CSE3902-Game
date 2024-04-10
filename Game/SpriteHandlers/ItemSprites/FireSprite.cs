@@ -22,24 +22,24 @@ namespace MainGame.SpriteHandlers.ItemSprites
             int numRows,
             int numColumns,
             int numberOfFrames,
-            int frameHeight = 16,
-            int frameWidth = 16,
-            int textureStartingX = 0,
-            int textureStartingY = 0,
-            int scale = 1,
-            float layerDepth = 0.5f)
-            : base(texture, numRows, numColumns, frameWidth, frameHeight, numberOfFrames,
-                  textureStartingX, textureStartingY, scale, layerDepth)
-        {
-            this.spriteBatch = spriteBatch;
-            spriteDisplayTimeLapse = 0;
-            spriteFlip = false;
-            frameDisplayTimeMap = new()
-            {
-                { 0, 6 },
-                { 1, 6 },
-            };
-        }
+    int frameHeight = GameConstants.FireSpriteDefaultFrameHeight,
+    int frameWidth = GameConstants.FireSpriteDefaultFrameWidth,
+    int textureStartingX = GameConstants.FireSpriteDefaultTextureStartingX,
+    int textureStartingY = GameConstants.FireSpriteDefaultTextureStartingY,
+    int scale = GameConstants.FireSpriteDefaultScale,
+    float layerDepth = GameConstants.FireSpriteDefaultLayerDepth)
+    : base(texture, numRows, numColumns, frameWidth, frameHeight, numberOfFrames,
+          textureStartingX, textureStartingY, scale, layerDepth)
+{
+    this.spriteBatch = spriteBatch;
+    spriteDisplayTimeLapse = GameConstants.FireSpriteInitialDisplayTimeLapse;
+    spriteFlip = GameConstants.FireSpriteInitialFlipState;
+    frameDisplayTimeMap = new()
+    {
+        { GameConstants.FireSpriteInitialFrame, GameConstants.FireSpriteFrameDisplayTime },
+        { GameConstants.FireSpriteNextFrame, GameConstants.FireSpriteFrameDisplayTime },
+    };
+}
 
 
         public override void Update()

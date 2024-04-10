@@ -33,26 +33,25 @@ namespace MainGame.SpriteHandlers.PlayerSprites
             int numRows,
             int numColumns,
             int numberOfFrames,
-            int frameHeight = 16,
-            int frameWidth = 16,
-            int textureStartingX = 0,
-            int textureStartingY = 0,
-            int scale = 1,
-            float layerDepth = 0.5f)
-            : base(texture, numRows, numColumns, frameWidth, frameHeight, numberOfFrames,
-                  textureStartingX, textureStartingY, scale, layerDepth)
-        {
-            this.spriteBatch = spriteBatch;
-            spriteDisplayTimeLapse = 0;
-            frameDisplayTimeMap = new()
-            {
-                { 0, 4 },
-                { 1, 8 },
-                { 2, 1 },
-                { 3, 1 }
-            };
-        }
-
+    int frameHeight = GameConstants.PlayerAttackingDownSpriteDefaultFrameHeight,
+    int frameWidth = GameConstants.PlayerAttackingDownSpriteDefaultFrameWidth,
+    int textureStartingX = GameConstants.PlayerAttackingDownSpriteDefaultTextureStartingX,
+    int textureStartingY = GameConstants.PlayerAttackingDownSpriteDefaultTextureStartingY,
+    int scale = GameConstants.PlayerAttackingDownSpriteDefaultScale,
+    float layerDepth = GameConstants.PlayerAttackingDownSpriteDefaultLayerDepth)
+    : base(texture, numRows, numColumns, frameWidth, frameHeight, numberOfFrames,
+          textureStartingX, textureStartingY, scale, layerDepth)
+{
+    this.spriteBatch = spriteBatch;
+    spriteDisplayTimeLapse = GameConstants.PlayerAttackingDownSpriteInitialDisplayTimeLapse;
+    frameDisplayTimeMap = new()
+    {
+        { GameConstants.PlayerAttackingDownSpriteInitialFrame, GameConstants.PlayerAttackingDownSpriteInitialFrameDisplayTime },
+        { GameConstants.PlayerAttackingDownSpriteNextFrame1, GameConstants.PlayerAttackingDownSpriteNextFrame1DisplayTime },
+        { GameConstants.PlayerAttackingDownSpriteNextFrame2, GameConstants.PlayerAttackingDownSpriteNextFrameDisplayTime },
+        { GameConstants.PlayerAttackingDownSpriteNextFrame3, GameConstants.PlayerAttackingDownSpriteNextFrameDisplayTime },
+    };
+}
         public override void Update()
         {
             if (spriteDisplayTimeLapse == frameDisplayTimeMap[currentFrame])

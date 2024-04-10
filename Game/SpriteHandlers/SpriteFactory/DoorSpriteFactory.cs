@@ -10,50 +10,49 @@ namespace MainGame.SpriteHandlers
 
     public static partial class SpriteFactory
     {
-        public static ISprite CreateDoorTopNorthSouth(Direction direction, DoorTypes doorType)
-        {
-            int dirNum = DirectionToDoorLocationMultiplier(direction);
-            return new DoorSegmentNorthSouth(
-                TextureMap["RoomSprites"], SpriteBatch,
-                textureStartingY: 704 + 32 * dirNum,
-                textureStartingX: 32 * (int)doorType,
-                scale: Constants.UniversalScale
-                );
-        }
+public static ISprite CreateDoorTopNorthSouth(Direction direction, DoorTypes doorType)
+{
+    int dirNum = DirectionToDoorLocationMultiplier(direction);
+    return new DoorSegmentNorthSouth(
+        TextureMap["RoomSprites"], SpriteBatch,
+        textureStartingY: GameConstants.DoorSpriteTextureStartingY + GameConstants.DoorSpriteTextureStep * dirNum,
+        textureStartingX: GameConstants.DoorSpriteTextureStep * (int)doorType,
+        scale: Constants.UniversalScale
+        );
+}
 
-        public static ISprite CreateDoorBottomNorthSouth(Direction direction, DoorTypes doorType)
-        {
-            int dirNum = DirectionToDoorLocationMultiplier(direction);
-            return new DoorSegmentNorthSouth(
-                TextureMap["RoomSprites"], SpriteBatch,
-                textureStartingY: 704 + 16 + 32 * dirNum,
-                textureStartingX: 32 * (int)doorType,
-                scale: Constants.UniversalScale
-                );
-        }
+public static ISprite CreateDoorBottomNorthSouth(Direction direction, DoorTypes doorType)
+{
+    int dirNum = DirectionToDoorLocationMultiplier(direction);
+    return new DoorSegmentNorthSouth(
+        TextureMap["RoomSprites"], SpriteBatch,
+        textureStartingY: GameConstants.DoorSpriteTextureStartingY + GameConstants.DoorSpriteTextureHalfStep + GameConstants.DoorSpriteTextureStep * dirNum,
+        textureStartingX: GameConstants.DoorSpriteTextureStep * (int)doorType,
+        scale: Constants.UniversalScale
+        );
+}
 
-        public static ISprite CreateDoorTopWestEast(Direction direction, DoorTypes doorType)
-        {
-            int dirNum = DirectionToDoorLocationMultiplier(direction);
-            return new DoorSegmentWestEast(
-                TextureMap["RoomSprites"], SpriteBatch,
-                textureStartingY: 704 + 32 * dirNum,
-                textureStartingX: 32 * (int)doorType,
-                scale: Constants.UniversalScale
-                );
-        }
+public static ISprite CreateDoorTopWestEast(Direction direction, DoorTypes doorType)
+{
+    int dirNum = DirectionToDoorLocationMultiplier(direction);
+    return new DoorSegmentWestEast(
+        TextureMap["RoomSprites"], SpriteBatch,
+        textureStartingY: GameConstants.DoorSpriteTextureStartingY + GameConstants.DoorSpriteTextureStep * dirNum,
+        textureStartingX: GameConstants.DoorSpriteTextureStep * (int)doorType,
+        scale: Constants.UniversalScale
+        );
+}
 
-        public static ISprite CreateDoorBottomWestEast(Direction direction, DoorTypes doorType)
-        {
-            int dirNum = DirectionToDoorLocationMultiplier(direction);
-            return new DoorSegmentWestEast(
-                TextureMap["RoomSprites"], SpriteBatch,
-                textureStartingY: 704 + 32 * dirNum,
-                textureStartingX: 16 + 32 * (int)doorType,
-                scale: Constants.UniversalScale
-                );
-        }
-
+public static ISprite CreateDoorBottomWestEast(Direction direction, DoorTypes doorType)
+{
+    int dirNum = DirectionToDoorLocationMultiplier(direction);
+    return new DoorSegmentWestEast(
+        TextureMap["RoomSprites"], SpriteBatch,
+        textureStartingY: GameConstants.DoorSpriteTextureStartingY + GameConstants.DoorSpriteTextureStep * dirNum,
+        textureStartingX: GameConstants.DoorSpriteTextureHalfStep + GameConstants.DoorSpriteTextureStep * (int)doorType,
+        scale: Constants.UniversalScale
+        );
+}
         private static int DirectionToDoorLocationMultiplier(Direction direction)
         {
             return direction switch

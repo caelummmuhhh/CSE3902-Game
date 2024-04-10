@@ -22,25 +22,24 @@ namespace MainGame.SpriteHandlers.EnemySprites
             int numRows,
             int numColumns,
             int numberOfFrames,
-            int frameHeight = 16,
-            int frameWidth = 16,
-            int textureStartingX = 0,
-            int textureStartingY = 0,
-            int scale = 1,
-            float layerDepth = 0.5f)
-            : base(texture, numRows, numColumns, frameWidth, frameHeight, numberOfFrames,
-                  textureStartingX, textureStartingY, scale, layerDepth)
-        {
-            this.spriteBatch = spriteBatch;
-            spriteDisplayTimeLapse = 0;
-            spriteFlip = false;
-            frameDisplayTimeMap = new()
-            {
-                { 0, 6 },
-                { 1, 6 },
-            };
-        }
-
+    int frameHeight = GameConstants.GoriyaWalkingUpSpriteDefaultFrameHeight,
+    int frameWidth = GameConstants.GoriyaWalkingUpSpriteDefaultFrameWidth,
+    int textureStartingX = GameConstants.GoriyaWalkingUpSpriteDefaultTextureStartingX,
+    int textureStartingY = GameConstants.GoriyaWalkingUpSpriteDefaultTextureStartingY,
+    int scale = GameConstants.GoriyaWalkingUpSpriteDefaultScale,
+    float layerDepth = GameConstants.GoriyaWalkingUpSpriteDefaultLayerDepth)
+    : base(texture, numRows, numColumns, frameWidth, frameHeight, numberOfFrames,
+          textureStartingX, textureStartingY, scale, layerDepth)
+{
+    this.spriteBatch = spriteBatch;
+    spriteDisplayTimeLapse = GameConstants.GoriyaWalkingUpSpriteInitialDisplayTimeLapse;
+    spriteFlip = GameConstants.GoriyaWalkingUpSpriteInitialFlip;
+    frameDisplayTimeMap = new()
+    {
+        { GameConstants.GoriyaWalkingUpSpriteInitialFrame, GameConstants.GoriyaWalkingUpSpriteFrameDisplayTime },
+        { GameConstants.GoriyaWalkingUpSpriteNextFrame, GameConstants.GoriyaWalkingUpSpriteFrameDisplayTime },
+    };
+}
         public override void Update()
         {
             if (spriteDisplayTimeLapse != frameDisplayTimeMap[currentFrame])

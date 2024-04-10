@@ -196,9 +196,9 @@ namespace MainGame.Rooms
 
         private static void ParseItemsAndBlocks(ref string line, IRoom room, int yOffset)
         {
-            int wallOffsetX = 32 * Constants.UniversalScale;
-            int wallOffsetY = 32 * Constants.UniversalScale + Constants.HudAndMenuHeight;
-            int columnWidth = 16 * Constants.UniversalScale;
+            int wallOffsetX = GameConstants.RoomFactoryWallOffsetX * Constants.UniversalScale;
+            int wallOffsetY = GameConstants.RoomFactoryWallOffsetY * Constants.UniversalScale + Constants.HudAndMenuHeight;
+            int columnWidth = GameConstants.RoomFactoryColumnWidth * Constants.UniversalScale;
 
             string[] objects = line.Split(',');
             // Each block/item in objects[] will try to be parsed into either a block or object
@@ -237,9 +237,9 @@ namespace MainGame.Rooms
 
         private static void ParseEnemies(string line, IRoom room, IPlayer player, int yOffset)
         {
-            int wallOffsetX = 32 * Constants.UniversalScale;
-            int wallOffsetY = 32 * Constants.UniversalScale + Constants.HudAndMenuHeight;
-            int columnWidth = 16 * Constants.UniversalScale;
+            int wallOffsetX = GameConstants.RoomFactoryWallOffsetX * Constants.UniversalScale;
+            int wallOffsetY = GameConstants.RoomFactoryWallOffsetY * Constants.UniversalScale+ Constants.HudAndMenuHeight;
+            int columnWidth = GameConstants.RoomFactoryColumnWidth * Constants.UniversalScale;
 
             string[] objects = line.Split(',');
             
