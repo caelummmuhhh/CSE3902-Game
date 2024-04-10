@@ -53,6 +53,7 @@ namespace MainGame.HudAndMenu
         }
         public void Update()
         {
+            selectingBox.Update();
             foreach (ItemTypes item in game.Player.Items)
             {
                 switch (item)
