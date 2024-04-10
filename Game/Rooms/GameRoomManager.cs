@@ -28,7 +28,8 @@ namespace MainGame.Rooms
         public GameRoomManager(Game1 game)
 		{
 			LoadAllRooms(game.Player);
-			CurrentRoom = allRooms[0];
+			CurrentRoom = allRooms[2];
+            CurrentRoom.isCurrentRoom = true;
             gameArea = new Rectangle(0, 0, game.GraphicsManager.PreferredBackBufferWidth, game.GraphicsManager.PreferredBackBufferHeight);
             ScrollSpeed = 3;
         }
@@ -56,6 +57,8 @@ namespace MainGame.Rooms
 				CurrentRoom.Position += new Vector2(SpeedX, SpeedY);
                 if (SwitchingRoom.Position.X == 0 && SwitchingRoom.Position.Y == 0)
                 {
+                    CurrentRoom.isCurrentRoom = false;
+                    SwitchingRoom.isCurrentRoom = true;
                     CurrentRoom = SwitchingRoom;
                     SwitchingRoom = null;
                     roomChangeDebounce = true;

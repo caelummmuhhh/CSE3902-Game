@@ -42,6 +42,7 @@ namespace MainGame.Rooms
         public ISprite TilesSprite { get; set; }
     
         public Vector2 Position { get; set; }
+        public bool isCurrentRoom { get; set; }
 
         public void Update();
         public void Draw();

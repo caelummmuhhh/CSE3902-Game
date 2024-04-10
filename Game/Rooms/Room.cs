@@ -49,6 +49,8 @@ namespace MainGame.Rooms
         public Vector2 Size { get; set; }
         public Vector2[] DoorLocations { get; set; } // TODO: Fix this. I don't really like the way its set up but its the only way I can think to do it
 
+        public bool isCurrentRoom {  get; set; }
+
         public Room(ISprite outerBorder, ISprite innerBorder, ISprite tiles)
         {
             Position = new Vector2(0, 0);
@@ -65,6 +67,7 @@ namespace MainGame.Rooms
             PlayerBorderHitBox = new GenericHitBox();
 
             DoorLocations = new Vector2[4];
+            isCurrentRoom = false;
         }
 
         // Method for updating all objects in a room to the position the whole room is in
@@ -110,17 +113,20 @@ namespace MainGame.Rooms
             { 
                 block.Update();
             }
-            foreach (IItem item in RoomItems)
+            if (isCurrentRoom)
             {
-                item.Update();
-            }
-            foreach (IEnemy enemy in RoomEnemies)
-            {
-                enemy.Update();
-            }
-            foreach (IParticle particle in RoomParticles)
-            {
-                particle.Update();
+                foreach (IItem item in RoomItems)
+                {
+                    item.Update();
+                }
+                foreach (IEnemy enemy in RoomEnemies)
+                {
+                    enemy.Update();
+                }
+                foreach (IParticle particle in RoomParticles)
+                {
+                    particle.Update();
+                }
             }
         }
 
@@ -140,17 +146,20 @@ namespace MainGame.Rooms
             {
                 block.Draw();
             }
-            foreach (IItem item in RoomItems)
+            if(isCurrentRoom)
             {
-                item.Draw();
-            }
-            foreach(IEnemy enemy in RoomEnemies)
-            {
-                enemy.Draw();
-            }
-            foreach (IParticle particle in RoomParticles)
-            {
-                particle.Draw();
+                foreach (IItem item in RoomItems)
+                {
+                    item.Draw();
+                }
+                foreach (IEnemy enemy in RoomEnemies)
+                {
+                    enemy.Draw();
+                }
+                foreach (IParticle particle in RoomParticles)
+                {
+                    particle.Draw();
+                }
             }
         }
     }
