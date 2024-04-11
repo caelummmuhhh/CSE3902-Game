@@ -87,6 +87,12 @@
     <Folder Include="Doors\" />
   </ItemGroup>
   <ItemGroup>
+    <None Update="Content\Dungeons\Dungeon_1.csv">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Dungeons\Dungeon_1_Debug.csv">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Update="Content\Rooms\Room_1.csv">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
