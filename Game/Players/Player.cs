@@ -2,16 +2,27 @@
 using MainGame.SpriteHandlers;
 using MainGame.Players.PlayerStates;
 using MainGame.Projectiles;
+using System;
 
 namespace MainGame.Players
 {
 	public class Player : IPlayer
 	{
-		public static readonly float Speed = Constants.UniversalScale + GameConstants.PlayerSpeedIncrease;
-		public static readonly int UsingItemsSpeed = GameConstants.PlayerUsingItemsSpeed;
-		public static readonly float KnockedBackSpeed = GameConstants.PlayerKnockedBackSpeed;
-		public static readonly int ImmunityFrame = GameConstants.PlayerImmunityFrame;
-		public static readonly int KnockedBackDistance = GameConstants.PlayerKnockedBackDistanceFactor * Constants.BlockSize;
+		public int MaxHealth { get; set; }
+        public int CurrentHealth { get; set; }
+        public int RupeeCount { get; set; }
+        public int KeyCount { get; set; }
+        public int BombCount { get; set; }
+		public ItemTypes[] Items { get; set; }
+		public int NumItems { get; set; }
+        public ItemTypes CurrentItem { get; set; }
+
+        public static readonly float Speed = Constants.UniversalScale + 2;
+		public static readonly int UsingItemsSpeed = 6;
+		public static readonly float KnockedBackSpeed = 10f;
+		public static readonly int ImmunityFrame = 100;
+		public static readonly int KnockedBackDistance = 2 * Constants.BlockSize;
+
         public ISprite Sprite { get; set; }
         public IPlayerState CurrentState { get; set; }
         public Vector2 Position { get; set; }
@@ -27,12 +38,32 @@ namespace MainGame.Players
 		private int invulnerableTimer = 0;
         public readonly PlayerProjectilesManager ProjectilesManager;
 
-        public Player(Vector2 spawnPosition)
+        public Player(Vector2 spawnPosition, int hearts, int rupees, int keys, int bombs, string[] items)
 		{
 			ProjectilesManager = new(this);
 			Position = spawnPosition;
-			CurrentState = new PlayerIdleDownState(this);
+			CurrentState = new PlayerIdleUpState(this);
 			SwordHitBox = new();
+
+			MaxHealth = hearts;
+			CurrentHealth = MaxHealth;
+			RupeeCount = rupees;
+			KeyCount = keys;
+			BombCount = bombs;
+
+			CurrentItem = ItemTypes.Bomb;
+
+			Items = new ItemTypes[8];
+			NumItems = 0;
+			if (items[0].Length > 0)
+			{
+				foreach (string item in items)
+				{
+					Items[NumItems] = (ItemTypes)Enum.Parse(typeof(ItemTypes), item);
+					++NumItems;
+				}
+			}
+
             UpdateHitBoxes();
         }
 
@@ -76,11 +107,28 @@ namespace MainGame.Players
 		public void MoveLeft() => CurrentState.MoveLeft();
 		public void MoveRight() => CurrentState.MoveRight();
 
-		public void UseSword() => CurrentState.UseSword();
+		public void SelectLeft() 
+		{ 
+			//TO DO
+		}
+		public void SelectRight() 
+		{
+            //TO DO
+        }
+
+        public void UseSword() => CurrentState.UseSword();
 		public void UseBoomerang(Direction direction) => ProjectilesManager.AddProjectile(new PlayerBoomerangProjectile(this, direction));
-        public void UseArrow(Direction direction) => ProjectilesManager.AddProjectile(new ArrowProjectile(Position, direction));
+		public void UseArrow(Direction direction)
+		{
+			RupeeCount--;
+			ProjectilesManager.AddProjectile(new ArrowProjectile(Position, direction));
+		}
         public void UseFire(Direction direction) => ProjectilesManager.AddProjectile(new FireBallProjectile(Position, direction));
-		public void UseBomb(Direction direction) => ProjectilesManager.AddProjectile(new BombProjectile(Position, direction));
+		public void UseBomb(Direction direction)
+		{
+			BombCount--;
+			ProjectilesManager.AddProjectile(new BombProjectile(Position, direction));
+		}
 		public void UseSwordBeam(Direction direction) => ProjectilesManager.AddProjectile(new SwordBeamProjectile(Position, direction));
 
 		private void UpdateHitBoxes()

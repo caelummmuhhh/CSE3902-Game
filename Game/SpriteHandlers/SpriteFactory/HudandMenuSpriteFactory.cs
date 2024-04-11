@@ -13,7 +13,7 @@ namespace MainGame.SpriteHandlers
             return new EmptyMenuSprite(
                 TextureMap["HudAndMenuSprites"], SpriteBatch,
                 textureStartingY: 0,
-                scale: 3
+                scale: Constants.UniversalScale
                 );
         }
         public static ISprite CreateEmptyHudSprite()
@@ -21,7 +21,7 @@ namespace MainGame.SpriteHandlers
             return new EmptyHudSprite(
                 TextureMap["HudAndMenuSprites"], SpriteBatch,
                 textureStartingY: 184,
-                scale: 3
+                scale: Constants.UniversalScale
                 );
         }
         public static ISprite CreateFullHeartDisplaySprite()
@@ -29,7 +29,7 @@ namespace MainGame.SpriteHandlers
             return new HeartDisplaySprite(
                 TextureMap["HudAndMenuSprites"], SpriteBatch,
                 textureStartingY: 240,
-                scale: 3
+                scale: Constants.UniversalScale
                 );
         }
         public static ISprite CreateHalfHeartDisplaySprite()
@@ -37,7 +37,7 @@ namespace MainGame.SpriteHandlers
             return new HeartDisplaySprite(
                 TextureMap["HudAndMenuSprites"], SpriteBatch,
                 textureStartingY: 248,
-                scale: 3
+                scale: Constants.UniversalScale
                 );
         }
         public static ISprite CreateEmptyHeartDisplaySprite()
@@ -45,8 +45,18 @@ namespace MainGame.SpriteHandlers
             return new HeartDisplaySprite(
                 TextureMap["HudAndMenuSprites"], SpriteBatch,
                 textureStartingY: 256,
-                scale: 3
+                scale: Constants.UniversalScale
                 );
+        }
+        public static ISprite CreateSelectingBoxSprite()
+        {
+            return new SelectingBoxSprite(
+                TextureMap["HudAndMenuSprites"], SpriteBatch,
+                textureStartingY: 277,
+                numRows: 1,
+                numColumns: 2,
+                numberOfFrames: 2,
+                scale: Constants.UniversalScale);
         }
     }
 }

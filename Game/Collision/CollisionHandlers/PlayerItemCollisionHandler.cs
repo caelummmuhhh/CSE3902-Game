@@ -17,7 +17,7 @@ namespace MainGame.Collision.CollisionHandlers
 		public void HandleCollision()
 		{
 			item.Collide();
-			// TODO
+			item.ActivateAbility(player);
 		}
 	}
 }

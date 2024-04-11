@@ -6,6 +6,15 @@ namespace MainGame.Players
 {
     public interface IPlayer
     {
+        public int MaxHealth { get; set; }
+        public int CurrentHealth { get; set; }
+        public int RupeeCount { get; set; }
+        public int KeyCount { get; set; }
+        public int BombCount { get; set; }
+        public ItemTypes[] Items { get; set; }
+        public int NumItems { get; set; }
+        public ItemTypes CurrentItem { get; set; }
+
         public IPlayerState CurrentState { get; set; }
         public Vector2 Position { get; set; }
         public Color SpriteColor { get; set; }
@@ -28,6 +37,8 @@ namespace MainGame.Players
         public void MoveDown();
         public void MoveLeft();
         public void MoveRight();
+        public void SelectLeft();
+        public void SelectRight();
         public void Stop();
         public void UseSword();
         public void UseBoomerang(Direction direction);

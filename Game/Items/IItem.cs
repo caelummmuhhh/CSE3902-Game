@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using MainGame.Players;
+using Microsoft.Xna.Framework;
 
 namespace MainGame.Items
 {
@@ -12,7 +13,7 @@ namespace MainGame.Items
         public void Update();
         public void Draw();
         public void Collide();
-        public void ActivateAbility();
+        public void ActivateAbility(IPlayer player);
     }
 }
 
