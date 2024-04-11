@@ -8,7 +8,6 @@ namespace MainGame.Players
 {
 	public class Player : IPlayer
 	{
-
 		public int MaxHealth { get; set; }
         public int CurrentHealth { get; set; }
         public int RupeeCount { get; set; }

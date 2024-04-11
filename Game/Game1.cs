@@ -91,7 +91,6 @@ public class Game1 : Game
         Player = new Player(new Vector2(120 * Constants.UniversalScale, (128 * Constants.UniversalScale) + Constants.HudAndMenuHeight), 
             int.Parse(playerValues[0]), int.Parse(playerValues[1]), int.Parse(playerValues[2]), int.Parse(playerValues[3]), playerItems);
 
-
         RoomManager = new(this);
 
         Collision = new(this);
@@ -130,7 +129,6 @@ public class Game1 : Game
             Menu.Update();
             ++PauseDebounce;
         }
-
 
         base.Update(gameTime);
     }
