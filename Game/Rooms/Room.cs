@@ -47,7 +47,6 @@ namespace MainGame.Rooms
 
 
         public Vector2 Position { get; set; }
-        public Vector2 Size { get; set; }
         public Vector2[] DoorLocations { get; set; } // TODO: Fix this. I don't really like the way its set up but its the only way I can think to do it
 
         public bool isCurrentRoom {  get; set; }
@@ -55,9 +54,8 @@ namespace MainGame.Rooms
         public Room(ISprite outerBorder, ISprite innerBorder, ISprite tiles)
         {
             Position = new Vector2(0, 0);
-            Size = new Vector2(0, 0);
 
-            Position = new Vector2(GameConstants.RoomInitialPosition, Constants.HudAndMenuHeight);
+            Position = new Vector2(GameConstants.RoomInitialPosition, GameConstants.RoomInitialPosition);
 
             OuterBorderSprite = outerBorder;
             InnerBorderSprite = innerBorder;
@@ -77,9 +75,6 @@ namespace MainGame.Rooms
         // Method for updating all objects in a room to the position the whole room is in
         public void AlignPosition()
         {
-            OuterBorderSprite.DestinationRectangle = new Rectangle((int)Position.X, (int)Position.Y, (int)Size.X, (int)Size.Y);
-            InnerBorderSprite.DestinationRectangle = new Rectangle((int)Position.X, (int)Position.Y, (int)Size.X, (int)Size.Y);
-            TilesSprite.DestinationRectangle = new Rectangle((int)Position.X, (int)Position.Y, (int)Size.X, (int)Size.Y);
 
             NorthDoor.Position = DoorLocations[0] + Position;
             SouthDoor.Position = DoorLocations[1] + Position;
@@ -137,9 +132,9 @@ namespace MainGame.Rooms
         public void Draw()
         {
             //RoomPlayer.Draw();
-            OuterBorderSprite.Draw(Position.X, Position.Y, Color.White);
-            InnerBorderSprite.Draw(Position.X, Position.Y, Color.White);
-            TilesSprite.Draw(Position.X, Position.Y, Color.White);
+            OuterBorderSprite.Draw(Position.X, Position.Y + Constants.HudAndMenuHeight, Color.White);
+            InnerBorderSprite.Draw(Position.X, Position.Y + Constants.HudAndMenuHeight, Color.White);
+            TilesSprite.Draw(Position.X, Position.Y + Constants.HudAndMenuHeight, Color.White);
 
             NorthDoor.Draw();
             SouthDoor.Draw();
