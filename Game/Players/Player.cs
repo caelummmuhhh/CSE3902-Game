@@ -32,7 +32,7 @@ namespace MainGame.Players
 
 		private int invulnerableTimer = 0;
 
-		public Player(Vector2 spawnPosition, ItemTypes[] obtainedItems, int maxHearts = 0, int rupees = 0, int keys = 0, int bombs = 0)
+		public Player(Vector2 spawnPosition, ItemTypes[] obtainedItems, int maxHearts = 6, int rupees = 0, int keys = 0, int bombs = 0)
 		{
 			Position = spawnPosition;
 			CurrentState = new PlayerIdleUpState(this);
@@ -72,9 +72,14 @@ namespace MainGame.Players
 		{
 			if (!IsInvulnerable)
 			{
-				MakeInvulnerable(ImmunityFrame);
-				CurrentState.TakeDamage(sideHit);
-				CurrentHealth -= damageAmount;
+                CurrentHealth -= damageAmount;
+				if (CurrentHealth > 0)
+				{
+                    MakeInvulnerable(ImmunityFrame);
+                    CurrentState.TakeDamage(sideHit);
+					return;
+                }
+				CurrentState = new PlayerDeathState(this);
             }
 		}
 
