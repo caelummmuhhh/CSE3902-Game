@@ -12,10 +12,12 @@ namespace MainGame.Enemies
                 hitbox.Height /= 2;
                 hitbox.Y = Utils.CentralizeRectangle((int)Position.X, (int)Position.Y, hitbox).Y;
 
-                return hitbox;
+                return Health > 0 ? hitbox : new();
             }
         }
 
+        public override int Health { get; protected set; } = 1;
+        public override int Damage => 1;
         public override int MovementCoolDownFrame { get; protected set; } = 1;
 
         public KeeseEnemy(Vector2 spawnPosition)

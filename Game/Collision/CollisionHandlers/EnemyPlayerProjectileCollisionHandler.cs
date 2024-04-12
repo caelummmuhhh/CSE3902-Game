@@ -17,14 +17,14 @@ namespace MainGame.Collision.CollisionHandlers
         public void HandleCollision()
         {
             projectile.Collide();
-            if ((enemy is GoriyaEnemy || enemy is StalfosEnemy) && projectile is PlayerBoomerangProjectile)
+            if (!(enemy is GelEnemy || enemy is KeeseEnemy) && projectile is PlayerBoomerangProjectile)
             {
                 enemy.Stun(100);
                 return;
             }
 
             Direction playerSideDamaged = Utils.GetCardinalDirectionFrom(enemy.Position, projectile.Position);
-            enemy.TakeDamage(playerSideDamaged);
+            enemy.TakeDamage(playerSideDamaged, 2);
         }
     }
 }

@@ -6,6 +6,9 @@ namespace MainGame.Enemies
 {
 	public class AquamentusEnemy : GenericEnemy
 	{
+        public override int Health { get; protected set; } = 10;
+        public override int Damage => 2;
+
         public override int MovementCoolDownFrame { get; protected set; } = 8;
         public int MovedDistance = 0;
         public readonly int MaxMoveDistance = 16 * 10 * Constants.UniversalScale;
@@ -36,14 +39,15 @@ namespace MainGame.Enemies
 
         public override void Move() => State.Move();
 
-        public override void TakeDamage(Direction sideHit)
+        public override void TakeDamage(Direction sideHit, int damage)
         {
             if (!IsInvulnerable)
             {
                 DamageState = new EnemyDamagedState(this, sideHit, false);
+                Health -= damage;
+                CheckForDeath();
             }
         }
-
     }
 }
 

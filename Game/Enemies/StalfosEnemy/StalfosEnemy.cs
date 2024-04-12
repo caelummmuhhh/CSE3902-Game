@@ -5,7 +5,9 @@ namespace MainGame.Enemies
 {
 	public class StalfosEnemy : GenericEnemy
 	{
-		public override int MovementCoolDownFrame { get; protected set; } = 2;
+        public override int Health { get; protected set; } = 3;
+        public override int Damage => 1;
+        public override int MovementCoolDownFrame { get; protected set; } = 2;
 
 		private int moveDuration;
 		private readonly int maxMoveDuration = 32;
@@ -30,7 +32,15 @@ namespace MainGame.Enemies
 			base.Update();
         }
 
-        public override void Draw() => Sprite.Draw(Position.X, Position.Y, SpriteColor);
+        public override void Draw()
+        {
+            if (IsAlive)
+            {
+                Sprite.Draw(Position.X, Position.Y, SpriteColor);
+                return;
+            }
+            State?.Draw();
+        }
 
         public override void Move()
         {

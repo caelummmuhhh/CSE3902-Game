@@ -97,7 +97,7 @@ namespace MainGame.Projectiles
             if (!exploding)
             {
                 exploding = true;
-                explodingParticles = new SwordBeamExplodingParticles(position);
+                explodingParticles = ParticleFactory.GetSwordBeamExplodingParticles(position);
             }
         }
     }

@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using MainGame.SpriteHandlers;
+using System;
 
 namespace MainGame.Enemies
 {
@@ -11,9 +12,18 @@ namespace MainGame.Enemies
         /// <summary>
         /// If moving, the entity can only move once every MovementCoolDownFrame.
         /// </summary>
+        ///
+        public abstract int Health { get; protected set; }
+        public abstract int Damage { get; }
+        public virtual bool IsAlive => Health > 0;
+
         public abstract int MovementCoolDownFrame {  get; protected set; }
-        public virtual Rectangle AttackHitBox { get => new(Position.ToPoint(), Sprite.DestinationRectangle.Size); }
-        public virtual Rectangle MovementHitBox { get => new(Position.ToPoint(), Sprite.DestinationRectangle.Size); }
+
+        public virtual Rectangle AttackHitBox
+            => IsAlive ? new(Position.ToPoint(), Sprite.DestinationRectangle.Size) : new Rectangle();
+        public virtual Rectangle MovementHitBox
+            => IsAlive ? new(Position.ToPoint(), Sprite.DestinationRectangle.Size) : new Rectangle();
+
         public virtual bool IsInvulnerable { get; set; }
         public virtual bool IsStunned { get; set; }
         public virtual Color SpriteColor { get; set; } = Color.White;
@@ -31,6 +41,8 @@ namespace MainGame.Enemies
 
         public virtual void Update()
         {
+            if (!IsAlive) { return; }
+
             Sprite.Update();
             DamageState?.Update();
 
@@ -45,18 +57,17 @@ namespace MainGame.Enemies
             }
         }
 
-        public virtual void Draw()
-        {
-            State.Draw();
-        }
+        public virtual void Draw() => State.Draw();
 
         public abstract void Move();
 
-        public virtual void TakeDamage(Direction sideHit)
+        public virtual void TakeDamage(Direction sideHit, int damage)
         {
             if (!IsInvulnerable)
             {
                 DamageState = new EnemyDamagedState(this, sideHit, true);
+                Health -= damage;
+                CheckForDeath();
             }
         }
 
@@ -65,6 +76,14 @@ namespace MainGame.Enemies
             if (!IsStunned)
             {
                 State = new EnemyStunnedState(this, State, duration);
+            }
+        }
+
+        protected void CheckForDeath()
+        {
+            if (!IsAlive)
+            {
+                State = new EnemyDeathState(this);
             }
         }
     }
