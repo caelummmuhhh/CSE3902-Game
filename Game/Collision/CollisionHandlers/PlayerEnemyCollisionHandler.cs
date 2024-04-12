@@ -19,7 +19,7 @@ namespace MainGame.Collision.CollisionHandlers
 			if (!enemy.IsStunned)
 			{
                 Direction playerSideDamaged = Utils.GetCardinalDirectionFrom(player.Position, enemy.Position);
-                player.TakeDamage(playerSideDamaged);
+                player.TakeDamage(playerSideDamaged, 1);
             }
         }
     }

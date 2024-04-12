@@ -28,35 +28,12 @@ namespace MainGame.Players.PlayerStates
         public void MoveRight() => player.CurrentState = new PlayerMovingRightState(player);
         public void MoveLeft() => player.CurrentState = new PlayerMovingLeftState(player);
         public void UseSword() => player.CurrentState = new PlayerUsingSwordDownState(player);
-
-        public void UseArrow()
+        public void UseItem()
         {
-            player.UseArrow(Direction.South);
-            player.CurrentState = new PlayerUsingItemDownState(player);
-        }
-
-        public void UseBoomerang()
-        {
-            player.UseBoomerang(Direction.South);
-            player.CurrentState = new PlayerUsingItemDownState(player);
-        }
-
-        public void UseFire()
-        {
-            player.UseFire(Direction.South);
-            player.CurrentState = new PlayerUsingItemDownState(player);
-        }
-
-        public void UseBomb()
-        {
-            player.UseBomb(Direction.South);
-            player.CurrentState = new PlayerUsingItemDownState(player);
-        }
-
-        public void UseSwordBeam()
-        {
-            player.UseSwordBeam(Direction.South);
-            player.CurrentState = new PlayerUsingSwordDownState(player);
+            if (player.Inventory.CanUseEquippedItem())
+            {
+                player.CurrentState = new PlayerUsingItemDownState(player);
+            }
         }
     }
 }

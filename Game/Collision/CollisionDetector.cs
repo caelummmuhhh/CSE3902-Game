@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using Microsoft.Xna.Framework;
 
 using MainGame.Blocks;
@@ -33,7 +34,7 @@ namespace MainGame.Collision
             blocks = new List<IBlock>(currentRoom.RoomBlocks);
             items = new List<IItem>(currentRoom.RoomItems);
             enemies = new List<IEnemy>(currentRoom.RoomEnemies);
-            playerProjectiles = new List<IProjectile>(player.ProjectilesManager.ActiveProjectiles);
+            playerProjectiles = player.Inventory.GetActiveEquipments().Select(equip => equip.Projectile).ToList();
 
             playerBorders = currentRoom.PlayerBorderHitBox;
             enemyBorder = currentRoom.EnemiesBorderHitBox;
@@ -47,7 +48,7 @@ namespace MainGame.Collision
             blocks = new List<IBlock>(currentRoom.RoomBlocks);
             items = new List<IItem>(currentRoom.RoomItems);
             enemies = new List<IEnemy>(currentRoom.RoomEnemies);
-            playerProjectiles = new List<IProjectile>(player.ProjectilesManager.ActiveProjectiles);
+            playerProjectiles = player.Inventory.GetActiveEquipments().Select(equip => equip.Projectile).ToList();
             playerBorders = currentRoom.PlayerBorderHitBox;
             enemyBorder = currentRoom.EnemiesBorderHitBox;
             GetAllEnemyProjectiles();

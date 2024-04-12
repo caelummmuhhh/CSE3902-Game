@@ -54,59 +54,6 @@ namespace MainGame.Items
 
         public void ActivateAbility(IPlayer player)
         {
-            switch (type)
-            {
-                case ItemTypes.Map:
-                    player.Items[player.NumItems] = type;
-                    ++player.NumItems;
-                    break;
-                case ItemTypes.Compass:
-                    player.Items[player.NumItems] = type;
-                    ++player.NumItems;
-                    break;
-                case ItemTypes.Boomerang:
-                    player.Items[player.NumItems] = type;
-                    ++player.NumItems;
-                    break;
-                case ItemTypes.Arrow:
-                    player.Items[player.NumItems] = type;
-                    ++player.NumItems;
-                    break;
-                case ItemTypes.Bow:
-                    player.Items[player.NumItems] = type;
-                    ++player.NumItems;
-                    break;
-                case ItemTypes.Heart:
-                    player.CurrentHealth++;
-                    break;
-                case ItemTypes.HeartContainer:
-                    player.CurrentHealth++;
-                    player.MaxHealth++;
-                    break;
-                case ItemTypes.Clock:
-                    //TO DO
-                    break;
-                case ItemTypes.FiveRupees:
-                    player.RupeeCount = player.RupeeCount + 5;
-                    break;
-                case ItemTypes.Rupee:
-                    player.RupeeCount++;
-                    break;
-                case ItemTypes.Bomb:
-                    player.BombCount = player.BombCount + 4;
-                    break;
-                case ItemTypes.Key:
-                    player.KeyCount++;
-                    break;
-                case ItemTypes.TriforcePiece:
-                    //TO DO
-                    break;
-                case ItemTypes.Fairy:
-                    player.CurrentHealth = player.CurrentHealth + 6;
-                    break;
-                default:
-                    break;
-            }
         }
     }
 }

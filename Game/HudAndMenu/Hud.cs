@@ -42,24 +42,6 @@ namespace MainGame.HudAndMenu
             textLife = SpriteFactory.CreateTextSprite("-LIFE-");
 
             swordDisplay = SpriteFactory.CreateSwordBeamUpProjectileSprite();
-            switch (game.Player.CurrentItem)
-            {
-                case ItemTypes.Bomb:
-                    itemDisplay = SpriteFactory.CreateBombItemSprite();
-                    break;
-                case ItemTypes.Fire:
-                    // Candle item not in reqirements
-                    break;
-                case ItemTypes.Boomerang:
-                    itemDisplay = SpriteFactory.CreateWoodenBoomerangItemSprite();
-                    break;
-                case ItemTypes.Arrow:
-                    itemDisplay = SpriteFactory.CreateArrowItemSprite();
-                    break;
-                default:
-                    throw new FormatException("Default in Hud should not be possible");
-            }
-
         }
         public void PauseUpdate()
         {
@@ -83,9 +65,9 @@ namespace MainGame.HudAndMenu
                     heartsDisplay[i] = SpriteFactory.CreateEmptyHeartDisplaySprite();
                 }
             }
-            textRupees = SpriteFactory.CreateTextSprite("X" + this.game.Player.RupeeCount.ToString());
-            textKeys = SpriteFactory.CreateTextSprite("X" + this.game.Player.KeyCount.ToString());
-            textBombs = SpriteFactory.CreateTextSprite("X" + this.game.Player.BombCount.ToString());
+            textRupees = SpriteFactory.CreateTextSprite($"X{game.Player.Inventory.Rupees.Count}");
+            textKeys = SpriteFactory.CreateTextSprite($"X{game.Player.Inventory.KeyCount.Count}");
+            textBombs = SpriteFactory.CreateTextSprite($"X{game.Player.Inventory.BombCount.Count}");
         }
         public void Draw()
         {
@@ -99,7 +81,7 @@ namespace MainGame.HudAndMenu
             textLife.Draw(184 * Constants.UniversalScale, 16 * Constants.UniversalScale + pauseShift, Color.Red);
 
             swordDisplay.Draw(148 * Constants.UniversalScale, 24 * Constants.UniversalScale + pauseShift, Color.White);
-            itemDisplay.Draw(124 * Constants.UniversalScale, 24 * Constants.UniversalScale + pauseShift, Color.White);
+            //itemDisplay.Draw(124 * Constants.UniversalScale, 24 * Constants.UniversalScale + pauseShift, Color.White);
 
             for (int i = 0; i < this.game.Player.MaxHealth / 2; ++i)
             {

@@ -14,6 +14,7 @@ namespace MainGame.Players.PlayerStates
             this.player.FacingDirection = Direction.West;
             this.player.Sprite = SpriteFactory.CreatePlayerInteractingLeftSprite();
             stateDuration = Player.UsingItemsSpeed;
+            this.player.Inventory.UseEquippedItem(); // actually use the item
         }
 
         public void Update()
@@ -41,10 +42,6 @@ namespace MainGame.Players.PlayerStates
         public void MoveLeft() { }
         public void MoveRight() { }
         public void UseSword() { }
-        public void UseBoomerang() { }
-        public void UseFire() { }
-        public void UseArrow() { }
-        public void UseBomb() { }
-        public void UseSwordBeam() { }
+        public void UseItem() { }
     }
 }

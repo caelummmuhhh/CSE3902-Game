@@ -47,6 +47,9 @@
     <None Remove="GridUtils\" />
     <None Remove="Blocks\" />
     <None Remove="Doors\" />
+    <None Remove="Players\Inventory\" />
+    <None Remove="Players\Inventory\Equipment\" />
+    <None Remove="Players\Inventory\NonEquipments\" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Icon.ico" />
@@ -85,6 +88,9 @@
     <Folder Include="GridUtils\" />
     <Folder Include="Blocks\" />
     <Folder Include="Doors\" />
+    <Folder Include="Players\Inventory\" />
+    <Folder Include="Players\Inventory\Equipment\" />
+    <Folder Include="Players\Inventory\NonEquipments\" />
   </ItemGroup>
   <ItemGroup>
     <None Update="Content\Rooms\Room_1.csv">

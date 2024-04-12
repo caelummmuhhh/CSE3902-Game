@@ -86,8 +86,7 @@ public class Game1 : Game
         string[] startingRoom = lines[3].Split(',');
         string[] triforceRoom = lines[4].Split(',');   
 
-        Player = new Player(new Vector2(120 * Constants.UniversalScale, (128 * Constants.UniversalScale) + Constants.HudAndMenuHeight), 
-            int.Parse(playerValues[0]), int.Parse(playerValues[1]), int.Parse(playerValues[2]), int.Parse(playerValues[3]), playerItems);
+        Player = new Player(new Vector2(128 * Constants.UniversalScale, (128 * Constants.UniversalScale) + Constants.HudAndMenuHeight), Array.Empty<ItemTypes>());
 
         RoomManager = new(this);
 

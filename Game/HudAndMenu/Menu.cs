@@ -32,7 +32,7 @@ namespace MainGame.HudAndMenu
 
         private ISprite selectingBox;
 
-        public Menu(String itemKey, Game1 game) 
+        public Menu(string itemKey, Game1 game) 
         {
             this.game = game;
             MenuBase = SpriteFactory.CreateEmptyMenuSprite();
@@ -54,29 +54,6 @@ namespace MainGame.HudAndMenu
         public void Update()
         {
             selectingBox.Update();
-            foreach (ItemTypes item in game.Player.Items)
-            {
-                switch (item)
-                {
-                    case ItemTypes.Map:
-                        mapDisplay = SpriteFactory.CreateMapItemSprite();
-                        break;
-                    case ItemTypes.Compass:
-                        CompassDisplay = SpriteFactory.CreateCompassItemSprite();
-                        break;
-                    case ItemTypes.Boomerang:
-                        boomerangItemDisplay = SpriteFactory.CreateWoodenBoomerangItemSprite();
-                        break;
-                    case ItemTypes.Arrow:
-                        arrowItemDisplay = SpriteFactory.CreateArrowItemSprite();
-                        break;
-                    case ItemTypes.Bow:
-                        bowDisplay = SpriteFactory.CreateBowItemSprite();
-                        break;
-                    default:
-                        break;
-                }
-            }
         }
         public void Draw()
         {

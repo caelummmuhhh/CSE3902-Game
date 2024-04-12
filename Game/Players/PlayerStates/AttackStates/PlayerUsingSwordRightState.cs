@@ -50,11 +50,7 @@ namespace MainGame.Players.PlayerStates
         public void MoveLeft() { }
         public void MoveRight() { }
         public void UseSword() { }
-        public void UseBoomerang() { }
-        public void UseFire() { }
-        public void UseArrow() { }
-        public void UseBomb() { }
-        public void UseSwordBeam() { }
+        public void UseItem() { }
 
         private Rectangle GetSwordHitBox()
         {
