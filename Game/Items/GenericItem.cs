@@ -80,20 +80,20 @@ namespace MainGame.Items
                     player.CurrentHealth++;
                     break;
                 case ItemTypes.HeartContainer:
-                    player.CurrentHealth++;
-                    player.MaxHealth++;
+                    player.MaxHealth += 2;
+                    player.CurrentHealth += 2;
                     break;
                 case ItemTypes.Clock:
                     //TO DO
                     break;
                 case ItemTypes.FiveRupees:
-                    player.RupeeCount = player.RupeeCount + 5;
+                    player.RupeeCount += 5;
                     break;
                 case ItemTypes.Rupee:
                     player.RupeeCount++;
                     break;
                 case ItemTypes.Bomb:
-                    player.BombCount = player.BombCount + 4;
+                    player.BombCount += 4;
                     break;
                 case ItemTypes.Key:
                     player.KeyCount++;
@@ -102,7 +102,7 @@ namespace MainGame.Items
                     //TO DO
                     break;
                 case ItemTypes.Fairy:
-                    player.CurrentHealth = player.CurrentHealth + 6;
+                    player.CurrentHealth += 6;
                     break;
                 default:
                     break;
