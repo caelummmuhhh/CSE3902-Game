@@ -61,7 +61,7 @@ namespace MainGame.Rooms
                     roomChangeDebounce = true;
                     SpeedX = 0;
                     SpeedY = 0;
-                    game.Player.isHidden = false;
+                    
                 }
             }
         }
