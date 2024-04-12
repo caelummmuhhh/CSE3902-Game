@@ -21,12 +21,13 @@ namespace MainGame.Enemies
 				entity.State = new GoriyaMovingState(entity);
 			}
 			Boomerang.Update();
-		}
+
+        }
 
         public void Draw()
         {
+			entity.Sprite.Draw(entity.Position.X, entity.Position.Y, entity.SpriteColor);
 			Boomerang.Draw();
-			entity.Sprite.Draw(entity.Position.X, entity.Position.Y, Color.White);
         }
 
         public void Move() { /* no moving while attacking */ }

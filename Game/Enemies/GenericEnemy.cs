@@ -14,8 +14,9 @@ namespace MainGame.Enemies
         public abstract int MovementCoolDownFrame {  get; protected set; }
         public virtual Rectangle AttackHitBox { get => new(Position.ToPoint(), Sprite.DestinationRectangle.Size); }
         public virtual Rectangle MovementHitBox { get => new(Position.ToPoint(), Sprite.DestinationRectangle.Size); }
-        public virtual bool IsInvulnerable { get => invulnerableTimer > 0; }
-        public bool IsStunned { get => stunDuration > 0; }
+        public virtual bool IsInvulnerable { get; set; }
+        public virtual bool IsStunned { get; set; }
+        public virtual Color SpriteColor { get; set; } = Color.White;
 
         public virtual Vector2 PreviousPosition { get; set; }
         public virtual Direction MovingDirection { get; set; }
@@ -24,69 +25,46 @@ namespace MainGame.Enemies
         public virtual ISprite Sprite { get; set; }
         public virtual Vector2 Position { get; set; }
         public virtual IEnemyState State { get; set; }
-
-        protected Color spriteColor = Color.White;
-        protected int invulnerableTimer = 0;
-        protected int stunDuration = 0;
-        protected float knockedBackDistance = 0f;
-        protected Direction knockBackDirection;
+        protected virtual IEnemyState DamageState { get; set; }
 
         public GenericEnemy() { }
 
         public virtual void Update()
         {
-            if (invulnerableTimer > 0)
+            Sprite.Update();
+            DamageState?.Update();
+
+            if (!IsStunned)
             {
-                invulnerableTimer--;
-                FlashColors();
-                KnockBack();
-            }
-            else
-            {
-                spriteColor = Color.White;
-                knockedBackDistance = 0f;
+                Move();
             }
 
-            Sprite.Update();
-            if (stunDuration > 0)
+            if (!IsInvulnerable && DamageState is not null)
             {
-                stunDuration--;
-                return;
+                DamageState = null;
             }
-            Move();
         }
 
-        public virtual void Draw() => Sprite.Draw(Position.X, Position.Y, spriteColor);
+        public virtual void Draw()
+        {
+            State.Draw();
+        }
 
         public abstract void Move();
 
         public virtual void TakeDamage(Direction sideHit)
         {
-            if (invulnerableTimer <= 0)
+            if (!IsInvulnerable)
             {
-                knockBackDirection = Utils.OppositeDirection(sideHit);
-                invulnerableTimer = ImmunityFrame;
+                DamageState = new EnemyDamagedState(this, sideHit, true);
             }
         }
 
-        public virtual void Stun(int duration) => stunDuration = duration;
-
-        protected virtual void KnockBack()
+        public virtual void Stun(int duration)
         {
-            if (knockedBackDistance < MaxKnockedBackDistance)
+            if (!IsStunned)
             {
-                Vector2 newPos = Utils.DirectionalMove(Position, knockBackDirection, KnockBackSpeed);
-                knockedBackDistance += Vector2.Distance(newPos, Position);
-                Position = newPos;
-            }
-        }
-
-        protected virtual void FlashColors()
-        {
-            spriteColor = Color.White;
-            if (invulnerableTimer % 4 == 0 || invulnerableTimer % 4 == 1)
-            {
-                spriteColor = Color.IndianRed;
+                State = new EnemyStunnedState(this, State, duration);
             }
         }
     }

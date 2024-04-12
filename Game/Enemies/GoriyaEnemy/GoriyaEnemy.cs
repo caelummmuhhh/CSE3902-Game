@@ -20,12 +20,6 @@ namespace MainGame.Enemies
             base.Update();
         }
 
-        public override void Draw()
-        {
-			State.Draw();
-            base.Draw();
-        }
-
         public override void Move()
 		{
 			State.Move();

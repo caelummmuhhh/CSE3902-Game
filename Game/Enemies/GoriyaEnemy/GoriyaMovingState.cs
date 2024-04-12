@@ -33,7 +33,7 @@ namespace MainGame.Enemies
             }
         }
 
-        public void Draw() => entity.Sprite.Draw(entity.Position.X, entity.Position.Y, Color.White);
+        public void Draw() => entity.Sprite.Draw(entity.Position.X, entity.Position.Y, entity.SpriteColor);
 
         public void Move()
         {

@@ -35,6 +35,15 @@ namespace MainGame.Enemies
         }
 
         public override void Move() => State.Move();
+
+        public override void TakeDamage(Direction sideHit)
+        {
+            if (!IsInvulnerable)
+            {
+                DamageState = new EnemyDamagedState(this, sideHit, false);
+            }
+        }
+
     }
 }
 

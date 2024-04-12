@@ -23,11 +23,14 @@ namespace MainGame.Enemies
 			{
                 MovingDirection = Utils.GetRandomCardinalDirection();
                 moveDuration = maxMoveDuration;
-                return;
             }
+
+			State?.Update();
             moveDuration--;
 			base.Update();
         }
+
+        public override void Draw() => Sprite.Draw(Position.X, Position.Y, SpriteColor);
 
         public override void Move()
         {

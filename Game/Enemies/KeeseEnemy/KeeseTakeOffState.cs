@@ -34,9 +34,9 @@ namespace MainGame.Enemies
 			Move();
 		}
 
-		public void Draw() => entity.Draw();
+        public void Draw() => entity.Sprite.Draw(entity.Position.X, entity.Position.Y, entity.SpriteColor);
 
-		public void Move()
+        public void Move()
 		{
 			// Move in direction every 8 frames for first half, then 4 frames for second
 			if ((stateTimeRemaining > stateDuration / 2 && stateTimeRemaining % 8 != 0)

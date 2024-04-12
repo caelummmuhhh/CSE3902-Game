@@ -21,6 +21,8 @@ namespace MainGame.Enemies
         {
             // TODO
         }
+        public override void Draw() => Sprite.Draw(Position.X, Position.Y, SpriteColor);
+
     }
 }
 

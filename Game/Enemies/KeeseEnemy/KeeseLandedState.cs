@@ -1,5 +1,6 @@
 ﻿using System;
 using MainGame.SpriteHandlers;
+using Microsoft.Xna.Framework;
 
 namespace MainGame.Enemies
 {
@@ -23,9 +24,9 @@ namespace MainGame.Enemies
 			landDurationTimer--;
         }
 
-        public void Draw() => entity.Draw();
+        public void Draw() => entity.Sprite.Draw(entity.Position.X, entity.Position.Y, entity.SpriteColor);
 
-		public void Move() { /* no movement while landed */ }
+        public void Move() { /* no movement while landed */ }
     }
 }
 

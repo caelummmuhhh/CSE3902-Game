@@ -15,6 +15,9 @@ namespace MainGame.Enemies
 		}
 
 		public override void Move() { /* bro is too old to move... */ }
+
+        public override void Draw() => Sprite.Draw(Position.X, Position.Y, SpriteColor);
+
     }
 }
 

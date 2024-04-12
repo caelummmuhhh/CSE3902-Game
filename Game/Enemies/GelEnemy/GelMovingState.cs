@@ -1,4 +1,6 @@
-﻿namespace MainGame.Enemies
+﻿using Microsoft.Xna.Framework;
+
+namespace MainGame.Enemies
 {
 	public class GelMovingState : IEnemyState
 	{
@@ -20,9 +22,9 @@
 			stateDuration--;
 		}
 
-		public void Draw() => entity.Draw();
+        public void Draw() => entity.Sprite.Draw(entity.Position.X, entity.Position.Y, entity.SpriteColor);
 
-		public void Move()
+        public void Move()
 		{
 			if (stateDuration % entity.MovementCoolDownFrame == 0)
 			{
