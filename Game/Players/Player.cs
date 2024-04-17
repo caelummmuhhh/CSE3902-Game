@@ -46,7 +46,7 @@ namespace MainGame.Players
 			SwordHitBox = new();
 
 			MaxHealth = hearts;
-			CurrentHealth = MaxHealth;
+			CurrentHealth = hearts;
 			RupeeCount = rupees;
 			KeyCount = keys;
 			BombCount = bombs;
