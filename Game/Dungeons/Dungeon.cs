@@ -1,16 +1,4 @@
-﻿using Microsoft.Xna.Framework;
-using System.Collections.Generic;
-
-using MainGame.Doors;
-using MainGame.SpriteHandlers;
-using MainGame.Blocks;
-using MainGame.Items;
-using MainGame.Enemies;
-using MainGame.Players;
-using MainGame.Particles;
-using MainGame.Collision;
-using MainGame.Rooms;
-using System.IO;
+﻿using System.IO;
 
 namespace MainGame.Dungeons
 {
@@ -31,12 +19,12 @@ namespace MainGame.Dungeons
 
         private readonly int DungeonSize = 8;
 
-        private Game1 Game;
+        private Game1 game;
         private string[] Lines;
 
         public Dungeon(Game1 game, string dungeonFIle)
         {
-            this.Game = game;
+            this.game = game;
             DungeonLayout = new int[DungeonSize][];
             for (int i = 0; i < DungeonSize; i++)
             {

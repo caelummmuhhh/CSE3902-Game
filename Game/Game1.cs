@@ -74,27 +74,8 @@ public class Game1 : Game
         string dungeonName = "Dungeon_1.csv";
         Dungeon = new Dungeon(this, dungeonName);
         Player = new Player(new Vector2(120 * Constants.UniversalScale, (128 * Constants.UniversalScale) + Constants.HudAndMenuHeight),
-            Dungeon.PlayerStartingHealth, Dungeon.PlayerStartingRupees, Dungeon.PlayerStartingKeys, Dungeon.PlayerStartingBombs, Dungeon.PlayerStartingItems);
-        /*
-        string[] dungeonFiles = Directory.GetFiles(Path.Combine("Content", "Dungeons"), "Dungeon_1_Debug.csv");
-        string fullPath = Path.GetFullPath(dungeonFiles[0]);
-        string[] lines = null;
-        if (File.Exists(fullPath))
-        {
-            lines = File.ReadAllLines(fullPath);
-        } else
-        {
-            throw new IOException($"Could not read CSV file for dungeon: {dungeonFiles[0]}");
-        }
-        string[] version = lines[0].Split(',');
-        string[] playerValues = lines[1].Split(',');
-        string[] playerItems = lines[2].Split(',');
-        string[] startingRoom = lines[3].Split(',');
-        string[] triforceRoom = lines[4].Split(',');   
+            Array.Empty<ItemTypes>(), Dungeon.PlayerStartingHealth, Dungeon.PlayerStartingRupees, Dungeon.PlayerStartingKeys, Dungeon.PlayerStartingBombs);
 
-        Player = new Player(new Vector2(120 * Constants.UniversalScale, (128 * Constants.UniversalScale) + Constants.HudAndMenuHeight), 
-            int.Parse(playerValues[0]), int.Parse(playerValues[1]), int.Parse(playerValues[2]), int.Parse(playerValues[3]), playerItems);
-        */
 
         RoomManager = new(this);
 
@@ -147,54 +128,10 @@ public class Game1 : Game
         {
             RoomManager.Draw();
             Player.Draw();
-
-            /*
-            if (RoomManager.CurrentRoom.RoomEnemies.Count > 0)
-            {
-                testBlock.Draw(
-                RoomManager.CurrentRoom.RoomEnemies[0].AttackHitBox,
-                Color.White
-                );
-            }
-            */
-
-            /*
-            foreach(IProjectile p in ((Player)Player).ProjectilesManager.ActiveProjectiles)
-            {
-                testBlock.Draw(p.HitBox, Color.White);
-            }*/
-
-            //testBlock.Draw(Player.MainHitbox, Color.White);
-            /*
-            foreach (IEnemy enemy in RoomManager.CurrentRoom.RoomEnemies)
-            {
-                if (enemy is AquamentusEnemy aq)
-                {
-                    foreach (AquamentusAttackProjectiles aqp in aq.ProjectilesManager.ActiveProjectiles)
-                    {
-                        testBlock.Draw(aqp.UpProjectile.HitBox, Color.White);
-                        testBlock.Draw(aqp.StraightProjectile.HitBox, Color.White);
-                        testBlock.Draw(aqp.DownProjectile.HitBox, Color.White);
-                    }
-                }
-            }*/
-
-            /*
-            foreach (IItem item in RoomManager.CurrentRoom.RoomItems)
-            {
-                testBlock.Draw(item.HitBox, Color.White);
-            }*/
-
-            /*
-            foreach (Rectangle hb in RoomManager.CurrentRoom.PlayerBorderHitBox.HitBoxes)
-            {
-                testBlock.Draw(hb, Color.White);
-            }*/
-
-        } else
+        }
+        else
         {
             Menu.Draw();
-            
         }
         // Hud always drawn
         Hud.Draw();

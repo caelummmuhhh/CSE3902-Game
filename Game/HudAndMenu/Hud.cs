@@ -51,23 +51,6 @@ namespace MainGame.HudAndMenu
             textLife = SpriteFactory.CreateTextSprite("-LIFE-");
 
             swordDisplay = SpriteFactory.CreateSwordBeamUpProjectileSprite();
-            switch (game.Player.CurrentItem)
-            {
-                case ItemTypes.Bomb:
-                    itemDisplay = SpriteFactory.CreateBombItemSprite();
-                    break;
-                case ItemTypes.Fire:
-                    // Candle item not in reqirements
-                    break;
-                case ItemTypes.Boomerang:
-                    itemDisplay = SpriteFactory.CreateWoodenBoomerangItemSprite();
-                    break;
-                case ItemTypes.Arrow:
-                    itemDisplay = SpriteFactory.CreateArrowItemSprite();
-                    break;
-                default:
-                    throw new FormatException("Default in Hud should not be possible");
-            }
         }
         private void InitializeTriforceRoom()
         {
@@ -133,7 +116,7 @@ namespace MainGame.HudAndMenu
             // This is kinda dumb
             if (!hasMap || !hasCompass)
             {
-                foreach (ItemTypes Item in game.Player.Items)
+                foreach (ItemTypes Item in game.Player.Inventory.GetObtainedItems())
                 {
                     switch (Item)
                     {
@@ -149,6 +132,24 @@ namespace MainGame.HudAndMenu
                     }
                 }
             }
+
+            switch (game.Player.Inventory.EquippedItem)
+            {
+                case ItemTypes.Bomb:
+                    itemDisplay = SpriteFactory.CreateBombItemSprite();
+                    break;
+                case ItemTypes.Candle:
+                    itemDisplay = SpriteFactory.CreateFireSprite();
+                    break;
+                case ItemTypes.Boomerang:
+                    itemDisplay = SpriteFactory.CreateWoodenBoomerangItemSprite();
+                    break;
+                case ItemTypes.Bow:
+                    itemDisplay = SpriteFactory.CreateArrowItemSprite();
+                    break;
+                default:
+                    break;
+            }
         }
         public void Draw()
         {
@@ -162,7 +163,7 @@ namespace MainGame.HudAndMenu
             textLife.Draw(184 * Constants.UniversalScale, 16 * Constants.UniversalScale + pauseShift, Color.Red);
 
             swordDisplay.Draw(148 * Constants.UniversalScale, 24 * Constants.UniversalScale + pauseShift, Color.White);
-            //itemDisplay.Draw(124 * Constants.UniversalScale, 24 * Constants.UniversalScale + pauseShift, Color.White);
+            itemDisplay?.Draw(124 * Constants.UniversalScale, 24 * Constants.UniversalScale + pauseShift, Color.White);
 
             for (int i = 0; i < maxHealth / 2; ++i)
             {
