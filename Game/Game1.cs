@@ -70,7 +70,7 @@ public class Game1 : Game
         SpriteFactory.SpriteBatch = spriteBatch;
 
         // Change Dungeon Here
-        string[] dungeonFiles = Directory.GetFiles(Path.Combine("Content", "Dungeons"), "Dungeon_1_Debug.csv");
+        string[] dungeonFiles = Directory.GetFiles(Path.Combine("Content", "Dungeons"), "Dungeon_1.csv");
         string fullPath = Path.GetFullPath(dungeonFiles[0]);
         string[] lines = null;
         if (File.Exists(fullPath))

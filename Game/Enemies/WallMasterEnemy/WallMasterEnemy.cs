@@ -6,8 +6,10 @@ namespace MainGame.Enemies
 {
 	public class WallMasterEnemy : GenericEnemy
 	{
-		public override int MovementCoolDownFrame { get; protected set; } = 1;
+		public override int MovementCoolDownFrame { get; protected set; } = 3;
         public readonly IPlayer Player;
+
+        public override Rectangle MovementHitBox { get => new(); }
 
         public WallMasterEnemy(Vector2 startingPosition, IPlayer player)
 		{
@@ -15,12 +17,14 @@ namespace MainGame.Enemies
             Player = player;
             Position = startingPosition;
             PreviousPosition = new(Position.X, Position.Y);
+            State = new WallMasterIdleState(this, Player);
         }
-
-        public override void Move()
+        public override void Update()
         {
-            // TODO
+            State.Update();
+            base.Update();
         }
+        public override void Move() => State.Move();
     }
 }
 
