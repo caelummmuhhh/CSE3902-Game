@@ -48,6 +48,30 @@ namespace MainGame.SpriteHandlers
                 scale: Constants.UniversalScale
                 );
         }
+        public static ISprite CreateMapLayoutPieceSprite()
+        {
+            return new MapLayoutPieceSprite(
+                TextureMap["HudAndMenuSprites"], SpriteBatch,
+                textureStartingY: 264,
+                scale: Constants.UniversalScale
+                );
+        }
+        public static ISprite CreateMapPlayerTrackerSprite()
+        {
+            return new MapLayoutTrackerSprite(
+                TextureMap["HudAndMenuSprites"], SpriteBatch,
+                textureStartingY: 268,
+                scale: Constants.UniversalScale
+                );
+        }
+        public static ISprite CreateMapTriforceTrackerSprite()
+        {
+            return new MapLayoutTrackerSprite(
+                TextureMap["HudAndMenuSprites"], SpriteBatch,
+                textureStartingY: 271,
+                scale: Constants.UniversalScale
+                );
+        }
         public static ISprite CreateSelectingBoxSprite()
         {
             return new SelectingBoxSprite(
@@ -58,5 +82,6 @@ namespace MainGame.SpriteHandlers
                 numberOfFrames: 2,
                 scale: Constants.UniversalScale);
         }
+
     }
 }
