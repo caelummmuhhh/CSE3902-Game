@@ -10,6 +10,7 @@ using MainGame.Doors;
 using MainGame.Blocks;
 using MainGame.Items;
 using MainGame.HudAndMenu;
+using MainGame.Dungeons;
 using MainGame.Collision;
 using MainGame.SpriteHandlers.BlockSprites;
 using MainGame.Projectiles;
@@ -32,6 +33,7 @@ public class Game1 : Game
 
     public BlockSprite testBlock; // TODO: DELETE ME
 
+    public Dungeon Dungeon;
     public Hud Hud;
     public Menu Menu;
 
@@ -69,7 +71,11 @@ public class Game1 : Game
         SpriteFactory.LoadAllTextures(Content);
         SpriteFactory.SpriteBatch = spriteBatch;
 
-        // Change Dungeon Here
+        string dungeonName = "Dungeon_1.csv";
+        Dungeon = new Dungeon(this, dungeonName);
+        Player = new Player(new Vector2(120 * Constants.UniversalScale, (128 * Constants.UniversalScale) + Constants.HudAndMenuHeight),
+            Dungeon.PlayerStartingHealth, Dungeon.PlayerStartingRupees, Dungeon.PlayerStartingKeys, Dungeon.PlayerStartingBombs, Dungeon.PlayerStartingItems);
+        /*
         string[] dungeonFiles = Directory.GetFiles(Path.Combine("Content", "Dungeons"), "Dungeon_1_Debug.csv");
         string fullPath = Path.GetFullPath(dungeonFiles[0]);
         string[] lines = null;
@@ -86,14 +92,16 @@ public class Game1 : Game
         string[] startingRoom = lines[3].Split(',');
         string[] triforceRoom = lines[4].Split(',');   
 
-        Player = new Player(new Vector2(128 * Constants.UniversalScale, (128 * Constants.UniversalScale) + Constants.HudAndMenuHeight), Array.Empty<ItemTypes>());
+        Player = new Player(new Vector2(120 * Constants.UniversalScale, (128 * Constants.UniversalScale) + Constants.HudAndMenuHeight), 
+            int.Parse(playerValues[0]), int.Parse(playerValues[1]), int.Parse(playerValues[2]), int.Parse(playerValues[3]), playerItems);
+        */
 
         RoomManager = new(this);
 
         Collision = new(this);
 
-        Hud = new Hud(version[0], version[1], version[2], this);
-        Menu = new Menu(version[1], this);
+        Hud = new Hud(Dungeon.DungeonId, Dungeon.UseItemKey, Dungeon.AttackKey, this);
+        Menu = new Menu(Dungeon.UseItemKey, this);
 
         testBlock = (BlockSprite)SpriteFactory.CreateBlackSquareSprite(); // TODO: DELETE ME
 

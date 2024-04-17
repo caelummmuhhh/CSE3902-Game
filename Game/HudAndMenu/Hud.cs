@@ -29,12 +29,21 @@ namespace MainGame.HudAndMenu
         private ISprite itemDisplay;
 
         private ISprite[] heartsDisplay;
+        private int maxHealth;
+        private ISprite[][] layoutDisplay;
+        private bool hasMap = false;
+        private ISprite triforceRoom;
+        private Vector2 triforceRoomLoc;
+        private bool hasCompass = false;
         public Hud(String dungeonID, String itemKey, String attackKey, Game1 game) 
         {
             this.game = game;
             HudBase = SpriteFactory.CreateEmptyHudSprite();
 
             heartsDisplay = new ISprite[16];
+            maxHealth = game.Player.MaxHealth; // Game crashed when it didn't use a copy
+            InitializeMapLayout();
+            InitializeTriforceRoom();
 
             textLevel = SpriteFactory.CreateTextSprite("LEVEL-" + dungeonID);
             textItemKey = SpriteFactory.CreateTextSprite(itemKey);
@@ -42,6 +51,55 @@ namespace MainGame.HudAndMenu
             textLife = SpriteFactory.CreateTextSprite("-LIFE-");
 
             swordDisplay = SpriteFactory.CreateSwordBeamUpProjectileSprite();
+            switch (game.Player.CurrentItem)
+            {
+                case ItemTypes.Bomb:
+                    itemDisplay = SpriteFactory.CreateBombItemSprite();
+                    break;
+                case ItemTypes.Fire:
+                    // Candle item not in reqirements
+                    break;
+                case ItemTypes.Boomerang:
+                    itemDisplay = SpriteFactory.CreateWoodenBoomerangItemSprite();
+                    break;
+                case ItemTypes.Arrow:
+                    itemDisplay = SpriteFactory.CreateArrowItemSprite();
+                    break;
+                default:
+                    throw new FormatException("Default in Hud should not be possible");
+            }
+        }
+        private void InitializeTriforceRoom()
+        {
+            for (int i = 0; i < 8; i++)
+            {
+                for (int j = 0; j < 8; j++)
+                {
+                    if (game.Dungeon.DungeonLayout[i][j] == game.Dungeon.DungeonRoomCount)
+                    {
+                        triforceRoom = SpriteFactory.CreateMapTriforceTrackerSprite();
+                        triforceRoomLoc = new Vector2(j, i);
+                    }
+                }
+            }
+        }
+        private void InitializeMapLayout()
+        {
+            layoutDisplay = new ISprite[8][];
+            for (int i = 0; i < 8; i++)
+            {
+                layoutDisplay[i] = new ISprite[8];
+            }
+            for (int i = 0; i < 8; i++)
+            {
+                for (int j = 0; j < 8; j++)
+                {
+                    if (game.Dungeon.DungeonLayout[i][j] != 0)
+                    {
+                        layoutDisplay[i][j] = SpriteFactory.CreateMapLayoutPieceSprite();
+                    }
+                }
+            }
         }
         public void PauseUpdate()
         {
@@ -50,7 +108,13 @@ namespace MainGame.HudAndMenu
         public void Update()
         {
             pauseShift = 0;
-            for (int i = 0; i < this.game.Player.MaxHealth / 2; ++i)
+
+            textRupees = SpriteFactory.CreateTextSprite($"X{game.Player.Inventory.Rupees.Count}");
+            textKeys = SpriteFactory.CreateTextSprite($"X{game.Player.Inventory.KeyCount.Count}");
+            textBombs = SpriteFactory.CreateTextSprite($"X{game.Player.Inventory.BombCount.Count}");
+
+            maxHealth = game.Player.MaxHealth;
+            for (int i = 0; i < maxHealth / 2; ++i)
             {
                 if (2 * (i + 1) <= this.game.Player.CurrentHealth)
                 {
@@ -65,9 +129,26 @@ namespace MainGame.HudAndMenu
                     heartsDisplay[i] = SpriteFactory.CreateEmptyHeartDisplaySprite();
                 }
             }
-            textRupees = SpriteFactory.CreateTextSprite($"X{game.Player.Inventory.Rupees.Count}");
-            textKeys = SpriteFactory.CreateTextSprite($"X{game.Player.Inventory.KeyCount.Count}");
-            textBombs = SpriteFactory.CreateTextSprite($"X{game.Player.Inventory.BombCount.Count}");
+
+            // This is kinda dumb
+            if (!hasMap || !hasCompass)
+            {
+                foreach (ItemTypes Item in game.Player.Items)
+                {
+                    switch (Item)
+                    {
+                        case ItemTypes.Map:
+                            hasMap = true;
+                            break;
+                        case ItemTypes.Compass:
+                            hasCompass = true;
+                            break;
+                        default:
+                            // Do Nothing
+                            break;
+                    }
+                }
+            }
         }
         public void Draw()
         {
@@ -83,7 +164,7 @@ namespace MainGame.HudAndMenu
             swordDisplay.Draw(148 * Constants.UniversalScale, 24 * Constants.UniversalScale + pauseShift, Color.White);
             //itemDisplay.Draw(124 * Constants.UniversalScale, 24 * Constants.UniversalScale + pauseShift, Color.White);
 
-            for (int i = 0; i < this.game.Player.MaxHealth / 2; ++i)
+            for (int i = 0; i < maxHealth / 2; ++i)
             {
                 if (i < 8)
                 {
@@ -94,6 +175,24 @@ namespace MainGame.HudAndMenu
                 {
                     heartsDisplay[i].Draw((176 + (8 * (i - 8))) * Constants.UniversalScale, 32 * Constants.UniversalScale + pauseShift, Color.White);
                 }
+            }
+
+            if (hasMap)
+            {
+                for (int i = 0; i < 8; i++)
+                {
+                    for (int j = 0; j < 8; j++)
+                    {
+                        if (game.Dungeon.DungeonLayout[i][j] != 0) // && Room has been visited for when no map?
+                        {
+                            layoutDisplay[i][j].Draw((16 + (8 * j)) * Constants.UniversalScale, (16 + (4 * i)) * Constants.UniversalScale + pauseShift, Color.White);
+                        }
+                    }
+                }
+            } 
+            if (hasCompass)
+            {
+                triforceRoom.Draw((18 + (8 * triforceRoomLoc.X)) * Constants.UniversalScale, (16 + (4 * triforceRoomLoc.Y)) * Constants.UniversalScale + pauseShift, Color.White);
             }
         }
     }
