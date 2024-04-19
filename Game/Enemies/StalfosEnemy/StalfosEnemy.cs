@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using MainGame.SpriteHandlers;
+using MainGame.Audio;
 
 namespace MainGame.Enemies
 {
@@ -10,9 +11,10 @@ namespace MainGame.Enemies
 		private int moveDuration;
 		private readonly int maxMoveDuration = 32;
 
-		public StalfosEnemy(Vector2 startingPosition)
+		public StalfosEnemy(Vector2 startingPosition, AudioManager audioManager)
 		{
 			Position = startingPosition;
+            AudioManager = audioManager;
             PreviousPosition = new(Position.X, Position.Y);
             Sprite = SpriteFactory.CreateStalfosSprite();
 		}

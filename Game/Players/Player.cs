@@ -2,6 +2,7 @@
 using MainGame.SpriteHandlers;
 using MainGame.Players.PlayerStates;
 using MainGame.Projectiles;
+using MainGame.Audio;
 using System;
 
 namespace MainGame.Players
@@ -37,10 +38,12 @@ namespace MainGame.Players
 
 		private int invulnerableTimer = 0;
         public readonly PlayerProjectilesManager ProjectilesManager;
+		AudioManager SFXPlayer;
 
-        public Player(Vector2 spawnPosition, int hearts, int rupees, int keys, int bombs, string[] items)
+        public Player(Vector2 spawnPosition, AudioManager sfxPlayer, int hearts, int rupees, int keys, int bombs, string[] items)
 		{
 			ProjectilesManager = new(this);
+			SFXPlayer = sfxPlayer;
 			Position = spawnPosition;
 			CurrentState = new PlayerIdleUpState(this);
 			SwordHitBox = new();
@@ -97,6 +100,7 @@ namespace MainGame.Players
 			{
 				MakeInvulnerable(ImmunityFrame);
 				CurrentState.TakeDamage(sideHit);
+                SFXPlayer.PlaySFX("Player_Hurt", 0);
             }
 		}
 
@@ -116,20 +120,53 @@ namespace MainGame.Players
             //TO DO
         }
 
-        public void UseSword() => CurrentState.UseSword();
-		public void UseBoomerang(Direction direction) => ProjectilesManager.AddProjectile(new PlayerBoomerangProjectile(this, direction));
-		public void UseArrow(Direction direction)
+		public void UseSword()
 		{
-			RupeeCount--;
-			ProjectilesManager.AddProjectile(new ArrowProjectile(Position, direction));
+			CurrentState.UseSword();
+            SFXPlayer.PlaySFX("Sword_Attack", 0);
+        }
+		public void UseBoomerang(Direction direction)
+		{
+			if (ProjectilesManager.ActiveProjectiles.Count == 0) 
+			{
+				ProjectilesManager.AddProjectile(new PlayerBoomerangProjectile(this, direction));
+                SFXPlayer.PlaySFX("Arrow_And_Boomerang",0); 
+            }
 		}
-        public void UseFire(Direction direction) => ProjectilesManager.AddProjectile(new FireBallProjectile(Position, direction));
+		public void UseArrow(Direction direction)
+        {
+            if (ProjectilesManager.ActiveProjectiles.Count == 0)
+            {
+                RupeeCount--;
+                ProjectilesManager.AddProjectile(new ArrowProjectile(Position, direction));
+                SFXPlayer.PlaySFX("Arrow_And_Boomerang", 0);
+            }
+		}
+		public void UseFire(Direction direction)
+        {
+            if (ProjectilesManager.ActiveProjectiles.Count == 0)
+            {
+                ProjectilesManager.AddProjectile(new FireBallProjectile(Position, direction));
+                SFXPlayer.PlaySFX("Candle", 0);
+            }
+		}
 		public void UseBomb(Direction direction)
 		{
 			BombCount--;
 			ProjectilesManager.AddProjectile(new BombProjectile(Position, direction));
+            SFXPlayer.PlaySFX("Bomb_Drop", 0);
+            SFXPlayer.PlaySFX("Bomb_Blow", 64);
+
+        }
+		public void UseSwordBeam(Direction direction)
+        {
+            SFXPlayer.PlaySFX("Sword_Attack", 0);
+            if (ProjectilesManager.ActiveProjectiles.Count == 0)
+            {
+                ProjectilesManager.AddProjectile(new SwordBeamProjectile(Position, direction));
+                SFXPlayer.PlaySFX("Sword_Beam", 4);
+            }
 		}
-		public void UseSwordBeam(Direction direction) => ProjectilesManager.AddProjectile(new SwordBeamProjectile(Position, direction));
 
 		private void UpdateHitBoxes()
 		{

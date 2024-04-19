@@ -1,11 +1,14 @@
 ﻿using Microsoft.Xna.Framework;
 using MainGame.SpriteHandlers;
+using MainGame.Audio;
 
 namespace MainGame.Enemies
 {
 	public abstract class GenericEnemy : IEnemy
 	{
-        public static readonly int ImmunityFrame = 10;
+        public AudioManager AudioManager { get; set; }
+
+        public static readonly int ImmunityFrame = 100;
         public static readonly float MaxKnockedBackDistance = Constants.BlockSize;
         public static readonly float KnockBackSpeed = 10f;
         /// <summary>
@@ -66,6 +69,7 @@ namespace MainGame.Enemies
             {
                 knockBackDirection = Utils.OppositeDirection(sideHit);
                 invulnerableTimer = ImmunityFrame;
+                AudioManager.PlaySFX("Enemy_Hit", 0);
             }
         }
 

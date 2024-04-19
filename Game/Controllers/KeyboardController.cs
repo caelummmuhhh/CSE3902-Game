@@ -5,6 +5,7 @@ using Microsoft.Xna.Framework.Input;
 using MainGame.Commands;
 using MainGame.Commands.PlayerCommands;
 using MainGame.Players;
+using Microsoft.Xna.Framework.Graphics;
 
 namespace MainGame.Controllers
 {
@@ -13,7 +14,7 @@ namespace MainGame.Controllers
         private readonly Dictionary<Keys, ICommand> keyCommands;
         private readonly List<ICommand> executingCommands;
 		private readonly IPlayer player;
-		private readonly Game game;
+		private readonly Game1 game;
 
         public KeyboardController(Game1 game, IPlayer player)
 		{
@@ -30,7 +31,7 @@ namespace MainGame.Controllers
                 { Keys.S, new PlayerMoveDownCommand(player) },
                 { Keys.D, new PlayerMoveRightCommand(game) },
 
-                { Keys.K, new PlayerUseSwordCommand(player) },
+                { Keys.K, new PlayerUseSwordCommand(game, player) },
                 { Keys.Z, new PlayerUseSwordBeamCommand(player) },
 
                 { Keys.E, new PlayerDamageCommand(game) },
@@ -45,6 +46,7 @@ namespace MainGame.Controllers
                 { Keys.Up, new NextRoomCommand(game) },
 
                 { Keys.P, new PauseMenuCommand(game) },
+                { Keys.M, new MuteMusicCommand(game) },
             };
         }
 

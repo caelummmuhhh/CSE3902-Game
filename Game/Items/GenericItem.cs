@@ -3,6 +3,7 @@ using MainGame.SpriteHandlers;
 using MainGame.Players;
 using System;
 using Microsoft.Xna.Framework.Input;
+using MainGame.Audio;
 
 namespace MainGame.Items
 {
@@ -25,15 +26,23 @@ namespace MainGame.Items
         private readonly ISprite sprite;
         private readonly ItemTypes type;
 
-        public GenericItem(Vector2 position, ISprite sprite, ItemTypes itemType, bool active = true)
+        private AudioManager AudioManager;
+
+        public GenericItem(Vector2 position, ISprite sprite, ItemTypes itemType, AudioManager audioManager, bool active = true)
 		{
 			Position = position;
-			this.sprite = sprite;
+            AudioManager = audioManager;
+            this.sprite = sprite;
             Active = active;
             type = itemType;
         }
 
-		public void Update()
+        public GenericItem(Vector2 vector2, ISprite sprite, ItemTypes item)
+        {
+            this.sprite = sprite;
+        }
+
+        public void Update()
 		{
 			sprite.Update();
 		}
@@ -50,6 +59,7 @@ namespace MainGame.Items
         public void Collide()
         {
 			PickedUp = true;
+            AudioManager.PlaySFX("Grab_Item_Medium", 0);
         }
 
         public void ActivateAbility(IPlayer player)
