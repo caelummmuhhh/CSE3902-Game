@@ -1,6 +1,7 @@
 ﻿using System;
 using Microsoft.Xna.Framework;
 using MainGame.SpriteHandlers;
+using MainGame.Audio;
 
 namespace MainGame.Enemies
 {
@@ -20,9 +21,10 @@ namespace MainGame.Enemies
 
         public override int MovementCoolDownFrame { get; protected set; } = 1;
 
-        public GelEnemy(Vector2 startingPosition)
+        public GelEnemy(Vector2 startingPosition, AudioManager audioManager)
 		{
 			Position = startingPosition;
+            AudioManager = audioManager;
             PreviousPosition = new(Position.X, Position.Y);
             Sprite = SpriteFactory.CreateGelSprite();
             State = new GelIdleState(this);

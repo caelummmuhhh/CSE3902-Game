@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Media;
 
 using MainGame.SpriteHandlers;
 using MainGame.Controllers;
@@ -12,6 +13,7 @@ using MainGame.Items;
 using MainGame.HudAndMenu;
 using MainGame.Dungeons;
 using MainGame.Collision;
+using MainGame.Audio;
 using MainGame.SpriteHandlers.BlockSprites;
 using MainGame.Projectiles;
 using MainGame.Enemies;
@@ -26,6 +28,7 @@ public class Game1 : Game
     public readonly GraphicsDeviceManager GraphicsManager;
     private SpriteBatch spriteBatch;
     public List<IController> controllers;
+    public int TotalGameTime = 0;
 
     public IPlayer Player;
     public CollisionDetector Collision;
@@ -36,6 +39,8 @@ public class Game1 : Game
     public Dungeon Dungeon;
     public Hud Hud;
     public Menu Menu;
+
+    public AudioManager AudioManager;
 
     public bool TogglePause;
     int PauseDebounce;
@@ -66,6 +71,8 @@ public class Game1 : Game
         TogglePause = false;
         PauseDebounce = 10;
 
+        AudioManager = new AudioManager(this);
+
         spriteBatch = new SpriteBatch(GraphicsDevice);
 
         SpriteFactory.LoadAllTextures(Content);
@@ -73,7 +80,7 @@ public class Game1 : Game
 
         string dungeonName = "Dungeon_1.csv";
         Dungeon = new Dungeon(this, dungeonName);
-        Player = new Player(new Vector2(120 * Constants.UniversalScale, (128 * Constants.UniversalScale) + Constants.HudAndMenuHeight),
+        Player = new Player(new Vector2(120 * Constants.UniversalScale, (128 * Constants.UniversalScale) + Constants.HudAndMenuHeight), AudioManager,
             Dungeon.PlayerStartingHealth, Dungeon.PlayerStartingRupees, Dungeon.PlayerStartingKeys, Dungeon.PlayerStartingBombs, Dungeon.PlayerStartingItems);
         /*
         string[] dungeonFiles = Directory.GetFiles(Path.Combine("Content", "Dungeons"), "Dungeon_1_Debug.csv");
@@ -111,6 +118,8 @@ public class Game1 : Game
 
     protected override void Update(GameTime gameTime)
     {
+        TotalGameTime++;
+
         if (PauseDebounce >= 10)
         {
             for (int i = 0; i < controllers.Count; i++)
@@ -130,6 +139,8 @@ public class Game1 : Game
             Menu.Update();
             ++PauseDebounce;
         }
+        // Audio has to be outside to allow pause sounds, will cause bugs with delayed sounds playing on pause screen
+        AudioManager.Update();
 
         base.Update(gameTime);
     }

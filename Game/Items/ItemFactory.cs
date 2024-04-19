@@ -1,17 +1,18 @@
 ﻿using Microsoft.Xna.Framework;
 using MainGame.SpriteHandlers;
+using MainGame.Audio;
 using System;
 
 namespace MainGame.Items
 {
 	public static class ItemFactory
 	{
-		public static IItem CreateItem(ItemTypes itemType, Vector2 position, bool active = true)
+		public static IItem CreateItem(ItemTypes itemType, Vector2 position, AudioManager audioManager, bool active = true)
 		{
 			ISprite sprite = SpriteFactory.CreateItemSprite(itemType);
 			return itemType switch
 			{
-				_ => new GenericItem(position, sprite, itemType, active)
+				_ => new GenericItem(position, sprite, itemType, audioManager, active)
 			};
 		}
 
@@ -23,7 +24,7 @@ namespace MainGame.Items
 		/// <param name="active">Whether or not the item will be active upon spawnign.</param>
 		/// <returns>The created item from the provided name.</returns>
 		/// <exception cref="ArgumentException">If an item was unable to be parsed.</exception>
-        public static IItem CreateItem(string itemName, Vector2 position, bool active = true)
+        public static IItem CreateItem(string itemName, Vector2 position, AudioManager audioManager, bool active = true)
 		{
             bool conversionSuccess = Enum.TryParse(itemName, true, out ItemTypes item);
 
@@ -32,7 +33,7 @@ namespace MainGame.Items
                 throw new ArgumentException("Unable to parse item name string into an item.");
             }
 
-            return CreateItem(item, position, active);
+            return CreateItem(item, position, audioManager, active);
         }
     }
 }

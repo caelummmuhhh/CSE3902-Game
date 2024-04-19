@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using MainGame.SpriteHandlers;
+using MainGame.Audio;
 
 namespace MainGame.Enemies
 {
@@ -7,9 +8,10 @@ namespace MainGame.Enemies
 	{
 		public override int MovementCoolDownFrame { get; protected set; } = 0;
 
-        public OldManEnemy(Vector2 startingPosition)
+        public OldManEnemy(Vector2 startingPosition, AudioManager audioManager)
 		{
 			Position = startingPosition;
+            AudioManager = audioManager;
             PreviousPosition = new(Position.X, Position.Y);
             Sprite = SpriteFactory.CreateOldManSprite();
 		}

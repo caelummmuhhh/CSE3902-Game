@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using MainGame.Players;
 using MainGame.SpriteHandlers;
+using MainGame.Audio;
 
 namespace MainGame.Enemies
 {
@@ -10,9 +11,10 @@ namespace MainGame.Enemies
         public override Rectangle AttackHitBox => new(); // No attack hitbox, you can't hit these
         public readonly IPlayer Player;
 
-        public SpikeCrossEnemy(Vector2 startingPosition, IPlayer player)
+        public SpikeCrossEnemy(Vector2 startingPosition, AudioManager audioManager, IPlayer player)
 		{
 			Position = startingPosition;
+            AudioManager = audioManager;
             PreviousPosition = new(Position.X, Position.Y);
             Player = player;
 			Sprite = SpriteFactory.CreateSpikeCrossSprite();
