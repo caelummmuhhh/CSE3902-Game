@@ -15,7 +15,7 @@ namespace MainGame.Collision
 	public class CollisionDetector
 	{
 		private List<IBlock> blocks;
-		private List<IItem> items;
+		private List<IPickupableItem> items;
 		private List<IEnemy> enemies;
 		private List<IProjectile> playerProjectiles = new();
 		private List<IProjectile> enemyProjectiles = new();
@@ -32,7 +32,7 @@ namespace MainGame.Collision
 
             IRoom currentRoom = game.RoomManager.CurrentRoom;
             blocks = new List<IBlock>(currentRoom.RoomBlocks);
-            items = new List<IItem>(currentRoom.RoomItems);
+            items = new List<IPickupableItem>(currentRoom.RoomItems);
             enemies = new List<IEnemy>(currentRoom.RoomEnemies);
             playerProjectiles = player.Inventory.GetActiveEquipments().Select(equip => equip.Projectile).ToList();
 
@@ -46,7 +46,7 @@ namespace MainGame.Collision
         {
             IRoom currentRoom = game.RoomManager.CurrentRoom;
             blocks = new List<IBlock>(currentRoom.RoomBlocks);
-            items = new List<IItem>(currentRoom.RoomItems);
+            items = new List<IPickupableItem>(currentRoom.RoomItems);
             enemies = new List<IEnemy>(currentRoom.RoomEnemies);
             playerProjectiles = player.Inventory.GetActiveEquipments().Select(equip => equip.Projectile).ToList();
             playerBorders = currentRoom.PlayerBorderHitBox;
@@ -174,7 +174,7 @@ namespace MainGame.Collision
 
         public void DetectItemCollisions()
         {
-            foreach (IItem item in items)
+            foreach (IPickupableItem item in items)
             {
                 Rectangle overlap = Rectangle.Intersect(item.HitBox, player.MainHitbox);
                 if (!overlap.IsEmpty)

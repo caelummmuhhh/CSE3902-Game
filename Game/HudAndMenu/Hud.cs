@@ -1,9 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using MainGame.Players;
 using MainGame.SpriteHandlers;
 using Microsoft.Xna.Framework;
 
@@ -35,7 +30,7 @@ namespace MainGame.HudAndMenu
         private ISprite triforceRoom;
         private Vector2 triforceRoomLoc;
         private bool hasCompass = false;
-        public Hud(String dungeonID, String itemKey, String attackKey, Game1 game) 
+        public Hud(string dungeonID, string itemKey, string attackKey, Game1 game) 
         {
             this.game = game;
             HudBase = SpriteFactory.CreateEmptyHudSprite();

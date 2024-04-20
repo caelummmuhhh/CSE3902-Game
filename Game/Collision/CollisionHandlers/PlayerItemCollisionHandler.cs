@@ -1,14 +1,15 @@
 ﻿using MainGame.Players;
 using MainGame.Items;
+using System;
 
 namespace MainGame.Collision.CollisionHandlers
 {
 	public class PlayerItemCollisionHandler : ICollisionHandler
 	{
 		private readonly IPlayer player;
-		private readonly IItem item;
+		private readonly IPickupableItem item;
 
-		public PlayerItemCollisionHandler(IPlayer player, IItem item)
+		public PlayerItemCollisionHandler(IPlayer player, IPickupableItem item)
 		{
 			this.player = player;
 			this.item = item;
@@ -16,8 +17,8 @@ namespace MainGame.Collision.CollisionHandlers
 
 		public void HandleCollision()
 		{
-			item.Collide();
-			item.ActivateAbility(player);
+			item.PickUp();
+			Console.WriteLine($"Picked up {item.Name}");
 		}
 	}
 }

@@ -48,7 +48,7 @@ namespace MainGame.Players.PlayerStates
         public void MoveLeft() => player.CurrentState = new PlayerMovingLeftState(player);
 
         public void UseSword() => player.CurrentState = new PlayerUsingSwordRightState(player);
-        public void UseItem()
+        public void UseEquipment()
         {
             if (player.Inventory.CanUseEquippedItem())
             {

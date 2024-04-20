@@ -13,7 +13,7 @@ namespace MainGame.Commands.PlayerCommands
 
         public void Execute()
         {
-            player.UseItem();
+            player.UseEquipment();
         }
 
         public void UnExecute() { /* not needed */ }

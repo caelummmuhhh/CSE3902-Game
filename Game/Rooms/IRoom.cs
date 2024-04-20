@@ -18,7 +18,7 @@ namespace MainGame.Rooms
 		public IPlayer RoomPlayer { get; set; }
 		public List<IEnemy> RoomEnemies { get; set; }
 		public List<IBlock> RoomBlocks { get; set; }
-		public List<IItem> RoomItems { get; set; }
+		public List<IPickupableItem> RoomItems { get; set; }
 		public List<IParticle> RoomParticles { get; set; }
 
         public IDoor NorthDoor { get; set; }

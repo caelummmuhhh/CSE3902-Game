@@ -112,7 +112,7 @@ namespace MainGame.Players.PlayerStates
         public void MoveUp() { }
         public void Stop() { }
         public void TakeDamage(Direction sideHit) { }
-        public void UseItem() { }
+        public void UseEquipment() { }
         public void UseSword() { }
     }
 }

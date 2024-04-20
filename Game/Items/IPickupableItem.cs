@@ -3,17 +3,15 @@ using Microsoft.Xna.Framework;
 
 namespace MainGame.Items
 {
-	public interface IItem
+	public interface IPickupableItem
 	{
+        public string Name { get; }
         public Vector2 Position { get; set; }
-        public bool PickedUp { get; set; }
-        public bool Active { get; set; }
         public Rectangle HitBox { get; }
 
         public void Update();
         public void Draw();
-        public void Collide();
-        public void ActivateAbility(IPlayer player);
+        public void PickUp();
     }
 }
 

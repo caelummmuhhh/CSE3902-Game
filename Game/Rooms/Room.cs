@@ -19,7 +19,7 @@ namespace MainGame.Rooms
 
         public List<IEnemy> RoomEnemies { get; set; } = new();
         public List<IBlock> RoomBlocks { get; set; } = new();
-        public List<IItem> RoomItems { get; set; } = new();
+        public List<IPickupableItem> RoomItems { get; set; } = new();
         public List<IParticle> RoomParticles { get; set; } = new();
 
         public IHitBox EnemiesBorderHitBox { get; set; }
@@ -62,7 +62,7 @@ namespace MainGame.Rooms
             {
                 block.Update();
             }
-            foreach (IItem item in RoomItems)
+            foreach (IPickupableItem item in RoomItems)
             {
                 item.Update();
             }
@@ -92,7 +92,7 @@ namespace MainGame.Rooms
             {
                 block.Draw();
             }
-            foreach (IItem item in RoomItems)
+            foreach (IPickupableItem item in RoomItems)
             {
                 item.Draw();
             }

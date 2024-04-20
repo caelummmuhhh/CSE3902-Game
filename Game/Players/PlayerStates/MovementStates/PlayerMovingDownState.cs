@@ -50,7 +50,7 @@ namespace MainGame.Players.PlayerStates
         }
 
         public void UseSword() => player.CurrentState = new PlayerUsingSwordDownState(player);
-        public void UseItem()
+        public void UseEquipment()
         {
             if (player.Inventory.CanUseEquippedItem())
             {

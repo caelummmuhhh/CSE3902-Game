@@ -36,7 +36,7 @@ namespace MainGame.Rooms
 
             for (int i = 2; i < lines.Length; i++)
             {
-                ParseItemsAndBlocks(ref lines[i], room, i - 2);
+                ParseItemsAndBlocks(ref lines[i], room, player, i - 2);
                 ParseEnemies(lines[i], room, player, i - 2);
             }
 
@@ -194,7 +194,7 @@ namespace MainGame.Rooms
             }
         }
 
-        private static void ParseItemsAndBlocks(ref string line, IRoom room, int yOffset)
+        private static void ParseItemsAndBlocks(ref string line, IRoom room, IPlayer player, int yOffset)
         {
             int wallOffsetX = 32 * Constants.UniversalScale;
             int wallOffsetY = 32 * Constants.UniversalScale + Constants.HudAndMenuHeight;
@@ -205,31 +205,26 @@ namespace MainGame.Rooms
             // if parsed, a new block/item object will be added to game1's current set of objects
             for (int i = 0; i < objects.Length; i++)
             {
+                Vector2 tilePosition = new(wallOffsetX + i * columnWidth, wallOffsetY + yOffset * columnWidth);
+
                 if (objects[i].Equals("-"))
                 {
                     continue;
                 }
 
-                // TODO: Maybe we should have a BlocksFactory instead of using block sprite type, so we can control the collideability
-                bool blockSuccess = Enum.TryParse(objects[i], true, out BlockTypes block);
-                Vector2 position = new (wallOffsetX + i * columnWidth, wallOffsetY + yOffset * columnWidth);
-                if (blockSuccess)
+                IBlock block = BlockFactory.CreateBlock(objects[i], tilePosition);
+                if (block is not null)
                 {
-                    room.RoomBlocks.Add(BlockFactory.CreateBlock(block, position));
+                    room.RoomBlocks.Add(block);
                     objects[i] = "-";
+                    continue;
                 }
-                else
+
+                IPickupableItem item = ItemFactory.CreateItem(objects[i], tilePosition, player);
+                if (item is not null)
                 {
-                    bool itemSuccess = Enum.TryParse(typeof(ItemTypes), objects[i], true, out object item);
-                    if (itemSuccess)
-                    {
-                        room.RoomItems.Add(
-                            new GenericItem(
-                                    new Vector2(wallOffsetX + i * columnWidth, wallOffsetY + yOffset * columnWidth),
-                                    SpriteFactory.CreateItemSprite((ItemTypes)item), (ItemTypes)item
-                                ));
-                        objects[i] = "-";
-                    }
+                    room.RoomItems.Add(item);
+                    objects[i] = "-";
                 }
             }
             line = string.Join(',', objects);
@@ -257,7 +252,7 @@ namespace MainGame.Rooms
                 }
                 catch
                 {
-                    IEnemy createdEnemy = EnemyUtils.CreateItemBindedEnemy(objects[i], spawnPosition, out IItem createdItem, player);
+                    IEnemy createdEnemy = EnemyUtils.CreateItemBindedEnemy(objects[i], spawnPosition, out IPickupableItem createdItem, player);
                     room.RoomEnemies.Add(createdEnemy);
                     room.RoomItems.Add(createdItem);
                 }

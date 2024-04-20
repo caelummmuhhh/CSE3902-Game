@@ -7,9 +7,9 @@ namespace MainGame.Players.PlayerStates
 	public class PickUpSpecialItemState : IPlayerState
 	{
         private readonly IPlayer player;
-        private readonly IItem item;
+        private readonly IPickupableItem item;
 
-        public PickUpSpecialItemState(IPlayer player, IItem item)
+        public PickUpSpecialItemState(IPlayer player, IPickupableItem item)
 		{
             this.player = player;
             this.item = item;
@@ -43,7 +43,7 @@ namespace MainGame.Players.PlayerStates
         public void MoveRight() { }
         public void UseSword() { }
         public void TakeDamage(Direction sideHit) { }
-        public void UseItem() { }
+        public void UseEquipment() { }
     }
 }
 

@@ -85,12 +85,13 @@ namespace MainGame.Players
 
 		public void Heal(int amount) => CurrentHealth = CurrentHealth + amount >= MaxHealth ? MaxHealth : CurrentHealth + amount;
         public void MakeInvulnerable(int duration) => invulnerableTimer = duration;
+        public void IncreaseMaxHP(int amount = 2) => MaxHealth += amount;
 
         public void MoveUp() => CurrentState.MoveUp();
 		public void MoveDown() => CurrentState.MoveDown();
 		public void MoveLeft() => CurrentState.MoveLeft();
 		public void MoveRight() => CurrentState.MoveRight();
-		public void UseItem() => CurrentState.UseItem();
+		public void UseEquipment() => CurrentState.UseEquipment();
 
         public void UseSword()
 		{
@@ -100,11 +101,6 @@ namespace MainGame.Players
 				Inventory.UseSwordBeam();
             }
         }
-
-        public void PickUpItem(IItem item)
-		{
-
-		}
 
         private void UpdateHitBoxes()
 		{

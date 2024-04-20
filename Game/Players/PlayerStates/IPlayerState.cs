@@ -13,6 +13,6 @@
 		public void Draw();
 		public void Stop();
 		public void TakeDamage(Direction sideHit);
-		public void UseItem();
+		public void UseEquipment();
 	}
 }

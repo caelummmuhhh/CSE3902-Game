@@ -26,15 +26,20 @@ namespace MainGame.Blocks
         /// </summary>
         /// <param name="blockName">The name of the block.</param>
         /// <param name="position">The position of the block (top left corner)</param>
+		/// <param name="throwException">If unable to parse, throw an exception if true, return null otherwise.</param>
         /// <returns>The ISprite object created based on the given block name</returns>
         /// <exception cref="ArgumentException">The block name does not match to a block.</exception>
-        public static IBlock CreateBlock(string blockName, Vector2 position)
+        public static IBlock CreateBlock(string blockName, Vector2 position, bool throwException = false)
         {
             bool conversionSuccess = Enum.TryParse(blockName, true, out BlockTypes block);
 
-            if (!conversionSuccess)
+            if (!conversionSuccess && throwException)
             {
                 throw new ArgumentException("Unable to parse block name string into a block.");
+            }
+            else if (!conversionSuccess && !throwException)
+            {
+                return null;
             }
 
             return CreateBlock(block, position);

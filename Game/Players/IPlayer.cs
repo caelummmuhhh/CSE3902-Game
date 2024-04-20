@@ -37,8 +37,8 @@ namespace MainGame.Players
         public void MoveRight();
         public void Stop();
         public void UseSword();
-        public void UseItem();
-        public void PickUpItem(IItem item);
+        public void UseEquipment();
+        public void IncreaseMaxHP(int amount = 2);
     }
 }
 
