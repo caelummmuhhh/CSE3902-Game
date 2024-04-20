@@ -21,6 +21,8 @@ namespace MainGame.Rooms
 		public List<IItem> RoomItems { get; set; }
 		public List<IParticle> RoomParticles { get; set; }
 
+        public ISprite RoomText { get; set; }
+
         public IDoor NorthDoor { get; set; }
         public IDoor WestDoor { get; set; }
         public IDoor EastDoor { get; set; }

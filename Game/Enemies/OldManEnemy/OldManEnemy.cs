@@ -6,7 +6,8 @@ namespace MainGame.Enemies
 {
 	public class OldManEnemy : GenericEnemy
 	{
-		public override int MovementCoolDownFrame { get; protected set; } = 0;
+        public override Rectangle AttackHitBox { get => new(); }
+        public override int MovementCoolDownFrame { get; protected set; } = 0;
 
         public OldManEnemy(Vector2 startingPosition, AudioManager audioManager)
 		{

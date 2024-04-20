@@ -11,6 +11,7 @@ using MainGame.Enemies;
 using MainGame.Players;
 using MainGame.Collision;
 using MainGame.Audio;
+using MainGame.Dungeons;
 
 namespace MainGame.Rooms
 {
@@ -30,10 +31,11 @@ namespace MainGame.Rooms
                 throw new IOException($"Could not read CSV file to room: {roomFile}");
             }
 
-            IRoom room = ParseRoomType(lines[0]); // Parse and set room to a new room object
+            IRoom room = ParseRoomType(lines[0].Replace(",", "")); // Parse and set room to a new room object
             room.RoomId = roomNumber;
             ParseDoors(lines[1], room);
             room.RoomPlayer = player;
+
 
             for (int i = 2; i < lines.Length; i++)
             {
@@ -41,9 +43,56 @@ namespace MainGame.Rooms
                 ParseEnemies(lines[i], room, player, i - 2, audioManager);
             }
 
+            GenerateHitboxes(room, lines[0].Replace(",", ""));
+            AddAdditionalElements(room, lines[0].Replace(",", ""), audioManager);
+
             return room;
         }
-
+        private static void AddAdditionalElements(IRoom room, string roomType, AudioManager audioManager)
+        {
+            if (roomType.Equals("undergroundRoom"))
+            {
+                // This is probably where the trigger to leave this room will be added
+            }
+            else if (roomType.Equals("dungeonOldMan"))
+            {
+                room.RoomEnemies.Add(
+                            EnemyUtils.CreateEnemy("oldMan",
+                            new Vector2(120 * Constants.UniversalScale, 4 * Constants.BlockSize + Constants.HudAndMenuHeight),
+                            room.RoomPlayer,
+                            audioManager
+                            ));
+                room.RoomItems.Add(
+                            new GenericItem(
+                                    new Vector2(72 * Constants.UniversalScale, 4 * Constants.BlockSize + Constants.HudAndMenuHeight),
+                                    SpriteFactory.CreateItemSprite((ItemTypes)Enum.Parse(typeof(ItemTypes), "Fire")),
+                                    (ItemTypes)Enum.Parse(typeof(ItemTypes), "Fire"),
+                                    audioManager
+                                    ));
+                room.RoomItems.Add(
+                            new GenericItem(
+                                    new Vector2(168 * Constants.UniversalScale, 4 * Constants.BlockSize + Constants.HudAndMenuHeight),
+                                    SpriteFactory.CreateItemSprite((ItemTypes)Enum.Parse(typeof(ItemTypes), "Fire")),
+                                    (ItemTypes)Enum.Parse(typeof(ItemTypes), "Fire"),
+                                    audioManager
+                                    ));
+                room.RoomText = SpriteFactory.CreateTextSprite("          EASTMOST PENNINSULA\n               IS THE SECRET.");
+            }
+        }
+        private static void GenerateHitboxes(IRoom room, string roomType)
+        {
+            if (roomType.Equals("dungeonNormal"))
+            {
+                // Hitbox stuff in doors should maybe be moved to here
+            }
+            else if (roomType.Equals("dungeonOldMan"))
+            {
+                room.PlayerBorderHitBox.Add(new TopFullHorizontalWallHitBox(3 * Constants.BlockSize));
+            } else if (roomType.Equals("undergroundRoom"))
+            {
+                // TO DO
+            }
+        }
         /*
          * Method to parse csv into an array of each line
          */
@@ -61,9 +110,8 @@ namespace MainGame.Rooms
         /*
          * Method for setting the game.Room parameter to the correct room style based on the inputted line
          */
-        private static IRoom ParseRoomType(string line)
+        private static IRoom ParseRoomType(string roomName)
         {
-            string roomName = line.Replace(",", "");
             switch (roomName)
             {
                 case "dungeonNormal":
