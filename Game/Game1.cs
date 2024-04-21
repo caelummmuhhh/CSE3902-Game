@@ -83,7 +83,7 @@ public class Game1 : Game
 
         RoomManager = new(this);
 
-        Player = new Player(new Vector2(120 * Constants.UniversalScale, (128 * Constants.UniversalScale) + Constants.HudAndMenuHeight), AudioManager, RoomManager,
+        Player = new Player(new Vector2(120 * Constants.UniversalScale, (128 * Constants.UniversalScale) + Constants.HudAndMenuHeight), RoomManager, AudioManager,
             Array.Empty<int>(), Dungeon.PlayerStartingHealth, Dungeon.PlayerStartingRupees, Dungeon.PlayerStartingKeys, Dungeon.PlayerStartingBombs);
 
         RoomManager.LoadAllRooms(Player);

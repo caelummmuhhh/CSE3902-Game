@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using MainGame.Players;
 using MainGame.SpriteHandlers;
+using MainGame.Audio;
 
 namespace MainGame.WorldItems
 {
@@ -10,7 +11,8 @@ namespace MainGame.WorldItems
         protected override ISprite Sprite { get; set; }
         private readonly int quantity;
 
-        public BombItem(Vector2 spawnPosition, IPlayer player, int quantity) : base(spawnPosition, player)
+        public BombItem(Vector2 spawnPosition, IPlayer player, int quantity, AudioManager audioManager)
+            : base(spawnPosition, player, audioManager)
         {
             Sprite = SpriteFactory.CreateBombItemSprite();
             this.quantity = quantity;
@@ -20,6 +22,7 @@ namespace MainGame.WorldItems
         {
             IsPickedUp = true;
             Player.Inventory.AddItem(Id, quantity);
+            audioManager.PlaySFX("Grab_Item_Medium", 0);
         }
     }
 }

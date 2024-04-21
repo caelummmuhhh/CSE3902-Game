@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using MainGame.Players;
 using MainGame.SpriteHandlers;
+using MainGame.Audio;
 
 namespace MainGame.WorldItems
 {
@@ -8,9 +9,10 @@ namespace MainGame.WorldItems
     {
         protected override ItemTypes ItemType { get; set; }
         protected override ISprite Sprite { get; set; }
-        private readonly int healAmount;
+        protected readonly int healAmount;
 
-        public HealthRecoveryItem(Vector2 spawnPosition, IPlayer player, ItemTypes itemType, int healAmount) : base(spawnPosition, player)
+        public HealthRecoveryItem(Vector2 spawnPosition, IPlayer player, ItemTypes itemType, int healAmount, AudioManager audioManager)
+            : base(spawnPosition, player, audioManager)
         {
             ItemType = itemType;
             Sprite = SpriteFactory.CreateItemSprite(itemType);
@@ -22,6 +24,7 @@ namespace MainGame.WorldItems
         {
             IsPickedUp = true;
             Player.Heal(healAmount);
+            audioManager.PlaySFX("Grab_Item_Short", 0);
         }
     }
 }

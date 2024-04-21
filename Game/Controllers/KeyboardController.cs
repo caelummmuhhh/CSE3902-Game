@@ -12,7 +12,6 @@ namespace MainGame.Controllers
 	public class KeyboardController : IController
 	{
         private readonly Dictionary<Keys, ICommand> unpausedCommands;
-        private readonly Dictionary<Keys, ICommand> pausedCommands;
         private readonly List<ICommand> executingCommands;
 		private readonly IPlayer player;
 		private readonly Game1 game;

@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using MainGame.Players;
 using System;
+using MainGame.Audio;
 
 namespace MainGame.WorldItems
 {
@@ -11,8 +12,8 @@ namespace MainGame.WorldItems
         private Direction moveDirection;
         private int directionChangeTimer = 0;
 
-		public FairyItem(Vector2 spawnPosition, IPlayer player)
-			: base(spawnPosition, player, ItemTypes.Fairy, player.MaxHealth)
+		public FairyItem(Vector2 spawnPosition, IPlayer player, AudioManager audioManager)
+			: base(spawnPosition, player, ItemTypes.Fairy, player.MaxHealth, audioManager)
         {
             random = new();
         }
@@ -41,6 +42,13 @@ namespace MainGame.WorldItems
                 newDirection = Utils.GetRandomCardinalAndOrdinalDirection();
             }
             moveDirection = newDirection;
+        }
+
+        public override void PickUp()
+        {
+            IsPickedUp = true;
+            Player.Heal(healAmount);
+            audioManager.PlaySFX("Grab_Item_Medium", 0);
         }
     }
 }

@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using MainGame.Players;
 using MainGame.SpriteHandlers;
+using MainGame.Audio;
 
 namespace MainGame.WorldItems
 {
@@ -10,7 +11,8 @@ namespace MainGame.WorldItems
         protected override ISprite Sprite { get; set; }
         private readonly int worth;
 
-        public RupeeItem(Vector2 spawnPosition, IPlayer player, ItemTypes itemType, int quantity) : base(spawnPosition, player)
+        public RupeeItem(Vector2 spawnPosition, IPlayer player, ItemTypes itemType, int quantity, AudioManager audioManager)
+            : base(spawnPosition, player, audioManager)
         {
             ItemType = itemType;
             Sprite = SpriteFactory.CreateItemSprite(itemType);
@@ -20,7 +22,8 @@ namespace MainGame.WorldItems
         public override void PickUp()
         {
             IsPickedUp = true;
-            Player.Inventory.AddItem(Id, worth);
+            Player.Inventory.AddItem((int)ItemTypes.Rupee, worth);
+            audioManager.PlaySFX("Grab_Rupee_And_Menu", 0);
         }
     }
 }

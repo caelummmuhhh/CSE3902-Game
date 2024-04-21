@@ -59,7 +59,7 @@ namespace MainGame.Enemies
             {
                 case ItemBindedEnemyTypes.KeyStalfos:
                     enemy = CreateEnemy(EnemyTypes.Stalfos, position, player, audioManager);
-                    itemHolder = new EnemyBindedItemDecorator(enemy, ItemFactory.CreateItem(ItemTypes.Key, position, player, audioManager));
+                    itemHolder = new EnemyBoundItemDecorator(enemy, ItemFactory.CreateItem(ItemTypes.Key, position, player, audioManager));
                     break;
                 default:
                     throw new ArgumentException("Unable to parse provided item enemy type.");

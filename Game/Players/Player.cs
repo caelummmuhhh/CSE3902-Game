@@ -40,7 +40,6 @@ namespace MainGame.Players
         public Player(Vector2 spawnPosition, GameRoomManager roomManager, AudioManager sfxPlayer, int[] startingItemIds,
 					  int maxHearts = 6, int rupees = 0, int keys = 0, int bombs = 0)
 		{
-			ProjectilesManager = new(this);
 			SFXPlayer = sfxPlayer;
 			Position = spawnPosition;
 			CurrentState = new PlayerIdleUpState(this);

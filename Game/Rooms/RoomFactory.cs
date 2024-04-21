@@ -221,7 +221,7 @@ namespace MainGame.Rooms
                     continue;
                 }
 
-                IPickupableItem item = ItemFactory.CreateItem(objects[i], tilePosition, player);
+                IPickupableItem item = ItemFactory.CreateItem(objects[i], tilePosition, player, audioManager);
                 if (item is not null)
                 {
                     room.RoomItems.Add(item);

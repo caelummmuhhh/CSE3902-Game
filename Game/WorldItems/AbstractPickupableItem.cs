@@ -1,6 +1,7 @@
 using Microsoft.Xna.Framework;
 using MainGame.SpriteHandlers;
 using MainGame.Players;
+using MainGame.Audio;
 
 namespace MainGame.WorldItems
 {
@@ -25,11 +26,13 @@ namespace MainGame.WorldItems
         protected abstract ISprite Sprite { get; set; }
 		protected abstract ItemTypes ItemType { get; set; }
 		protected virtual IPlayer Player { get; set; }
+		protected AudioManager audioManager;
 
-        public AbstractPickupableItem(Vector2 position, IPlayer player)
+        public AbstractPickupableItem(Vector2 position, IPlayer player, AudioManager audioManager)
 		{
 			Position = position;
 			Player = player;
+			this.audioManager = audioManager;
         }
 
 		public virtual void Update()
