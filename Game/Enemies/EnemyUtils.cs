@@ -1,6 +1,5 @@
 ﻿using System;
-using MainGame.Audio;
-using MainGame.Items;
+using MainGame.WorldItems;
 using MainGame.Players;
 using Microsoft.Xna.Framework;
 
@@ -18,18 +17,18 @@ namespace MainGame.Enemies
 
     public static class EnemyUtils
 	{
-        public static IEnemy CreateEnemy(EnemyTypes enemy, Vector2 position, IPlayer player, AudioManager audioManager)
+        public static IEnemy CreateEnemy(EnemyTypes enemy, Vector2 position, IPlayer player)
         {
             return enemy switch
             {
-                EnemyTypes.Aquamentus => new AquamentusEnemy(position, audioManager, player),
-                EnemyTypes.Gel => new GelEnemy(position, audioManager),
-                EnemyTypes.Goriya => new GoriyaEnemy(position, audioManager),
-                EnemyTypes.Keese => new KeeseEnemy(position, audioManager),
-                EnemyTypes.OldMan => new OldManEnemy(position, audioManager),
-                EnemyTypes.SpikeCross => new SpikeCrossEnemy(position, audioManager, player),
-                EnemyTypes.Stalfos => new StalfosEnemy(position, audioManager),
-                EnemyTypes.WallMaster => new WallMasterEnemy(position, audioManager, player),
+                EnemyTypes.Aquamentus => new AquamentusEnemy(position, player),
+                EnemyTypes.Gel => new GelEnemy(position),
+                EnemyTypes.Goriya => new GoriyaEnemy(position),
+                EnemyTypes.Keese => new KeeseEnemy(position),
+                EnemyTypes.OldMan => new OldManEnemy(position),
+                EnemyTypes.SpikeCross => new SpikeCrossEnemy(position, player),
+                EnemyTypes.Stalfos => new StalfosEnemy(position),
+                EnemyTypes.WallMaster => new WallMasterEnemy(position, player),
                 _ => null,
             };
         }
@@ -40,7 +39,7 @@ namespace MainGame.Enemies
         /// <param name="enemyName">The name of the enemy.</param>
         /// <returns>The ISprite object created based on the given enemy name</returns>
         /// <exception cref="ArgumentException">The enemy name does not match to a enemy.</exception>
-        public static IEnemy CreateEnemy(string enemyName, Vector2 position, IPlayer player, AudioManager audioManager)
+        public static IEnemy CreateEnemy(string enemyName, Vector2 position, IPlayer player)
         {
             bool conversionSuccess = Enum.TryParse(enemyName, true, out EnemyTypes enemy);
 
@@ -49,22 +48,17 @@ namespace MainGame.Enemies
                 throw new ArgumentException("Unable to parse enemy name string into an enemy.");
             }
 
-            return CreateEnemy(enemy, position, player, audioManager);
+            return CreateEnemy(enemy, position, player);
         }
 
-
-
-
-
-
-        public static IEnemy CreateItemBindedEnemy(ItemBindedEnemyTypes itemEnemyType, Vector2 position, out IItem itemHolder, IPlayer player, AudioManager audioManager)
+        public static IEnemy CreateItemBindedEnemy(ItemBindedEnemyTypes itemEnemyType, Vector2 position, out IPickupableItem itemHolder, IPlayer player)
         {
             IEnemy enemy;
             switch (itemEnemyType)
             {
                 case ItemBindedEnemyTypes.KeyStalfos:
-                    enemy = CreateEnemy(EnemyTypes.Stalfos, position, player, audioManager);
-                    itemHolder = new EnemyBindedItemDecorator(enemy, ItemFactory.CreateItem(ItemTypes.Key, position, audioManager));
+                    enemy = CreateEnemy(EnemyTypes.Stalfos, position, player);
+                    itemHolder = new EnemyBoundItemDecorator(enemy, ItemFactory.CreateItem(ItemTypes.Key, position, player));
                     break;
                 default:
                     throw new ArgumentException("Unable to parse provided item enemy type.");
@@ -73,9 +67,7 @@ namespace MainGame.Enemies
             return enemy;
         }
 
-
-
-        public static IEnemy CreateItemBindedEnemy(string enemyName, Vector2 position, out IItem itemHolder, IPlayer player, AudioManager audioManager)
+        public static IEnemy CreateItemBindedEnemy(string enemyName, Vector2 position, out IPickupableItem itemHolder, IPlayer player)
         {
             bool conversionSuccess = Enum.TryParse(enemyName, true, out ItemBindedEnemyTypes enemy);
 
@@ -84,7 +76,7 @@ namespace MainGame.Enemies
                 throw new ArgumentException("Unable to parse enemy name string into an enemy.");
             }
 
-            return CreateItemBindedEnemy(enemy, position, out itemHolder, player, audioManager);
+            return CreateItemBindedEnemy(enemy, position, out itemHolder, player);
         }
     }
 }

@@ -1,24 +1,30 @@
-﻿using Microsoft.Xna.Framework;
-using MainGame.SpriteHandlers;
+﻿using System;
+using Microsoft.Xna.Framework;
 using MainGame.Audio;
+using MainGame.SpriteHandlers;
 
 namespace MainGame.Enemies
 {
 	public abstract class GenericEnemy : IEnemy
 	{
-        public AudioManager AudioManager { get; set; }
-
         public static readonly int ImmunityFrame = 100;
         public static readonly float MaxKnockedBackDistance = Constants.BlockSize;
         public static readonly float KnockBackSpeed = 10f;
-        /// <summary>
-        /// If moving, the entity can only move once every MovementCoolDownFrame.
-        /// </summary>
+
+        public abstract int Health { get; protected set; }
+        public abstract int Damage { get; }
+        public virtual bool IsAlive => Health > 0;
+
         public abstract int MovementCoolDownFrame {  get; protected set; }
-        public virtual Rectangle AttackHitBox { get => new(Position.ToPoint(), Sprite.DestinationRectangle.Size); }
-        public virtual Rectangle MovementHitBox { get => new(Position.ToPoint(), Sprite.DestinationRectangle.Size); }
-        public virtual bool IsInvulnerable { get => invulnerableTimer > 0; }
-        public bool IsStunned { get => stunDuration > 0; }
+
+        public virtual Rectangle AttackHitBox
+            => IsAlive ? new(Position.ToPoint(), Sprite.DestinationRectangle.Size) : new Rectangle();
+        public virtual Rectangle MovementHitBox
+            => IsAlive ? new(Position.ToPoint(), Sprite.DestinationRectangle.Size) : new Rectangle();
+
+        public virtual bool IsInvulnerable { get; set; }
+        public virtual bool IsStunned { get; set; }
+        public virtual Color SpriteColor { get; set; } = Color.White;
 
         public virtual Vector2 PreviousPosition { get; set; }
         public virtual Direction MovingDirection { get; set; }
@@ -27,70 +33,56 @@ namespace MainGame.Enemies
         public virtual ISprite Sprite { get; set; }
         public virtual Vector2 Position { get; set; }
         public virtual IEnemyState State { get; set; }
-
-        protected Color spriteColor = Color.White;
-        protected int invulnerableTimer = 0;
-        protected int stunDuration = 0;
-        protected float knockedBackDistance = 0f;
-        protected Direction knockBackDirection;
+        protected virtual IEnemyState DamageState { get; set; }
 
         public GenericEnemy() { }
 
         public virtual void Update()
         {
-            if (invulnerableTimer > 0)
-            {
-                invulnerableTimer--;
-                FlashColors();
-                KnockBack();
-            }
-            else
-            {
-                spriteColor = Color.White;
-                knockedBackDistance = 0f;
-            }
+            if (!IsAlive) { return; }
 
             Sprite.Update();
-            if (stunDuration > 0)
+            DamageState?.Update();
+
+            if (!IsStunned)
             {
-                stunDuration--;
-                return;
+                Move();
             }
-            Move();
+
+            if (!IsInvulnerable && DamageState is not null)
+            {
+                DamageState = null;
+            }
         }
 
-        public virtual void Draw() => Sprite.Draw(Position.X, Position.Y, spriteColor);
+        public virtual void Draw() => State.Draw();
 
         public abstract void Move();
 
-        public virtual void TakeDamage(Direction sideHit)
+        public virtual void TakeDamage(Direction sideHit, int damage)
         {
-            if (invulnerableTimer <= 0)
+            if (!IsInvulnerable)
             {
-                knockBackDirection = Utils.OppositeDirection(sideHit);
-                invulnerableTimer = ImmunityFrame;
+                DamageState = new EnemyDamagedState(this, sideHit, true);
+                Health -= damage;
+                CheckForDeath();
                 AudioManager.PlaySFX("Enemy_Hit", 0);
             }
         }
 
-        public virtual void Stun(int duration) => stunDuration = duration;
-
-        protected virtual void KnockBack()
+        public virtual void Stun(int duration)
         {
-            if (knockedBackDistance < MaxKnockedBackDistance)
+            if (!IsStunned)
             {
-                Vector2 newPos = Utils.DirectionalMove(Position, knockBackDirection, KnockBackSpeed);
-                knockedBackDistance += Vector2.Distance(newPos, Position);
-                Position = newPos;
+                State = new EnemyStunnedState(this, State, duration);
             }
         }
 
-        protected virtual void FlashColors()
+        protected void CheckForDeath()
         {
-            spriteColor = Color.White;
-            if (invulnerableTimer % 4 == 0 || invulnerableTimer % 4 == 1)
+            if (!IsAlive)
             {
-                spriteColor = Color.IndianRed;
+                State = new EnemyDeathState(this);
             }
         }
     }

@@ -4,7 +4,7 @@ namespace MainGame.Particles
 {
     public interface IParticle
     {
-        public bool IsActive { get; set; }
+        public bool IsActive { get; }
 
         public void Update();
         public void Draw();

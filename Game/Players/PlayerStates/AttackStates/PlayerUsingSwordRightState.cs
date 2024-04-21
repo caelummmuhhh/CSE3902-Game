@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using MainGame.SpriteHandlers;
+using MainGame.Audio;
 
 namespace MainGame.Players.PlayerStates
 {
@@ -17,6 +18,7 @@ namespace MainGame.Players.PlayerStates
             AnimatedSprite newSprite = (AnimatedSprite)this.player.Sprite;
             stateDuration = newSprite.AnimationFrameDuration;
             player.SwordHitBox = GetSwordHitBox();
+            AudioManager.PlaySFX("Sword_Attack", 0);
         }
 
         public void Update()
@@ -50,11 +52,7 @@ namespace MainGame.Players.PlayerStates
         public void MoveLeft() { }
         public void MoveRight() { }
         public void UseSword() { }
-        public void UseBoomerang() { }
-        public void UseFire() { }
-        public void UseArrow() { }
-        public void UseBomb() { }
-        public void UseSwordBeam() { }
+        public void UseEquipment() { }
 
         private Rectangle GetSwordHitBox()
         {

@@ -8,6 +8,7 @@ namespace MainGame.Projectiles
 		public Rectangle HitBox { get; }
 		public Direction MovingDirection { get; }
 		public bool IsActive { get; }
+
 		public void Update();
 		public void Draw();
 		public void Collide();

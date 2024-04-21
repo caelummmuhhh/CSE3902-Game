@@ -4,11 +4,12 @@ using System.Collections.Generic;
 using MainGame.Doors;
 using MainGame.SpriteHandlers;
 using MainGame.Blocks;
-using MainGame.Items;
+using MainGame.WorldItems;
 using MainGame.Enemies;
 using MainGame.Players;
 using MainGame.Particles;
 using MainGame.Collision;
+using MainGame.Projectiles;
 
 namespace MainGame.Rooms
 {
@@ -18,8 +19,10 @@ namespace MainGame.Rooms
 		public IPlayer RoomPlayer { get; set; }
 		public List<IEnemy> RoomEnemies { get; set; }
 		public List<IBlock> RoomBlocks { get; set; }
-		public List<IItem> RoomItems { get; set; }
+		public List<IPickupableItem> RoomItems { get; set; }
 		public List<IParticle> RoomParticles { get; set; }
+        public List<IProjectile> PlayerProjectiles { get; }
+        public List<IProjectile> EnemyProjectiles { get; }
 
         public IDoor NorthDoor { get; set; }
         public IDoor WestDoor { get; set; }

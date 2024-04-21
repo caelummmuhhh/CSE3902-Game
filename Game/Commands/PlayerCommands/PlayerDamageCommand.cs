@@ -12,7 +12,7 @@ namespace MainGame.Commands.PlayerCommands
 
         public void Execute()
         {
-            game.Player.TakeDamage(game.Player.FacingDirection);
+            game.Player.TakeDamage(game.Player.FacingDirection, 2);
         }
 
         public void UnExecute()

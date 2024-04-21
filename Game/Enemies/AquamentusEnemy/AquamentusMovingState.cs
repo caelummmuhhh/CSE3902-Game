@@ -1,4 +1,6 @@
 ﻿using System;
+using Microsoft.Xna.Framework;
+
 namespace MainGame.Enemies
 {
 	public class AquamentusMovingState : IEnemyState
@@ -24,9 +26,9 @@ namespace MainGame.Enemies
 			moveDuration++;
 		}
 
-		public void Draw() => entity.Draw();
+        public void Draw() => entity.Sprite.Draw(entity.Position.X, entity.Position.Y, entity.SpriteColor);
 
-		public void Move()
+        public void Move()
 		{
             entity.PreviousPosition = new(entity.Position.X, entity.Position.Y);
             if (moveDuration % entity.MovementCoolDownFrame == 0)

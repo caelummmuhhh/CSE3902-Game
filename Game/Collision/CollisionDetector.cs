@@ -1,20 +1,22 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using Microsoft.Xna.Framework;
 
 using MainGame.Blocks;
-using MainGame.Items;
+using MainGame.WorldItems;
 using MainGame.Players;
 using MainGame.Enemies;
 using MainGame.Projectiles;
 using MainGame.Rooms;
 using MainGame.Collision.CollisionHandlers;
+using System.Reflection;
 
 namespace MainGame.Collision
 {
 	public class CollisionDetector
 	{
 		private List<IBlock> blocks;
-		private List<IItem> items;
+		private List<IPickupableItem> items;
 		private List<IEnemy> enemies;
 		private List<IProjectile> playerProjectiles = new();
 		private List<IProjectile> enemyProjectiles = new();
@@ -31,25 +33,26 @@ namespace MainGame.Collision
 
             IRoom currentRoom = game.RoomManager.CurrentRoom;
             blocks = new List<IBlock>(currentRoom.RoomBlocks);
-            items = new List<IItem>(currentRoom.RoomItems);
+            items = new List<IPickupableItem>(currentRoom.RoomItems);
             enemies = new List<IEnemy>(currentRoom.RoomEnemies);
-            playerProjectiles = new List<IProjectile>(player.ProjectilesManager.ActiveProjectiles);
+            playerProjectiles = currentRoom.PlayerProjectiles;
 
             playerBorders = currentRoom.PlayerBorderHitBox;
             enemyBorder = currentRoom.EnemiesBorderHitBox;
+            //enemyProjectiles = currentRoom.EnemyProjectiles;
             GetAllEnemyProjectiles();
-            // TODO: Get enemy projectiles
         }
 
         public void Update()
         {
             IRoom currentRoom = game.RoomManager.CurrentRoom;
             blocks = new List<IBlock>(currentRoom.RoomBlocks);
-            items = new List<IItem>(currentRoom.RoomItems);
+            items = new List<IPickupableItem>(currentRoom.RoomItems);
             enemies = new List<IEnemy>(currentRoom.RoomEnemies);
-            playerProjectiles = new List<IProjectile>(player.ProjectilesManager.ActiveProjectiles);
+            playerProjectiles = currentRoom.PlayerProjectiles;
             playerBorders = currentRoom.PlayerBorderHitBox;
             enemyBorder = currentRoom.EnemiesBorderHitBox;
+            //enemyProjectiles = currentRoom.EnemyProjectiles;
             GetAllEnemyProjectiles();
 
             DetectAllCollisions();
@@ -173,12 +176,23 @@ namespace MainGame.Collision
 
         public void DetectItemCollisions()
         {
-            foreach (IItem item in items)
+            foreach (IPickupableItem item in items)
             {
                 Rectangle overlap = Rectangle.Intersect(item.HitBox, player.MainHitbox);
                 if (!overlap.IsEmpty)
                 {
                     new PlayerItemCollisionHandler(player, item).HandleCollision();
+                }
+                if (item.Id == (int)ItemTypes.Fairy)
+                {
+                    foreach (Rectangle borderHitBox in enemyBorder.HitBoxes)
+                    {
+                        Rectangle itemBorderOverlap = Rectangle.Intersect(item.HitBox, borderHitBox);
+                        if (!itemBorderOverlap.IsEmpty)
+                        {
+                            new MovingItemBorderCollisionHandler(item, borderHitBox).HandleCollision();
+                        }
+                    }
                 }
             }
         }

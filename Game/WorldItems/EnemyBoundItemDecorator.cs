@@ -1,20 +1,19 @@
 ﻿using Microsoft.Xna.Framework;
 using MainGame.Enemies;
-using MainGame.Players;
 
-namespace MainGame.Items
+namespace MainGame.WorldItems
 {
-    public class EnemyBindedItemDecorator : IItem
+    public class EnemyBoundItemDecorator : IPickupableItem
     {
         public Vector2 Position { get => item.Position; set => item.Position = value; }
-        public bool PickedUp { get; set; } = false;
-        public bool Active { get; set; }
-        public Rectangle HitBox { get => item.HitBox; }
+        public Rectangle HitBox => item.HitBox;
+        public string Name => item.Name;
+        public int Id => item.Id;
 
-        private readonly IItem item;
+        private readonly IPickupableItem item;
         private readonly IEnemy entity;
 
-        public EnemyBindedItemDecorator(IEnemy enemy, IItem item)
+        public EnemyBoundItemDecorator(IEnemy enemy, IPickupableItem item)
         {
             this.item = item;
             entity = enemy;
@@ -34,14 +33,9 @@ namespace MainGame.Items
             item.Draw();
         }
 
-        public void Collide()
+        public void PickUp()
         {
-            item.Collide();
-        }
-
-        public void ActivateAbility(IPlayer player)
-        {
-            
+            item.PickUp();
         }
     }
 }
