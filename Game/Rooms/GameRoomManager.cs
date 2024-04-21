@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.IO;
+using MainGame.Audio;
 using MainGame.Players;
 
 namespace MainGame.Rooms
@@ -25,8 +26,8 @@ namespace MainGame.Rooms
 			string[] roomFiles = Directory.GetFiles(Path.Combine("Content", "Rooms"), "*.csv");
 
 			foreach (string roomFile in roomFiles)
-			{
-				allRooms.Add(RoomFactory.GenerateRoom(roomFile, player));
+            {
+				allRooms.Add(RoomFactory.GenerateRoom(roomFile, player, game.AudioManager));
 			}
 			CurrentRoom = allRooms[currentRoomIndex]; // TODO: Delete
         }

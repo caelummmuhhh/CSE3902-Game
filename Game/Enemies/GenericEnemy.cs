@@ -1,18 +1,18 @@
-﻿using Microsoft.Xna.Framework;
+﻿using System;
+using Microsoft.Xna.Framework;
+using MainGame.Audio;
 using MainGame.SpriteHandlers;
-using System;
 
 namespace MainGame.Enemies
 {
 	public abstract class GenericEnemy : IEnemy
 	{
-        public static readonly int ImmunityFrame = 10;
+        public AudioManager AudioManager { get; set; }
+
+        public static readonly int ImmunityFrame = 100;
         public static readonly float MaxKnockedBackDistance = Constants.BlockSize;
         public static readonly float KnockBackSpeed = 10f;
-        /// <summary>
-        /// If moving, the entity can only move once every MovementCoolDownFrame.
-        /// </summary>
-        ///
+
         public abstract int Health { get; protected set; }
         public abstract int Damage { get; }
         public virtual bool IsAlive => Health > 0;
@@ -68,6 +68,7 @@ namespace MainGame.Enemies
                 DamageState = new EnemyDamagedState(this, sideHit, true);
                 Health -= damage;
                 CheckForDeath();
+                AudioManager.PlaySFX("Enemy_Hit", 0);
             }
         }
 

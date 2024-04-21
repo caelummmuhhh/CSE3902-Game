@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using MainGame.Audio;
+using Microsoft.Xna.Framework;
 
 namespace MainGame.Enemies
 {
@@ -20,9 +21,10 @@ namespace MainGame.Enemies
         public override int Damage => 1;
         public override int MovementCoolDownFrame { get; protected set; } = 1;
 
-        public KeeseEnemy(Vector2 spawnPosition)
+        public KeeseEnemy(Vector2 spawnPosition, AudioManager audioManager)
         {
             Position = spawnPosition;
+            AudioManager = audioManager;
             PreviousPosition = new(Position.X, Position.Y);
             State = new KeeseTakeOffState(this);
         }

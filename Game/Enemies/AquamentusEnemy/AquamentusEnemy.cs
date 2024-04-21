@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using MainGame.SpriteHandlers;
 using MainGame.Players;
+using MainGame.Audio;
 
 namespace MainGame.Enemies
 {
@@ -15,9 +16,12 @@ namespace MainGame.Enemies
         public readonly IPlayer Player;
         public readonly AquamentusProjectilesManager ProjectilesManager = new();
 
-        public AquamentusEnemy(Vector2 startingPosition, IPlayer player)
+        private int RoarTime = 160;
+
+        public AquamentusEnemy(Vector2 startingPosition, AudioManager audioManager, IPlayer player)
 		{
             Position = startingPosition;
+            AudioManager = audioManager;
             PreviousPosition = new(Position.X, Position.Y);
             Sprite = SpriteFactory.CreateAquamentusSprite();
             Player = player;
@@ -29,6 +33,13 @@ namespace MainGame.Enemies
             State.Update();
             ProjectilesManager.Update();
             base.Update();
+
+            if(RoarTime <= 0)
+            {
+                AudioManager.PlaySFX("Boss_Roar", 0);
+                RoarTime = 160;
+            }
+            --RoarTime;
         }
 
         public override void Draw()

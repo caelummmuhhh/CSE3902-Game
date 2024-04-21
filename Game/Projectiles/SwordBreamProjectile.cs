@@ -25,7 +25,7 @@ namespace MainGame.Projectiles
         }
 
         private readonly ISprite sprite;
-        private readonly float maxDistanceTravel = float.MaxValue;
+        private readonly float maxDistanceTravel = 1000f;
         private readonly float speed = 10f;
         private readonly Vector2 directionVector;
         private bool exploding = false;

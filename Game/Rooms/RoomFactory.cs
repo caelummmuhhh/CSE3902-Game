@@ -10,6 +10,7 @@ using MainGame.WorldItems;
 using MainGame.Enemies;
 using MainGame.Players;
 using MainGame.Collision;
+using MainGame.Audio;
 
 namespace MainGame.Rooms
 {
@@ -18,7 +19,7 @@ namespace MainGame.Rooms
         /*
          * Method for generating a room object based on a room name as specified in Content/Rooms
          */
-        public static IRoom GenerateRoom(string roomFile, IPlayer player)
+        public static IRoom GenerateRoom(string roomFile, IPlayer player, AudioManager audioManager)
         {
             string fullPath = Path.GetFullPath(roomFile);
             string[] lines = ParseCsv(fullPath);
@@ -36,8 +37,8 @@ namespace MainGame.Rooms
 
             for (int i = 2; i < lines.Length; i++)
             {
-                ParseItemsAndBlocks(ref lines[i], room, player, i - 2);
-                ParseEnemies(lines[i], room, player, i - 2);
+                ParseItemsAndBlocks(ref lines[i], room, player, i - 2, audioManager);
+                ParseEnemies(lines[i], room, player, i - 2, audioManager);
             }
 
             return room;
@@ -194,7 +195,7 @@ namespace MainGame.Rooms
             }
         }
 
-        private static void ParseItemsAndBlocks(ref string line, IRoom room, IPlayer player, int yOffset)
+        private static void ParseItemsAndBlocks(ref string line, IRoom room, IPlayer player, int yOffset, AudioManager audioManager)
         {
             int wallOffsetX = 32 * Constants.UniversalScale;
             int wallOffsetY = 32 * Constants.UniversalScale + Constants.HudAndMenuHeight;
@@ -230,7 +231,7 @@ namespace MainGame.Rooms
             line = string.Join(',', objects);
         }
 
-        private static void ParseEnemies(string line, IRoom room, IPlayer player, int yOffset)
+        private static void ParseEnemies(string line, IRoom room, IPlayer player, int yOffset, AudioManager audioManager)
         {
             int wallOffsetX = 32 * Constants.UniversalScale;
             int wallOffsetY = 32 * Constants.UniversalScale + Constants.HudAndMenuHeight;
@@ -247,12 +248,12 @@ namespace MainGame.Rooms
 
                 try
                 {
-                    IEnemy enemy = EnemyUtils.CreateEnemy(objects[i], spawnPosition, player);
+                    IEnemy enemy = EnemyUtils.CreateEnemy(objects[i], spawnPosition, player, audioManager);
                     room.RoomEnemies.Add(enemy);
                 }
                 catch
                 {
-                    IEnemy createdEnemy = EnemyUtils.CreateItemBindedEnemy(objects[i], spawnPosition, out IPickupableItem createdItem, player);
+                    IEnemy createdEnemy = EnemyUtils.CreateItemBindedEnemy(objects[i], spawnPosition, out IPickupableItem createdItem, player, audioManager);
                     room.RoomEnemies.Add(createdEnemy);
                     room.RoomItems.Add(createdItem);
                 }

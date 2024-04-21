@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using MainGame.Audio;
+using Microsoft.Xna.Framework;
 
 namespace MainGame.Enemies
 {
@@ -9,9 +10,10 @@ namespace MainGame.Enemies
         public Direction FacingDirection { get; set; }
 		public override int MovementCoolDownFrame { get; protected set; } = 2;
 
-        public GoriyaEnemy(Vector2 startingPosition)
+        public GoriyaEnemy(Vector2 startingPosition, AudioManager audioManager)
 		{
 			Position = startingPosition;
+            AudioManager = audioManager;
             PreviousPosition = new(Position.X, Position.Y);
             State = new GoriyaMovingState(this);
 		}
