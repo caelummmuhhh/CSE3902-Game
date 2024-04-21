@@ -13,14 +13,14 @@ namespace MainGame.Commands.PlayerCommands
 
         public void Execute()
         {
-            if (!player.Inventory.GetObtainedItems().Contains(ItemTypes.Boomerang))
+            if (!player.Inventory.HasItem((int)ItemTypes.Boomerang))
             {
-                player.Inventory.ObtainItem(ItemTypes.Boomerang);
+                player.Inventory.AddItem((int)ItemTypes.Boomerang, 1);
                 Console.WriteLine("Obtained boomerang");
                 return;
             }
             Console.WriteLine("Equiped boomerang");
-            player.Inventory.Equip(ItemTypes.Boomerang);
+            player.Inventory.Equip((int)ItemTypes.Boomerang);
         }
 
         public void UnExecute() { /* not needed */ }

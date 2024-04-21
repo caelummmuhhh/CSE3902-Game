@@ -2,23 +2,13 @@
 
 namespace MainGame.Players.Inventory
 {
-	public interface IInventory
+	public interface IPlayerInventory
 	{
-        public ItemTypes? EquippedItem { get; }
-        public IItemCounter Rupees { get; }
-        public IItemCounter KeyCount { get; }
-        public IItemCounter BombCount { get; }
-        public bool HasArrow { get; }
+		public List<IInventoryItem> Items { get; }
+		public int MaxItems { get; }
 
-        public void Update();
-        public void Draw();
-
-        public List<ItemTypes> GetObtainedItems();
-        public List<IEquipment> GetActiveEquipments();
-        public void Equip(ItemTypes item);
-        public void ObtainItem(ItemTypes item, int amount = 1);
-        public void UseEquippedItem();
-        public void UseSwordBeam();
-        public bool CanUseEquippedItem();
-    }
+		public void AddItem(int itemId, int quantity);
+		public void DropItem(int itemId, int quantity);
+		public bool HasItem(int itemId);
+	}
 }

@@ -1,0 +1,9 @@
+dungeonNormal,,,,,,,,,,,
+wallNormal,wallNormal,openDoor,wallNormal,,,,,,,,
+-,-,-,-,-,-,heartContainer,heartContainer,heartContainer,-,-,-
+-,-,-,-,-,-,-,-,-,-,-,-
+-,-,-,-,-,-,-,-,-,-,-,-
+-,-,-,-,-,-,-,-,-,-,-,-
+-,-,-,-,-,-,-,-,-,-,-,-
+-,-,-,key,key,key,boomerang,bow,arrow,bomb,bomb,bomb
+-,-,fiveRupees,fiveRupees,fiveRupees,rupee,rupee,rupee,heart,heart,heart,heart

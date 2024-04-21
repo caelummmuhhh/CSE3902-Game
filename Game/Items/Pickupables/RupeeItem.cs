@@ -20,7 +20,7 @@ namespace MainGame.Items
         public override void PickUp()
         {
             IsPickedUp = true;
-            Player.Inventory.Rupees.Obtain(worth);
+            Player.Inventory.AddItem((int)ItemTypes.Rupee, worth);
         }
     }
 }

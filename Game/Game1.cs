@@ -73,11 +73,13 @@ public class Game1 : Game
 
         string dungeonName = "Dungeon_1.csv";
         Dungeon = new Dungeon(this, dungeonName);
-        Player = new Player(new Vector2(120 * Constants.UniversalScale, (128 * Constants.UniversalScale) + Constants.HudAndMenuHeight),
-            Array.Empty<ItemTypes>(), 32, Dungeon.PlayerStartingRupees, Dungeon.PlayerStartingKeys, Dungeon.PlayerStartingBombs);
-
 
         RoomManager = new(this);
+
+        Player = new Player(new Vector2(120 * Constants.UniversalScale, (128 * Constants.UniversalScale) + Constants.HudAndMenuHeight), RoomManager,
+            Array.Empty<int>(), Dungeon.PlayerStartingHealth, Dungeon.PlayerStartingRupees, Dungeon.PlayerStartingKeys, Dungeon.PlayerStartingBombs);
+
+        RoomManager.LoadAllRooms(Player);
 
         Collision = new(this);
 
@@ -128,10 +130,11 @@ public class Game1 : Game
         {
             RoomManager.Draw();
             Player.Draw();
+            /*
             foreach (IPickupableItem item in RoomManager.CurrentRoom.RoomItems)
             {
                 testBlock.Draw(item.HitBox, Color.White);
-            }
+            }*/
 
         }
         else

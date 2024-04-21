@@ -34,12 +34,12 @@ namespace MainGame.Collision
             blocks = new List<IBlock>(currentRoom.RoomBlocks);
             items = new List<IPickupableItem>(currentRoom.RoomItems);
             enemies = new List<IEnemy>(currentRoom.RoomEnemies);
-            playerProjectiles = player.Inventory.GetActiveEquipments().Select(equip => equip.Projectile).ToList();
+            playerProjectiles = currentRoom.PlayerProjectiles;
 
             playerBorders = currentRoom.PlayerBorderHitBox;
             enemyBorder = currentRoom.EnemiesBorderHitBox;
+            //enemyProjectiles = currentRoom.EnemyProjectiles;
             GetAllEnemyProjectiles();
-            // TODO: Get enemy projectiles
         }
 
         public void Update()
@@ -48,9 +48,10 @@ namespace MainGame.Collision
             blocks = new List<IBlock>(currentRoom.RoomBlocks);
             items = new List<IPickupableItem>(currentRoom.RoomItems);
             enemies = new List<IEnemy>(currentRoom.RoomEnemies);
-            playerProjectiles = player.Inventory.GetActiveEquipments().Select(equip => equip.Projectile).ToList();
+            playerProjectiles = currentRoom.PlayerProjectiles;
             playerBorders = currentRoom.PlayerBorderHitBox;
             enemyBorder = currentRoom.EnemiesBorderHitBox;
+            //enemyProjectiles = currentRoom.EnemyProjectiles;
             GetAllEnemyProjectiles();
 
             DetectAllCollisions();

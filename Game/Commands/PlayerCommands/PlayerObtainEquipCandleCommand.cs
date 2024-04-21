@@ -14,7 +14,7 @@ namespace MainGame.Commands.PlayerCommands
         public void Execute()
         {
             Console.WriteLine("Equiped candle");
-            player.Inventory.Equip(ItemTypes.Candle);
+            player.Inventory.Equip((int)ItemTypes.Candle);
         }
 
         public void UnExecute() { /* not needed */ }

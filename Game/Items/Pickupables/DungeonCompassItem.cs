@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using MainGame.Players;
 using MainGame.SpriteHandlers;
+using System;
 
 namespace MainGame.Items
 {
@@ -17,8 +18,8 @@ namespace MainGame.Items
         public override void PickUp()
         {
             IsPickedUp = true;
-            Player.Inventory.ObtainItem(ItemType);
-            // TODO: Maybe change if Map obtained attribute is moved to the dungeon.
+            Console.WriteLine("Player picked up Dungeon Compass.");
+            // TODO: Make this interact with Room
         }
     }
 }

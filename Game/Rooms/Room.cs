@@ -9,6 +9,7 @@ using MainGame.Enemies;
 using MainGame.Players;
 using MainGame.Particles;
 using MainGame.Collision;
+using MainGame.Projectiles;
 
 namespace MainGame.Rooms
 {
@@ -21,6 +22,9 @@ namespace MainGame.Rooms
         public List<IBlock> RoomBlocks { get; set; } = new();
         public List<IPickupableItem> RoomItems { get; set; } = new();
         public List<IParticle> RoomParticles { get; set; } = new();
+        public List<IProjectile> PlayerProjectiles { get; private set; } = new();
+        public List<IProjectile> EnemyProjectiles { get; private set; } = new();
+
 
         public IHitBox EnemiesBorderHitBox { get; set; }
         public IHitBox PlayerBorderHitBox { get; set; }
@@ -74,6 +78,28 @@ namespace MainGame.Rooms
             {
                 particle.Update();
             }
+
+            for (int i = PlayerProjectiles.Count - 1; i >= 0; i--)
+            {
+                IProjectile projectile = PlayerProjectiles[i];
+                projectile.Update();
+
+                if (!projectile.IsActive)
+                {
+                    PlayerProjectiles.RemoveAt(i);
+                }
+            }
+
+            for (int i = EnemyProjectiles.Count - 1; i >= 0; i--)
+            {
+                IProjectile projectile = EnemyProjectiles[i];
+                projectile.Update();
+
+                if (!projectile.IsActive)
+                {
+                    EnemyProjectiles.RemoveAt(i);
+                }
+            }
         }
 
         public void Draw()
@@ -103,6 +129,14 @@ namespace MainGame.Rooms
             foreach (IParticle particle in RoomParticles)
             {
                 particle.Draw();
+            }
+            foreach (IProjectile projectile in PlayerProjectiles)
+            {
+                projectile.Draw();
+            }
+            foreach (IProjectile projectile in EnemyProjectiles)
+            {
+                projectile.Draw();
             }
         }
     }

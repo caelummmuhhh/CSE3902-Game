@@ -2,22 +2,22 @@
 using MainGame.SpriteHandlers;
 using MainGame.Players.PlayerStates;
 using MainGame.Players.Inventory;
-using MainGame.Items;
+using MainGame.Rooms;
+using MainGame.Projectiles;
 
 namespace MainGame.Players
 {
 	public class Player : IPlayer
 	{
-		public int MaxHealth { get; protected set; }
-        public int CurrentHealth { get; protected set; }
-        public IInventory Inventory { get; protected set; }
-
         public static readonly float Speed = Constants.UniversalScale + 2;
         public static readonly int UsingItemsSpeed = 6;
         public static readonly float KnockedBackSpeed = 10f;
         public static readonly int ImmunityFrame = 100;
         public static readonly int KnockedBackDistance = 2 * Constants.BlockSize;
 
+        public int MaxHealth { get; protected set; }
+        public int CurrentHealth { get; protected set; }
+        public ILinkInventory Inventory { get; protected set; }
         public ISprite Sprite { get; set; }
         public IPlayerState CurrentState { get; set; }
         public Vector2 Position { get; set; }
@@ -30,23 +30,25 @@ namespace MainGame.Players
         public Rectangle BottomHalfHitBox { get; protected set; }
 		public Rectangle SwordHitBox { get; set; }
 
-		private int invulnerableTimer = 0;
+        private readonly GameRoomManager roomManager;
+        private int invulnerableTimer = 0;
+		private IProjectile swordBeam;
 
-		public Player(Vector2 spawnPosition, ItemTypes[] obtainedItems, int maxHearts = 6, int rupees = 0, int keys = 0, int bombs = 0)
+		public Player(Vector2 spawnPosition, GameRoomManager roomManager, int[] startingItemIds, int maxHearts = 6, int rupees = 0, int keys = 0, int bombs = 0)
 		{
 			Position = spawnPosition;
 			CurrentState = new PlayerIdleUpState(this);
 			SwordHitBox = new();
 			MaxHealth = maxHearts;
 			CurrentHealth = MaxHealth;
-			Inventory = new PlayerInventory(this, obtainedItems, rupees, keys, bombs);
+			Inventory = new LinkInventory(this, roomManager, startingItemIds, rupees, keys, bombs);
+			this.roomManager = roomManager;
             UpdateHitBoxes();
         }
 
 		public void Update()
 		{
 			CurrentState.Update();
-			Inventory.Update();
             UpdateHitBoxes();
 
 			if (invulnerableTimer > 0)
@@ -60,11 +62,7 @@ namespace MainGame.Players
 			}
         }
 
-        public void Draw()
-		{
-			CurrentState.Draw();
-			Inventory.Draw();
-		}
+        public void Draw() => CurrentState.Draw();
 
         public void Stop() => CurrentState.Stop();
 
@@ -96,9 +94,10 @@ namespace MainGame.Players
         public void UseSword()
 		{
             CurrentState.UseSword();
-            if (CurrentHealth == MaxHealth)
+            if (CurrentHealth == MaxHealth && swordBeam is not null && swordBeam.IsActive)
 			{
-				Inventory.UseSwordBeam();
+				swordBeam = ProjectileFactory.GetSwordBeamProjectile(Position, FacingDirection);
+				roomManager.CurrentRoom.PlayerProjectiles.Add(swordBeam);
             }
         }
 

@@ -19,9 +19,7 @@ namespace MainGame.Items
         public override void PickUp()
         {
             IsPickedUp = true;
-            Player.Inventory.ObtainItem(ItemType, quantity);
+            Player.Inventory.AddItem((int)ItemType, quantity);
         }
     }
 }
-
-

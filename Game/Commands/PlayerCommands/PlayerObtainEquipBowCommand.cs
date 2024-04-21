@@ -13,28 +13,28 @@ namespace MainGame.Commands.PlayerCommands
 
         public void Execute()
         {
-            if (!player.Inventory.GetObtainedItems().Contains(ItemTypes.Bow))
+            if (!player.Inventory.HasItem((int)ItemTypes.Bow))
             {
-                player.Inventory.ObtainItem(ItemTypes.Bow);
+                player.Inventory.AddItem((int)ItemTypes.Bow, 1);
                 Console.WriteLine("Obtained boomerang");
                 return;
             }
 
-            if (!player.Inventory.HasArrow)
+            if (!player.Inventory.HasItem((int)ItemTypes.Arrow))
             {
-                player.Inventory.ObtainItem(ItemTypes.Arrow);
+                player.Inventory.AddItem((int)ItemTypes.Arrow, 1);
                 Console.WriteLine("Obtained arrow");
                 return;
             }
 
-            if (player.Inventory.Rupees.Count <= 0)
+            if (player.Inventory.Rupees.Quantity <= 0)
             {
-                player.Inventory.Rupees.Obtain(100);
+                player.Inventory.Rupees.Add(100);
                 Console.WriteLine("Obtained 100 rupees!");
             }
 
             Console.WriteLine("Equipped bow");
-            player.Inventory.Equip(ItemTypes.Bow);
+            player.Inventory.Equip((int)ItemTypes.Bow);
         }
 
         public void UnExecute() { /* not needed */ }

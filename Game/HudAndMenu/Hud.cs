@@ -87,9 +87,9 @@ namespace MainGame.HudAndMenu
         {
             pauseShift = 0;
 
-            textRupees = SpriteFactory.CreateTextSprite($"X{game.Player.Inventory.Rupees.Count}");
-            textKeys = SpriteFactory.CreateTextSprite($"X{game.Player.Inventory.KeyCount.Count}");
-            textBombs = SpriteFactory.CreateTextSprite($"X{game.Player.Inventory.BombCount.Count}");
+            textRupees = SpriteFactory.CreateTextSprite($"X{game.Player.Inventory.Rupees.Quantity}");
+            textKeys = SpriteFactory.CreateTextSprite($"X{game.Player.Inventory.Keys.Quantity}");
+            textBombs = SpriteFactory.CreateTextSprite($"X{game.Player.Inventory.Bombs.Quantity}");
 
             maxHealth = game.Player.MaxHealth;
             for (int i = 0; i < maxHealth / 2; ++i)
@@ -108,38 +108,18 @@ namespace MainGame.HudAndMenu
                 }
             }
 
-            // This is kinda dumb
-            if (!hasMap || !hasCompass)
+            switch (game.Player.Inventory.EquippedItem?.Id)
             {
-                foreach (ItemTypes Item in game.Player.Inventory.GetObtainedItems())
-                {
-                    switch (Item)
-                    {
-                        case ItemTypes.Map:
-                            hasMap = true;
-                            break;
-                        case ItemTypes.Compass:
-                            hasCompass = true;
-                            break;
-                        default:
-                            // Do Nothing
-                            break;
-                    }
-                }
-            }
-
-            switch (game.Player.Inventory.EquippedItem)
-            {
-                case ItemTypes.Bomb:
+                case (int)ItemTypes.Bomb:
                     itemDisplay = SpriteFactory.CreateBombItemSprite();
                     break;
-                case ItemTypes.Candle:
+                case (int)ItemTypes.Candle:
                     itemDisplay = SpriteFactory.CreateFireSprite();
                     break;
-                case ItemTypes.Boomerang:
+                case (int)ItemTypes.Boomerang:
                     itemDisplay = SpriteFactory.CreateWoodenBoomerangItemSprite();
                     break;
-                case ItemTypes.Bow:
+                case (int)ItemTypes.Bow:
                     itemDisplay = SpriteFactory.CreateArrowItemSprite();
                     break;
                 default:

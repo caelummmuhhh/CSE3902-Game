@@ -10,7 +10,7 @@ namespace MainGame.Players
     {
         public int MaxHealth { get; }
         public int CurrentHealth { get; }
-        public IInventory Inventory { get; }
+        public ILinkInventory Inventory { get; }
 
         public IPlayerState CurrentState { get; set; }
         public Vector2 Position { get; set; }

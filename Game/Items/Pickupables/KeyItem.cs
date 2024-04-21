@@ -17,7 +17,7 @@ namespace MainGame.Items
         public override void PickUp()
         {
             IsPickedUp = true;
-            Player.Inventory.KeyCount.Obtain(1);
+            Player.Inventory.AddItem((int)ItemType, 1);
         }
     }
 }
