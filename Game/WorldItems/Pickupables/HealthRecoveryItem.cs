@@ -2,25 +2,26 @@
 using MainGame.Players;
 using MainGame.SpriteHandlers;
 
-namespace MainGame.Items
+namespace MainGame.WorldItems
 {
-    public class RupeeItem : AbstractPickupableItem
+    public class HealthRecoveryItem : AbstractPickupableItem
     {
         protected override ItemTypes ItemType { get; set; }
         protected override ISprite Sprite { get; set; }
-        private readonly int worth;
+        private readonly int healAmount;
 
-        public RupeeItem(Vector2 spawnPosition, IPlayer player, ItemTypes itemType, int quantity) : base(spawnPosition, player)
+        public HealthRecoveryItem(Vector2 spawnPosition, IPlayer player, ItemTypes itemType, int healAmount) : base(spawnPosition, player)
         {
             ItemType = itemType;
             Sprite = SpriteFactory.CreateItemSprite(itemType);
-            worth = quantity;
+            this.healAmount = healAmount;
+            
         }
 
         public override void PickUp()
         {
             IsPickedUp = true;
-            Player.Inventory.AddItem((int)ItemTypes.Rupee, worth);
+            Player.Heal(healAmount);
         }
     }
 }

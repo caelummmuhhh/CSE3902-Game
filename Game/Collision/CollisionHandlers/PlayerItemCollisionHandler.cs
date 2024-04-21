@@ -1,5 +1,5 @@
 ﻿using MainGame.Players;
-using MainGame.Items;
+using MainGame.WorldItems;
 using System;
 
 namespace MainGame.Collision.CollisionHandlers

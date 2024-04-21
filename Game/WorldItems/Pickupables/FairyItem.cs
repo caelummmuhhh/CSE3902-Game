@@ -2,7 +2,7 @@
 using MainGame.Players;
 using System;
 
-namespace MainGame.Items
+namespace MainGame.WorldItems
 {
 	public class FairyItem : HealthRecoveryItem
 	{
@@ -27,9 +27,20 @@ namespace MainGame.Items
         {
             if (directionChangeTimer <= 0) {
                 directionChangeTimer = directionChangeTimer = random.Next(1, 16) * 4;
-                moveDirection = Utils.GetRandomCardinalAndOrdinalDirection();
+                ChangeMoveDirection();
             }
+            directionChangeTimer--;
             Position = Utils.DirectionalMove(Position, moveDirection, speed);
+        }
+
+        public void ChangeMoveDirection()
+        {
+            Direction newDirection = Utils.GetRandomCardinalAndOrdinalDirection();
+            while (newDirection == moveDirection)
+            {
+                newDirection = Utils.GetRandomCardinalAndOrdinalDirection();
+            }
+            moveDirection = newDirection;
         }
     }
 }

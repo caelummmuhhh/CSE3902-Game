@@ -8,7 +8,7 @@ using MainGame.Players;
 using MainGame.Rooms;
 using MainGame.Doors;
 using MainGame.Blocks;
-using MainGame.Items;
+using MainGame.WorldItems;
 using MainGame.HudAndMenu;
 using MainGame.Dungeons;
 using MainGame.Collision;
@@ -130,17 +130,12 @@ public class Game1 : Game
         {
             RoomManager.Draw();
             Player.Draw();
-            /*
-            foreach (IPickupableItem item in RoomManager.CurrentRoom.RoomItems)
-            {
-                testBlock.Draw(item.HitBox, Color.White);
-            }*/
-
         }
         else
         {
             Menu.Draw();
         }
+
         // Hud always drawn
         Hud.Draw();
 

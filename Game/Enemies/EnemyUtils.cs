@@ -1,5 +1,5 @@
 ﻿using System;
-using MainGame.Items;
+using MainGame.WorldItems;
 using MainGame.Players;
 using Microsoft.Xna.Framework;
 

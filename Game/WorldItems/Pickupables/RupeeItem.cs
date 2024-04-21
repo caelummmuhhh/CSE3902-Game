@@ -2,25 +2,26 @@
 using MainGame.Players;
 using MainGame.SpriteHandlers;
 
-namespace MainGame.Items
+namespace MainGame.WorldItems
 {
-    public class SingleStackEquipmentItem : AbstractPickupableItem
+    public class RupeeItem : AbstractPickupableItem
     {
         protected override ItemTypes ItemType { get; set; }
         protected override ISprite Sprite { get; set; }
+        private readonly int worth;
 
-        public SingleStackEquipmentItem(Vector2 spawnPosition, ItemTypes itemType, IPlayer player) : base(spawnPosition, player)
+        public RupeeItem(Vector2 spawnPosition, IPlayer player, ItemTypes itemType, int quantity) : base(spawnPosition, player)
         {
             ItemType = itemType;
             Sprite = SpriteFactory.CreateItemSprite(itemType);
+            worth = quantity;
         }
 
         public override void PickUp()
         {
             IsPickedUp = true;
-            Player.Inventory.AddItem((int)ItemType, 1);
+            Player.Inventory.AddItem(Id, worth);
         }
     }
 }
-
 

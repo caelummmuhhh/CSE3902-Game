@@ -10,7 +10,8 @@ namespace MainGame.Controllers
 {
 	public class KeyboardController : IController
 	{
-        private readonly Dictionary<Keys, ICommand> keyCommands;
+        private readonly Dictionary<Keys, ICommand> unpausedCommands;
+        private readonly Dictionary<Keys, ICommand> pausedCommands;
         private readonly List<ICommand> executingCommands;
 		private readonly IPlayer player;
 		private readonly Game game;
@@ -20,7 +21,7 @@ namespace MainGame.Controllers
 			this.game = game;
 			this.player = player;
             executingCommands = new();
-            keyCommands = new()
+            unpausedCommands = new()
             {
                 { Keys.Q, new QuitGameCommand(game) },
                 { Keys.R, new ResetGameCommand(game) },
@@ -52,16 +53,16 @@ namespace MainGame.Controllers
             KeyboardState keyState = Keyboard.GetState();
             List<ICommand> unexecuteCommands = new();
 
-            foreach (Keys key in keyCommands.Keys)
+            foreach (Keys key in unpausedCommands.Keys)
             {
-                if (keyState.IsKeyDown(key) && !executingCommands.Contains(keyCommands[key]))
+                if (keyState.IsKeyDown(key) && !executingCommands.Contains(unpausedCommands[key]))
                 {
-                    executingCommands.Add(keyCommands[key]);
+                    executingCommands.Add(unpausedCommands[key]);
                 }
-                else if (!keyState.IsKeyDown(key) && executingCommands.Contains(keyCommands[key]))
+                else if (!keyState.IsKeyDown(key) && executingCommands.Contains(unpausedCommands[key]))
                 {
-                    executingCommands.Remove(keyCommands[key]);
-                    unexecuteCommands.Add(keyCommands[key]);
+                    executingCommands.Remove(unpausedCommands[key]);
+                    unexecuteCommands.Add(unpausedCommands[key]);
                 }
             }
 

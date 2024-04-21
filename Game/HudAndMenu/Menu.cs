@@ -4,7 +4,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using MainGame.Items;
+using MainGame.WorldItems;
 using MainGame.Players;
 using MainGame.SpriteHandlers;
 using Microsoft.Xna.Framework;

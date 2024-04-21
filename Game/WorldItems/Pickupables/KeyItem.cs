@@ -2,7 +2,7 @@
 using MainGame.Players;
 using MainGame.SpriteHandlers;
 
-namespace MainGame.Items
+namespace MainGame.WorldItems
 {
     public class KeyItem : AbstractPickupableItem
     {
@@ -17,7 +17,7 @@ namespace MainGame.Items
         public override void PickUp()
         {
             IsPickedUp = true;
-            Player.Inventory.AddItem((int)ItemType, 1);
+            Player.Inventory.AddItem(Id, 1);
         }
     }
 }

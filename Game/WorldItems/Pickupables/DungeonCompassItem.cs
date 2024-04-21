@@ -3,16 +3,16 @@ using MainGame.Players;
 using MainGame.SpriteHandlers;
 using System;
 
-namespace MainGame.Items
+namespace MainGame.WorldItems
 {
-    public class DungeonMapItem : AbstractPickupableItem
+    public class DungeonCompassItem : AbstractPickupableItem
     {
-        protected override ItemTypes ItemType { get; set; } = ItemTypes.Map;
+        protected override ItemTypes ItemType { get; set; } = ItemTypes.Compass;
         protected override ISprite Sprite { get; set; }
 
-        public DungeonMapItem(Vector2 spawnPosition, IPlayer player) : base(spawnPosition, player)
+        public DungeonCompassItem(Vector2 spawnPosition, IPlayer player) : base(spawnPosition, player)
         {
-            Sprite = SpriteFactory.CreateMapItemSprite();
+            Sprite = SpriteFactory.CreateCompassItemSprite();
         }
 
         public override void PickUp()

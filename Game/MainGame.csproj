@@ -47,7 +47,6 @@
     <None Remove="GridUtils\" />
     <None Remove="Blocks\" />
     <None Remove="Doors\" />
-    <None Remove="Items\Pickupables\" />
     <None Remove="Players\Inventory\" />
     <None Remove="Players\Inventory\EquippableItems\" />
     <None Remove="Players\Inventory\PassiveItems\" />
@@ -89,7 +88,6 @@
     <Folder Include="GridUtils\" />
     <Folder Include="Blocks\" />
     <Folder Include="Doors\" />
-    <Folder Include="Items\Pickupables\" />
     <Folder Include="Players\Inventory\" />
     <Folder Include="Players\Inventory\EquippableItems\" />
     <Folder Include="Players\Inventory\PassiveItems\" />

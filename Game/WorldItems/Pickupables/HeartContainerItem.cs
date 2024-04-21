@@ -2,7 +2,7 @@
 using MainGame.Players;
 using MainGame.SpriteHandlers;
 
-namespace MainGame.Items
+namespace MainGame.WorldItems
 {
     public class HeartContainerItem : AbstractPickupableItem
     {

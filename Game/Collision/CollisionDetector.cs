@@ -3,12 +3,13 @@ using System.Linq;
 using Microsoft.Xna.Framework;
 
 using MainGame.Blocks;
-using MainGame.Items;
+using MainGame.WorldItems;
 using MainGame.Players;
 using MainGame.Enemies;
 using MainGame.Projectiles;
 using MainGame.Rooms;
 using MainGame.Collision.CollisionHandlers;
+using System.Reflection;
 
 namespace MainGame.Collision
 {
@@ -181,6 +182,17 @@ namespace MainGame.Collision
                 if (!overlap.IsEmpty)
                 {
                     new PlayerItemCollisionHandler(player, item).HandleCollision();
+                }
+                if (item.Id == (int)ItemTypes.Fairy)
+                {
+                    foreach (Rectangle borderHitBox in enemyBorder.HitBoxes)
+                    {
+                        Rectangle itemBorderOverlap = Rectangle.Intersect(item.HitBox, borderHitBox);
+                        if (!itemBorderOverlap.IsEmpty)
+                        {
+                            new MovingItemBorderCollisionHandler(item, borderHitBox).HandleCollision();
+                        }
+                    }
                 }
             }
         }

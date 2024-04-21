@@ -2,7 +2,7 @@ using Microsoft.Xna.Framework;
 using MainGame.SpriteHandlers;
 using MainGame.Players;
 
-namespace MainGame.Items
+namespace MainGame.WorldItems
 {
     public abstract class AbstractPickupableItem : IPickupableItem
 	{
@@ -19,7 +19,8 @@ namespace MainGame.Items
 				return new(Position.ToPoint(), Sprite.DestinationRectangle.Size);
             }
 		}
-		public virtual string Name => ItemType.ToString();
+        public virtual int Id => (int)ItemType;
+        public virtual string Name => ItemType.ToString();
 
         protected abstract ISprite Sprite { get; set; }
 		protected abstract ItemTypes ItemType { get; set; }

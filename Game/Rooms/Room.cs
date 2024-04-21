@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using MainGame.Doors;
 using MainGame.SpriteHandlers;
 using MainGame.Blocks;
-using MainGame.Items;
+using MainGame.WorldItems;
 using MainGame.Enemies;
 using MainGame.Players;
 using MainGame.Particles;

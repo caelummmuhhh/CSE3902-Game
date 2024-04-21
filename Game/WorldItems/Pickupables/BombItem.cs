@@ -2,7 +2,7 @@
 using MainGame.Players;
 using MainGame.SpriteHandlers;
 
-namespace MainGame.Items
+namespace MainGame.WorldItems
 {
     public class BombItem : AbstractPickupableItem
     {
@@ -19,7 +19,7 @@ namespace MainGame.Items
         public override void PickUp()
         {
             IsPickedUp = true;
-            Player.Inventory.AddItem((int)ItemType, quantity);
+            Player.Inventory.AddItem(Id, quantity);
         }
     }
 }

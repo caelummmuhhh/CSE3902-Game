@@ -1,6 +1,6 @@
 ﻿
 
-using MainGame.Items;
+using MainGame.WorldItems;
 
 namespace MainGame.Players.PlayerStates
 {

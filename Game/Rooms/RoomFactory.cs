@@ -6,7 +6,7 @@ using MainGame.Doors;
 using MainGame.Rooms;
 using MainGame.SpriteHandlers;
 using MainGame.Blocks;
-using MainGame.Items;
+using MainGame.WorldItems;
 using MainGame.Enemies;
 using MainGame.Players;
 using MainGame.Collision;

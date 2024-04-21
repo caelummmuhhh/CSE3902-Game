@@ -3,7 +3,7 @@ using MainGame.SpriteHandlers;
 using MainGame.Players;
 using System;
 
-namespace MainGame.Items
+namespace MainGame.WorldItems
 {
 	public static class ItemFactory
 	{

@@ -2,7 +2,7 @@
 using MainGame.Players.PlayerStates;
 using MainGame.Players.Inventory;
 using MainGame.SpriteHandlers;
-using MainGame.Items;
+using MainGame.WorldItems;
 
 namespace MainGame.Players
 {
