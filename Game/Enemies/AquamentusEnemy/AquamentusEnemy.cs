@@ -18,10 +18,9 @@ namespace MainGame.Enemies
 
         private int RoarTime = 160;
 
-        public AquamentusEnemy(Vector2 startingPosition, AudioManager audioManager, IPlayer player)
+        public AquamentusEnemy(Vector2 startingPosition, IPlayer player)
 		{
             Position = startingPosition;
-            AudioManager = audioManager;
             PreviousPosition = new(Position.X, Position.Y);
             Sprite = SpriteFactory.CreateAquamentusSprite();
             Player = player;

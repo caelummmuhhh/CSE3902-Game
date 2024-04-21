@@ -11,10 +11,9 @@ namespace MainGame.Enemies
 
         public override int MovementCoolDownFrame { get; protected set; } = 0;
 
-        public OldManEnemy(Vector2 startingPosition, AudioManager audioManager)
+        public OldManEnemy(Vector2 startingPosition)
 		{
 			Position = startingPosition;
-            AudioManager = audioManager;
             PreviousPosition = new(Position.X, Position.Y);
             Sprite = SpriteFactory.CreateOldManSprite();
 		}

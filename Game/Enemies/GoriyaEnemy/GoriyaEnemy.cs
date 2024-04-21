@@ -10,10 +10,9 @@ namespace MainGame.Enemies
         public Direction FacingDirection { get; set; }
 		public override int MovementCoolDownFrame { get; protected set; } = 2;
 
-        public GoriyaEnemy(Vector2 startingPosition, AudioManager audioManager)
+        public GoriyaEnemy(Vector2 startingPosition)
 		{
 			Position = startingPosition;
-            AudioManager = audioManager;
             PreviousPosition = new(Position.X, Position.Y);
             State = new GoriyaMovingState(this);
 		}

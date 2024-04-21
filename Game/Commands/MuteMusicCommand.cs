@@ -1,4 +1,5 @@
-﻿using MainGame.HudAndMenu;
+﻿using MainGame.Audio;
+using MainGame.HudAndMenu;
 
 namespace MainGame.Commands
 {
@@ -13,7 +14,7 @@ namespace MainGame.Commands
 
         public void Execute()
         {
-            game.AudioManager.MuteSong();
+            AudioManager.MuteSong();
         }
 
         public void UnExecute()

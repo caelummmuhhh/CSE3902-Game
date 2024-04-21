@@ -7,13 +7,13 @@ namespace MainGame.WorldItems
 {
 	public class FairyItem : HealthRecoveryItem
 	{
-        private readonly int speed = 5;
+        private readonly int speed = 3;
         private readonly Random random;
         private Direction moveDirection;
         private int directionChangeTimer = 0;
 
-		public FairyItem(Vector2 spawnPosition, IPlayer player, AudioManager audioManager)
-			: base(spawnPosition, player, ItemTypes.Fairy, player.MaxHealth, audioManager)
+		public FairyItem(Vector2 spawnPosition, IPlayer player)
+			: base(spawnPosition, player, ItemTypes.Fairy, player.MaxHealth)
         {
             random = new();
         }
@@ -48,7 +48,7 @@ namespace MainGame.WorldItems
         {
             IsPickedUp = true;
             Player.Heal(healAmount);
-            audioManager.PlaySFX("Grab_Item_Medium", 0);
+            AudioManager.PlaySFX("Grab_Item_Medium", 0);
         }
     }
 }

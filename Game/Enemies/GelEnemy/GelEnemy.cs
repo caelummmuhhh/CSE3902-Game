@@ -26,10 +26,9 @@ namespace MainGame.Enemies
         public override int Health { get; protected set; } = 1;
         public override int Damage => 1;
 
-        public GelEnemy(Vector2 startingPosition, AudioManager audioManager)
+        public GelEnemy(Vector2 startingPosition)
 		{
 			Position = startingPosition;
-            AudioManager = audioManager;
             PreviousPosition = new(Position.X, Position.Y);
             Sprite = SpriteFactory.CreateGelSprite();
             State = new GelIdleState(this);

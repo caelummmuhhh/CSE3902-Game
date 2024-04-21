@@ -1,4 +1,5 @@
 ﻿using System;
+using MainGame.Audio;
 using MainGame.Projectiles;
 using MainGame.Rooms;
 
@@ -36,6 +37,7 @@ namespace MainGame.Players.Inventory
         {
             if (IsUseable)
             {
+                AudioManager.PlaySFX("Candle", 0);
                 Quantity = 0;
                 projectile = ProjectileFactory.GetFireProjectile(player.Position, player.FacingDirection);
                 roomManager.CurrentRoom.PlayerProjectiles.Add(projectile);

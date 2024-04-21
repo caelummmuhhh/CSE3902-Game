@@ -1,4 +1,5 @@
 ﻿using System;
+using MainGame.Audio;
 using MainGame.Projectiles;
 using MainGame.Rooms;
 
@@ -36,6 +37,7 @@ namespace MainGame.Players.Inventory
         {
             if (IsUseable)
             {
+                AudioManager.PlaySFX("Arrow_And_Boomerang", 0);
                 player.Inventory.Rupees.Remove(1);
                 projectile = ProjectileFactory.GetArrowProjectile(player.Position, player.FacingDirection);
                 roomManager.CurrentRoom.PlayerProjectiles.Add(projectile);

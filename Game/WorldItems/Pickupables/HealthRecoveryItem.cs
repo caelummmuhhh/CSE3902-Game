@@ -11,8 +11,7 @@ namespace MainGame.WorldItems
         protected override ISprite Sprite { get; set; }
         protected readonly int healAmount;
 
-        public HealthRecoveryItem(Vector2 spawnPosition, IPlayer player, ItemTypes itemType, int healAmount, AudioManager audioManager)
-            : base(spawnPosition, player, audioManager)
+        public HealthRecoveryItem(Vector2 spawnPosition, IPlayer player, ItemTypes itemType, int healAmount) : base(spawnPosition, player)
         {
             ItemType = itemType;
             Sprite = SpriteFactory.CreateItemSprite(itemType);
@@ -24,7 +23,7 @@ namespace MainGame.WorldItems
         {
             IsPickedUp = true;
             Player.Heal(healAmount);
-            audioManager.PlaySFX("Grab_Item_Short", 0);
+            AudioManager.PlaySFX("Grab_Item_Short", 0);
         }
     }
 }

@@ -14,6 +14,10 @@ namespace MainGame.Commands.PlayerCommands
         public void Execute()
         {
             Console.WriteLine("Equiped candle");
+            if (!player.Inventory.HasItem((int)ItemTypes.Candle))
+            {
+                player.Inventory.AddItem((int)ItemTypes.Candle, 1);
+            }
             player.Inventory.Equip((int)ItemTypes.Candle);
         }
 

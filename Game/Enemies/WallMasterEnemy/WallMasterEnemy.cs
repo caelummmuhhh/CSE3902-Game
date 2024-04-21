@@ -12,10 +12,9 @@ namespace MainGame.Enemies
         public override int MovementCoolDownFrame { get; protected set; } = 1;
         public readonly IPlayer Player;
 
-        public WallMasterEnemy(Vector2 startingPosition, AudioManager audioManager, IPlayer player)
+        public WallMasterEnemy(Vector2 startingPosition, IPlayer player)
 		{
 			Sprite = SpriteFactory.CreateWallMasterSprite();
-            AudioManager = audioManager;
             Player = player;
             Position = startingPosition;
             PreviousPosition = new(Position.X, Position.Y);

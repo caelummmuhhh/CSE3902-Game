@@ -27,7 +27,7 @@ namespace MainGame.Rooms
 
 			foreach (string roomFile in roomFiles)
             {
-				allRooms.Add(RoomFactory.GenerateRoom(roomFile, player, game.AudioManager));
+				allRooms.Add(RoomFactory.GenerateRoom(roomFile, player));
 			}
 			CurrentRoom = allRooms[currentRoomIndex]; // TODO: Delete
         }

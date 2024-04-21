@@ -7,8 +7,6 @@ namespace MainGame.Enemies
 {
 	public abstract class GenericEnemy : IEnemy
 	{
-        public AudioManager AudioManager { get; set; }
-
         public static readonly int ImmunityFrame = 100;
         public static readonly float MaxKnockedBackDistance = Constants.BlockSize;
         public static readonly float KnockBackSpeed = 10f;

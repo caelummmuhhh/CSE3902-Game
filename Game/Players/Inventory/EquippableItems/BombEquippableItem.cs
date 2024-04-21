@@ -1,4 +1,5 @@
 ﻿using System;
+using MainGame.Audio;
 using MainGame.Projectiles;
 using MainGame.Rooms;
 
@@ -40,6 +41,8 @@ namespace MainGame.Players.Inventory
         {
             if (IsUseable)
             {
+                AudioManager.PlaySFX("Bomb_Drop", 0);
+                AudioManager.PlaySFX("Bomb_Blow", 64);
                 Remove(1);
                 projectile = ProjectileFactory.GetBombProjectile(player.Position, player.FacingDirection);
                 roomManager.CurrentRoom.PlayerProjectiles.Add(projectile);

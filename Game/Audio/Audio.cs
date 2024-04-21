@@ -1,26 +1,19 @@
 ﻿using Microsoft.Xna.Framework.Media;
 using Microsoft.Xna.Framework.Audio;
-using Microsoft.Xna.Framework;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Reflection.Metadata;
-using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Input;
 
 namespace MainGame.Audio
 {
-    public class AudioManager
+    public static class AudioManager
     {
-        private Game1 Game;
-        private Song Song;
         public static readonly Dictionary<string, SoundEffect> SFXMap = new();
         public static readonly Dictionary<string, List<int>> ActiveSFXList = new();
 
-        private int MuteDebounce = 0;
-        public AudioManager(Game1 game)
+        private static Game1 Game;
+        private static Song Song;
+        private static int MuteDebounce = 0;
+
+        public static void SetUp(Game1 game)
         {
             Game = game;
             Song = game.Content.Load<Song>("Audio/Dungeon_BGM");
@@ -29,7 +22,8 @@ namespace MainGame.Audio
 
             LoadAllSFX();
         }
-        public void MuteSong()
+
+        public static void MuteSong()
         {
             if (MuteDebounce <= 0)
             {
@@ -44,7 +38,8 @@ namespace MainGame.Audio
                 MuteDebounce = 10;
             }
         }
-        public void PlaySFX(string sfx, int delay)
+
+        public static void PlaySFX(string sfx, int delay)
         {
             if (!ActiveSFXList.ContainsKey(sfx))
             {
@@ -52,7 +47,8 @@ namespace MainGame.Audio
             }
             ActiveSFXList[sfx].Add(delay + Game.TotalGameTime);
         }
-        private void LoadAllSFX()
+
+        public static void LoadAllSFX()
         {
             SFXMap.Add("Arrow_And_Boomerang", Game.Content.Load<SoundEffect>("Audio/LOZ_Arrow_Boomerang"));
             SFXMap.Add("Bomb_Blow", Game.Content.Load<SoundEffect>("Audio/LOZ_Bomb_Blow"));
@@ -76,7 +72,8 @@ namespace MainGame.Audio
             SFXMap.Add("Sword_Beam", Game.Content.Load<SoundEffect>("Audio/LOZ_Sword_Shoot"));
             SFXMap.Add("Sword_Attack", Game.Content.Load<SoundEffect>("Audio/LOZ_Sword_Slash"));
         }
-        public void Update()
+
+        public static void Update()
         {
             if (MuteDebounce > 0)
             {
@@ -85,7 +82,7 @@ namespace MainGame.Audio
 
             foreach ((string sfx, List<int> delay) in ActiveSFXList)
             {
-                List<int> delayCopy = new List<int>(delay);
+                List<int> delayCopy = new(delay);
                 foreach (int d in delayCopy)
                 {
                     if (d <= Game.TotalGameTime) {

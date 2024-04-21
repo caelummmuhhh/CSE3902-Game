@@ -10,8 +10,7 @@ namespace MainGame.WorldItems
         protected override ItemTypes ItemType { get; set; } = ItemTypes.Key;
         protected override ISprite Sprite { get; set; }
 
-        public KeyItem(Vector2 spawnPosition, IPlayer player, AudioManager audioManager)
-            : base(spawnPosition, player, audioManager)
+        public KeyItem(Vector2 spawnPosition, IPlayer player) : base(spawnPosition, player)
         {
             Sprite = SpriteFactory.CreateKeyItemSprite();
         }
@@ -20,7 +19,7 @@ namespace MainGame.WorldItems
         {
             IsPickedUp = true;
             Player.Inventory.AddItem(Id, 1);
-            audioManager.PlaySFX("Grab_Item_Short", 0);
+            AudioManager.PlaySFX("Grab_Item_Short", 0);
         }
     }
 }

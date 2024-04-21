@@ -40,8 +40,6 @@ public class Game1 : Game
     public Hud Hud;
     public Menu Menu;
 
-    public AudioManager AudioManager;
-
     public bool TogglePause;
     int PauseDebounce;
 
@@ -71,7 +69,7 @@ public class Game1 : Game
         TogglePause = false;
         PauseDebounce = 10;
 
-        AudioManager = new AudioManager(this);
+        AudioManager.SetUp(this);
 
         spriteBatch = new SpriteBatch(GraphicsDevice);
 
@@ -83,7 +81,7 @@ public class Game1 : Game
 
         RoomManager = new(this);
 
-        Player = new Player(new Vector2(120 * Constants.UniversalScale, (128 * Constants.UniversalScale) + Constants.HudAndMenuHeight), RoomManager, AudioManager,
+        Player = new Player(new Vector2(120 * Constants.UniversalScale, (128 * Constants.UniversalScale) + Constants.HudAndMenuHeight), RoomManager,
             Array.Empty<int>(), Dungeon.PlayerStartingHealth, Dungeon.PlayerStartingRupees, Dungeon.PlayerStartingKeys, Dungeon.PlayerStartingBombs);
 
         RoomManager.LoadAllRooms(Player);
@@ -122,6 +120,7 @@ public class Game1 : Game
             Menu.Update();
             ++PauseDebounce;
         }
+
         // Audio has to be outside to allow pause sounds, will cause bugs with delayed sounds playing on pause screen
         AudioManager.Update();
 

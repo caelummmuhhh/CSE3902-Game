@@ -13,10 +13,9 @@ namespace MainGame.Enemies
 		private int moveDuration;
 		private readonly int maxMoveDuration = 32;
 
-		public StalfosEnemy(Vector2 startingPosition, AudioManager audioManager)
+		public StalfosEnemy(Vector2 startingPosition)
 		{
 			Position = startingPosition;
-            AudioManager = audioManager;
             PreviousPosition = new(Position.X, Position.Y);
             Sprite = SpriteFactory.CreateStalfosSprite();
 		}

@@ -11,8 +11,7 @@ namespace MainGame.WorldItems
         protected override ISprite Sprite { get; set; }
         private readonly int worth;
 
-        public RupeeItem(Vector2 spawnPosition, IPlayer player, ItemTypes itemType, int quantity, AudioManager audioManager)
-            : base(spawnPosition, player, audioManager)
+        public RupeeItem(Vector2 spawnPosition, IPlayer player, ItemTypes itemType, int quantity) : base(spawnPosition, player)
         {
             ItemType = itemType;
             Sprite = SpriteFactory.CreateItemSprite(itemType);
@@ -23,7 +22,7 @@ namespace MainGame.WorldItems
         {
             IsPickedUp = true;
             Player.Inventory.AddItem((int)ItemTypes.Rupee, worth);
-            audioManager.PlaySFX("Grab_Rupee_And_Menu", 0);
+            AudioManager.PlaySFX("Grab_Rupee_And_Menu", 0);
         }
     }
 }

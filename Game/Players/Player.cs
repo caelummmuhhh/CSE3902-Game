@@ -33,14 +33,12 @@ namespace MainGame.Players
 		public Rectangle SwordHitBox { get; set; }
 
         private readonly GameRoomManager roomManager;
-		private readonly AudioManager SFXPlayer;
         private int invulnerableTimer = 0;
 		private IProjectile swordBeam;
 
-        public Player(Vector2 spawnPosition, GameRoomManager roomManager, AudioManager sfxPlayer, int[] startingItemIds,
+        public Player(Vector2 spawnPosition, GameRoomManager roomManager, int[] startingItemIds,
 					  int maxHearts = 6, int rupees = 0, int keys = 0, int bombs = 0)
 		{
-			SFXPlayer = sfxPlayer;
 			Position = spawnPosition;
 			CurrentState = new PlayerIdleUpState(this);
 			SwordHitBox = new();
@@ -80,7 +78,7 @@ namespace MainGame.Players
 				{
                     MakeInvulnerable(ImmunityFrame);
                     CurrentState.TakeDamage(sideHit);
-					SFXPlayer.PlaySFX("Player_Hurt", 0);
+					AudioManager.PlaySFX("Player_Hurt", 0);
 					return;
                 }
 				CurrentState = new PlayerDeathState(this);
@@ -99,11 +97,10 @@ namespace MainGame.Players
 
         public void UseSword()
 		{
-			SFXPlayer.PlaySFX("Sword_Attack", 0);
             CurrentState.UseSword();
-            if (CurrentHealth == MaxHealth && swordBeam is not null && swordBeam.IsActive)
+            if (CurrentHealth == MaxHealth && (swordBeam is null || !swordBeam.IsActive))
 			{
-				SFXPlayer.PlaySFX("Sword_Beam", 4);
+				AudioManager.PlaySFX("Sword_Beam", 4);
 				swordBeam = ProjectileFactory.GetSwordBeamProjectile(Position, FacingDirection);
 				roomManager.CurrentRoom.PlayerProjectiles.Add(swordBeam);
             }
