@@ -43,6 +43,8 @@ public class Game1 : Game
     public bool TogglePause;
     int PauseDebounce;
 
+    public bool TogglePlayer;
+
 
     public Game1()
     {
@@ -110,9 +112,9 @@ public class Game1 : Game
         }
         if (!TogglePause)
         {
+            if(!TogglePlayer) Player.Update();
             ++PauseDebounce;
             RoomManager.Update();
-            Player.Update();
             Collision.Update();
             Hud.TogglePauseDisplay(TogglePause);
         } else
@@ -131,8 +133,12 @@ public class Game1 : Game
     {
         TogglePause = !TogglePause;
         PauseDebounce = 0;
-
     }
+    public void SetPlayer()
+    {
+        TogglePlayer = !TogglePlayer;
+    }
+
     protected override void Draw(GameTime gameTime)
     {
         GraphicsDevice.Clear(Color.Black);
@@ -140,7 +146,7 @@ public class Game1 : Game
         if (!TogglePause)
         {
             RoomManager.Draw();
-            Player.Draw();
+            if(!TogglePlayer) Player.Draw();
         }
         else
         {

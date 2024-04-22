@@ -75,6 +75,7 @@ namespace MainGame.Rooms
 
 		public void SwitchRoomsStart(Direction direction)
 		{
+			game.SetPlayer(); // Turn player off for room switching
 			CurrentRoom.isMainRoom = false;
 			// Initiate the switching room process by setting creating a new room 
             SecondaryRoom = allRooms[game.Dungeon.DungeonLayout[(int)currentRoomIndex.Y][(int)currentRoomIndex.X]];
@@ -110,6 +111,7 @@ namespace MainGame.Rooms
             CurrentRoom = SecondaryRoom;
 			CurrentRoom.isMainRoom = true;
             SecondaryRoom = null;
+            game.SetPlayer(); // Turn player back on
         }
 
 		public void NextRoom(Direction direction)
