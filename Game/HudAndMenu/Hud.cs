@@ -37,7 +37,8 @@ namespace MainGame.HudAndMenu
             heartsDisplay = new ISprite[16];
             maxHealth = game.Player.MaxHealth; // Game crashed when it didn't use a copy
             InitializeMapLayout();
-            InitializeTriforceRoom();
+            triforceRoom = SpriteFactory.CreateMapTriforceTrackerSprite();
+            triforceRoomLoc = game.Dungeon.TriforceRoomLocation;
 
             textLevel = SpriteFactory.CreateTextSprite("LEVEL-" + dungeonID);
             textItemKey = SpriteFactory.CreateTextSprite(itemKey);
@@ -46,30 +47,16 @@ namespace MainGame.HudAndMenu
 
             swordDisplay = SpriteFactory.CreateSwordBeamUpProjectileSprite();
         }
-        private void InitializeTriforceRoom()
-        {
-            for (int i = 0; i < 8; i++)
-            {
-                for (int j = 0; j < 8; j++)
-                {
-                    if (game.Dungeon.DungeonLayout[i][j] == game.Dungeon.DungeonRoomCount)
-                    {
-                        triforceRoom = SpriteFactory.CreateMapTriforceTrackerSprite();
-                        triforceRoomLoc = new Vector2(j, i);
-                    }
-                }
-            }
-        }
         private void InitializeMapLayout()
         {
-            layoutDisplay = new ISprite[8][];
-            for (int i = 0; i < 8; i++)
+            layoutDisplay = new ISprite[game.Dungeon.DungeonSize][];
+            for (int i = 0; i < game.Dungeon.DungeonSize; i++)
             {
-                layoutDisplay[i] = new ISprite[8];
+                layoutDisplay[i] = new ISprite[game.Dungeon.DungeonSize];
             }
-            for (int i = 0; i < 8; i++)
+            for (int i = 0; i < game.Dungeon.DungeonSize; i++)
             {
-                for (int j = 0; j < 8; j++)
+                for (int j = 0; j < game.Dungeon.DungeonSize; j++)
                 {
                     if (game.Dungeon.DungeonLayout[i][j] != 0)
                     {

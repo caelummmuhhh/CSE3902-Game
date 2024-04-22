@@ -46,7 +46,7 @@ namespace MainGame.Controllers
                 { Keys.D6, new PlayerObtainRupeesCommand(player) },
                 { Keys.D7, new PlayerMaxHealthCommand(player) },
 
-                { Keys.Up, new NextRoomCommand(game) },
+                //{ Keys.Up, new NextRoomCommand(game) },
 
                 { Keys.P, new PauseMenuCommand(game) },
                 { Keys.M, new MuteMusicCommand(game) },

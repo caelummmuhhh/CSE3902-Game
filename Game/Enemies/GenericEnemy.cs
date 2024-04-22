@@ -7,7 +7,7 @@ namespace MainGame.Enemies
 {
 	public abstract class GenericEnemy : IEnemy
 	{
-        public static readonly int ImmunityFrame = 100;
+        public static readonly int ImmunityFrame = 32;
         public static readonly float MaxKnockedBackDistance = Constants.BlockSize;
         public static readonly float KnockBackSpeed = 10f;
 
@@ -82,6 +82,7 @@ namespace MainGame.Enemies
         {
             if (!IsAlive)
             {
+                AudioManager.PlaySFX("Enemy_Die", 0);
                 State = new EnemyDeathState(this);
             }
         }

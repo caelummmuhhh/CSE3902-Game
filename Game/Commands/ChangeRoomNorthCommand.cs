@@ -1,10 +1,10 @@
 ﻿namespace MainGame.Commands
 {
-    public class NextRoomCommand : ICommand
+    public class ChangeRoomNorthCommand : ICommand
     {
         private Game1 game;
 
-        public NextRoomCommand(Game1 game)
+        public ChangeRoomNorthCommand(Game1 game)
         {
             this.game = game;
         }
