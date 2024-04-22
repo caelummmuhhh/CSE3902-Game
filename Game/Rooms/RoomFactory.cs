@@ -14,6 +14,7 @@ using MainGame.Audio;
 using MainGame.Dungeons;
 using MainGame.Particles;
 using System.Linq;
+using System.Diagnostics;
 
 namespace MainGame.Rooms
 {
@@ -147,7 +148,7 @@ namespace MainGame.Rooms
                      SpriteFactory.CreateDoorBottomNorthSouth(Direction.North, doorType),
                      Direction.North
                  );
-                if (doorType is DoorTypes.OpenDoor || doorType is DoorTypes.DestroyedWall)
+                if (doorType == DoorTypes.OpenDoor || doorType == DoorTypes.DestroyedWall)
                 {
                     room.PlayerBorderHitBox.Add(new TopHorizontalDoorWallHitBox());
                     room.NorthDoor.IsOpen = true;
@@ -163,7 +164,7 @@ namespace MainGame.Rooms
                 room.PlayerBorderHitBox.Add(new TopFullHorizontalWallHitBox());
             }
 
-            if (!doors[1].Equals("-"))
+            if (!doors[0].Equals("-"))
             {
                 DoorTypes doorType = SpriteFactory.DoorTypeFromString(doors[1]);
                 room.SouthDoor = new Door(
@@ -172,10 +173,11 @@ namespace MainGame.Rooms
                 SpriteFactory.CreateDoorBottomNorthSouth(Direction.South, doorType),
                 Direction.South
                 );
-                if (doorType is DoorTypes.OpenDoor || doorType is DoorTypes.DestroyedWall)
+                if(doorType == DoorTypes.OpenDoor) room.SouthDoor.IsOpen = true;
+                if (doorType == DoorTypes.OpenDoor || doorType == DoorTypes.DestroyedWall)
                 {
                     room.PlayerBorderHitBox.Add(new BottomHorizontalDoorWallHitBox());
-                    room.SouthDoor.IsOpen = true;
+                    
                 }
                 else
                 {
@@ -188,7 +190,7 @@ namespace MainGame.Rooms
                 room.PlayerBorderHitBox.Add(new BottomFullHorizontalWallHitBox());
             }
 
-            if (!doors[2].Equals("-"))
+            if (!doors[0].Equals("-"))
             {
                 DoorTypes doorType = SpriteFactory.DoorTypeFromString(doors[2]);
                 room.EastDoor = new Door(
@@ -197,7 +199,8 @@ namespace MainGame.Rooms
                 SpriteFactory.CreateDoorBottomWestEast(Direction.West, doorType),
                 Direction.West
                 );
-                if (doorType is DoorTypes.OpenDoor || doorType is DoorTypes.DestroyedWall)
+                if (doorType == DoorTypes.OpenDoor) room.SouthDoor.IsOpen = true;
+                if (doorType == DoorTypes.OpenDoor || doorType == DoorTypes.DestroyedWall)
                 {
                     room.PlayerBorderHitBox.Add(new LeftVerticalDoorWallHitBox());
                     room.EastDoor.IsOpen = true;
@@ -213,7 +216,7 @@ namespace MainGame.Rooms
                 room.PlayerBorderHitBox.Add(new LeftFullVerticalWallHitBox());
             }
 
-            if (!doors[3].Equals("-"))
+            if (!doors[0].Equals("-"))
             {
                 DoorTypes doorType = SpriteFactory.DoorTypeFromString(doors[3]);
                 room.WestDoor = new Door(
@@ -222,7 +225,8 @@ namespace MainGame.Rooms
                 SpriteFactory.CreateDoorBottomWestEast(Direction.East, doorType),
                 Direction.East
                 );
-                if (doorType is DoorTypes.OpenDoor || doorType is DoorTypes.DestroyedWall)
+                if (doorType == DoorTypes.OpenDoor) room.SouthDoor.IsOpen = true;
+                if (doorType == DoorTypes.OpenDoor || doorType == DoorTypes.DestroyedWall)
                 {
                     room.PlayerBorderHitBox.Add(new RightVerticalDoorWallHitBox());
                     room.WestDoor.IsOpen = true;

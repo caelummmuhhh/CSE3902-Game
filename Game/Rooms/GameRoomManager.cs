@@ -126,7 +126,6 @@ namespace MainGame.Rooms
 		public void SwitchingRoomsEnd()
 		{
             roomChange = false; // End change
-			game.Player.Position = new Vector2(game.GraphicsManager.PreferredBackBufferWidth/2, game.GraphicsManager.PreferredBackBufferHeight/2);
             game.SetPlayer(); // unhide player
 			CurrentRoom = allRooms[game.Dungeon.DungeonLayout[(int)currentRoomIndex.Y][(int)currentRoomIndex.X]];
 			roomChangeDebounce = 20;
@@ -155,7 +154,6 @@ namespace MainGame.Rooms
 			}
 			roomChangeDebounce = 20;
 
-
             if (direction == Direction.North)
 			{
 				currentRoomIndex.Y = currentRoomIndex.Y - 1 < 0 ? 0 : currentRoomIndex.Y - 1;
@@ -176,8 +174,10 @@ namespace MainGame.Rooms
                 currentRoomIndex.X = currentRoomIndex.X + 1 >= game.Dungeon.DungeonSize - 1 ? game.Dungeon.DungeonSize - 1 : currentRoomIndex.X + 1;
                 game.Player.Position = new Vector2(32 * Constants.UniversalScale, (game.GraphicsManager.PreferredBackBufferHeight + Constants.HudAndMenuHeight - 16 * Constants.UniversalScale) / 2);
             }
-			
-            CurrentRoom = allRooms[game.Dungeon.DungeonLayout[(int)currentRoomIndex.Y][(int)currentRoomIndex.X]];
+
+            
+			CurrentRoom = allRooms[game.Dungeon.DungeonLayout[(int)currentRoomIndex.Y][(int)currentRoomIndex.X]];
+            //SwitchRoomsStart(direction);
         }
     }
 }

@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Content;
 using MainGame.SpriteHandlers.ItemSprites;
 using System;
+using System.Diagnostics;
 
 namespace MainGame.SpriteHandlers
 {

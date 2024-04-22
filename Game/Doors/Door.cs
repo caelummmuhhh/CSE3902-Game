@@ -62,6 +62,7 @@ namespace MainGame.Doors
             this.spriteTop = spriteTop;
             this.spriteBottom = spriteBottom;
             Direction = direction;
+            IsOpen = false;
 
             this.spriteTop.LayerDepth = 0f;
             this.spriteBottom.LayerDepth = 1.0f;
@@ -98,7 +99,7 @@ namespace MainGame.Doors
 
         public void Unlock()
         {
-            IsOpen = true;
+            //IsOpen = true;
             DoorTypes doorType = SpriteFactory.DoorTypeFromString("OpenDoor");
             spriteTop = SpriteFactory.CreateDoorTopNorthSouth(Direction.North, doorType);
             spriteBottom = SpriteFactory.CreateDoorBottomNorthSouth(Direction.North, doorType);

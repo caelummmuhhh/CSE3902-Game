@@ -26,7 +26,6 @@ namespace MainGame.Collision.CollisionHandlers
         {
             Direction dir = door.Direction;
 
-            Debug.WriteLine(door.IsOpen);
             if (door.IsOpen)
             {
                 game.RoomManager.NextRoom(dir);
