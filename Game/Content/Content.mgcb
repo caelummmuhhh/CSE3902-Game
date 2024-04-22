@@ -194,7 +194,7 @@
 /processorParam:TextureFormat=Color
 /build:HudAndMenu.png
 
-#begin ItemSprites.png
+#begin ItemsSprites.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -204,7 +204,7 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:ItemSprites.png
+/build:ItemsSprites.png
 
 #begin LinkSprites.png
 /importer:TextureImporter
