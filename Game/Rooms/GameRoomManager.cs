@@ -83,21 +83,26 @@ namespace MainGame.Rooms
             // Set original location for seconday room based on direction
             if (direction == Direction.North)
             {
+                game.Player.Position = new Vector2(CurrentRoom.SouthDoor.Position.X, CurrentRoom.SouthDoor.Position.Y);
                 SecondaryRoom.Position = new Vector2(0, -game.GraphicsManager.PreferredBackBufferHeight+2*Constants.HudAndMenuHeight);
                 RoomChangingVel = new Vector2(0, Constants.RoomScrollingSpeed);
             }
             else if (direction == Direction.South)
             {
+                game.Player.Position = new Vector2(CurrentRoom.NorthDoor.Position.X, CurrentRoom.NorthDoor.Position.Y);
                 SecondaryRoom.Position = new Vector2(0, game.GraphicsManager.PreferredBackBufferHeight);
 				RoomChangingVel = new Vector2(0, -Constants.RoomScrollingSpeed);
+
             }
             else if (direction == Direction.West)
             {
-				SecondaryRoom.Position = new Vector2(-game.GraphicsManager.PreferredBackBufferWidth, Constants.HudAndMenuHeight);
+                game.Player.Position = new Vector2(CurrentRoom.WestDoor.Position.X, CurrentRoom.WestDoor.Position.Y);
+                SecondaryRoom.Position = new Vector2(-game.GraphicsManager.PreferredBackBufferWidth, Constants.HudAndMenuHeight);
                 RoomChangingVel = new Vector2(Constants.RoomScrollingSpeed, 0);
             }
             else if (direction == Direction.East)
             {
+                game.Player.Position = new Vector2(CurrentRoom.EastDoor.Position.X, CurrentRoom.EastDoor.Position.Y);
                 SecondaryRoom.Position = new Vector2(game.GraphicsManager.PreferredBackBufferWidth, Constants.HudAndMenuHeight);
                 RoomChangingVel = new Vector2(-Constants.RoomScrollingSpeed, 0);
             }
@@ -110,6 +115,7 @@ namespace MainGame.Rooms
 			SecondaryRoom.Position = new Vector2(0, Constants.HudAndMenuHeight);
             CurrentRoom = SecondaryRoom;
 			CurrentRoom.isMainRoom = true;
+            SecondaryRoom = null;
             SecondaryRoom = null;
             game.SetPlayer(); // Turn player back on
         }
