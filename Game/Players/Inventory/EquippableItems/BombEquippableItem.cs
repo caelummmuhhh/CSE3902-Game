@@ -8,7 +8,7 @@ namespace MainGame.Players.Inventory
 	public class BombEquippableItem : IInventoryItem
 	{
         public int Id => (int)itemType;
-        public string Name => nameof(itemType);
+        public string Name => itemType.ToString();
         public bool Equippable { get; } = true;
         public bool Stackable { get; } = true;
         public bool IsUseable => Quantity > 0 && (projectile is null || !projectile.IsActive);

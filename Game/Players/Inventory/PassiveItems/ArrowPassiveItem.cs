@@ -4,7 +4,7 @@ namespace MainGame.Players.Inventory
 	public class ArrowPassiveItem : IInventoryItem
 	{
         public int Id => (int)itemType;
-        public string Name => nameof(itemType);
+        public string Name => itemType.ToString();
         public bool Equippable { get; } = false;
         public bool Stackable { get; } = false;
         public bool IsUseable { get; } = true;

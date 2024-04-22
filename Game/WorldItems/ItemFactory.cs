@@ -3,12 +3,14 @@ using MainGame.SpriteHandlers;
 using MainGame.Players;
 using System;
 using MainGame.Audio;
+using MainGame.Rooms;
 
 namespace MainGame.WorldItems
 {
 	public static class ItemFactory
 	{
-		public static IPickupableItem CreateItem(ItemTypes itemType, Vector2 position, IPlayer player)
+		public static IPickupableItem CreateItem(ItemTypes itemType, Vector2 position, IPlayer player,
+			GameRoomManager roomManager = null)
 		{
 			return itemType switch
 			{
@@ -17,8 +19,8 @@ namespace MainGame.WorldItems
 				ItemTypes.HeartContainer => new HeartContainerItem(position, player),
 				ItemTypes.Rupee => new RupeeItem(position, player, itemType, 1),
 				ItemTypes.FiveRupees => new RupeeItem(position, player, itemType, 5),
-				ItemTypes.Map => new DungeonMapItem(position, player),
-				ItemTypes.Compass => new DungeonCompassItem(position, player),
+				ItemTypes.Map => new DungeonMapItem(position, player, roomManager),
+				ItemTypes.Compass => new DungeonCompassItem(position, player, roomManager),
 				ItemTypes.Key => new KeyItem(position, player),
 				ItemTypes.Boomerang => new SingleStackEquipmentItem(position, itemType, player),
 				ItemTypes.Bow => new SingleStackEquipmentItem(position, itemType, player),
@@ -38,7 +40,8 @@ namespace MainGame.WorldItems
 		/// <param name="throwException">If unable to parse, throw an exception if true, return null otherwise.</param>
 		/// <returns>The created item from the provided name.</returns>
 		/// <exception cref="ArgumentException">If an item was unable to be parsed.</exception>
-        public static IPickupableItem CreateItem(string itemName, Vector2 position, IPlayer player, bool throwException = false)
+        public static IPickupableItem CreateItem(string itemName, Vector2 position, IPlayer player,
+			GameRoomManager roomManager = null, bool throwException = false)
 		{
             bool conversionSuccess = Enum.TryParse(itemName, true, out ItemTypes item);
 
@@ -51,7 +54,7 @@ namespace MainGame.WorldItems
 				return null;
 			}
 
-            return CreateItem(item, position, player);
+            return CreateItem(item, position, player, roomManager);
         }
     }
 }

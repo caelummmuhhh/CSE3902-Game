@@ -11,11 +11,18 @@ namespace MainGame.Rooms
 		public IRoom CurrentRoom { get; set; }
 		public List<IRoom> AllRooms { get => allRooms; }
 
-		private readonly List<IRoom> allRooms = new();
+		// Can only change to true
+        public bool PlayerHasCompass { get => hasCompass; set => hasCompass = hasCompass || value; }
+        public bool PlayerHasMap { get => hasMap; set => hasMap = hasMap || value; }
+
+        private readonly List<IRoom> allRooms = new();
 
 		public Vector2 currentRoomIndex;
 		private readonly Game1 game;
 		private int roomChangeDebounce = 20;
+
+		private bool hasMap = false;
+		private bool hasCompass = false;
 
 		public GameRoomManager(Game1 game)
 		{
@@ -26,15 +33,10 @@ namespace MainGame.Rooms
 		{
 			for (int i = 0; i < game.Dungeon.DungeonRoomCount + 1; i++)
 			{
-                allRooms.Add(RoomFactory.GenerateRoom($"Content/Rooms/Room_{i}.csv", player));
+				string filePath = Path.Combine("Content", "Rooms", $"Room_{i}.csv");
+                allRooms.Add(RoomFactory.GenerateRoom(filePath, player, this));
             }
-			/*
-			string[] roomFiles = Directory.GetFiles(Path.Combine("Content", "Rooms"), "*.csv");
 
-			foreach (string roomFile in roomFiles)
-            {
-				allRooms.Add(RoomFactory.GenerateRoom(roomFile, player));
-			} */
 			currentRoomIndex = game.Dungeon.SpawnRoomLocation;
             CurrentRoom = allRooms[game.Dungeon.DungeonLayout[(int)currentRoomIndex.Y][(int)currentRoomIndex.X]];
         }
@@ -58,6 +60,7 @@ namespace MainGame.Rooms
 				return;
 			}
 			roomChangeDebounce = 20;
+
 			if (direction == Direction.North)
 			{
 				currentRoomIndex.Y = currentRoomIndex.Y - 1 < 0 ? 0 : currentRoomIndex.Y - 1;

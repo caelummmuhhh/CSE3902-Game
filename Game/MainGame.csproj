@@ -50,6 +50,7 @@
     <None Remove="Players\Inventory\" />
     <None Remove="Players\Inventory\EquippableItems\" />
     <None Remove="Players\Inventory\PassiveItems\" />
+    <None Remove="Commands\MenuCommands\" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Icon.ico" />
@@ -91,6 +92,7 @@
     <Folder Include="Players\Inventory\" />
     <Folder Include="Players\Inventory\EquippableItems\" />
     <Folder Include="Players\Inventory\PassiveItems\" />
+    <Folder Include="Commands\MenuCommands\" />
   </ItemGroup>
   <ItemGroup>
     <None Update="Content\Rooms\Room_10.csv">

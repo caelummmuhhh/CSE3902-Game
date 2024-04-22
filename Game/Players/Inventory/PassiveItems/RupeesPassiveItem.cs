@@ -4,7 +4,7 @@ namespace MainGame.Players.Inventory
 	public class RupeesPassiveItem : IInventoryItem
     {
         public int Id => (int)itemType;
-        public string Name => nameof(itemType);
+        public string Name => itemType.ToString();
         public bool Equippable { get; } = false;
         public bool Stackable { get; } = true;
         public bool IsUseable => Quantity > 0;

@@ -20,16 +20,15 @@ namespace MainGame.HudAndMenu
         private ISprite textAttackKey;
         private ISprite textLife;
 
-        private ISprite swordDisplay;
+        private readonly ISprite swordDisplay;
         private ISprite itemDisplay;
 
         private ISprite[] heartsDisplay;
         private int maxHealth;
         private ISprite[][] layoutDisplay;
-        private bool hasMap = false;
         private ISprite triforceRoom;
         private Vector2 triforceRoomLoc;
-        private bool hasCompass = false;
+
         public Hud(string dungeonID, string itemKey, string attackKey, Game1 game) 
         {
             this.game = game;
@@ -66,14 +65,20 @@ namespace MainGame.HudAndMenu
                 }
             }
         }
-        public void PauseUpdate()
+
+        public void TogglePauseDisplay(bool isPaused)
         {
-            pauseShift = 176 * Constants.UniversalScale;
+            if (isPaused)
+            {
+                pauseShift = 176 * Constants.UniversalScale;
+                return;
+            }
+            pauseShift = 0;
+
         }
+
         public void Update()
         {
-            pauseShift = 0;
-            
             textRupees = SpriteFactory.CreateTextSprite($"X{game.Player.Inventory.Rupees.Quantity}");
             textKeys = SpriteFactory.CreateTextSprite($"X{game.Player.Inventory.Keys.Quantity}");
             textBombs = SpriteFactory.CreateTextSprite($"X{game.Player.Inventory.Bombs.Quantity}");
@@ -95,22 +100,14 @@ namespace MainGame.HudAndMenu
                 }
             }
 
-            switch (game.Player.Inventory.EquippedItem?.Id)
+            if (game.Player.Inventory.EquippedItem is null)
             {
-                case (int)ItemTypes.Bomb:
-                    itemDisplay = SpriteFactory.CreateBombItemSprite();
-                    break;
-                case (int)ItemTypes.Candle:
-                    itemDisplay = SpriteFactory.CreateCandleItemSprite();
-                    break;
-                case (int)ItemTypes.Boomerang:
-                    itemDisplay = SpriteFactory.CreateWoodenBoomerangItemSprite();
-                    break;
-                case (int)ItemTypes.Bow:
-                    itemDisplay = SpriteFactory.CreateArrowItemSprite();
-                    break;
-                default:
-                    break;
+                game.Menu.MoveSelectingBoxToFirstValidItem();
+                itemDisplay = null;
+            }
+            else
+            {
+                itemDisplay = SpriteFactory.CreateItemSprite(game.Player.Inventory.EquippedItem.Name);
             }
         }
         public void Draw()
@@ -140,7 +137,7 @@ namespace MainGame.HudAndMenu
                 }
             }
 
-            if (hasMap)
+            if (game.RoomManager.PlayerHasMap)
             {
                 for (int i = 0; i < 8; i++)
                 {
@@ -152,8 +149,9 @@ namespace MainGame.HudAndMenu
                         }
                     }
                 }
-            } 
-            if (hasCompass)
+            }
+
+            if (game.RoomManager.PlayerHasCompass)
             {
                 triforceRoom.Draw((18 + (8 * triforceRoomLoc.X)) * Constants.UniversalScale, (16 + (4 * triforceRoomLoc.Y)) * Constants.UniversalScale + pauseShift, Color.White);
             }
