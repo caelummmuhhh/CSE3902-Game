@@ -14,6 +14,9 @@ namespace MainGame.Particles
 
         public static IParticle GetSwordBeamExplodingParticles(Vector2 position)
             => new SwordBeamExplodingParticles(position);
+
+        public static IParticle GetFireParticle(Vector2 position)
+            => new GenericParticle(position, SpriteFactory.CreateFireSprite());
     }
 }
 
