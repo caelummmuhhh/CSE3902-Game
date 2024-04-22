@@ -29,9 +29,6 @@ namespace MainGame.HudAndMenu
         private ISprite triforceRoom;
         private Vector2 triforceRoomLoc;
 
-        private bool hasMap = false;
-        private bool hasCompass = false;
-
         public Hud(string dungeonID, string itemKey, string attackKey, Game1 game) 
         {
             this.game = game;
@@ -153,7 +150,7 @@ namespace MainGame.HudAndMenu
                 }
             }
 
-            if (true)
+            if (game.RoomManager.PlayerHasMap)
             {
                 for (int i = 0; i < 8; i++)
                 {
@@ -167,7 +164,7 @@ namespace MainGame.HudAndMenu
                 }
             }
 
-            if (true)
+            if (game.RoomManager.PlayerHasCompass)
             {
                 triforceRoom.Draw((18 + (8 * triforceRoomLoc.X)) * Constants.UniversalScale, (16 + (4 * triforceRoomLoc.Y)) * Constants.UniversalScale + pauseShift, Color.White);
             }

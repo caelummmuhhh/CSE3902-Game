@@ -21,7 +21,7 @@ namespace MainGame.Rooms
         /*
          * Method for generating a room object based on a room name as specified in Content/Rooms
          */
-        public static IRoom GenerateRoom(string roomFile, IPlayer player)
+        public static IRoom GenerateRoom(string roomFile, IPlayer player, GameRoomManager roomManager)
         {
             string fullPath = Path.GetFullPath(roomFile);
             string[] lines = ParseCsv(fullPath);
@@ -40,7 +40,7 @@ namespace MainGame.Rooms
 
             for (int i = 2; i < lines.Length; i++)
             {
-                ParseItemsAndBlocks(ref lines[i], room, player, i - 2);
+                ParseItemsAndBlocks(ref lines[i], room, player, i - 2, roomManager);
                 ParseEnemies(lines[i], room, player, i - 2);
             }
 
@@ -234,7 +234,7 @@ namespace MainGame.Rooms
             }
         }
 
-        private static void ParseItemsAndBlocks(ref string line, IRoom room, IPlayer player, int yOffset)
+        private static void ParseItemsAndBlocks(ref string line, IRoom room, IPlayer player, int yOffset, GameRoomManager roomManager)
         {
             int wallOffsetX = 32 * Constants.UniversalScale;
             int wallOffsetY = 32 * Constants.UniversalScale + Constants.HudAndMenuHeight;
@@ -260,7 +260,7 @@ namespace MainGame.Rooms
                     continue;
                 }
 
-                IPickupableItem item = ItemFactory.CreateItem(objects[i], tilePosition, player);
+                IPickupableItem item = ItemFactory.CreateItem(objects[i], tilePosition, player, roomManager);
                 if (item is not null)
                 {
                     room.RoomItems.Add(item);

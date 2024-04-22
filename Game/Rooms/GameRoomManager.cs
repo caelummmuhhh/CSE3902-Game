@@ -10,11 +10,18 @@ namespace MainGame.Rooms
 		public IRoom CurrentRoom { get; set; }
 		public List<IRoom> AllRooms { get => allRooms; }
 
-		private readonly List<IRoom> allRooms = new();
+		// Can only change to true
+        public bool PlayerHasCompass { get => hasCompass; set => hasCompass = hasCompass || value; }
+        public bool PlayerHasMap { get => hasMap; set => hasMap = hasMap || value; }
+
+        private readonly List<IRoom> allRooms = new();
 
 		private int currentRoomIndex = 0; // TODO: delete, this is for testing only
 		private readonly Game1 game;
 		private int roomChangeDebounce = 20;
+
+		private bool hasMap = false;
+		private bool hasCompass = false;
 
 		public GameRoomManager(Game1 game)
 		{
@@ -25,9 +32,9 @@ namespace MainGame.Rooms
 		{
 			string[] roomFiles = Directory.GetFiles(Path.Combine("Content", "Rooms"), "*.csv");
 
-			foreach (string roomFile in roomFiles)
+            foreach (string roomFile in roomFiles)
             {
-				allRooms.Add(RoomFactory.GenerateRoom(roomFile, player));
+				allRooms.Add(RoomFactory.GenerateRoom(roomFile, player, this));
 			}
 			CurrentRoom = allRooms[currentRoomIndex]; // TODO: Delete
         }

@@ -3,6 +3,7 @@ using MainGame.Players;
 using MainGame.SpriteHandlers;
 using System;
 using MainGame.Audio;
+using MainGame.Rooms;
 
 namespace MainGame.WorldItems
 {
@@ -10,10 +11,13 @@ namespace MainGame.WorldItems
     {
         protected override ItemTypes ItemType { get; set; } = ItemTypes.Map;
         protected override ISprite Sprite { get; set; }
+        protected GameRoomManager roomManager;
 
-        public DungeonMapItem(Vector2 spawnPosition, IPlayer player) : base(spawnPosition, player)
+        public DungeonMapItem(Vector2 spawnPosition, IPlayer player, GameRoomManager roomManager)
+            : base(spawnPosition, player)
         {
             Sprite = SpriteFactory.CreateMapItemSprite();
+            this.roomManager = roomManager;
         }
 
         public override void PickUp()
@@ -21,7 +25,7 @@ namespace MainGame.WorldItems
             IsPickedUp = true;
             Console.WriteLine("Player picked up Dungeon Compass.");
             AudioManager.PlaySFX("Grab_Item_Medium", 0);
-            // TODO: Make this interact with Room
+            roomManager.PlayerHasMap = true;
         }
     }
 }

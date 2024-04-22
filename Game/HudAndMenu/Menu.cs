@@ -19,8 +19,8 @@ namespace MainGame.HudAndMenu
         private readonly ISprite textMap;
         private readonly ISprite textCompass;
 
-        private readonly ISprite mapDisplay;
-        private readonly ISprite compassDisplay;
+        private ISprite mapDisplay;
+        private ISprite compassDisplay;
 
         private ISprite bombItemDisplay;
         private ISprite boomerangItemDisplay;
@@ -68,6 +68,16 @@ namespace MainGame.HudAndMenu
             if (game.Player.Inventory.EquippedItem is null)
             {
                 MoveSelectingBoxToFirstValidItem();
+            }
+
+            if (compassDisplay is null && game.RoomManager.PlayerHasCompass)
+            {
+                compassDisplay = SpriteFactory.CreateCompassItemSprite();
+            }
+
+            if (mapDisplay is null && game.RoomManager.PlayerHasMap)
+            {
+                mapDisplay = SpriteFactory.CreateMapItemSprite();
             }
 
             UpdateSelectedItemDisplay();
