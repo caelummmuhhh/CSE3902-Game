@@ -47,6 +47,9 @@
     <None Remove="GridUtils\" />
     <None Remove="Blocks\" />
     <None Remove="Doors\" />
+    <None Remove="Players\Inventory\" />
+    <None Remove="Players\Inventory\EquippableItems\" />
+    <None Remove="Players\Inventory\PassiveItems\" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Icon.ico" />
@@ -85,11 +88,11 @@
     <Folder Include="GridUtils\" />
     <Folder Include="Blocks\" />
     <Folder Include="Doors\" />
+    <Folder Include="Players\Inventory\" />
+    <Folder Include="Players\Inventory\EquippableItems\" />
+    <Folder Include="Players\Inventory\PassiveItems\" />
   </ItemGroup>
   <ItemGroup>
-    <None Update="Content\Rooms\Room_1.csv">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
     <None Update="Content\Rooms\Room_10.csv">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
@@ -117,6 +120,9 @@
     <None Update="Content\Rooms\Room_18.csv">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Update="Content\Rooms\Room_19.csv">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Update="Content\Rooms\Room_2.csv">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
@@ -139,6 +145,15 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Update="Content\Rooms\Room_9.csv">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Dungeons\Dungeons_1_Debug.csv">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Dungeons\Dungeons_1.csv">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Rooms\Room_1.csv">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
   </ItemGroup>

@@ -8,7 +8,7 @@ namespace MainGame.Rooms
 	public class GameRoomManager
 	{
 		public IRoom CurrentRoom { get; set; }
-		public List<IRoom> AllRooms { get => AllRooms; }
+		public List<IRoom> AllRooms { get => allRooms; }
 
 		private readonly List<IRoom> allRooms = new();
 
@@ -19,18 +19,17 @@ namespace MainGame.Rooms
 		public GameRoomManager(Game1 game)
 		{
 			this.game = game;
-			LoadAllRooms(game.Player);
-			CurrentRoom = allRooms[currentRoomIndex];
         }
 
-		private void LoadAllRooms(IPlayer player)
+		public void LoadAllRooms(IPlayer player)
 		{
 			string[] roomFiles = Directory.GetFiles(Path.Combine("Content", "Rooms"), "*.csv");
 
 			foreach (string roomFile in roomFiles)
             {
-				allRooms.Add(RoomFactory.GenerateRoom(roomFile, player, game.AudioManager));
+				allRooms.Add(RoomFactory.GenerateRoom(roomFile, player));
 			}
+			CurrentRoom = allRooms[currentRoomIndex]; // TODO: Delete
         }
 
 		public void Update()

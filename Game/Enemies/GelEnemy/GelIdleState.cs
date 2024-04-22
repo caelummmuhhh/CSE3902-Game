@@ -1,4 +1,6 @@
 ﻿using System;
+using Microsoft.Xna.Framework;
+
 namespace MainGame.Enemies
 {
 	public class GelIdleState : IEnemyState
@@ -22,9 +24,9 @@ namespace MainGame.Enemies
 			stateDuration--;
 		}
 
-		public void Draw() => entity.Draw();
+		public void Draw() => entity.Sprite.Draw(entity.Position.X, entity.Position.Y, entity.SpriteColor);
 
-		public void Move() { /* no movement during idle... */ }
+        public void Move() { /* no movement during idle... */ }
 	}
 }
 

@@ -5,15 +5,14 @@ namespace MainGame.Particles
 {
     public class GenericParticle : IParticle
     {
-        public bool IsActive { get; set; }
+        public bool IsActive { get; private set; } = true;
         private readonly ISprite sprite;
         private Vector2 position;
-        private int lifeTime;
+        private int lifeTime = 12;
 
-        public GenericParticle(Vector2 spawnPosition, ISprite sprite, int lifeTime)
+        public GenericParticle(Vector2 spawnPosition, ISprite sprite)
         {
             IsActive = true;
-            this.lifeTime = lifeTime;
             position = spawnPosition;
             this.sprite = sprite;
         }
@@ -22,8 +21,12 @@ namespace MainGame.Particles
 
         public void Update()
         {
+            sprite.Update();
+            if (lifeTime <= 0)
+            {
+                IsActive = false;
+            }
             lifeTime--;
-            IsActive = lifeTime > 0;
         }
     }
 }

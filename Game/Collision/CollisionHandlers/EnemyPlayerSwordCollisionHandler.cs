@@ -17,7 +17,7 @@ namespace MainGame.Collision.CollisionHandlers
 		public void HandleCollision()
 		{
             Direction playerSideDamaged = Utils.GetCardinalDirectionFrom(enemy.Position, player.Position);
-            enemy.TakeDamage(playerSideDamaged);
+            enemy.TakeDamage(playerSideDamaged, 2);
 		}
 	}
 }

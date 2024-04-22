@@ -7,14 +7,15 @@ namespace MainGame.Enemies
 {
 	public class SpikeCrossEnemy : GenericEnemy
 	{
+        public override int Health { get; protected set; } = int.MaxValue;
+        public override int Damage => 2;
+
         public override int MovementCoolDownFrame { get; protected set; } = 1;
-        public override Rectangle AttackHitBox => new(); // No attack hitbox, you can't hit these
         public readonly IPlayer Player;
 
-        public SpikeCrossEnemy(Vector2 startingPosition, AudioManager audioManager, IPlayer player)
+        public SpikeCrossEnemy(Vector2 startingPosition, IPlayer player)
 		{
 			Position = startingPosition;
-            AudioManager = audioManager;
             PreviousPosition = new(Position.X, Position.Y);
             Player = player;
 			Sprite = SpriteFactory.CreateSpikeCrossSprite();
@@ -28,6 +29,10 @@ namespace MainGame.Enemies
             PreviousPosition = new(Position.X, Position.Y);
             State.Move();
 		}
+
+        // You can't hurt these
+        public override void TakeDamage(Direction sideHit, int damage) { }
+        public override void Stun(int duration) { }
     }
 }
 
