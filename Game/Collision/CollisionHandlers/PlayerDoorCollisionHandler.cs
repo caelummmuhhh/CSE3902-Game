@@ -25,8 +25,8 @@ namespace MainGame.Collision.CollisionHandlers
         public void HandleCollision()
         {
             Direction dir = door.Direction;
-            Debug.WriteLine(dir.ToString());
-            
+
+            Debug.WriteLine(door.IsOpen);
             if (door.IsOpen)
             {
                 game.RoomManager.NextRoom(dir);
@@ -37,6 +37,10 @@ namespace MainGame.Collision.CollisionHandlers
                 {
                     player.Inventory.Keys.Use();
                     door.Unlock();
+
+                    // Unlock door on other side
+
+
                 }
             }
         }

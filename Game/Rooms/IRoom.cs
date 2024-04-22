@@ -42,7 +42,6 @@ namespace MainGame.Rooms
 
         public Vector2 Position { get; set; }
 
-        public bool isMainRoom {  get; set; }
 
         public void Update();
         public void Draw();

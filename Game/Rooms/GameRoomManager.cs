@@ -5,17 +5,22 @@ using MainGame.Audio;
 using MainGame.Players;
 using System;
 using System.Diagnostics;
+using MainGame.Doors;
 
 namespace MainGame.Rooms
 {
 	public class GameRoomManager
 	{
 		public IRoom CurrentRoom { get; set; }
-		public IRoom SecondaryRoom { get; set; } // Used for room switching
+		
+		// Used for room switching
+		public IRoom CurrentGhostRoom { get; set; }
+		public IRoom SecondaryGhostRoom { get; set; }
 
-		public Vector2 RoomChangingVel { get; set; }
+		public Vector2 roomChangeVelo { get; set; }
 
-		public List<IRoom> AllRooms { get => allRooms; }
+
+        public List<IRoom> AllRooms { get => allRooms; }
 
 		// Can only change to true
         public bool PlayerHasCompass { get => hasCompass; set => hasCompass = hasCompass || value; }
@@ -25,7 +30,8 @@ namespace MainGame.Rooms
 
 		public Vector2 currentRoomIndex;
 		private readonly Game1 game;
-		public bool roomChangeDebounce = true;
+		public bool roomChange = false;
+		public int roomChangeDebounce = 0;
 
 		private bool hasMap = false;
 		private bool hasCompass = false;
@@ -49,104 +55,129 @@ namespace MainGame.Rooms
 
 		public void Update()
 		{
-			CurrentRoom.Update();
-			if (SecondaryRoom != null)
+			if(!roomChange) CurrentRoom.Update();
+			else
 			{
-				SecondaryRoom.Update();
-				SecondaryRoom.Position += RoomChangingVel; // Apply room changing velocity to secondary room
-				CurrentRoom.Position += RoomChangingVel;
+                CurrentGhostRoom.Update();
+				SecondaryGhostRoom.Update();
 
-                // Check if room switch has been compleate
-                float distanceFromStart = Vector2.Distance(SecondaryRoom.Position, new Vector2(0, Constants.HudAndMenuHeight));
+                CurrentGhostRoom.Position += roomChangeVelo;
+				SecondaryGhostRoom.Position += roomChangeVelo;
 
-                if (distanceFromStart < Constants.RoomScrollingSpeed)
+                float dis = Vector2.Distance(new Vector2(0, Constants.HudAndMenuHeight), SecondaryGhostRoom.Position);
+
+                if (dis < Constants.RoomScrollingSpeed)
 				{
-					SwitchingRoomsEnd();
-				}
-			}
-		}
+                    SwitchingRoomsEnd();
+                }   
+            }
+			roomChangeDebounce--;
+
+        }
 
 		public void Draw()
 		{
-			CurrentRoom.Draw();
-			if(SecondaryRoom != null) SecondaryRoom.Draw(); 
+            if (!roomChange) CurrentRoom.Draw();
+            else
+            {
+                CurrentGhostRoom.Draw();
+                SecondaryGhostRoom.Draw();
+            }
 		}
 
 		public void SwitchRoomsStart(Direction direction)
 		{
-			roomChangeDebounce = false;
-			game.SetPlayer(); // Turn player off for room switching
-			CurrentRoom.isMainRoom = false;
-			// Initiate the switching room process by setting creating a new room 
-            SecondaryRoom = allRooms[game.Dungeon.DungeonLayout[(int)currentRoomIndex.Y][(int)currentRoomIndex.X]];
+			/*
+			 * The idea behind scrolling rooms is to create two "Ghost" rooms for purly display since nothing really happens during room change
+			 * then once the room scroll is compleate then the current room can actually be set to the new room
+			 */ 
 
-            // Set original location for seconday room based on direction
-            if (direction == Direction.North)
-            {
-                game.Player.Position = new Vector2(CurrentRoom.SouthDoor.Position.X, CurrentRoom.SouthDoor.Position.Y);
-                SecondaryRoom.Position = new Vector2(0, -game.GraphicsManager.PreferredBackBufferHeight+2*Constants.HudAndMenuHeight);
-                RoomChangingVel = new Vector2(0, Constants.RoomScrollingSpeed);
-            }
-            else if (direction == Direction.South)
-            {
-                game.Player.Position = new Vector2(CurrentRoom.NorthDoor.Position.X, CurrentRoom.NorthDoor.Position.Y);
-                SecondaryRoom.Position = new Vector2(0, game.GraphicsManager.PreferredBackBufferHeight);
-				RoomChangingVel = new Vector2(0, -Constants.RoomScrollingSpeed);
+			roomChange = true; // Start change
+			game.SetPlayer(); // Hide player
+			// set changing variables based on direction
+			Vector2 secondaryGhostRoomStartPos;
 
+			if(direction == Direction.West)
+			{
+				roomChangeVelo = new Vector2(Constants.RoomScrollingSpeed, 0);
+				secondaryGhostRoomStartPos = new Vector2(-game.GraphicsManager.PreferredBackBufferWidth, Constants.HudAndMenuHeight);
+			}else if (direction == Direction.East)
+			{
+                roomChangeVelo = new Vector2(-Constants.RoomScrollingSpeed, 0);
+                secondaryGhostRoomStartPos = new Vector2(game.GraphicsManager.PreferredBackBufferWidth, Constants.HudAndMenuHeight);
             }
-            else if (direction == Direction.West)
-            {
-                game.Player.Position = new Vector2(CurrentRoom.WestDoor.Position.X, CurrentRoom.WestDoor.Position.Y);
-                SecondaryRoom.Position = new Vector2(-game.GraphicsManager.PreferredBackBufferWidth, Constants.HudAndMenuHeight);
-                RoomChangingVel = new Vector2(Constants.RoomScrollingSpeed, 0);
+			else if(direction == Direction.North)
+			{
+                roomChangeVelo = new Vector2(0, Constants.RoomScrollingSpeed);
+                secondaryGhostRoomStartPos = new Vector2(0, -game.GraphicsManager.PreferredBackBufferHeight+2*Constants.HudAndMenuHeight);
             }
-            else if (direction == Direction.East)
-            {
-                game.Player.Position = new Vector2(CurrentRoom.EastDoor.Position.X, CurrentRoom.EastDoor.Position.Y);
-                SecondaryRoom.Position = new Vector2(game.GraphicsManager.PreferredBackBufferWidth, Constants.HudAndMenuHeight);
-                RoomChangingVel = new Vector2(-Constants.RoomScrollingSpeed, 0);
+			else
+			{
+                roomChangeVelo = new Vector2(0, -Constants.RoomScrollingSpeed);
+                secondaryGhostRoomStartPos = new Vector2(0, game.GraphicsManager.PreferredBackBufferHeight);
             }
-            game.Player.Position = new Vector2(game.GraphicsManager.PreferredBackBufferWidth / 2, game.GraphicsManager.PreferredBackBufferHeight / 2);
+
+			// Create ghost rooms for display
+			CurrentGhostRoom = createGhostRoom(CurrentRoom);
+			SecondaryGhostRoom = createGhostRoom(allRooms[game.Dungeon.DungeonLayout[(int)currentRoomIndex.Y][(int)currentRoomIndex.X]]);
+            SecondaryGhostRoom.Position = secondaryGhostRoomStartPos;
         }
 
 		public void SwitchingRoomsEnd()
 		{
-            // Set the new room to current room
-            RoomChangingVel = new Vector2(0, 0);
-			SecondaryRoom.Position = new Vector2(0, Constants.HudAndMenuHeight);
-            CurrentRoom = SecondaryRoom;
-			CurrentRoom.isMainRoom = true;
-            SecondaryRoom = null;
-            SecondaryRoom = null;
-            game.SetPlayer(); // Turn player back on
-			roomChangeDebounce = true;
+            roomChange = false; // End change
+			game.Player.Position = new Vector2(game.GraphicsManager.PreferredBackBufferWidth/2, game.GraphicsManager.PreferredBackBufferHeight/2);
+            game.SetPlayer(); // unhide player
+			CurrentRoom = allRooms[game.Dungeon.DungeonLayout[(int)currentRoomIndex.Y][(int)currentRoomIndex.X]];
+			roomChangeDebounce = 20;
+        }
+
+		public IRoom createGhostRoom(IRoom room)
+		{
+			IRoom ghost = new Room(room.OuterBorderSprite, room.InnerBorderSprite, room.TilesSprite);
+			ghost.NorthDoor = new Door((Door)room.NorthDoor);
+            ghost.SouthDoor = new Door((Door)room.SouthDoor);
+            ghost.EastDoor = new Door((Door)room.EastDoor);
+            ghost.WestDoor = new Door((Door)room.WestDoor);
+
+			ghost.RoomBlocks = room.RoomBlocks;
+			ghost.DoorBaseLocations = room.DoorBaseLocations;
+			ghost.BlockBaseLocations = room.BlockBaseLocations;
+
+			return ghost;
         }
 
 		public void NextRoom(Direction direction)
 		{
-			if (!roomChangeDebounce)
+			if (roomChange || roomChangeDebounce > 0)
 			{
 				return;
 			}
+			roomChangeDebounce = 20;
 
-			if (direction == Direction.North)
+
+            if (direction == Direction.North)
 			{
 				currentRoomIndex.Y = currentRoomIndex.Y - 1 < 0 ? 0 : currentRoomIndex.Y - 1;
+                game.Player.Position = new Vector2(120 * Constants.UniversalScale, (128 * Constants.UniversalScale) + Constants.HudAndMenuHeight);
             } 
 			else if (direction == Direction.South)
 			{
                 currentRoomIndex.Y = currentRoomIndex.Y + 1 >= game.Dungeon.DungeonSize - 1 ? game.Dungeon.DungeonSize - 1 : currentRoomIndex.Y + 1;
+                game.Player.Position = new Vector2(120 * Constants.UniversalScale, Constants.HudAndMenuHeight + 16 * Constants.UniversalScale);
             }
             else if (direction == Direction.West)
             {
                 currentRoomIndex.X = currentRoomIndex.X - 1 < 0 ? 0 : currentRoomIndex.X - 1;
+                game.Player.Position = new Vector2(game.GraphicsManager.PreferredBackBufferWidth - 46 * Constants.UniversalScale, (game.GraphicsManager.PreferredBackBufferHeight + Constants.HudAndMenuHeight - 16 * Constants.UniversalScale) / 2);
             }
             else if (direction == Direction.East)
             {
                 currentRoomIndex.X = currentRoomIndex.X + 1 >= game.Dungeon.DungeonSize - 1 ? game.Dungeon.DungeonSize - 1 : currentRoomIndex.X + 1;
+                game.Player.Position = new Vector2(32 * Constants.UniversalScale, (game.GraphicsManager.PreferredBackBufferHeight + Constants.HudAndMenuHeight - 16 * Constants.UniversalScale) / 2);
             }
-
-            SwitchRoomsStart(direction);
+			
+            CurrentRoom = allRooms[game.Dungeon.DungeonLayout[(int)currentRoomIndex.Y][(int)currentRoomIndex.X]];
         }
     }
 }

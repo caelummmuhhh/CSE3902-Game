@@ -47,11 +47,8 @@ namespace MainGame.Rooms
 
         public Vector2 Position { get; set;}
 
-        public bool isMainRoom { get; set; }
-
         public Room(ISprite outerBorder, ISprite innerBorder, ISprite tiles)
         {
-            isMainRoom = false;
             Position = new Vector2(0, Constants.HudAndMenuHeight);
             OuterBorderSprite = outerBorder;
             InnerBorderSprite = innerBorder;
@@ -87,30 +84,29 @@ namespace MainGame.Rooms
             {
                 block.Update();
             }
-            if (isMainRoom) // Some stuff should not be done if the room is not the main room
+            
+            foreach (IPickupableItem item in RoomItems)
             {
-                foreach (IPickupableItem item in RoomItems)
-                {
-                    item.Update();
-                }
-                foreach (IEnemy enemy in RoomEnemies)
-                {
-                    enemy.Update();
-                }
-                foreach (IParticle particle in RoomParticles)
-                {
-                    particle.Update();
-                }
-                for (int i = PlayerProjectiles.Count - 1; i >= 0; i--)
-                {
-                    IProjectile projectile = PlayerProjectiles[i];
-                    projectile.Update();
+                item.Update();
+            }
+            foreach (IEnemy enemy in RoomEnemies)
+            {
+                enemy.Update();
+            }
+            foreach (IParticle particle in RoomParticles)
+            {
+                particle.Update();
+            }
+            for (int i = PlayerProjectiles.Count - 1; i >= 0; i--)
+            {
+                IProjectile projectile = PlayerProjectiles[i];
+                projectile.Update();
 
-                    if (!projectile.IsActive)
-                    {
-                        PlayerProjectiles.RemoveAt(i);
-                    }
+                if (!projectile.IsActive)
+                {
+                    PlayerProjectiles.RemoveAt(i);
                 }
+            }
 
                 for (int i = EnemyProjectiles.Count - 1; i >= 0; i--)
                 {
@@ -123,7 +119,6 @@ namespace MainGame.Rooms
                     }
                 }
             }
-        }
 
         public void Draw()
         {
@@ -144,30 +139,29 @@ namespace MainGame.Rooms
                 block.Draw();
             }
 
-            if (isMainRoom)
+            
+            foreach (IPickupableItem item in RoomItems)
             {
-                foreach (IPickupableItem item in RoomItems)
-                {
-                    item.Draw();
-                }
-                foreach (IEnemy enemy in RoomEnemies)
-                {
-                    enemy.Draw();
-                }
-                foreach (IParticle particle in RoomParticles)
-                {
-                    particle.Draw();
-                }
-
-                foreach (IProjectile projectile in PlayerProjectiles)
-                {
-                    projectile.Draw();
-                }
-                foreach (IProjectile projectile in EnemyProjectiles)
-                {
-                    projectile.Draw();
-                }
+                item.Draw();
             }
+            foreach (IEnemy enemy in RoomEnemies)
+            {
+                enemy.Draw();
+            }
+            foreach (IParticle particle in RoomParticles)
+            {
+                particle.Draw();
+            }
+
+            foreach (IProjectile projectile in PlayerProjectiles)
+            {
+                projectile.Draw();
+            }
+            foreach (IProjectile projectile in EnemyProjectiles)
+            {
+                projectile.Draw();
+            }
+            
         }
     }
 }
