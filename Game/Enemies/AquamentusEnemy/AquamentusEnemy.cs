@@ -33,7 +33,7 @@ namespace MainGame.Enemies
             ProjectilesManager.Update();
             base.Update();
 
-            if(RoarTime <= 0)
+            if(RoarTime <= 0 && IsAlive)
             {
                 AudioManager.PlaySFX("Boss_Roar", 0);
                 RoarTime = 160;
@@ -56,6 +56,7 @@ namespace MainGame.Enemies
                 DamageState = new EnemyDamagedState(this, sideHit, false);
                 Health -= damage;
                 CheckForDeath();
+                AudioManager.PlaySFX("Boss_Hit", 0);
             }
         }
     }

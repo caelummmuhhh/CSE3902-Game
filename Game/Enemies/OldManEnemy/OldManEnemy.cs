@@ -36,6 +36,7 @@ namespace MainGame.Enemies
             if (!IsInvulnerable)
             {
                 DamageState = new EnemyDamagedState(this, sideHit, false);
+                AudioManager.PlaySFX("Enemy_Die", 0);
             }
         }
         public override void Stun(int duration) { }

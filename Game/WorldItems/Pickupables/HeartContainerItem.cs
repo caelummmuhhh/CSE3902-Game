@@ -19,7 +19,7 @@ namespace MainGame.WorldItems
         {
             IsPickedUp = true;
             Player.IncreaseMaxHP();
-            Player.Heal(Player.MaxHealth);
+            Player.Heal(2);
             AudioManager.PlaySFX("Grab_Item_Medium", 0);
         }
     }
