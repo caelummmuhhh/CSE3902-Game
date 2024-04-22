@@ -38,10 +38,13 @@ namespace MainGame.Controllers
 
                 { Keys.E, new PlayerDamageCommand(game) }, // TODO: delete in final
 
-                { Keys.D1, new PlayerObtainEquipBombCommand(player) },
-                { Keys.D2, new PlayerObtainEquipBowCommand(player) },
-                { Keys.D3, new PlayerObtainEquipBoomerang(player) },
-                { Keys.D4, new PlayerObtainEquipCandleCommand(player) },
+                { Keys.D1, new PlayerObtainBoomerangCommand(player) },
+                { Keys.D2, new PlayerObtainBombCommand(player) },
+                { Keys.D3, new PlayerObtainArrowCommand(player) },
+                { Keys.D4, new PlayerObtainBowCommand(player) },
+                { Keys.D5, new PlayerObtainCandleCommand(player) },
+                { Keys.D6, new PlayerObtainRupeesCommand(player) },
+                { Keys.D7, new PlayerMaxHealthCommand(player) },
 
                 { Keys.Up, new NextRoomCommand(game) },
 
