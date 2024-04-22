@@ -19,8 +19,6 @@ namespace MainGame.Commands.PlayerCommands
                 Console.WriteLine("Obtained boomerang");
                 return;
             }
-            Console.WriteLine("Equiped boomerang");
-            player.Inventory.Equip((int)ItemTypes.Boomerang);
         }
 
         public void UnExecute() { /* not needed */ }

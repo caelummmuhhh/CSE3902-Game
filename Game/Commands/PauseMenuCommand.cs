@@ -13,7 +13,6 @@ namespace MainGame.Commands
 
         public void Execute()
         {
-            game.Hud.PauseUpdate();
             game.SetPause();
         }
 

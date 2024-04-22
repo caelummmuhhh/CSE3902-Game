@@ -82,7 +82,7 @@ namespace MainGame.Players.Inventory
             if (EquippedItem is null) { return; }
 
             EquippedItem.Use();
-            if (EquippedItem.Quantity <= 0)
+            if (EquippedItem.Quantity <= 0 && EquippedItem.Id == (int)ItemTypes.Bomb)
             {
                 EquippedItem = null;
             }

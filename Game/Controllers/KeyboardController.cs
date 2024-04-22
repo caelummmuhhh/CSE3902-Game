@@ -4,14 +4,16 @@ using Microsoft.Xna.Framework.Input;
 
 using MainGame.Commands;
 using MainGame.Commands.PlayerCommands;
+using MainGame.Commands.MenuCommands;
 using MainGame.Players;
-using Microsoft.Xna.Framework.Graphics;
+using System;
 
 namespace MainGame.Controllers
 {
 	public class KeyboardController : IController
 	{
-        private readonly Dictionary<Keys, ICommand> unpausedCommands;
+        private readonly Dictionary<Keys, ICommand> playCommands;
+        private readonly Dictionary<Keys, ICommand> menuCommands;
         private readonly List<ICommand> executingCommands;
 		private readonly IPlayer player;
 		private readonly Game1 game;
@@ -21,7 +23,7 @@ namespace MainGame.Controllers
 			this.game = game;
 			this.player = player;
             executingCommands = new();
-            unpausedCommands = new()
+            playCommands = new()
             {
                 { Keys.Q, new QuitGameCommand(game) },
                 { Keys.R, new ResetGameCommand(game) },
@@ -32,10 +34,9 @@ namespace MainGame.Controllers
                 { Keys.D, new PlayerMoveRightCommand(game) },
 
                 { Keys.K, new PlayerUseSwordCommand(player) },
+                { Keys.J, new PlayerUseItemCommand(player) },
 
                 { Keys.E, new PlayerDamageCommand(game) }, // TODO: delete in final
-
-                { Keys.J, new PlayerUseItemCommand(player) },
 
                 { Keys.D1, new PlayerObtainEquipBombCommand(player) },
                 { Keys.D2, new PlayerObtainEquipBowCommand(player) },
@@ -47,6 +48,15 @@ namespace MainGame.Controllers
                 { Keys.P, new PauseMenuCommand(game) },
                 { Keys.M, new MuteMusicCommand(game) },
             };
+
+            menuCommands = new()
+            {
+                { Keys.Q, playCommands[Keys.Q] },
+                { Keys.A, new MoveItemSelectLeftCommand(game) },
+                { Keys.D, new MoveItemSelectRightCommand(game) },
+                { Keys.P, playCommands[Keys.P] },
+                { Keys.M, playCommands[Keys.M] }
+            };
         }
 
         public void Update()
@@ -54,16 +64,18 @@ namespace MainGame.Controllers
             KeyboardState keyState = Keyboard.GetState();
             List<ICommand> unexecuteCommands = new();
 
-            foreach (Keys key in unpausedCommands.Keys)
+            Dictionary<Keys, ICommand> detectKeys = game.TogglePause ? menuCommands : playCommands;
+
+            foreach (Keys key in detectKeys.Keys)
             {
-                if (keyState.IsKeyDown(key) && !executingCommands.Contains(unpausedCommands[key]))
+                if (keyState.IsKeyDown(key) && !executingCommands.Contains(detectKeys[key]))
                 {
-                    executingCommands.Add(unpausedCommands[key]);
+                    executingCommands.Add(detectKeys[key]);
                 }
-                else if (!keyState.IsKeyDown(key) && executingCommands.Contains(unpausedCommands[key]))
+                else if (!keyState.IsKeyDown(key) && executingCommands.Contains(detectKeys[key]))
                 {
-                    executingCommands.Remove(unpausedCommands[key]);
-                    unexecuteCommands.Add(unpausedCommands[key]);
+                    executingCommands.Remove(detectKeys[key]);
+                    unexecuteCommands.Add(detectKeys[key]);
                 }
             }
 

@@ -34,13 +34,17 @@ namespace MainGame.SpriteHandlers
         /// <param name="itemName">The name of the item.</param>
         /// <returns>The ISprite object created based on item name.</returns>
         /// <exception cref="ArgumentException">The item name does not match to an item.</exception>
-        public static ISprite CreateItemSprite(string itemName)
+        public static ISprite CreateItemSprite(string itemName, bool throwException = false)
         {
             bool conversionSuccess = Enum.TryParse(itemName, out ItemTypes item);
 
-            if (!conversionSuccess)
+            if (!conversionSuccess && throwException)
             {
                 throw new ArgumentException("Unable to parse item name string into a item.");
+            }
+            else if (!conversionSuccess && !throwException)
+            {
+                return null;
             }
 
             return CreateItemSprite(item);

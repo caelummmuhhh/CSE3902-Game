@@ -16,7 +16,7 @@ namespace MainGame.Commands.PlayerCommands
             if (!player.Inventory.HasItem((int)ItemTypes.Bow))
             {
                 player.Inventory.AddItem((int)ItemTypes.Bow, 1);
-                Console.WriteLine("Obtained boomerang");
+                Console.WriteLine("Obtained bow");
                 return;
             }
 
@@ -32,9 +32,6 @@ namespace MainGame.Commands.PlayerCommands
                 player.Inventory.Rupees.Add(100);
                 Console.WriteLine("Obtained 100 rupees!");
             }
-
-            Console.WriteLine("Equipped bow");
-            player.Inventory.Equip((int)ItemTypes.Bow);
         }
 
         public void UnExecute() { /* not needed */ }

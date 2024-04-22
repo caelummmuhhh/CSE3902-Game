@@ -18,7 +18,6 @@ namespace MainGame.Commands.PlayerCommands
             {
                 player.Inventory.AddItem((int)ItemTypes.Candle, 1);
             }
-            player.Inventory.Equip((int)ItemTypes.Candle);
         }
 
         public void UnExecute() { /* not needed */ }

@@ -113,14 +113,15 @@ public class Game1 : Game
             ++PauseDebounce;
             RoomManager.Update();
             Player.Update();
-            Hud.Update();
             Collision.Update();
+            Hud.TogglePauseDisplay(TogglePause);
         } else
         {
+            Hud.TogglePauseDisplay(TogglePause);
             Menu.Update();
             ++PauseDebounce;
         }
-
+        Hud.Update();
         // Audio has to be outside to allow pause sounds, will cause bugs with delayed sounds playing on pause screen
         AudioManager.Update();
 

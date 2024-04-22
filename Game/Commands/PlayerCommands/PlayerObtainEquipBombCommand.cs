@@ -13,14 +13,12 @@ namespace MainGame.Commands.PlayerCommands
 
         public void Execute()
         {
-            if (!player.Inventory.HasItem((int)ItemTypes.Bomb))
+            if (player.Inventory.Bombs.Quantity <= 0)
             {
-                player.Inventory.AddItem((int)ItemTypes.Bomb, 10);
-                Console.WriteLine("Obtained 3 bomb");
+                player.Inventory.AddItem((int)ItemTypes.Bomb, 4);
+                Console.WriteLine("Obtained 4 bomb");
                 return;
             }
-            Console.WriteLine("Equipped bomb");
-            player.Inventory.Equip((int)ItemTypes.Bomb);
         }
 
         public void UnExecute() { /* not needed */ }
