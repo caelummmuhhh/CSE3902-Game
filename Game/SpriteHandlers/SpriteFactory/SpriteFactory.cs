@@ -16,7 +16,7 @@ namespace MainGame.SpriteHandlers
             TextureMap.Add("EnemiesSprites", contents.Load<Texture2D>("EnemiesSprites"));
             TextureMap.Add("BlocksSprites", contents.Load<Texture2D>("BlocksSprites"));
             TextureMap.Add("ProjectilesSprites", contents.Load<Texture2D>("ProjectilesSprites"));
-            TextureMap.Add("ItemsSprites", contents.Load<Texture2D>("ItemsSprites"));
+            TextureMap.Add("ItemsSprites", contents.Load<Texture2D>("ItemSprites"));
             TextureMap.Add("RoomSprites", contents.Load<Texture2D>("RoomSprites"));
             TextureMap.Add("ParticleSprites", contents.Load<Texture2D>("ParticleSprites"));
             TextureMap.Add("HudAndMenuSprites", contents.Load<Texture2D>("HudAndMenu"));

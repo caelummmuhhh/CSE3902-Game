@@ -14,7 +14,7 @@ namespace MainGame.Players
         public static readonly float Speed = Constants.UniversalScale + 2;
         public static readonly int UsingItemsSpeed = 6;
         public static readonly float KnockedBackSpeed = 10f;
-        public static readonly int ImmunityFrame = 100;
+        public static readonly int ImmunityFrame = 48;
         public static readonly int KnockedBackDistance = 2 * Constants.BlockSize;
 
         public int MaxHealth { get; protected set; }
@@ -81,7 +81,10 @@ namespace MainGame.Players
 					AudioManager.PlaySFX("Player_Hurt", 0);
 					return;
                 }
+				invulnerableTimer = int.MaxValue;
 				CurrentState = new PlayerDeathState(this);
+				AudioManager.MuteSong();
+                AudioManager.PlaySFX("Player_Die", 0);
             }
 		}
 
@@ -105,7 +108,6 @@ namespace MainGame.Players
 				roomManager.CurrentRoom.PlayerProjectiles.Add(swordBeam);
             }
         }
-
         private void UpdateHitBoxes()
 		{
 			MainHitbox = new(Position.ToPoint(), new Point(Constants.BlockSize, Constants.BlockSize));

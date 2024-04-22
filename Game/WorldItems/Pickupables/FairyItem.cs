@@ -13,7 +13,7 @@ namespace MainGame.WorldItems
         private int directionChangeTimer = 0;
 
 		public FairyItem(Vector2 spawnPosition, IPlayer player)
-			: base(spawnPosition, player, ItemTypes.Fairy, player.MaxHealth)
+			: base(spawnPosition, player, ItemTypes.Fairy, 6)
         {
             random = new();
         }

@@ -42,7 +42,7 @@ namespace MainGame.Controllers
                 { Keys.D3, new PlayerObtainEquipBoomerang(player) },
                 { Keys.D4, new PlayerObtainEquipCandleCommand(player) },
 
-                { Keys.Up, new NextRoomCommand(game) },
+                //{ Keys.Up, new NextRoomCommand(game) },
 
                 { Keys.P, new PauseMenuCommand(game) },
                 { Keys.M, new MuteMusicCommand(game) },

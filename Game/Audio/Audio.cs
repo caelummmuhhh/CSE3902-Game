@@ -71,6 +71,7 @@ namespace MainGame.Audio
             SFXMap.Add("Stairs", Game.Content.Load<SoundEffect>("Audio/LOZ_Stairs"));
             SFXMap.Add("Sword_Beam", Game.Content.Load<SoundEffect>("Audio/LOZ_Sword_Shoot"));
             SFXMap.Add("Sword_Attack", Game.Content.Load<SoundEffect>("Audio/LOZ_Sword_Slash"));
+            SFXMap.Add("Boss_Hit", Game.Content.Load<SoundEffect>("Audio/Boss_Hit"));
         }
 
         public static void Update()
