@@ -13,7 +13,7 @@ namespace MainGame.Rooms
 		private readonly List<IRoom> allRooms = new();
 
 		private int currentRoomIndex = 0; // TODO: delete, this is for testing only
-		private readonly Game1 game; // TODO: we might not even need this tbh
+		private readonly Game1 game;
 		private int roomChangeDebounce = 20;
 
 		public GameRoomManager(Game1 game)

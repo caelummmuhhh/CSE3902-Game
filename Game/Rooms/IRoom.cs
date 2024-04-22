@@ -24,6 +24,8 @@ namespace MainGame.Rooms
         public List<IProjectile> PlayerProjectiles { get; }
         public List<IProjectile> EnemyProjectiles { get; }
 
+        public ISprite RoomText { get; set; }
+
         public IDoor NorthDoor { get; set; }
         public IDoor WestDoor { get; set; }
         public IDoor EastDoor { get; set; }

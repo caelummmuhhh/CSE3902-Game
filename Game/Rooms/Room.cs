@@ -26,6 +26,8 @@ namespace MainGame.Rooms
         public List<IProjectile> EnemyProjectiles { get; private set; } = new();
 
 
+        public ISprite RoomText { get; set; }
+
         public IHitBox EnemiesBorderHitBox { get; set; }
         public IHitBox PlayerBorderHitBox { get; set; }
 
@@ -54,7 +56,6 @@ namespace MainGame.Rooms
             EnemiesBorderHitBox = new AllFullWallHitBox();
             PlayerBorderHitBox = new GenericHitBox();
         }
-
         public void Update()
         {
             //RoomPlayer.Update();
@@ -130,6 +131,9 @@ namespace MainGame.Rooms
             {
                 particle.Draw();
             }
+            
+            if (RoomText != null) RoomText.Draw(32 * Constants.UniversalScale, 32 * Constants.UniversalScale + Constants.HudAndMenuHeight, Color.White);
+
             foreach (IProjectile projectile in PlayerProjectiles)
             {
                 projectile.Draw();
