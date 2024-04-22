@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Data;
 using System.Linq;
 using Microsoft.Xna.Framework;
 
@@ -36,6 +37,8 @@ namespace MainGame
         public static readonly int BlockSize = 16 * UniversalScale;
 
         public static readonly int HudAndMenuHeight = 56 * UniversalScale;
+
+        public static readonly int RoomScrollingSpeed = 5;
     }
 
     public static class Utils

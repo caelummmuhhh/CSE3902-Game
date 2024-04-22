@@ -13,6 +13,7 @@ using MainGame.Collision;
 using MainGame.Audio;
 using MainGame.Dungeons;
 using MainGame.Particles;
+using System.Linq;
 
 namespace MainGame.Rooms
 {
@@ -232,6 +233,7 @@ namespace MainGame.Rooms
                 room.WestDoor = new BlankDoor();
                 room.PlayerBorderHitBox.Add(new RightFullVerticalWallHitBox());
             }
+            room.DoorBaseLocations = new Vector2[] { room.NorthDoor.Position, room.SouthDoor.Position, room.EastDoor.Position, room.WestDoor.Position };
         }
 
         private static void ParseItemsAndBlocks(ref string line, IRoom room, IPlayer player, int yOffset, GameRoomManager roomManager)
@@ -268,6 +270,11 @@ namespace MainGame.Rooms
                 }
             }
             line = string.Join(',', objects);
+            room.BlockBaseLocations = new Vector2[room.RoomBlocks.Count];
+            for (int i = 0; i < room.RoomBlocks.Count; i++)
+            {
+                room.BlockBaseLocations[i] = new Vector2(room.RoomBlocks[i].Position.X, room.RoomBlocks[i].Position.Y);
+            }
         }
 
         private static void ParseEnemies(string line, IRoom room, IPlayer player, int yOffset)

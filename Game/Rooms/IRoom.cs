@@ -30,6 +30,8 @@ namespace MainGame.Rooms
         public IDoor WestDoor { get; set; }
         public IDoor EastDoor { get; set; }
         public IDoor SouthDoor { get; set; }
+        public Vector2[] DoorBaseLocations { get; set; }
+        public Vector2[] BlockBaseLocations { get; set; }
 
         public IHitBox EnemiesBorderHitBox { get; set; }
         public IHitBox PlayerBorderHitBox { get; set; }
@@ -37,6 +39,10 @@ namespace MainGame.Rooms
         public ISprite OuterBorderSprite { get; set; }
         public ISprite InnerBorderSprite { get; set; }
         public ISprite TilesSprite { get; set; }
+
+        public Vector2 Position { get; set; }
+
+        public bool isMainRoom {  get; set; }
 
         public void Update();
         public void Draw();

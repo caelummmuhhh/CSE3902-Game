@@ -10,6 +10,8 @@ using MainGame.Players;
 using MainGame.Particles;
 using MainGame.Collision;
 using MainGame.Projectiles;
+using System.Dynamic;
+using System.Diagnostics;
 
 namespace MainGame.Rooms
 {
@@ -36,14 +38,20 @@ namespace MainGame.Rooms
         public IDoor EastDoor { get; set; }
         public IDoor SouthDoor { get; set; }
 
+        public Vector2[] DoorBaseLocations { get; set; }
+        public Vector2[] BlockBaseLocations { get; set; }
+
         public ISprite OuterBorderSprite { get; set; }
         public ISprite InnerBorderSprite { get; set; }
         public ISprite TilesSprite { get; set; }
 
-        private Vector2 Position = new(0, 0);
+        public Vector2 Position { get; set;}
+
+        public bool isMainRoom { get; set; }
 
         public Room(ISprite outerBorder, ISprite innerBorder, ISprite tiles)
         {
+            isMainRoom = false;
             Position = new Vector2(0, Constants.HudAndMenuHeight);
             OuterBorderSprite = outerBorder;
             InnerBorderSprite = innerBorder;
@@ -55,6 +63,7 @@ namespace MainGame.Rooms
 
             EnemiesBorderHitBox = new AllFullWallHitBox();
             PlayerBorderHitBox = new GenericHitBox();
+
         }
         public void Update()
         {
@@ -63,42 +72,55 @@ namespace MainGame.Rooms
             InnerBorderSprite.Update();
             TilesSprite.Update();
 
+            // Update door locations
+            NorthDoor.Position = DoorBaseLocations[0] + Position - new Vector2(0, Constants.HudAndMenuHeight);
+            SouthDoor.Position = DoorBaseLocations[1] + Position - new Vector2(0, Constants.HudAndMenuHeight);
+            EastDoor.Position = DoorBaseLocations[2] + Position - new Vector2(0, Constants.HudAndMenuHeight);
+            WestDoor.Position = DoorBaseLocations[3] + Position - new Vector2(0, Constants.HudAndMenuHeight);
+
+            for (int i = 0; i < RoomBlocks.Count; i++)
+            {
+                RoomBlocks[i].Position = BlockBaseLocations[i] + Position - new Vector2(0, Constants.HudAndMenuHeight);
+            }
+
             foreach (IBlock block in RoomBlocks)
             {
                 block.Update();
             }
-            foreach (IPickupableItem item in RoomItems)
+            if (isMainRoom) // Some stuff should not be done if the room is not the main room
             {
-                item.Update();
-            }
-            foreach (IEnemy enemy in RoomEnemies)
-            {
-                enemy.Update();
-            }
-            foreach (IParticle particle in RoomParticles)
-            {
-                particle.Update();
-            }
-
-            for (int i = PlayerProjectiles.Count - 1; i >= 0; i--)
-            {
-                IProjectile projectile = PlayerProjectiles[i];
-                projectile.Update();
-
-                if (!projectile.IsActive)
+                foreach (IPickupableItem item in RoomItems)
                 {
-                    PlayerProjectiles.RemoveAt(i);
+                    item.Update();
                 }
-            }
-
-            for (int i = EnemyProjectiles.Count - 1; i >= 0; i--)
-            {
-                IProjectile projectile = EnemyProjectiles[i];
-                projectile.Update();
-
-                if (!projectile.IsActive)
+                foreach (IEnemy enemy in RoomEnemies)
                 {
-                    EnemyProjectiles.RemoveAt(i);
+                    enemy.Update();
+                }
+                foreach (IParticle particle in RoomParticles)
+                {
+                    particle.Update();
+                }
+                for (int i = PlayerProjectiles.Count - 1; i >= 0; i--)
+                {
+                    IProjectile projectile = PlayerProjectiles[i];
+                    projectile.Update();
+
+                    if (!projectile.IsActive)
+                    {
+                        PlayerProjectiles.RemoveAt(i);
+                    }
+                }
+
+                for (int i = EnemyProjectiles.Count - 1; i >= 0; i--)
+                {
+                    IProjectile projectile = EnemyProjectiles[i];
+                    projectile.Update();
+
+                    if (!projectile.IsActive)
+                    {
+                        EnemyProjectiles.RemoveAt(i);
+                    }
                 }
             }
         }
@@ -115,32 +137,36 @@ namespace MainGame.Rooms
             WestDoor.Draw();
             EastDoor.Draw();
 
+            if (RoomText != null) RoomText.Draw(32 * Constants.UniversalScale, 32 * Constants.UniversalScale + Constants.HudAndMenuHeight, Color.White);
+
             foreach (IBlock block in RoomBlocks)
             {
                 block.Draw();
             }
-            foreach (IPickupableItem item in RoomItems)
-            {
-                item.Draw();
-            }
-            foreach(IEnemy enemy in RoomEnemies)
-            {
-                enemy.Draw();
-            }
-            foreach (IParticle particle in RoomParticles)
-            {
-                particle.Draw();
-            }
-            
-            if (RoomText != null) RoomText.Draw(32 * Constants.UniversalScale, 32 * Constants.UniversalScale + Constants.HudAndMenuHeight, Color.White);
 
-            foreach (IProjectile projectile in PlayerProjectiles)
+            if (isMainRoom)
             {
-                projectile.Draw();
-            }
-            foreach (IProjectile projectile in EnemyProjectiles)
-            {
-                projectile.Draw();
+                foreach (IPickupableItem item in RoomItems)
+                {
+                    item.Draw();
+                }
+                foreach (IEnemy enemy in RoomEnemies)
+                {
+                    enemy.Draw();
+                }
+                foreach (IParticle particle in RoomParticles)
+                {
+                    particle.Draw();
+                }
+
+                foreach (IProjectile projectile in PlayerProjectiles)
+                {
+                    projectile.Draw();
+                }
+                foreach (IProjectile projectile in EnemyProjectiles)
+                {
+                    projectile.Draw();
+                }
             }
         }
     }

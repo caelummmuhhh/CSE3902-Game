@@ -6,12 +6,13 @@ namespace MainGame.Doors
 {
     public class Door : IDoor
     {
-        public Vector2 Position;
         public Direction Direction;
         private readonly ISprite spriteTop;
         private readonly ISprite spriteBottom;
         private readonly int BottomXOffset = 0;
         private readonly int BottomYOffset = 0;
+
+        public Vector2 Position { get; set; }
 
         public Door(Vector2 position, ISprite spriteTop, ISprite spriteBottom, Direction direction)
         {
@@ -57,6 +58,7 @@ namespace MainGame.Doors
 
     public class BlankDoor : IDoor
     {
+        public Vector2 Position { get; set; }
         // Nothing to do for a blank door
         public void Draw() { }
         public void Update() { }

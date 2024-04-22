@@ -5,7 +5,7 @@ namespace MainGame.Blocks
 {
     public class PushableBlock : IBlock
     {
-        public Vector2 Position { get; protected set; }
+        public Vector2 Position { get; set; }
         public Rectangle HitBox { get => sprite.DestinationRectangle; }
 
         private readonly ISprite sprite;
