@@ -4,11 +4,12 @@ using System.Collections.Generic;
 using MainGame.Doors;
 using MainGame.SpriteHandlers;
 using MainGame.Blocks;
-using MainGame.Items;
+using MainGame.WorldItems;
 using MainGame.Enemies;
 using MainGame.Players;
 using MainGame.Particles;
 using MainGame.Collision;
+using MainGame.Projectiles;
 
 namespace MainGame.Rooms
 {
@@ -19,8 +20,13 @@ namespace MainGame.Rooms
 
         public List<IEnemy> RoomEnemies { get; set; } = new();
         public List<IBlock> RoomBlocks { get; set; } = new();
-        public List<IItem> RoomItems { get; set; } = new();
+        public List<IPickupableItem> RoomItems { get; set; } = new();
         public List<IParticle> RoomParticles { get; set; } = new();
+        public List<IProjectile> PlayerProjectiles { get; private set; } = new();
+        public List<IProjectile> EnemyProjectiles { get; private set; } = new();
+
+
+        public ISprite RoomText { get; set; }
 
         public IHitBox EnemiesBorderHitBox { get; set; }
         public IHitBox PlayerBorderHitBox { get; set; }
@@ -50,7 +56,6 @@ namespace MainGame.Rooms
             EnemiesBorderHitBox = new AllFullWallHitBox();
             PlayerBorderHitBox = new GenericHitBox();
         }
-
         public void Update()
         {
             //RoomPlayer.Update();
@@ -62,7 +67,7 @@ namespace MainGame.Rooms
             {
                 block.Update();
             }
-            foreach (IItem item in RoomItems)
+            foreach (IPickupableItem item in RoomItems)
             {
                 item.Update();
             }
@@ -73,6 +78,28 @@ namespace MainGame.Rooms
             foreach (IParticle particle in RoomParticles)
             {
                 particle.Update();
+            }
+
+            for (int i = PlayerProjectiles.Count - 1; i >= 0; i--)
+            {
+                IProjectile projectile = PlayerProjectiles[i];
+                projectile.Update();
+
+                if (!projectile.IsActive)
+                {
+                    PlayerProjectiles.RemoveAt(i);
+                }
+            }
+
+            for (int i = EnemyProjectiles.Count - 1; i >= 0; i--)
+            {
+                IProjectile projectile = EnemyProjectiles[i];
+                projectile.Update();
+
+                if (!projectile.IsActive)
+                {
+                    EnemyProjectiles.RemoveAt(i);
+                }
             }
         }
 
@@ -92,7 +119,7 @@ namespace MainGame.Rooms
             {
                 block.Draw();
             }
-            foreach (IItem item in RoomItems)
+            foreach (IPickupableItem item in RoomItems)
             {
                 item.Draw();
             }
@@ -103,6 +130,17 @@ namespace MainGame.Rooms
             foreach (IParticle particle in RoomParticles)
             {
                 particle.Draw();
+            }
+            
+            if (RoomText != null) RoomText.Draw(32 * Constants.UniversalScale, 32 * Constants.UniversalScale + Constants.HudAndMenuHeight, Color.White);
+
+            foreach (IProjectile projectile in PlayerProjectiles)
+            {
+                projectile.Draw();
+            }
+            foreach (IProjectile projectile in EnemyProjectiles)
+            {
+                projectile.Draw();
             }
         }
     }

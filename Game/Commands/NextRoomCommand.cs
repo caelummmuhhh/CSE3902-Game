@@ -11,7 +11,7 @@
 
         public void Execute()
         {
-            game.RoomManager.NextRoom();
+            game.RoomManager.NextRoom(Direction.North);
         }
 
         public void UnExecute()

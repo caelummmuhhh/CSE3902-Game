@@ -19,7 +19,7 @@ namespace MainGame
     public enum ItemTypes
     {
         Heart, HeartContainer, Clock, FiveRupees, Rupee, Map, Boomerang, Bomb, Bow,
-        Arrow, Key, Compass, TriforcePiece, Fairy, Fire
+        Arrow, Key, Compass, TriforcePiece, Fairy, Fire, Candle
     }
 
     public static class Constants

@@ -1,28 +1,25 @@
 ﻿using Microsoft.Xna.Framework;
 using MainGame.SpriteHandlers;
 using MainGame.Players.PlayerStates;
+using MainGame.Players.Inventory;
+using MainGame.Rooms;
 using MainGame.Projectiles;
+using MainGame.Audio;
 using System;
 
 namespace MainGame.Players
 {
 	public class Player : IPlayer
 	{
-		public int MaxHealth { get; set; }
-        public int CurrentHealth { get; set; }
-        public int RupeeCount { get; set; }
-        public int KeyCount { get; set; }
-        public int BombCount { get; set; }
-		public ItemTypes[] Items { get; set; }
-		public int NumItems { get; set; }
-        public ItemTypes CurrentItem { get; set; }
-
         public static readonly float Speed = Constants.UniversalScale + 2;
-		public static readonly int UsingItemsSpeed = 6;
-		public static readonly float KnockedBackSpeed = 10f;
-		public static readonly int ImmunityFrame = 100;
-		public static readonly int KnockedBackDistance = 2 * Constants.BlockSize;
+        public static readonly int UsingItemsSpeed = 6;
+        public static readonly float KnockedBackSpeed = 10f;
+        public static readonly int ImmunityFrame = 48;
+        public static readonly int KnockedBackDistance = 2 * Constants.BlockSize;
 
+        public int MaxHealth { get; protected set; }
+        public int CurrentHealth { get; protected set; }
+        public ILinkInventory Inventory { get; protected set; }
         public ISprite Sprite { get; set; }
         public IPlayerState CurrentState { get; set; }
         public Vector2 Position { get; set; }
@@ -31,46 +28,30 @@ namespace MainGame.Players
         public Direction FacingDirection { get; set; }
 		public bool IsInvulnerable { get => invulnerableTimer > 0; }
 
-        public Rectangle MainHitbox { get; set; }
-        public Rectangle BottomHalfHitBox { get; set; }
+        public Rectangle MainHitbox { get; protected set; }
+        public Rectangle BottomHalfHitBox { get; protected set; }
 		public Rectangle SwordHitBox { get; set; }
 
-		private int invulnerableTimer = 0;
-        public readonly PlayerProjectilesManager ProjectilesManager;
+        private readonly GameRoomManager roomManager;
+        private int invulnerableTimer = 0;
+		private IProjectile swordBeam;
 
-        public Player(Vector2 spawnPosition, int hearts, int rupees, int keys, int bombs, string[] items)
+        public Player(Vector2 spawnPosition, GameRoomManager roomManager, int[] startingItemIds,
+					  int maxHearts = 6, int rupees = 0, int keys = 0, int bombs = 0)
 		{
-			ProjectilesManager = new(this);
 			Position = spawnPosition;
 			CurrentState = new PlayerIdleUpState(this);
 			SwordHitBox = new();
-
-			MaxHealth = hearts;
-			CurrentHealth = hearts;
-			RupeeCount = rupees;
-			KeyCount = keys;
-			BombCount = bombs;
-
-			CurrentItem = ItemTypes.Bomb;
-
-			Items = new ItemTypes[8];
-			NumItems = 0;
-			if (items[0].Length > 0)
-			{
-				foreach (string item in items)
-				{
-					Items[NumItems] = (ItemTypes)Enum.Parse(typeof(ItemTypes), item);
-					++NumItems;
-				}
-			}
-
+			MaxHealth = maxHearts;
+			CurrentHealth = MaxHealth;
+			Inventory = new LinkInventory(this, roomManager, startingItemIds, rupees, keys, bombs);
+			this.roomManager = roomManager;
             UpdateHitBoxes();
         }
 
 		public void Update()
 		{
 			CurrentState.Update();
-			ProjectilesManager.Update();
             UpdateHitBoxes();
 
 			if (invulnerableTimer > 0)
@@ -84,54 +65,50 @@ namespace MainGame.Players
 			}
         }
 
-        public void Draw()
-		{
-			CurrentState.Draw();
-			ProjectilesManager.Draw();
-		}
+        public void Draw() => CurrentState.Draw();
 
         public void Stop() => CurrentState.Stop();
-		public void TakeDamage(Direction sideHit)
+
+		public void TakeDamage(Direction sideHit, int damageAmount)
 		{
 			if (!IsInvulnerable)
 			{
-				MakeInvulnerable(ImmunityFrame);
-				CurrentState.TakeDamage(sideHit);
+                CurrentHealth -= damageAmount;
+				if (CurrentHealth > 0)
+				{
+                    MakeInvulnerable(ImmunityFrame);
+                    CurrentState.TakeDamage(sideHit);
+					AudioManager.PlaySFX("Player_Hurt", 0);
+					return;
+                }
+				invulnerableTimer = int.MaxValue;
+				CurrentState = new PlayerDeathState(this);
+				AudioManager.MuteSong();
+                AudioManager.PlaySFX("Player_Die", 0);
             }
 		}
 
+		public void Heal(int amount) => CurrentHealth = CurrentHealth + amount >= MaxHealth ? MaxHealth : CurrentHealth + amount;
         public void MakeInvulnerable(int duration) => invulnerableTimer = duration;
+        public void IncreaseMaxHP(int amount = 2) => MaxHealth += amount;
 
         public void MoveUp() => CurrentState.MoveUp();
 		public void MoveDown() => CurrentState.MoveDown();
 		public void MoveLeft() => CurrentState.MoveLeft();
 		public void MoveRight() => CurrentState.MoveRight();
+		public void UseEquipment() => CurrentState.UseEquipment();
 
-		public void SelectLeft() 
-		{ 
-			//TO DO
-		}
-		public void SelectRight() 
+        public void UseSword()
 		{
-            //TO DO
+            CurrentState.UseSword();
+            if (CurrentHealth == MaxHealth && (swordBeam is null || !swordBeam.IsActive))
+			{
+				AudioManager.PlaySFX("Sword_Beam", 4);
+				swordBeam = ProjectileFactory.GetSwordBeamProjectile(Position, FacingDirection);
+				roomManager.CurrentRoom.PlayerProjectiles.Add(swordBeam);
+            }
         }
-
-        public void UseSword() => CurrentState.UseSword();
-		public void UseBoomerang(Direction direction) => ProjectilesManager.AddProjectile(new PlayerBoomerangProjectile(this, direction));
-		public void UseArrow(Direction direction)
-		{
-			RupeeCount--;
-			ProjectilesManager.AddProjectile(new ArrowProjectile(Position, direction));
-		}
-        public void UseFire(Direction direction) => ProjectilesManager.AddProjectile(new FireBallProjectile(Position, direction));
-		public void UseBomb(Direction direction)
-		{
-			BombCount--;
-			ProjectilesManager.AddProjectile(new BombProjectile(Position, direction));
-		}
-		public void UseSwordBeam(Direction direction) => ProjectilesManager.AddProjectile(new SwordBeamProjectile(Position, direction));
-
-		private void UpdateHitBoxes()
+        private void UpdateHitBoxes()
 		{
 			MainHitbox = new(Position.ToPoint(), new Point(Constants.BlockSize, Constants.BlockSize));
 

@@ -4,11 +4,11 @@ namespace MainGame.Collision
 {
     public class TopFullHorizontalWallHitBox : GenericHitBox
     {
-        public TopFullHorizontalWallHitBox()
+        public TopFullHorizontalWallHitBox(int yShift = 0)
 		{
             Rectangle wallHitBox = new(
                 x: 0,
-                y: Constants.HudAndMenuHeight,
+                y: yShift + Constants.HudAndMenuHeight,
                 width: 16 * Constants.BlockSize,
                 height: 2 * Constants.BlockSize
                 );

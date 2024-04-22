@@ -1,16 +1,22 @@
 ﻿using Microsoft.Xna.Framework;
 using MainGame.SpriteHandlers;
 using MainGame.Players;
+using MainGame.Audio;
 
 namespace MainGame.Enemies
 {
 	public class AquamentusEnemy : GenericEnemy
 	{
+        public override int Health { get; protected set; } = 10;
+        public override int Damage => 2;
+
         public override int MovementCoolDownFrame { get; protected set; } = 8;
         public int MovedDistance = 0;
         public readonly int MaxMoveDistance = 16 * 10 * Constants.UniversalScale;
         public readonly IPlayer Player;
         public readonly AquamentusProjectilesManager ProjectilesManager = new();
+
+        private int RoarTime = 160;
 
         public AquamentusEnemy(Vector2 startingPosition, IPlayer player)
 		{
@@ -26,6 +32,13 @@ namespace MainGame.Enemies
             State.Update();
             ProjectilesManager.Update();
             base.Update();
+
+            if(RoarTime <= 0 && IsAlive)
+            {
+                AudioManager.PlaySFX("Boss_Roar", 0);
+                RoarTime = 160;
+            }
+            --RoarTime;
         }
 
         public override void Draw()
@@ -35,6 +48,17 @@ namespace MainGame.Enemies
         }
 
         public override void Move() => State.Move();
+
+        public override void TakeDamage(Direction sideHit, int damage)
+        {
+            if (!IsInvulnerable)
+            {
+                DamageState = new EnemyDamagedState(this, sideHit, false);
+                Health -= damage;
+                CheckForDeath();
+                AudioManager.PlaySFX("Boss_Hit", 0);
+            }
+        }
     }
 }
 

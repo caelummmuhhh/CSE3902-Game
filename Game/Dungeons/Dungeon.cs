@@ -1,16 +1,6 @@
-﻿using Microsoft.Xna.Framework;
-using System.Collections.Generic;
-
-using MainGame.Doors;
+﻿using System.IO;
 using MainGame.SpriteHandlers;
-using MainGame.Blocks;
-using MainGame.Items;
-using MainGame.Enemies;
-using MainGame.Players;
-using MainGame.Particles;
-using MainGame.Collision;
-using MainGame.Rooms;
-using System.IO;
+using Microsoft.Xna.Framework;
 
 namespace MainGame.Dungeons
 {
@@ -28,15 +18,17 @@ namespace MainGame.Dungeons
         public int[][] DungeonLayout { get; set; }
         public int UnderGroundRoom { get; set; }
         public int DungeonRoomCount { get; set; }
+        public Vector2 TriforceRoomLocation { get; set; }
+        public Vector2 SpawnRoomLocation { get; set; }
 
-        private readonly int DungeonSize = 8;
+        public readonly int DungeonSize = 8;
 
-        private Game1 Game;
+        private Game1 game;
         private string[] Lines;
 
         public Dungeon(Game1 game, string dungeonFIle)
         {
-            this.Game = game;
+            this.game = game;
             DungeonLayout = new int[DungeonSize][];
             for (int i = 0; i < DungeonSize; i++)
             {
@@ -46,6 +38,24 @@ namespace MainGame.Dungeons
             LoadDungeon(dungeonFIle);
             ParseDungeon();
             DungeonRoomCount = SizeDungeon();
+            SetLocations();
+
+        }
+        private void SetLocations()
+        {
+            for (int i = 0; i < DungeonSize; i++)
+            {
+                for (int j = 0; j < DungeonSize; j++)
+                {
+                    if (DungeonLayout[i][j] == DungeonRoomCount)
+                    {
+                        TriforceRoomLocation = new Vector2(j, i);
+                    } else if (DungeonLayout[i][j] == 1)
+                    {
+                        SpawnRoomLocation = new Vector2(j, i);
+                    }
+                }
+            }
         }
         private void LoadDungeon(string dungeonFile)
         {

@@ -1,10 +1,13 @@
-﻿using Microsoft.Xna.Framework;
+﻿using MainGame.Audio;
+using Microsoft.Xna.Framework;
 
 namespace MainGame.Enemies
 {
 	public class GoriyaEnemy : GenericEnemy
 	{
-		public Direction FacingDirection { get; set; }
+        public override int Health { get; protected set; } = 3;
+        public override int Damage => 1;
+        public Direction FacingDirection { get; set; }
 		public override int MovementCoolDownFrame { get; protected set; } = 2;
 
         public GoriyaEnemy(Vector2 startingPosition)
@@ -18,12 +21,6 @@ namespace MainGame.Enemies
         {
 			State.Update();
             base.Update();
-        }
-
-        public override void Draw()
-        {
-			State.Draw();
-            base.Draw();
         }
 
         public override void Move()

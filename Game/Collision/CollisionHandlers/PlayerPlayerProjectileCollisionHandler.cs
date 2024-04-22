@@ -19,7 +19,7 @@ namespace MainGame.Collision.CollisionHandlers
             if (projectile is FireBallProjectile)
             {
                 Direction playerSideDamaged = Utils.GetCardinalDirectionFrom(player.Position, projectile.Position);
-                player.TakeDamage(playerSideDamaged);
+                player.TakeDamage(playerSideDamaged, 1);
             }
         }
     }

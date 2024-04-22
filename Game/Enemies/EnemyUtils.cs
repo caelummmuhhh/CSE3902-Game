@@ -1,5 +1,5 @@
 ﻿using System;
-using MainGame.Items;
+using MainGame.WorldItems;
 using MainGame.Players;
 using Microsoft.Xna.Framework;
 
@@ -51,19 +51,14 @@ namespace MainGame.Enemies
             return CreateEnemy(enemy, position, player);
         }
 
-
-
-
-
-
-        public static IEnemy CreateItemBindedEnemy(ItemBindedEnemyTypes itemEnemyType, Vector2 position, out IItem itemHolder, IPlayer player)
+        public static IEnemy CreateItemBindedEnemy(ItemBindedEnemyTypes itemEnemyType, Vector2 position, out IPickupableItem itemHolder, IPlayer player)
         {
             IEnemy enemy;
             switch (itemEnemyType)
             {
                 case ItemBindedEnemyTypes.KeyStalfos:
                     enemy = CreateEnemy(EnemyTypes.Stalfos, position, player);
-                    itemHolder = new EnemyBindedItemDecorator(enemy, ItemFactory.CreateItem(ItemTypes.Key, position));
+                    itemHolder = new EnemyBoundItemDecorator(enemy, ItemFactory.CreateItem(ItemTypes.Key, position, player));
                     break;
                 default:
                     throw new ArgumentException("Unable to parse provided item enemy type.");
@@ -72,9 +67,7 @@ namespace MainGame.Enemies
             return enemy;
         }
 
-
-
-        public static IEnemy CreateItemBindedEnemy(string enemyName, Vector2 position, out IItem itemHolder, IPlayer player)
+        public static IEnemy CreateItemBindedEnemy(string enemyName, Vector2 position, out IPickupableItem itemHolder, IPlayer player)
         {
             bool conversionSuccess = Enum.TryParse(enemyName, true, out ItemBindedEnemyTypes enemy);
 

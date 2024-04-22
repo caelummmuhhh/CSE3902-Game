@@ -183,5 +183,12 @@ namespace MainGame.SpriteHandlers
                 scale: Constants.UniversalScale);
 
         }
+        public static ISprite CreateCandleItemSprite()
+        {
+            return new StaticItemSprite(
+                TextureMap["ItemsSprites"], SpriteBatch,
+                textureStartingY: 224,
+                scale: Constants.UniversalScale);
+        }
     }
 }

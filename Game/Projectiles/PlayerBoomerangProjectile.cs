@@ -31,6 +31,7 @@ namespace MainGame.Projectiles
         private readonly float acceleration = 0.02f;
         private float speed;
         private int timer = 0;
+        private int maxTime = 128;
         private Direction direction;
 
         public PlayerBoomerangProjectile(IPlayer player, Direction direction)
@@ -56,7 +57,7 @@ namespace MainGame.Projectiles
                 showCollideSprite = collideSpriteDuration > 0;
             }
 
-            if (returning && Vector2.Distance(position, player.Position) < 10f)
+            if (returning && Vector2.Distance(position, player.Position) < 10f || timer > maxTime)
             {
                 isActive = false;
             }

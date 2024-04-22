@@ -1,9 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using MainGame.Players;
 using MainGame.SpriteHandlers;
 using Microsoft.Xna.Framework;
 
@@ -35,7 +30,7 @@ namespace MainGame.HudAndMenu
         private ISprite triforceRoom;
         private Vector2 triforceRoomLoc;
         private bool hasCompass = false;
-        public Hud(String dungeonID, String itemKey, String attackKey, Game1 game) 
+        public Hud(string dungeonID, string itemKey, string attackKey, Game1 game) 
         {
             this.game = game;
             HudBase = SpriteFactory.CreateEmptyHudSprite();
@@ -43,7 +38,8 @@ namespace MainGame.HudAndMenu
             heartsDisplay = new ISprite[16];
             maxHealth = game.Player.MaxHealth; // Game crashed when it didn't use a copy
             InitializeMapLayout();
-            InitializeTriforceRoom();
+            triforceRoom = SpriteFactory.CreateMapTriforceTrackerSprite();
+            triforceRoomLoc = game.Dungeon.TriforceRoomLocation;
 
             textLevel = SpriteFactory.CreateTextSprite("LEVEL-" + dungeonID);
             textItemKey = SpriteFactory.CreateTextSprite(itemKey);
@@ -51,48 +47,17 @@ namespace MainGame.HudAndMenu
             textLife = SpriteFactory.CreateTextSprite("-LIFE-");
 
             swordDisplay = SpriteFactory.CreateSwordBeamUpProjectileSprite();
-            switch (game.Player.CurrentItem)
-            {
-                case ItemTypes.Bomb:
-                    itemDisplay = SpriteFactory.CreateBombItemSprite();
-                    break;
-                case ItemTypes.Fire:
-                    // Candle item not in reqirements
-                    break;
-                case ItemTypes.Boomerang:
-                    itemDisplay = SpriteFactory.CreateWoodenBoomerangItemSprite();
-                    break;
-                case ItemTypes.Arrow:
-                    itemDisplay = SpriteFactory.CreateArrowItemSprite();
-                    break;
-                default:
-                    throw new FormatException("Default in Hud should not be possible");
-            }
-        }
-        private void InitializeTriforceRoom()
-        {
-            for (int i = 0; i < 8; i++)
-            {
-                for (int j = 0; j < 8; j++)
-                {
-                    if (game.Dungeon.DungeonLayout[i][j] == game.Dungeon.DungeonRoomCount)
-                    {
-                        triforceRoom = SpriteFactory.CreateMapTriforceTrackerSprite();
-                        triforceRoomLoc = new Vector2(j, i);
-                    }
-                }
-            }
         }
         private void InitializeMapLayout()
         {
-            layoutDisplay = new ISprite[8][];
-            for (int i = 0; i < 8; i++)
+            layoutDisplay = new ISprite[game.Dungeon.DungeonSize][];
+            for (int i = 0; i < game.Dungeon.DungeonSize; i++)
             {
-                layoutDisplay[i] = new ISprite[8];
+                layoutDisplay[i] = new ISprite[game.Dungeon.DungeonSize];
             }
-            for (int i = 0; i < 8; i++)
+            for (int i = 0; i < game.Dungeon.DungeonSize; i++)
             {
-                for (int j = 0; j < 8; j++)
+                for (int j = 0; j < game.Dungeon.DungeonSize; j++)
                 {
                     if (game.Dungeon.DungeonLayout[i][j] != 0)
                     {
@@ -108,10 +73,10 @@ namespace MainGame.HudAndMenu
         public void Update()
         {
             pauseShift = 0;
-
-            textRupees = SpriteFactory.CreateTextSprite("X" + this.game.Player.RupeeCount.ToString());
-            textKeys = SpriteFactory.CreateTextSprite("X" + this.game.Player.KeyCount.ToString());
-            textBombs = SpriteFactory.CreateTextSprite("X" + this.game.Player.BombCount.ToString());
+            
+            textRupees = SpriteFactory.CreateTextSprite($"X{game.Player.Inventory.Rupees.Quantity}");
+            textKeys = SpriteFactory.CreateTextSprite($"X{game.Player.Inventory.Keys.Quantity}");
+            textBombs = SpriteFactory.CreateTextSprite($"X{game.Player.Inventory.Bombs.Quantity}");
 
             maxHealth = game.Player.MaxHealth;
             for (int i = 0; i < maxHealth / 2; ++i)
@@ -130,24 +95,22 @@ namespace MainGame.HudAndMenu
                 }
             }
 
-            // This is kinda dumb
-            if (!hasMap || !hasCompass)
+            switch (game.Player.Inventory.EquippedItem?.Id)
             {
-                foreach (ItemTypes Item in game.Player.Items)
-                {
-                    switch (Item)
-                    {
-                        case ItemTypes.Map:
-                            hasMap = true;
-                            break;
-                        case ItemTypes.Compass:
-                            hasCompass = true;
-                            break;
-                        default:
-                            // Do Nothing
-                            break;
-                    }
-                }
+                case (int)ItemTypes.Bomb:
+                    itemDisplay = SpriteFactory.CreateBombItemSprite();
+                    break;
+                case (int)ItemTypes.Candle:
+                    itemDisplay = SpriteFactory.CreateCandleItemSprite();
+                    break;
+                case (int)ItemTypes.Boomerang:
+                    itemDisplay = SpriteFactory.CreateWoodenBoomerangItemSprite();
+                    break;
+                case (int)ItemTypes.Bow:
+                    itemDisplay = SpriteFactory.CreateArrowItemSprite();
+                    break;
+                default:
+                    break;
             }
         }
         public void Draw()
@@ -162,7 +125,7 @@ namespace MainGame.HudAndMenu
             textLife.Draw(184 * Constants.UniversalScale, 16 * Constants.UniversalScale + pauseShift, Color.Red);
 
             swordDisplay.Draw(148 * Constants.UniversalScale, 24 * Constants.UniversalScale + pauseShift, Color.White);
-            itemDisplay.Draw(124 * Constants.UniversalScale, 24 * Constants.UniversalScale + pauseShift, Color.White);
+            itemDisplay?.Draw(124 * Constants.UniversalScale, 24 * Constants.UniversalScale + pauseShift, Color.White);
 
             for (int i = 0; i < maxHealth / 2; ++i)
             {

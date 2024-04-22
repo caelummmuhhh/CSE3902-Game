@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Media;
 
 using MainGame.SpriteHandlers;
 using MainGame.Controllers;
@@ -8,10 +9,11 @@ using MainGame.Players;
 using MainGame.Rooms;
 using MainGame.Doors;
 using MainGame.Blocks;
-using MainGame.Items;
+using MainGame.WorldItems;
 using MainGame.HudAndMenu;
 using MainGame.Dungeons;
 using MainGame.Collision;
+using MainGame.Audio;
 using MainGame.SpriteHandlers.BlockSprites;
 using MainGame.Projectiles;
 using MainGame.Enemies;
@@ -26,6 +28,7 @@ public class Game1 : Game
     public readonly GraphicsDeviceManager GraphicsManager;
     private SpriteBatch spriteBatch;
     public List<IController> controllers;
+    public int TotalGameTime = 0;
 
     public IPlayer Player;
     public CollisionDetector Collision;
@@ -66,31 +69,22 @@ public class Game1 : Game
         TogglePause = false;
         PauseDebounce = 10;
 
+        AudioManager.SetUp(this);
+
         spriteBatch = new SpriteBatch(GraphicsDevice);
 
         SpriteFactory.LoadAllTextures(Content);
         SpriteFactory.SpriteBatch = spriteBatch;
 
-        string fullPath = Path.GetFullPath(dungeonFiles[0]);
-        string[] lines = null;
-        if (File.Exists(fullPath))
-        {
-            lines = File.ReadAllLines(fullPath);
-        } else
-        {
-            throw new IOException($"Could not read CSV file for dungeon: {dungeonFiles[0]}");
-        }
-        string[] version = lines[0].Split(',');
-        string[] playerValues = lines[1].Split(',');
-        string[] playerItems = lines[2].Split(',');
-        string[] startingRoom = lines[3].Split(',');
-        string[] triforceRoom = lines[4].Split(',');   
-
-        Player = new Player(new Vector2(120 * Constants.UniversalScale, (128 * Constants.UniversalScale) + Constants.HudAndMenuHeight), 
-            int.Parse(playerValues[0]), int.Parse(playerValues[1]), int.Parse(playerValues[2]), int.Parse(playerValues[3]), playerItems);
-        */
+        string dungeonName = "Dungeon_1.csv";
+        Dungeon = new Dungeon(this, dungeonName);
 
         RoomManager = new(this);
+
+        Player = new Player(new Vector2(120 * Constants.UniversalScale, (128 * Constants.UniversalScale) + Constants.HudAndMenuHeight), RoomManager,
+            Array.Empty<int>(), Dungeon.PlayerStartingHealth, Dungeon.PlayerStartingRupees, Dungeon.PlayerStartingKeys, Dungeon.PlayerStartingBombs);
+
+        RoomManager.LoadAllRooms(Player);
 
         Collision = new(this);
 
@@ -105,6 +99,8 @@ public class Game1 : Game
 
     protected override void Update(GameTime gameTime)
     {
+        TotalGameTime++;
+
         if (PauseDebounce >= 10)
         {
             for (int i = 0; i < controllers.Count; i++)
@@ -125,6 +121,9 @@ public class Game1 : Game
             ++PauseDebounce;
         }
 
+        // Audio has to be outside to allow pause sounds, will cause bugs with delayed sounds playing on pause screen
+        AudioManager.Update();
+
         base.Update(gameTime);
     }
     public void SetPause()
@@ -141,55 +140,12 @@ public class Game1 : Game
         {
             RoomManager.Draw();
             Player.Draw();
-
-            /*
-            if (RoomManager.CurrentRoom.RoomEnemies.Count > 0)
-            {
-                testBlock.Draw(
-                RoomManager.CurrentRoom.RoomEnemies[0].AttackHitBox,
-                Color.White
-                );
-            }
-            */
-
-            /*
-            foreach(IProjectile p in ((Player)Player).ProjectilesManager.ActiveProjectiles)
-            {
-                testBlock.Draw(p.HitBox, Color.White);
-            }*/
-
-            //testBlock.Draw(Player.MainHitbox, Color.White);
-            /*
-            foreach (IEnemy enemy in RoomManager.CurrentRoom.RoomEnemies)
-            {
-                if (enemy is AquamentusEnemy aq)
-                {
-                    foreach (AquamentusAttackProjectiles aqp in aq.ProjectilesManager.ActiveProjectiles)
-                    {
-                        testBlock.Draw(aqp.UpProjectile.HitBox, Color.White);
-                        testBlock.Draw(aqp.StraightProjectile.HitBox, Color.White);
-                        testBlock.Draw(aqp.DownProjectile.HitBox, Color.White);
-                    }
-                }
-            }*/
-
-            /*
-            foreach (IItem item in RoomManager.CurrentRoom.RoomItems)
-            {
-                testBlock.Draw(item.HitBox, Color.White);
-            }*/
-
-            /*
-            foreach (Rectangle hb in RoomManager.CurrentRoom.PlayerBorderHitBox.HitBoxes)
-            {
-                testBlock.Draw(hb, Color.White);
-            }*/
-
-        } else
+        }
+        else
         {
             Menu.Draw();
-            
         }
+
         // Hud always drawn
         Hud.Draw();
 
