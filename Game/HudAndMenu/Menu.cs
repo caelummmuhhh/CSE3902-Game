@@ -199,7 +199,7 @@ namespace MainGame.HudAndMenu
 
             if (candleItemDisplay is null && inventory.HasItem((int)ItemTypes.Candle))
             {
-                candleItemDisplay = SpriteFactory.CreateFireSprite(); // TODO: Get actual candle sprite
+                candleItemDisplay = SpriteFactory.CreateCandleSprite();
             }
 
             if (bowItemDisplay is null && inventory.HasItem((int)ItemTypes.Bow))

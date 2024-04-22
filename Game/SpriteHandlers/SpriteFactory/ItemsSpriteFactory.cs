@@ -24,6 +24,7 @@ namespace MainGame.SpriteHandlers
                 ItemTypes.TriforcePiece => CreateTriforcePieceItemSprite(),
                 ItemTypes.Fairy => CreateFairyItemSprite(),
                 ItemTypes.Fire => CreateFireSprite(),
+                ItemTypes.Candle => CreateCandleSprite(),
                 _ => null
             };
         }
@@ -185,7 +186,14 @@ namespace MainGame.SpriteHandlers
                 numberOfFrames: 1,
                 textureStartingY: 208,
                 scale: Constants.UniversalScale);
+        }
 
+        public static ISprite CreateCandleSprite()
+        {
+            return new StaticItemSprite(
+                TextureMap["ItemsSprites"], SpriteBatch,
+                textureStartingY: 224,
+                scale: Constants.UniversalScale);
         }
     }
 }
