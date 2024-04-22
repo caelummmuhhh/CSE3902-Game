@@ -25,7 +25,7 @@ namespace MainGame.Rooms
 
 		public Vector2 currentRoomIndex;
 		private readonly Game1 game;
-		private int roomChangeDebounce = 20;
+		private bool roomChangeDebounce = true;
 
 		private bool hasMap = false;
 		private bool hasCompass = false;
@@ -64,7 +64,6 @@ namespace MainGame.Rooms
 					SwitchingRoomsEnd();
 				}
 			}
-			roomChangeDebounce--;
 		}
 
 		public void Draw()
@@ -75,6 +74,7 @@ namespace MainGame.Rooms
 
 		public void SwitchRoomsStart(Direction direction)
 		{
+			roomChangeDebounce = false;
 			game.SetPlayer(); // Turn player off for room switching
 			CurrentRoom.isMainRoom = false;
 			// Initiate the switching room process by setting creating a new room 
@@ -118,15 +118,15 @@ namespace MainGame.Rooms
             SecondaryRoom = null;
             SecondaryRoom = null;
             game.SetPlayer(); // Turn player back on
+			roomChangeDebounce = true;
         }
 
 		public void NextRoom(Direction direction)
 		{
-			if (roomChangeDebounce > 0)
+			if (!roomChangeDebounce)
 			{
 				return;
 			}
-			roomChangeDebounce = 20;
 
 			if (direction == Direction.North)
 			{

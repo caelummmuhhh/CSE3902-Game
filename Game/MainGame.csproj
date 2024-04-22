@@ -83,8 +83,6 @@
     <Folder Include="Enemies\WallMasterEnemy\" />
     <Folder Include="Enemies\AquamentusEnemy\" />
     <Folder Include="Projectiles\AquamentusProjectile\" />
-    <Folder Include="Collision\" />
-    <Folder Include="Collision\CollisionHandlers\" />
     <Folder Include="Collision\NonSpriteHitBoxes\" />
     <Folder Include="GridUtils\" />
     <Folder Include="Blocks\" />
