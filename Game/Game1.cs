@@ -82,7 +82,7 @@ public class Game1 : Game
         Dungeon = new Dungeon(this, dungeonName);
 
         RoomManager = new(this);
-
+        Dungeon.PlayerStartingKeys = 1;
         Player = new Player(new Vector2(120 * Constants.UniversalScale, (128 * Constants.UniversalScale) + Constants.HudAndMenuHeight), RoomManager,
             Array.Empty<int>(), Dungeon.PlayerStartingHealth, Dungeon.PlayerStartingRupees, Dungeon.PlayerStartingKeys, Dungeon.PlayerStartingBombs);
 

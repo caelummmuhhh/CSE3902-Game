@@ -6,9 +6,9 @@ namespace MainGame.Doors
 {
     public class Door : IDoor
     {
-        public Direction Direction;
-        private readonly ISprite spriteTop;
-        private readonly ISprite spriteBottom;
+        public Direction Direction { get; set; }
+        private ISprite spriteTop;
+        private ISprite spriteBottom;
         private readonly int BottomXOffset = 0;
         private readonly int BottomYOffset = 0;
 
@@ -64,15 +64,27 @@ namespace MainGame.Doors
             spriteTop.Draw(Position.X, Position.Y, Color.White);
             spriteBottom.Draw(Position.X + BottomXOffset, Position.Y + BottomYOffset, Color.White);
         }
+
+        public void Unlock()
+        {
+            IsOpen = true;
+            DoorTypes doorType = SpriteFactory.DoorTypeFromString("OpenDoor");
+            spriteTop = SpriteFactory.CreateDoorTopNorthSouth(Direction.North, doorType);
+            spriteBottom = SpriteFactory.CreateDoorBottomNorthSouth(Direction.North, doorType);
+        }
     }
 
     public class BlankDoor : IDoor
     {
+        public Direction Direction { get; set; }
         public Rectangle HitBox { get; set; }
         public bool IsOpen { get; set; }
         public Vector2 Position { get; set; }
         // Nothing to do for a blank door
         public void Draw() { }
+
+        public void Unlock(){ }
+
         public void Update() { }
     }
 }

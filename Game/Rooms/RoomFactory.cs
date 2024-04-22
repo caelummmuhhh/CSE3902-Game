@@ -150,6 +150,7 @@ namespace MainGame.Rooms
                 if (doorType is DoorTypes.OpenDoor || doorType is DoorTypes.DestroyedWall)
                 {
                     room.PlayerBorderHitBox.Add(new TopHorizontalDoorWallHitBox());
+                    room.NorthDoor.IsOpen = true;
                 }
                 else
                 {
@@ -174,6 +175,7 @@ namespace MainGame.Rooms
                 if (doorType is DoorTypes.OpenDoor || doorType is DoorTypes.DestroyedWall)
                 {
                     room.PlayerBorderHitBox.Add(new BottomHorizontalDoorWallHitBox());
+                    room.SouthDoor.IsOpen = true;
                 }
                 else
                 {
@@ -198,6 +200,7 @@ namespace MainGame.Rooms
                 if (doorType is DoorTypes.OpenDoor || doorType is DoorTypes.DestroyedWall)
                 {
                     room.PlayerBorderHitBox.Add(new LeftVerticalDoorWallHitBox());
+                    room.EastDoor.IsOpen = true;
                 }
                 else
                 {
@@ -222,6 +225,7 @@ namespace MainGame.Rooms
                 if (doorType is DoorTypes.OpenDoor || doorType is DoorTypes.DestroyedWall)
                 {
                     room.PlayerBorderHitBox.Add(new RightVerticalDoorWallHitBox());
+                    room.WestDoor.IsOpen = true;
                 }
                 else
                 {

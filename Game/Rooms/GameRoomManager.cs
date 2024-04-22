@@ -25,7 +25,7 @@ namespace MainGame.Rooms
 
 		public Vector2 currentRoomIndex;
 		private readonly Game1 game;
-		private bool roomChangeDebounce = true;
+		public bool roomChangeDebounce = true;
 
 		private bool hasMap = false;
 		private bool hasCompass = false;
@@ -106,6 +106,7 @@ namespace MainGame.Rooms
                 SecondaryRoom.Position = new Vector2(game.GraphicsManager.PreferredBackBufferWidth, Constants.HudAndMenuHeight);
                 RoomChangingVel = new Vector2(-Constants.RoomScrollingSpeed, 0);
             }
+            game.Player.Position = new Vector2(game.GraphicsManager.PreferredBackBufferWidth / 2, game.GraphicsManager.PreferredBackBufferHeight / 2);
         }
 
 		public void SwitchingRoomsEnd()

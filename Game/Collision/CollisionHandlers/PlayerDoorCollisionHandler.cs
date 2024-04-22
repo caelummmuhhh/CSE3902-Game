@@ -13,34 +13,31 @@ namespace MainGame.Collision.CollisionHandlers
     {
         IDoor door;
         Game1 game;
+        IPlayer player;
+
         public PlayerDoorCollisionHandler(IPlayer player, IDoor door, Game1 game) 
         {
             this.door = door;
             this.game = game;
+            this.player = player;
         }
 
         public void HandleCollision()
         {
-            Direction dir;
-            // Determine direction
-            if(door.HitBox.Location.X - door.Position.X == 0 && door.HitBox.Location.Y - door.Position.Y != 0)
+            Direction dir = door.Direction;
+            Debug.WriteLine(dir.ToString());
+            
+            if (door.IsOpen)
             {
-                dir = Direction.South;
-            }else if(door.HitBox.Location.X - door.Position.X == 0 && door.HitBox.Location.Y - door.Position.Y == 0)
-            {
-                dir = Direction.North;
-            }else if(door.HitBox.Location.X - door.Position.X != 0 && door.HitBox.Location.Y - door.Position.Y != 0)
-            {
-                dir = Direction.East;
+                game.RoomManager.NextRoom(dir);
             }
             else
             {
-                dir = Direction.West;
-            }
-            game.RoomManager.NextRoom(dir);
-            if (door.IsOpen)
-            {
-                
+                if (player.Inventory.Keys.Quantity > 0)
+                {
+                    player.Inventory.Keys.Use();
+                    door.Unlock();
+                }
             }
         }
     }
