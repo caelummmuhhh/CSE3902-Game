@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using MainGame.SpriteHandlers;
+using MainGame.Audio;
 
 namespace MainGame.Blocks
 {
@@ -7,6 +8,7 @@ namespace MainGame.Blocks
     {
         public Vector2 Position { get; set; }
         public Rectangle HitBox { get => sprite.DestinationRectangle; }
+        public bool HasBeenPushed => Vector2.Distance(originalPosition, Position) >= maxMoveDistance;
 
         private readonly ISprite sprite;
         private readonly int maxPushDuration = 25;
@@ -14,13 +16,14 @@ namespace MainGame.Blocks
         private readonly int speed = 1;
         private readonly int maxMoveDistance = Constants.BlockSize;
 
-        private bool canPush = true; // TODO: make false after testing
+        private bool canPush = false;
         private Direction pushDirection;
         private int pushedDuration;
 
         private readonly int maxNotCollisionTimer = 5;
         private int notCollidingTimer;
         private bool isBeingPushed = false;
+        private bool soundPlayed = false;
 
         public PushableBlock(Vector2 position, ISprite sprite)
         {
@@ -51,6 +54,12 @@ namespace MainGame.Blocks
             if (pushedDuration <= 0 && Vector2.Distance(originalPosition, Position) < maxMoveDistance)
             {
                 Move();
+
+                if (!soundPlayed)
+                {
+                    soundPlayed = true;
+                    AudioManager.PlaySFX("Secret_Revealed", 0);
+                }
             }
         }
 

@@ -2,7 +2,6 @@
 using System.IO;
 using Microsoft.Xna.Framework;
 using MainGame.Players;
-using MainGame.Doors;
 
 namespace MainGame.Rooms
 {
@@ -11,11 +10,10 @@ namespace MainGame.Rooms
 		public IRoom CurrentRoom { get; set; }
 		
 		// Used for room switching
-		public IRoom CurrentGhostRoom { get; set; }
-		public IRoom SecondaryGhostRoom { get; set; }
+		public GhostRoom CurrentGhostRoom { get; set; }
+		public GhostRoom SecondaryGhostRoom { get; set; }
 
-		public Vector2 roomChangeVelo { get; set; }
-
+		public Vector2 RoomChangeVelo { get; set; }
 
         public List<IRoom> AllRooms { get => allRooms; }
 
@@ -55,26 +53,34 @@ namespace MainGame.Rooms
 			if(!roomChange) CurrentRoom.Update();
 			else
 			{
-                CurrentGhostRoom.Update();
-				SecondaryGhostRoom.Update();
-
-                CurrentGhostRoom.Position += roomChangeVelo;
-				SecondaryGhostRoom.Position += roomChangeVelo;
-
                 float dis = Vector2.Distance(new Vector2(0, Constants.HudAndMenuHeight), SecondaryGhostRoom.Position);
 
-                if (dis < Constants.RoomScrollingSpeed)
+                if (dis >= Constants.RoomScrollingSpeed)
 				{
-                    SwitchingRoomsEnd();
-                }   
+                    CurrentGhostRoom.Position += RoomChangeVelo;
+                    SecondaryGhostRoom.Position += RoomChangeVelo;
+                }
+                else
+				{
+                    SecondaryGhostRoom.PlaySpawnParticles();
+                    if (SecondaryGhostRoom.RoomParticles.Count <= 0)
+                    {
+                        SwitchingRoomsEnd();
+						return;
+                    }
+                }
+                CurrentGhostRoom.Update();
+                SecondaryGhostRoom.Update();
             }
-			roomChangeDebounce--;
-
+            roomChangeDebounce--;
         }
 
 		public void Draw()
 		{
-            if (!roomChange) CurrentRoom.Draw();
+            if (!roomChange)
+			{
+                CurrentRoom.Draw();
+            }
             else
             {
                 CurrentGhostRoom.Draw();
@@ -97,22 +103,22 @@ namespace MainGame.Rooms
 
 			if(direction == Direction.West)
 			{
-				roomChangeVelo = new Vector2(Constants.RoomScrollingSpeed, 0);
+				RoomChangeVelo = new Vector2(Constants.RoomScrollingSpeed, 0);
 				secondaryGhostRoomStartPos = new Vector2(-game.GraphicsManager.PreferredBackBufferWidth, Constants.HudAndMenuHeight);
             }
             else if (direction == Direction.East)
 			{
-                roomChangeVelo = new Vector2(-Constants.RoomScrollingSpeed, 0);
+                RoomChangeVelo = new Vector2(-Constants.RoomScrollingSpeed, 0);
                 secondaryGhostRoomStartPos = new Vector2(game.GraphicsManager.PreferredBackBufferWidth, Constants.HudAndMenuHeight);
             }
 			else if(direction == Direction.North)
 			{
-                roomChangeVelo = new Vector2(0, Constants.RoomScrollingSpeed);
+                RoomChangeVelo = new Vector2(0, Constants.RoomScrollingSpeed);
                 secondaryGhostRoomStartPos = new Vector2(0, -game.GraphicsManager.PreferredBackBufferHeight+2*Constants.HudAndMenuHeight);
             }
 			else
 			{
-                roomChangeVelo = new Vector2(0, -Constants.RoomScrollingSpeed);
+                RoomChangeVelo = new Vector2(0, -Constants.RoomScrollingSpeed);
                 secondaryGhostRoomStartPos = new Vector2(0, game.GraphicsManager.PreferredBackBufferHeight);
             }
 
@@ -127,23 +133,15 @@ namespace MainGame.Rooms
             roomChange = false; // End change
 			game.ToggleEntities = true;
 			game.ToggleControls = true;
+            roomChangeDebounce = 20;
+			CurrentGhostRoom.ResetToBasePositions();
+			SecondaryGhostRoom.ResetToBasePositions();
             CurrentRoom = allRooms[game.Dungeon.DungeonLayout[(int)currentRoomIndex.Y][(int)currentRoomIndex.X]];
-			roomChangeDebounce = 20;
         }
 
-		public static IRoom CreateGhostRoom(IRoom room)
+		public static GhostRoom CreateGhostRoom(IRoom room)
 		{
-            return new Room(room.OuterBorderSprite, room.InnerBorderSprite, room.TilesSprite)
-            {
-                NorthDoor = DoorUtils.CloneDoor(room.NorthDoor),
-                SouthDoor = DoorUtils.CloneDoor(room.SouthDoor),
-                EastDoor = DoorUtils.CloneDoor(room.EastDoor),
-                WestDoor = DoorUtils.CloneDoor(room.WestDoor),
-
-                RoomBlocks = room.RoomBlocks,
-                DoorBaseLocations = room.DoorBaseLocations,
-                BlockBaseLocations = room.BlockBaseLocations
-            };
+			return new GhostRoom(room);
         }
 
 		public void NextRoom(Direction direction)
@@ -174,7 +172,7 @@ namespace MainGame.Rooms
                 currentRoomIndex.X = currentRoomIndex.X + 1 >= game.Dungeon.DungeonSize - 1 ? game.Dungeon.DungeonSize - 1 : currentRoomIndex.X + 1;
                 game.Player.Position = new Vector2(33 * Constants.UniversalScale, (game.GraphicsManager.PreferredBackBufferHeight + Constants.HudAndMenuHeight - 16 * Constants.UniversalScale) / 2);
             }
-			game.Player.Update(); // needed to insure the player position is properly updated
+            game.Player.FacingDirection = direction;
             SwitchRoomsStart(direction);
         }
     }

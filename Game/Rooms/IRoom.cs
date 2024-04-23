@@ -30,8 +30,6 @@ namespace MainGame.Rooms
         public IDoor WestDoor { get; set; }
         public IDoor EastDoor { get; set; }
         public IDoor SouthDoor { get; set; }
-        public Vector2[] DoorBaseLocations { get; set; }
-        public Vector2[] BlockBaseLocations { get; set; }
 
         public IHitBox EnemiesBorderHitBox { get; set; }
         public IHitBox PlayerBorderHitBox { get; set; }

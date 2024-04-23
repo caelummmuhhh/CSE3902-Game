@@ -98,12 +98,6 @@ public class Game1 : Game
                 controllers[i].Update();
             }
         }
-        /*
-            public bool TogglePause { get; set; } = false;
-            public bool ToggleEntities { get; set; } = false; // whether or not to update and draw entities
-            public bool FreezeControls { get; set; } = false; // turn off controls
-            public bool FreezeAllEntities { get; set; } = false; // no update, but draw
-        */
 
         if (!TogglePause)
         {
@@ -154,13 +148,6 @@ public class Game1 : Game
         {
             Menu.Draw();
         }
-
-        /*
-        testBlock.Draw(RoomManager.CurrentRoom.NorthDoor.HitBox, Color.White);
-        testBlock.Draw(RoomManager.CurrentRoom.EastDoor.HitBox, Color.White);
-        testBlock.Draw(RoomManager.CurrentRoom.SouthDoor.HitBox, Color.White);
-        testBlock.Draw(RoomManager.CurrentRoom.WestDoor.HitBox, Color.White);*/
-
 
         // Hud always drawn
         Hud.Draw();

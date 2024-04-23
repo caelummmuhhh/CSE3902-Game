@@ -10,11 +10,16 @@ namespace MainGame.Particles
         private Vector2 position;
         private int lifeTime = 12;
 
-        public GenericParticle(Vector2 spawnPosition, ISprite sprite)
+        public GenericParticle(Vector2 spawnPosition, ISprite sprite, int lifeSpan = -1)
         {
             IsActive = true;
             position = spawnPosition;
             this.sprite = sprite;
+            lifeTime = lifeSpan;
+            if (lifeTime <= 0 && sprite is AnimatedSprite animatedSprite)
+            {
+                lifeTime = animatedSprite.AnimationFrameDuration;
+            }
         }
 
         public void Draw() => sprite.Draw(position.X, position.Y, Color.White);

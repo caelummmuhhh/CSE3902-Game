@@ -10,8 +10,6 @@ using MainGame.Players;
 using MainGame.Particles;
 using MainGame.Collision;
 using MainGame.Projectiles;
-using System.Dynamic;
-using System.Diagnostics;
 
 namespace MainGame.Rooms
 {
@@ -27,7 +25,6 @@ namespace MainGame.Rooms
         public List<IProjectile> PlayerProjectiles { get; private set; } = new();
         public List<IProjectile> EnemyProjectiles { get; private set; } = new();
 
-
         public ISprite RoomText { get; set; }
 
         public IHitBox EnemiesBorderHitBox { get; set; }
@@ -37,9 +34,6 @@ namespace MainGame.Rooms
         public IDoor WestDoor { get; set; }
         public IDoor EastDoor { get; set; }
         public IDoor SouthDoor { get; set; }
-
-        public Vector2[] DoorBaseLocations { get; set; }
-        public Vector2[] BlockBaseLocations { get; set; }
 
         public ISprite OuterBorderSprite { get; set; }
         public ISprite InnerBorderSprite { get; set; }
@@ -58,6 +52,7 @@ namespace MainGame.Rooms
             PlayerBorderHitBox = new GenericHitBox();
 
         }
+
         public void Update()
         {
             //RoomPlayer.Update();
@@ -65,60 +60,49 @@ namespace MainGame.Rooms
             InnerBorderSprite.Update();
             TilesSprite.Update();
 
-            // Update door locations
-            NorthDoor.Position = DoorBaseLocations[0] + Position - new Vector2(0, Constants.HudAndMenuHeight);
-            SouthDoor.Position = DoorBaseLocations[1] + Position - new Vector2(0, Constants.HudAndMenuHeight);
-            EastDoor.Position = DoorBaseLocations[2] + Position - new Vector2(0, Constants.HudAndMenuHeight);
-            WestDoor.Position = DoorBaseLocations[3] + Position - new Vector2(0, Constants.HudAndMenuHeight);
+            NorthDoor.Update();
+            SouthDoor.Update();
+            WestDoor.Update();
+            EastDoor.Update();
 
-            for (int i = 0; i < RoomBlocks.Count; i++)
-            {
-                RoomBlocks[i].Position = BlockBaseLocations[i] + Position - new Vector2(0, Constants.HudAndMenuHeight);
-            }
+            foreach (IBlock block in RoomBlocks) block.Update();
 
-            foreach (IBlock block in RoomBlocks)
+            foreach (IPickupableItem item in RoomItems) item.Update();
+
+            foreach (IParticle particle in RoomParticles) particle.Update();
+
+            for (int i = RoomEnemies.Count - 1; i >= 0; i--)
             {
-                block.Update();
-            }
-            
-            foreach (IPickupableItem item in RoomItems)
-            {
-                item.Update();
-            }
-            foreach (IEnemy enemy in RoomEnemies)
-            {
-                enemy.Update();
-            }
-            foreach (IParticle particle in RoomParticles)
-            {
-                particle.Update();
+                RoomEnemies[i].Update();
+                if (!RoomEnemies[i].IsAlive) RoomEnemies.RemoveAt(i);
             }
             for (int i = PlayerProjectiles.Count - 1; i >= 0; i--)
             {
-                IProjectile projectile = PlayerProjectiles[i];
-                projectile.Update();
-
-                if (!projectile.IsActive)
-                {
-                    PlayerProjectiles.RemoveAt(i);
-                }
+                PlayerProjectiles[i].Update();
+                if (!PlayerProjectiles[i].IsActive) PlayerProjectiles.RemoveAt(i);
+            }
+            for (int i = EnemyProjectiles.Count - 1; i >= 0; i--)
+            {
+                EnemyProjectiles[i].Update();
+                if (!EnemyProjectiles[i].IsActive) EnemyProjectiles.RemoveAt(i);
             }
 
-                for (int i = EnemyProjectiles.Count - 1; i >= 0; i--)
-                {
-                    IProjectile projectile = EnemyProjectiles[i];
-                    projectile.Update();
+            if (RoomEnemies.Count <= 0)
+            {
+                PushableBlock pushableBlock = GetPushableBlock();
+                pushableBlock?.MakePushable();
 
-                    if (!projectile.IsActive)
-                    {
-                        EnemyProjectiles.RemoveAt(i);
-                    }
-                }
+                if (pushableBlock is not null && !pushableBlock.HasBeenPushed) return;
+
+                if (NorthDoor.DoorType is DoorTypes.DiamondDoor) NorthDoor.Unlock();
+                if (EastDoor.DoorType is DoorTypes.DiamondDoor) EastDoor.Unlock();
+                if (SouthDoor.DoorType is DoorTypes.DiamondDoor) SouthDoor.Unlock();
+                if (WestDoor.DoorType is DoorTypes.DiamondDoor) WestDoor.Unlock();
             }
+        }
 
         public void Draw()
         {
-            //RoomPlayer.Draw();
             OuterBorderSprite.Draw(Position.X, Position.Y, Color.White);
             InnerBorderSprite.Draw(Position.X, Position.Y, Color.White);
             TilesSprite.Draw(Position.X, Position.Y, Color.White);
@@ -130,33 +114,25 @@ namespace MainGame.Rooms
 
             RoomText?.Draw(32 * Constants.UniversalScale, 32 * Constants.UniversalScale + Constants.HudAndMenuHeight, Color.White);
 
+            foreach (IBlock block in RoomBlocks) block.Draw();
+            foreach (IPickupableItem item in RoomItems) item.Draw();
+            foreach (IEnemy enemy in RoomEnemies) enemy.Draw();
+            foreach (IParticle particle in RoomParticles) particle.Draw();
+            foreach (IProjectile projectile in PlayerProjectiles) projectile.Draw();
+            foreach (IProjectile projectile in EnemyProjectiles) projectile.Draw();
+        }
+
+        private PushableBlock GetPushableBlock()
+        {
             foreach (IBlock block in RoomBlocks)
             {
-                block.Draw();
+                if (block is PushableBlock pushableBlock)
+                {
+                    return pushableBlock;
+                }
             }
-            
-            foreach (IPickupableItem item in RoomItems)
-            {
-                item.Draw();
-            }
-            foreach (IEnemy enemy in RoomEnemies)
-            {
-                enemy.Draw();
-            }
-            foreach (IParticle particle in RoomParticles)
-            {
-                particle.Draw();
-            }
-
-            foreach (IProjectile projectile in PlayerProjectiles)
-            {
-                projectile.Draw();
-            }
-            foreach (IProjectile projectile in EnemyProjectiles)
-            {
-                projectile.Draw();
-            }
-            
+            return null;
         }
+
     }
 }
