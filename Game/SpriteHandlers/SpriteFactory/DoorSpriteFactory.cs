@@ -1,9 +1,5 @@
-﻿using System.Collections.Generic;
-using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Content;
-using MainGame.SpriteHandlers.ItemSprites;
+﻿using MainGame.SpriteHandlers.ItemSprites;
 using System;
-using System.Diagnostics;
 
 namespace MainGame.SpriteHandlers
 {
@@ -16,6 +12,7 @@ namespace MainGame.SpriteHandlers
                 TextureMap["RoomSprites"], SpriteBatch,
                 textureStartingY: 704 + 32 * dirNum,
                 textureStartingX: 32 * (int)doorType,
+                layerDepth: DefaultSpriteLayerDepths.PlayerLayer + 0.01f,
                 scale: Constants.UniversalScale
                 );
         }
@@ -27,6 +24,7 @@ namespace MainGame.SpriteHandlers
                 TextureMap["RoomSprites"], SpriteBatch,
                 textureStartingY: 704 + 16 + 32 * dirNum,
                 textureStartingX: 32 * (int)doorType,
+                layerDepth: DefaultSpriteLayerDepths.RoomBaseLayer,
                 scale: Constants.UniversalScale
                 );
         }
@@ -38,6 +36,7 @@ namespace MainGame.SpriteHandlers
                 TextureMap["RoomSprites"], SpriteBatch,
                 textureStartingY: 704 + 32 * dirNum,
                 textureStartingX: 32 * (int)doorType,
+                layerDepth: DefaultSpriteLayerDepths.PlayerLayer + 0.01f,
                 scale: Constants.UniversalScale
                 );
         }
@@ -49,6 +48,7 @@ namespace MainGame.SpriteHandlers
                 TextureMap["RoomSprites"], SpriteBatch,
                 textureStartingY: 704 + 32 * dirNum,
                 textureStartingX: 16 + 32 * (int)doorType,
+                layerDepth: DefaultSpriteLayerDepths.RoomBaseLayer,
                 scale: Constants.UniversalScale
                 );
         }

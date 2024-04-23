@@ -54,10 +54,6 @@ namespace MainGame.Rooms
             InnerBorderSprite = innerBorder;
             TilesSprite = tiles;
 
-            OuterBorderSprite.LayerDepth = 0f;
-            InnerBorderSprite.LayerDepth = 1.0f;
-            TilesSprite.LayerDepth = 1.0f;
-
             EnemiesBorderHitBox = new AllFullWallHitBox();
             PlayerBorderHitBox = new GenericHitBox();
 
@@ -132,13 +128,12 @@ namespace MainGame.Rooms
             WestDoor.Draw();
             EastDoor.Draw();
 
-            if (RoomText != null) RoomText.Draw(32 * Constants.UniversalScale, 32 * Constants.UniversalScale + Constants.HudAndMenuHeight, Color.White);
+            RoomText?.Draw(32 * Constants.UniversalScale, 32 * Constants.UniversalScale + Constants.HudAndMenuHeight, Color.White);
 
             foreach (IBlock block in RoomBlocks)
             {
                 block.Draw();
             }
-
             
             foreach (IPickupableItem item in RoomItems)
             {

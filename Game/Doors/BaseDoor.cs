@@ -54,8 +54,6 @@ namespace MainGame.Doors
 
         public virtual void Draw()
         {
-            SpriteTop.LayerDepth = 1.0f;
-            SpriteBottom.LayerDepth = 0f;
             SpriteTop.Draw(Position.X, Position.Y, Color.White);
             SpriteBottom.Draw(Position.X + BottomXOffset, Position.Y + BottomYOffset, Color.White);
         }

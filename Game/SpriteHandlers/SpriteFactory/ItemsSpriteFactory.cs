@@ -61,6 +61,7 @@ namespace MainGame.SpriteHandlers
                 numRows: 1,
                 numColumns: 2,
                 numberOfFrames: 2,
+                layerDepth: DefaultSpriteLayerDepths.ItemsLayer,
                 scale: Constants.UniversalScale);
         }
 
@@ -69,6 +70,7 @@ namespace MainGame.SpriteHandlers
             return new StaticItemSprite(
                 TextureMap["ItemsSprites"], SpriteBatch,
                 textureStartingY: 16,
+                layerDepth: DefaultSpriteLayerDepths.ItemsLayer,
                 scale: Constants.UniversalScale);
         }
 
@@ -77,6 +79,7 @@ namespace MainGame.SpriteHandlers
             return new StaticItemSprite(
                 TextureMap["ItemsSprites"], SpriteBatch,
                 textureStartingY: 32,
+                layerDepth: DefaultSpriteLayerDepths.ItemsLayer,
                 scale: Constants.UniversalScale);
         }
 
@@ -85,6 +88,7 @@ namespace MainGame.SpriteHandlers
             return new StaticItemSprite(
                 TextureMap["ItemsSprites"], SpriteBatch,
                 textureStartingY: 48,
+                layerDepth: DefaultSpriteLayerDepths.ItemsLayer,
                 scale: Constants.UniversalScale);
         }
 
@@ -96,6 +100,7 @@ namespace MainGame.SpriteHandlers
                 numColumns: 2,
                 numberOfFrames: 2,
                 textureStartingY: 48,
+                layerDepth: DefaultSpriteLayerDepths.ItemsLayer,
                 scale: Constants.UniversalScale);
         }
 
@@ -104,6 +109,7 @@ namespace MainGame.SpriteHandlers
             return new StaticItemSprite(
                 TextureMap["ItemsSprites"], SpriteBatch,
                 textureStartingY: 64,
+                layerDepth: DefaultSpriteLayerDepths.ItemsLayer,
                 scale: Constants.UniversalScale);
         }
 
@@ -112,6 +118,7 @@ namespace MainGame.SpriteHandlers
             return new StaticItemSprite(
                 TextureMap["ItemsSprites"], SpriteBatch,
                 textureStartingY: 80,
+                layerDepth: DefaultSpriteLayerDepths.ItemsLayer,
                 scale: Constants.UniversalScale);
         }
 
@@ -120,6 +127,7 @@ namespace MainGame.SpriteHandlers
             return new StaticItemSprite(
                 TextureMap["ItemsSprites"], SpriteBatch,
                 textureStartingY: 96,
+                layerDepth: DefaultSpriteLayerDepths.ItemsLayer,
                 scale: Constants.UniversalScale);
         }
 
@@ -128,6 +136,7 @@ namespace MainGame.SpriteHandlers
             return new StaticItemSprite(
                 TextureMap["ItemsSprites"], SpriteBatch,
                 textureStartingY: 112,
+                layerDepth: DefaultSpriteLayerDepths.ItemsLayer,
                 scale: Constants.UniversalScale);
         }
 
@@ -136,6 +145,7 @@ namespace MainGame.SpriteHandlers
             return new StaticItemSprite(
                 TextureMap["ItemsSprites"], SpriteBatch,
                 textureStartingY: 128,
+                layerDepth: DefaultSpriteLayerDepths.ItemsLayer,
                 scale: Constants.UniversalScale);
         }
 
@@ -144,6 +154,7 @@ namespace MainGame.SpriteHandlers
             return new StaticItemSprite(
                 TextureMap["ItemsSprites"], SpriteBatch,
                 textureStartingY: 144,
+                layerDepth: DefaultSpriteLayerDepths.ItemsLayer,
                 scale: Constants.UniversalScale);
         }
 
@@ -152,6 +163,7 @@ namespace MainGame.SpriteHandlers
             return new StaticItemSprite(
                 TextureMap["ItemsSprites"], SpriteBatch,
                 textureStartingY: 160,
+                layerDepth: DefaultSpriteLayerDepths.ItemsLayer,
                 scale: Constants.UniversalScale);
         }
 
@@ -163,6 +175,7 @@ namespace MainGame.SpriteHandlers
                 numColumns: 2,
                 numberOfFrames: 2,
                 textureStartingY: 176,
+                layerDepth: DefaultSpriteLayerDepths.ItemsLayer,
                 scale: Constants.UniversalScale);
         }
 
@@ -174,6 +187,7 @@ namespace MainGame.SpriteHandlers
                 numColumns: 2,
                 numberOfFrames: 2,
                 textureStartingY: 192,
+                layerDepth: DefaultSpriteLayerDepths.ItemsLayer,
                 scale: Constants.UniversalScale);
         }
 
@@ -185,6 +199,7 @@ namespace MainGame.SpriteHandlers
                 numColumns: 1,
                 numberOfFrames: 1,
                 textureStartingY: 208,
+                layerDepth: DefaultSpriteLayerDepths.ItemsLayer,
                 scale: Constants.UniversalScale);
         }
 
@@ -193,6 +208,7 @@ namespace MainGame.SpriteHandlers
             return new StaticItemSprite(
                 TextureMap["ItemsSprites"], SpriteBatch,
                 textureStartingY: 224,
+                layerDepth: DefaultSpriteLayerDepths.ItemsLayer,
                 scale: Constants.UniversalScale);
         }
         public static ISprite CreateCandleItemSprite()
@@ -200,6 +216,7 @@ namespace MainGame.SpriteHandlers
             return new StaticItemSprite(
                 TextureMap["ItemsSprites"], SpriteBatch,
                 textureStartingY: 224,
+                layerDepth: DefaultSpriteLayerDepths.ItemsLayer,
                 scale: Constants.UniversalScale);
         }
     }

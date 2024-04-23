@@ -13,14 +13,14 @@ namespace MainGame.HudAndMenu
         public Vector2 Position;
         private readonly Game1 game;
 
-        private BlockSprite background; // TODO: make an actual sprite that can do this...
-        private ISprite textLevel;
+        private readonly BlockSprite background; // TODO: make an actual sprite that can do this...
+        private readonly ISprite textLevel;
+        private readonly ISprite textItemKey;
+        private readonly ISprite textAttackKey;
+        private readonly ISprite textLife;
         private ISprite textRupees;
         private ISprite textKeys;
         private ISprite textBombs;
-        private ISprite textItemKey;
-        private ISprite textAttackKey;
-        private ISprite textLife;
 
         private readonly ISprite swordDisplay;
         private ISprite itemDisplay;
@@ -30,12 +30,13 @@ namespace MainGame.HudAndMenu
         private ISprite[][] layoutDisplay;
         private ISprite triforceRoom;
         private Vector2 triforceRoomLoc;
+        private readonly float textLayer = DefaultSpriteLayerDepths.HudLayer + 0.05f;
 
         public Hud(string dungeonID, string itemKey, string attackKey, Game1 game) 
         {
             this.game = game;
             background = (BlockSprite)SpriteFactory.CreateBlackSquareSprite();
-            background.LayerDepth = 0.5f;
+            background.LayerDepth = DefaultSpriteLayerDepths.HudLayer - 0.01f;
             HudBase = SpriteFactory.CreateEmptyHudSprite();
 
             heartsDisplay = new ISprite[16];
@@ -44,10 +45,10 @@ namespace MainGame.HudAndMenu
             triforceRoom = SpriteFactory.CreateMapTriforceTrackerSprite();
             triforceRoomLoc = game.Dungeon.TriforceRoomLocation;
 
-            textLevel = SpriteFactory.CreateTextSprite("LEVEL-" + dungeonID);
-            textItemKey = SpriteFactory.CreateTextSprite(itemKey);
-            textAttackKey = SpriteFactory.CreateTextSprite(attackKey);
-            textLife = SpriteFactory.CreateTextSprite("-LIFE-");
+            textLevel = SpriteFactory.CreateTextSprite("LEVEL-" + dungeonID, textLayer);
+            textItemKey = SpriteFactory.CreateTextSprite(itemKey, textLayer);
+            textAttackKey = SpriteFactory.CreateTextSprite(attackKey, textLayer);
+            textLife = SpriteFactory.CreateTextSprite("-LIFE-", textLayer);
 
             swordDisplay = SpriteFactory.CreateSwordBeamUpProjectileSprite();
         }
@@ -83,9 +84,9 @@ namespace MainGame.HudAndMenu
 
         public void Update()
         {
-            textRupees = SpriteFactory.CreateTextSprite($"X{game.Player.Inventory.Rupees.Quantity}");
-            textKeys = SpriteFactory.CreateTextSprite($"X{game.Player.Inventory.Keys.Quantity}");
-            textBombs = SpriteFactory.CreateTextSprite($"X{game.Player.Inventory.Bombs.Quantity}");
+            textRupees = SpriteFactory.CreateTextSprite($"X{game.Player.Inventory.Rupees.Quantity}", textLayer);
+            textKeys = SpriteFactory.CreateTextSprite($"X{game.Player.Inventory.Keys.Quantity}", textLayer);
+            textBombs = SpriteFactory.CreateTextSprite($"X{game.Player.Inventory.Bombs.Quantity}", textLayer);
 
             maxHealth = game.Player.MaxHealth;
             for (int i = 0; i < maxHealth / 2; ++i)
@@ -126,6 +127,11 @@ namespace MainGame.HudAndMenu
             textAttackKey.Draw(152 * Constants.UniversalScale, 16 * Constants.UniversalScale + pauseShift, Color.White);
             textLife.Draw(184 * Constants.UniversalScale, 16 * Constants.UniversalScale + pauseShift, Color.Red);
 
+            if (itemDisplay is not null)
+            {
+                itemDisplay.LayerDepth = textLayer;
+            }
+            swordDisplay.LayerDepth = textLayer;
             swordDisplay.Draw(148 * Constants.UniversalScale, 24 * Constants.UniversalScale + pauseShift, Color.White);
             itemDisplay?.Draw(124 * Constants.UniversalScale, 24 * Constants.UniversalScale + pauseShift, Color.White);
 

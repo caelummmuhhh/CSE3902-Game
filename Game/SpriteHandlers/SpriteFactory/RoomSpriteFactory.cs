@@ -13,13 +13,14 @@ namespace MainGame.SpriteHandlers
                 TextureMap["RoomSprites"], SpriteBatch,
                 textureStartingY: 0,
                 scale: Constants.UniversalScale
-                ); ;
+                );
         }
         public static ISprite CreateRoomOuterBorderSprite()
         {
             return new RoomOuterBorderSprite(
                 TextureMap["RoomSprites"], SpriteBatch,
                 textureStartingY: 176,
+                layerDepth: DefaultSpriteLayerDepths.HudLayer - 0.1f,
                 scale: Constants.UniversalScale
                 );
         }
@@ -28,6 +29,7 @@ namespace MainGame.SpriteHandlers
             return new RoomInnerBorderSprite(
                 TextureMap["RoomSprites"], SpriteBatch,
                 textureStartingY: 352,
+                layerDepth: DefaultSpriteLayerDepths.RoomBaseLayer,
                 scale: Constants.UniversalScale
                 );
         }
@@ -36,6 +38,7 @@ namespace MainGame.SpriteHandlers
             return new RoomDungeonTilesSprite(
                 TextureMap["RoomSprites"], SpriteBatch,
                 textureStartingY: 528,
+                layerDepth: DefaultSpriteLayerDepths.RoomBaseLayer,
                 scale: Constants.UniversalScale
                 );
         }
@@ -45,6 +48,7 @@ namespace MainGame.SpriteHandlers
             return new EmptyRoomSprite(
                 TextureMap["RoomSprites"], SpriteBatch,
                 textureStartingY: 0,
+                layerDepth: DefaultSpriteLayerDepths.RoomBaseLayer,
                 scale: Constants.UniversalScale
                 );
         }
