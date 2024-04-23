@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using MainGame.SpriteHandlers;
+using MainGame.Audio;
 
 namespace MainGame.Doors
 {
@@ -16,6 +17,7 @@ namespace MainGame.Doors
         public override void Unlock()
         {
             if (!IsLocked) return;
+            AudioManager.PlaySFX("Door_Unlock", 0);
             DoorType = DoorUtils.GetOpenedDoorVariant(DoorType);
             SpriteTop = SpriteFactory.CreateDoorTopNorthSouth(Direction, DoorType);
             SpriteBottom = SpriteFactory.CreateDoorBottomNorthSouth(Direction, DoorType);

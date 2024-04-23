@@ -1,12 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.IO;
 using Microsoft.Xna.Framework;
-using MainGame.Audio;
 using MainGame.Players;
-using System;
-using System.Diagnostics;
 using MainGame.Doors;
-using MainGame.Players.PlayerStates;
 
 namespace MainGame.Rooms
 {
