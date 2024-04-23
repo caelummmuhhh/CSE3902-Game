@@ -25,8 +25,7 @@ namespace MainGame.Doors
                 return r; 
             }
         }
-        
-        public bool IsOpen { get; set; }
+
 
         public Door(Door door)
         {
@@ -37,8 +36,6 @@ namespace MainGame.Doors
 
             this.spriteTop.LayerDepth = 0f;
             this.spriteBottom.LayerDepth = 1.0f;
-
-            IsOpen = false;
 
             if (Direction == Direction.North)
             {
@@ -64,7 +61,6 @@ namespace MainGame.Doors
             this.spriteTop = spriteTop;
             this.spriteBottom = spriteBottom;
             Direction = direction;
-            IsOpen = false;
 
             this.spriteTop.LayerDepth = 0f;
             this.spriteBottom.LayerDepth = 1.0f;
@@ -101,8 +97,8 @@ namespace MainGame.Doors
 
         public void Unlock()
         {
-            IsOpen = true;
             DoorTypes doorType = SpriteFactory.DoorTypeFromString("OpenDoor");
+            this.DoorType = doorType;
             if(Direction == Direction.North) 
             {
                 spriteTop = SpriteFactory.CreateDoorTopNorthSouth(Direction.North, doorType);
