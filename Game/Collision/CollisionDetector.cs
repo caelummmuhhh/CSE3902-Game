@@ -166,6 +166,14 @@ namespace MainGame.Collision
                     }
                 }
 
+                foreach (IDoor door in doors) {
+                    Rectangle overlap = Rectangle.Intersect(door.HitBox, playerProjectile.HitBox);
+                    if (!overlap.IsEmpty)
+                    {
+                        new DoorPlayerProjectileCollisionHandler(playerProjectile, door, game).HandleCollision();
+                    }
+                }
+
                 if (player.MainHitbox.Intersects(playerProjectile.HitBox))
                 {
                     new PlayerPlayerProjectileCollisionHandler(player, playerProjectile).HandleCollision();
