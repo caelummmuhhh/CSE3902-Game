@@ -6,8 +6,9 @@ namespace MainGame.Doors
 	public interface IDoor
 	{
         public Rectangle HitBox { get; }
-		public DoorTypes DoorType { get; set; }
-		public Direction Direction { get; set; }
+		public DoorTypes DoorType { get; }
+		public Direction Direction { get; }
+		public bool IsLocked { get; }
 
         public Vector2 Position{get; set;}
 

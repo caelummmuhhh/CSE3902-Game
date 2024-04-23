@@ -94,7 +94,8 @@ namespace MainGame.Rooms
 			 */ 
 
 			roomChange = true; // Start change
-			game.SetPlayer(); // Hide player
+			game.ToggleEntities = false;
+			game.ToggleControls = false;
 			// set changing variables based on direction
 			Vector2 secondaryGhostRoomStartPos;
 
@@ -120,32 +121,33 @@ namespace MainGame.Rooms
             }
 
 			// Create ghost rooms for display
-			CurrentGhostRoom = createGhostRoom(CurrentRoom);
-			SecondaryGhostRoom = createGhostRoom(allRooms[game.Dungeon.DungeonLayout[(int)currentRoomIndex.Y][(int)currentRoomIndex.X]]);
+			CurrentGhostRoom = CreateGhostRoom(CurrentRoom);
+			SecondaryGhostRoom = CreateGhostRoom(allRooms[game.Dungeon.DungeonLayout[(int)currentRoomIndex.Y][(int)currentRoomIndex.X]]);
             SecondaryGhostRoom.Position = secondaryGhostRoomStartPos;
         }
 
 		public void SwitchingRoomsEnd()
 		{
             roomChange = false; // End change
-            game.SetPlayer(); // unhide player
+			game.ToggleEntities = true;
+			game.ToggleControls = true;
             CurrentRoom = allRooms[game.Dungeon.DungeonLayout[(int)currentRoomIndex.Y][(int)currentRoomIndex.X]];
 			roomChangeDebounce = 20;
         }
 
-		public IRoom createGhostRoom(IRoom room)
+		public static IRoom CreateGhostRoom(IRoom room)
 		{
-			IRoom ghost = new Room(room.OuterBorderSprite, room.InnerBorderSprite, room.TilesSprite);
-			ghost.NorthDoor = new Door((Door)room.NorthDoor);
-            ghost.SouthDoor = new Door((Door)room.SouthDoor);
-            ghost.EastDoor = new Door((Door)room.EastDoor);
-            ghost.WestDoor = new Door((Door)room.WestDoor);
+            return new Room(room.OuterBorderSprite, room.InnerBorderSprite, room.TilesSprite)
+            {
+                NorthDoor = DoorUtils.CloneDoor(room.NorthDoor),
+                SouthDoor = DoorUtils.CloneDoor(room.SouthDoor),
+                EastDoor = DoorUtils.CloneDoor(room.EastDoor),
+                WestDoor = DoorUtils.CloneDoor(room.WestDoor),
 
-			ghost.RoomBlocks = room.RoomBlocks;
-			ghost.DoorBaseLocations = room.DoorBaseLocations;
-			ghost.BlockBaseLocations = room.BlockBaseLocations;
-
-			return ghost;
+                RoomBlocks = room.RoomBlocks,
+                DoorBaseLocations = room.DoorBaseLocations,
+                BlockBaseLocations = room.BlockBaseLocations
+            };
         }
 
 		public void NextRoom(Direction direction)

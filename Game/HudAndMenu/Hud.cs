@@ -1,5 +1,6 @@
 ﻿using System;
 using MainGame.SpriteHandlers;
+using MainGame.SpriteHandlers.BlockSprites;
 using Microsoft.Xna.Framework;
 
 namespace MainGame.HudAndMenu
@@ -12,6 +13,7 @@ namespace MainGame.HudAndMenu
         public Vector2 Position;
         private readonly Game1 game;
 
+        private BlockSprite background; // TODO: make an actual sprite that can do this...
         private ISprite textLevel;
         private ISprite textRupees;
         private ISprite textKeys;
@@ -32,6 +34,8 @@ namespace MainGame.HudAndMenu
         public Hud(string dungeonID, string itemKey, string attackKey, Game1 game) 
         {
             this.game = game;
+            background = (BlockSprite)SpriteFactory.CreateBlackSquareSprite();
+            background.LayerDepth = 0.5f;
             HudBase = SpriteFactory.CreateEmptyHudSprite();
 
             heartsDisplay = new ISprite[16];
@@ -112,6 +116,7 @@ namespace MainGame.HudAndMenu
         }
         public void Draw()
         {
+            background.Draw(new Rectangle(new Point(0, pauseShift), HudBase.DestinationRectangle.Size), Color.White);
             HudBase.Draw(0, pauseShift, Color.White);
             textLevel.Draw(16 * Constants.UniversalScale, 8 * Constants.UniversalScale + pauseShift, Color.White);
             textRupees.Draw(96 * Constants.UniversalScale, 16 * Constants.UniversalScale + pauseShift, Color.White);

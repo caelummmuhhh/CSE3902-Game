@@ -7,8 +7,6 @@ using System.Diagnostics;
 
 namespace MainGame.SpriteHandlers
 {
-    public enum DoorTypes { WallNormal, OpenDoor, KeyDoor, DiamondDoor, DestroyedWall, WallDestructible = 0 };
-
     public static partial class SpriteFactory
     {
         public static ISprite CreateDoorTopNorthSouth(Direction direction, DoorTypes doorType)

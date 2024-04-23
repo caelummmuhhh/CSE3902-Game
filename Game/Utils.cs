@@ -23,6 +23,11 @@ namespace MainGame
         Arrow, Key, Compass, TriforcePiece, Fairy, Fire, Candle
     }
 
+    public enum DoorTypes
+    {
+        WallNormal, OpenDoor, KeyDoor, DiamondDoor, DestroyedWall, WallDestructible = 0
+    };
+
     public static class Constants
     {
         /// <summary>
