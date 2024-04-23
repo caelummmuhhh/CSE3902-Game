@@ -42,6 +42,7 @@ public class Game1 : Game
 
     public bool TogglePause;
     int PauseDebounce;
+    private DungeonLoadingScreen dungeonLoadingScreen;
 
 
     public Game1()
@@ -55,6 +56,7 @@ public class Game1 : Game
         //this.TargetElapsedTime = TimeSpan.FromSeconds(1d / 30d); //60);
         Content.RootDirectory = "Content";
         IsMouseVisible = true;
+        dungeonLoadingScreen = new DungeonLoadingScreen(this);
     }
 
     protected override void Initialize()
@@ -95,10 +97,16 @@ public class Game1 : Game
 
         controllers.Add(new KeyboardController(this, Player));
         controllers.Add(new MouseController(this, Player));
+        dungeonLoadingScreen.Initialize();
     }
 
     protected override void Update(GameTime gameTime)
     {
+        if (dungeonLoadingScreen.IsLoading)
+        {
+            dungeonLoadingScreen.Update(gameTime);
+            return;
+        }
         TotalGameTime++;
 
         if (PauseDebounce >= 10)
@@ -136,8 +144,15 @@ public class Game1 : Game
     protected override void Draw(GameTime gameTime)
     {
         GraphicsDevice.Clear(Color.Black);
-        spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, SamplerState.PointClamp);
-        if (!TogglePause)
+    spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, SamplerState.PointClamp);
+
+    if (dungeonLoadingScreen.IsLoading)
+    {
+        dungeonLoadingScreen.Draw(spriteBatch);
+    }
+    else
+    {
+                if (!TogglePause)
         {
             RoomManager.Draw();
             Player.Draw();
@@ -146,6 +161,7 @@ public class Game1 : Game
         {
             Menu.Draw();
         }
+    }
 
         // Hud always drawn
         Hud.Draw();
@@ -154,4 +170,8 @@ public class Game1 : Game
 
         base.Draw(gameTime);
     }
+public void LoadSelectedDungeon(string dungeonFile)
+{
+    Dungeon = new Dungeon(this, dungeonFile);
+}
 }

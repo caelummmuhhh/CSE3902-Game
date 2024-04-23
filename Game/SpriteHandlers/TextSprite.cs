@@ -47,4 +47,3 @@ namespace MainGame.SpriteHandlers
 
     }
 }
-
