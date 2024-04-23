@@ -61,6 +61,7 @@
     <PackageReference Include="MonoGame.Content.Builder.Task" Version="3.8.1.303" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Content\RandomRooms\" />
     <Folder Include="Controllers\" />
     <Folder Include="Players\" />
     <Folder Include="SpriteHandlers\PlayerSprites\" />
@@ -95,6 +96,15 @@
     <Folder Include="Commands\MenuCommands\" />
   </ItemGroup>
   <ItemGroup>
+    <None Update="Content\Dungeons\Dungeon_1.csv">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Dungeons\Dungeon_1_Debug.csv">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Dungeons\Dungeon_Base.csv">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Update="Content\Rooms\Room_10.csv">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

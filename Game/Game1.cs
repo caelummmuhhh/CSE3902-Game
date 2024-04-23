@@ -14,6 +14,7 @@ using MainGame.HudAndMenu;
 using MainGame.Dungeons;
 using MainGame.Collision;
 using MainGame.Audio;
+using MainGame.RNG;
 using MainGame.SpriteHandlers.BlockSprites;
 using MainGame.Projectiles;
 using MainGame.Enemies;
@@ -76,6 +77,8 @@ public class Game1 : Game
         SpriteFactory.LoadAllTextures(Content);
         SpriteFactory.SpriteBatch = spriteBatch;
 
+        RandomGeneration.GenerateDungeon(this, "Content/Dungeons/Dungeon_Base.csv", "Content/Dungeons/Dungeon_Random.csv");
+
         string dungeonName = "Dungeon_1_Debug.csv";
         Dungeon = new Dungeon(this, dungeonName);
 
@@ -83,7 +86,7 @@ public class Game1 : Game
 
         Player = new Player(new Vector2(120 * Constants.UniversalScale, (128 * Constants.UniversalScale) + Constants.HudAndMenuHeight), RoomManager,
             Dungeon.PlayerStartingItems, Dungeon.PlayerStartingHealth, Dungeon.PlayerStartingRupees, Dungeon.PlayerStartingKeys, Dungeon.PlayerStartingBombs);
-        //Array.Empty<int>()
+
         RoomManager.LoadAllRooms(Player);
 
         Collision = new(this);

@@ -117,8 +117,8 @@ namespace MainGame.Dungeons
                 } 
 
             }
-
-            UnderGroundRoom = int.Parse(Lines[11].Split(",")[0]);
+            string[] undergroundRooms = Lines[11].Split(",");
+            if (int.TryParse(undergroundRooms[0], out int roomID)) UnderGroundRoom = roomID;
 
         }
         public void Update()
