@@ -11,6 +11,7 @@ namespace MainGame.SpriteHandlers
                 numRows: 1,
                 numColumns: 2,
                 numberOfFrames: 2,
+                layerDepth: DefaultSpriteLayerDepths.EnemiesLayer,
                 scale: Constants.UniversalScale);
         }
 
@@ -21,6 +22,7 @@ namespace MainGame.SpriteHandlers
                 numRows: 1,
                 numColumns: 2,
                 numberOfFrames: 2,
+                layerDepth: DefaultSpriteLayerDepths.EnemiesLayer,
                 scale: Constants.UniversalScale);
         }
 
@@ -31,6 +33,7 @@ namespace MainGame.SpriteHandlers
                 numRows: 1,
                 numColumns: 2,
                 numberOfFrames: 2,
+                layerDepth: DefaultSpriteLayerDepths.EnemiesLayer,
                 scale: Constants.UniversalScale);
         }
 
@@ -39,6 +42,7 @@ namespace MainGame.SpriteHandlers
             return new EnemySprites.KeeseLandedSprite(
                 TextureMap["EnemiesSprites"], SpriteBatch,
                 textureStartingX: 16,
+                layerDepth: DefaultSpriteLayerDepths.EnemiesLayer,
                 scale: Constants.UniversalScale);
         }
 
@@ -50,6 +54,7 @@ namespace MainGame.SpriteHandlers
                 numColumns: 1,
                 numberOfFrames: 1,
                 textureStartingY: 16,
+                layerDepth: DefaultSpriteLayerDepths.EnemiesLayer,
                 scale: Constants.UniversalScale);
         }
 
@@ -61,6 +66,7 @@ namespace MainGame.SpriteHandlers
                 numColumns: 2,
                 numberOfFrames: 2,
                 textureStartingY: 32,
+                layerDepth: DefaultSpriteLayerDepths.EnemiesLayer,
                 scale: Constants.UniversalScale);
         }
 
@@ -72,6 +78,7 @@ namespace MainGame.SpriteHandlers
                 numColumns: 2,
                 numberOfFrames: 2,
                 textureStartingY: 96,
+                layerDepth: DefaultSpriteLayerDepths.EnemiesLayer,
                 scale: Constants.UniversalScale);
         }
 
@@ -81,6 +88,7 @@ namespace MainGame.SpriteHandlers
                 TextureMap["EnemiesSprites"], SpriteBatch,
                 textureStartingX: 0,
                 textureStartingY: 112,
+                layerDepth: DefaultSpriteLayerDepths.EnemiesLayer,
                 scale: Constants.UniversalScale);
         }
 
@@ -89,6 +97,7 @@ namespace MainGame.SpriteHandlers
             return new EnemySprites.SpikeCrossSprite(
                 TextureMap["EnemiesSprites"], SpriteBatch,
                 textureStartingY: 128,
+                layerDepth: DefaultSpriteLayerDepths.EnemiesLayer,
                 scale: Constants.UniversalScale);
         }
 
@@ -102,6 +111,7 @@ namespace MainGame.SpriteHandlers
                 frameWidth: 24,
                 numberOfFrames: 2,
                 textureStartingY: 144,
+                layerDepth: DefaultSpriteLayerDepths.EnemiesLayer,
                 scale: Constants.UniversalScale);
         }
 
@@ -116,10 +126,11 @@ namespace MainGame.SpriteHandlers
                 numberOfFrames: 2,
                 textureStartingX: 48,
                 textureStartingY: 144,
+                layerDepth: DefaultSpriteLayerDepths.EnemiesLayer,
                 scale: Constants.UniversalScale);
         }
 
-       
+
         public static ISprite CreateAquamentusAttackSprite()
         {
             return new AquamentusAttackProjectileSprite(
@@ -128,6 +139,7 @@ namespace MainGame.SpriteHandlers
                 numColumns: 4,
                 numberOfFrames: 4,
                 textureStartingY: 64,
+                layerDepth: DefaultSpriteLayerDepths.EnemiesLayer,
                 scale: Constants.UniversalScale);
         }
 
@@ -140,6 +152,7 @@ namespace MainGame.SpriteHandlers
                 numColumns: 1,
                 numberOfFrames: 1,
                 textureStartingY: 64,
+                layerDepth: DefaultSpriteLayerDepths.EnemiesLayer,
                 scale: Constants.UniversalScale);
         }
 
@@ -151,6 +164,7 @@ namespace MainGame.SpriteHandlers
                 numColumns: 2,
                 numberOfFrames: 2,
                 textureStartingY: 48,
+                layerDepth: DefaultSpriteLayerDepths.EnemiesLayer,
                 scale: Constants.UniversalScale);
         }
 
@@ -162,6 +176,7 @@ namespace MainGame.SpriteHandlers
                 numColumns: 2,
                 numberOfFrames: 2,
                 textureStartingY: 80,
+                layerDepth: DefaultSpriteLayerDepths.EnemiesLayer,
                 scale: Constants.UniversalScale);
         }
 
@@ -173,6 +188,7 @@ namespace MainGame.SpriteHandlers
                 numColumns: 2,
                 numberOfFrames: 2,
                 textureStartingY: 80,
+                layerDepth: DefaultSpriteLayerDepths.EnemiesLayer,
                 scale: Constants.UniversalScale);
         }
     }

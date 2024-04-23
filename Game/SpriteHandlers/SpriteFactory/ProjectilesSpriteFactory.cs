@@ -1,7 +1,4 @@
-﻿using System.Collections.Generic;
-using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Content;
-using MainGame.SpriteHandlers.ProjectileSprites;
+﻿using MainGame.SpriteHandlers.ProjectileSprites;
 
 namespace MainGame.SpriteHandlers
 {
@@ -11,6 +8,7 @@ namespace MainGame.SpriteHandlers
         {
             return new ArrowDownProjectileSprite(
                 TextureMap["ProjectilesSprites"], SpriteBatch,
+                layerDepth: DefaultSpriteLayerDepths.ProjectilesLayer,
                 scale: Constants.UniversalScale);
         }
 
@@ -18,6 +16,7 @@ namespace MainGame.SpriteHandlers
         {
             return new ArrowUpProjectileSprite(
                 TextureMap["ProjectilesSprites"], SpriteBatch,
+                layerDepth: DefaultSpriteLayerDepths.ProjectilesLayer,
                 scale: Constants.UniversalScale);
         }
 
@@ -25,6 +24,7 @@ namespace MainGame.SpriteHandlers
         {
             return new ArrowLeftProjectileSprite(
                 TextureMap["ProjectilesSprites"], SpriteBatch,
+                layerDepth: DefaultSpriteLayerDepths.ProjectilesLayer,
                 scale: Constants.UniversalScale);
         }
 
@@ -32,6 +32,7 @@ namespace MainGame.SpriteHandlers
         {
             return new ArrowRightProjectileSprite(
                 TextureMap["ProjectilesSprites"], SpriteBatch,
+                layerDepth: DefaultSpriteLayerDepths.ProjectilesLayer,
                 scale: Constants.UniversalScale);
         }
 
@@ -40,6 +41,7 @@ namespace MainGame.SpriteHandlers
             return new ArrowProjectileHitSprite(
                 TextureMap["ProjectilesSprites"], SpriteBatch,
                 textureStartingX: 16,
+                layerDepth: DefaultSpriteLayerDepths.ProjectilesLayer,
                 scale: Constants.UniversalScale);
         }
 
@@ -53,6 +55,7 @@ namespace MainGame.SpriteHandlers
                 numColumns: 4,
                 numberOfFrames: 4,
                 textureStartingY: 48,
+                layerDepth: DefaultSpriteLayerDepths.ProjectilesLayer,
                 scale: Constants.UniversalScale);
         }
 
@@ -64,6 +67,7 @@ namespace MainGame.SpriteHandlers
                 numColumns: 4,
                 numberOfFrames: 4,
                 textureStartingY: 48,
+                layerDepth: DefaultSpriteLayerDepths.ProjectilesLayer,
                 scale: Constants.UniversalScale);
         }
 
@@ -75,6 +79,7 @@ namespace MainGame.SpriteHandlers
                 numColumns: 4,
                 numberOfFrames: 4,
                 textureStartingY: 48,
+                layerDepth: DefaultSpriteLayerDepths.ProjectilesLayer,
                 scale: Constants.UniversalScale);
         }
 
@@ -86,6 +91,7 @@ namespace MainGame.SpriteHandlers
                 numColumns: 4,
                 numberOfFrames: 4,
                 textureStartingY: 48,
+                layerDepth: DefaultSpriteLayerDepths.ProjectilesLayer,
                 scale: Constants.UniversalScale);
         }
 
@@ -99,6 +105,7 @@ namespace MainGame.SpriteHandlers
                 numColumns: 3,
                 numberOfFrames: 3,
                 textureStartingY: 16,
+                layerDepth: DefaultSpriteLayerDepths.ProjectilesLayer,
                 scale: Constants.UniversalScale);
 
         }
@@ -111,6 +118,7 @@ namespace MainGame.SpriteHandlers
                 numColumns: 4,
                 numberOfFrames: 4,
                 textureStartingY: 32,
+                layerDepth: DefaultSpriteLayerDepths.ProjectilesLayer,
                 scale: Constants.UniversalScale);
         }
 
@@ -119,9 +127,10 @@ namespace MainGame.SpriteHandlers
             return new BombSprite(
                 TextureMap["ProjectilesSprites"], SpriteBatch,
                 textureStartingY: 32,
+                layerDepth: DefaultSpriteLayerDepths.ItemsLayer,
                 scale: Constants.UniversalScale);
         }
 
-        
+
     }
 }

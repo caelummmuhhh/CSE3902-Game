@@ -24,9 +24,9 @@ namespace MainGame.SpriteHandlers
             Font = contents.Load<SpriteFont>("Fonts/Font");
         }
 
-        public static ISprite CreateTextSprite(string text)
+        public static ISprite CreateTextSprite(string text, float layerDepth = 0.5f)
         {
-            return new TextSprite(SpriteBatch, Font, text);
+            return new TextSprite(SpriteBatch, Font, text, layerDepth);
         }
     }
 }

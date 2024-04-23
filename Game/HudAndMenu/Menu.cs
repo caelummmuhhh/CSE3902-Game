@@ -42,6 +42,7 @@ namespace MainGame.HudAndMenu
 
         private readonly int maxItemSelectDebounce = 10;
         private int itemSelectDebounce = 10;
+        private readonly float textLayer = DefaultSpriteLayerDepths.MenuLayer + 0.05f;
 
         public Menu(string itemKey, Game1 game) 
         {
@@ -49,10 +50,10 @@ namespace MainGame.HudAndMenu
             itemSelectDebounce = maxItemSelectDebounce;
             MenuBase = SpriteFactory.CreateEmptyMenuSprite();
 
-            textInventory = SpriteFactory.CreateTextSprite("INVENTORY");
-            textInstructions = SpriteFactory.CreateTextSprite("USE " + itemKey + " KEY FOR THIS");
-            textMap = SpriteFactory.CreateTextSprite("MAP");
-            textCompass = SpriteFactory.CreateTextSprite("COMPASS");
+            textInventory = SpriteFactory.CreateTextSprite("INVENTORY", textLayer);
+            textInstructions = SpriteFactory.CreateTextSprite("USE " + itemKey + " KEY FOR THIS", textLayer);
+            textMap = SpriteFactory.CreateTextSprite("MAP", textLayer);
+            textCompass = SpriteFactory.CreateTextSprite("COMPASS", textLayer);
 
             selectingBox = SpriteFactory.CreateSelectingBoxSprite();
 
@@ -73,11 +74,13 @@ namespace MainGame.HudAndMenu
             if (compassDisplay is null && game.RoomManager.PlayerHasCompass)
             {
                 compassDisplay = SpriteFactory.CreateCompassItemSprite();
+                compassDisplay.LayerDepth = textLayer;
             }
 
             if (mapDisplay is null && game.RoomManager.PlayerHasMap)
             {
                 mapDisplay = SpriteFactory.CreateMapItemSprite();
+                mapDisplay.LayerDepth = textLayer;
             }
 
             UpdateSelectedItemDisplay();
@@ -196,6 +199,7 @@ namespace MainGame.HudAndMenu
             if (inventory.HasItem((int)ItemTypes.Bomb) && inventory.Bombs.Quantity > 0)
             {
                 bombItemDisplay = SpriteFactory.CreateBombItemSprite();
+                bombItemDisplay.LayerDepth = textLayer;
             }
             else
             {
@@ -205,21 +209,25 @@ namespace MainGame.HudAndMenu
             if (boomerangItemDisplay is null && inventory.HasItem((int)ItemTypes.Boomerang))
             {
                 boomerangItemDisplay = SpriteFactory.CreateWoodenBoomerangItemSprite();
+                boomerangItemDisplay.LayerDepth = textLayer;
             }
 
             if (candleItemDisplay is null && inventory.HasItem((int)ItemTypes.Candle))
             {
                 candleItemDisplay = SpriteFactory.CreateCandleSprite();
+                candleItemDisplay.LayerDepth = textLayer;
             }
 
             if (bowItemDisplay is null && inventory.HasItem((int)ItemTypes.Bow))
             {
                 bowItemDisplay = SpriteFactory.CreateBowItemSprite();
+                bowItemDisplay.LayerDepth = textLayer;
             }
 
             if (arrowItemDisplay is null && inventory.HasItem((int)ItemTypes.Arrow))
             {
                 arrowItemDisplay = SpriteFactory.CreateArrowItemSprite();
+                arrowItemDisplay.LayerDepth = textLayer;
             }
         }
 

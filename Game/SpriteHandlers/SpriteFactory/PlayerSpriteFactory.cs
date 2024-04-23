@@ -16,6 +16,7 @@ namespace MainGame.SpriteHandlers
                 frameWidth: 16,
                 numberOfFrames: 4,
                 textureStartingY: 48,
+                layerDepth: DefaultSpriteLayerDepths.PlayerLayer,
                 scale: Constants.UniversalScale);
         }
 
@@ -29,6 +30,7 @@ namespace MainGame.SpriteHandlers
                 frameWidth: 16,
                 numberOfFrames: 4,
                 textureStartingY: 84,
+                layerDepth: DefaultSpriteLayerDepths.PlayerLayer,
                 scale: Constants.UniversalScale);
         }
 
@@ -42,6 +44,7 @@ namespace MainGame.SpriteHandlers
                 frameWidth: 27,
                 numberOfFrames: 4,
                 textureStartingY: 112,
+                layerDepth: DefaultSpriteLayerDepths.PlayerLayer,
                 scale: Constants.UniversalScale);
         }
 
@@ -55,6 +58,7 @@ namespace MainGame.SpriteHandlers
                 frameWidth: 27,
                 numberOfFrames: 4,
                 textureStartingY: 112,
+                layerDepth: DefaultSpriteLayerDepths.PlayerLayer,
                 scale: Constants.UniversalScale);
         }
 
@@ -66,6 +70,7 @@ namespace MainGame.SpriteHandlers
                 numColumns: 4,
                 numberOfFrames: 2,
                 textureStartingY: 0,
+                layerDepth: DefaultSpriteLayerDepths.PlayerLayer,
                 scale: Constants.UniversalScale);
         }
 
@@ -77,6 +82,7 @@ namespace MainGame.SpriteHandlers
                 numColumns: 4,
                 numberOfFrames: 2,
                 textureStartingY: 16,
+                layerDepth: DefaultSpriteLayerDepths.PlayerLayer,
                 scale: Constants.UniversalScale);
         }
 
@@ -89,6 +95,7 @@ namespace MainGame.SpriteHandlers
                 numColumns: 4,
                 numberOfFrames: 2,
                 textureStartingY: 32,
+                layerDepth: DefaultSpriteLayerDepths.PlayerLayer,
                 scale: Constants.UniversalScale);
         }
 
@@ -100,6 +107,7 @@ namespace MainGame.SpriteHandlers
                 numColumns: 4,
                 numberOfFrames: 2,
                 textureStartingY: 32,
+                layerDepth: DefaultSpriteLayerDepths.PlayerLayer,
                 scale: Constants.UniversalScale);
         }
 
@@ -108,6 +116,7 @@ namespace MainGame.SpriteHandlers
             return new PlayerSprites.PlayerHoldingItemSprite(
                 TextureMap["LinkSprites"], SpriteBatch,
                 textureStartingY: 128,
+                layerDepth: DefaultSpriteLayerDepths.PlayerLayer,
                 scale: Constants.UniversalScale);
         }
 
@@ -116,6 +125,7 @@ namespace MainGame.SpriteHandlers
             return new PlayerSprites.PlayerHoldingItemSprite(
                 TextureMap["LinkSprites"], SpriteBatch,
                 textureStartingY: 144,
+                layerDepth: DefaultSpriteLayerDepths.PlayerLayer,
                 scale: Constants.UniversalScale);
         }
 
@@ -124,6 +134,7 @@ namespace MainGame.SpriteHandlers
             return new PlayerSprites.PlayerInteractingDownSprite(
                 TextureMap["LinkSprites"], SpriteBatch,
                 textureStartingY: 48,
+                layerDepth: DefaultSpriteLayerDepths.PlayerLayer,
                 scale: Constants.UniversalScale);
         }
 
@@ -132,6 +143,7 @@ namespace MainGame.SpriteHandlers
             return new PlayerSprites.PlayerInteractingUpSprite(
                 TextureMap["LinkSprites"], SpriteBatch,
                 textureStartingY: 96,
+                layerDepth: DefaultSpriteLayerDepths.PlayerLayer,
                 scale: Constants.UniversalScale);
         }
 
@@ -140,6 +152,7 @@ namespace MainGame.SpriteHandlers
             return new PlayerSprites.PlayerInteractingLeftSprite(
                 TextureMap["LinkSprites"], SpriteBatch,
                 textureStartingY: 112,
+                layerDepth: DefaultSpriteLayerDepths.PlayerLayer,
                 scale: Constants.UniversalScale);
         }
 
@@ -148,6 +161,7 @@ namespace MainGame.SpriteHandlers
             return new PlayerSprites.PlayerInteractingRightSprite(
                 TextureMap["LinkSprites"], SpriteBatch,
                 textureStartingY: 112,
+                layerDepth: DefaultSpriteLayerDepths.PlayerLayer,
                 scale: Constants.UniversalScale);
         }
 
@@ -156,6 +170,7 @@ namespace MainGame.SpriteHandlers
             return new PlayerSprites.PlayerIdleDownSprite(
                 TextureMap["LinkSprites"], SpriteBatch,
                 textureStartingY: 0,
+                layerDepth: DefaultSpriteLayerDepths.PlayerLayer,
                 scale: Constants.UniversalScale);
         }
 
@@ -164,24 +179,25 @@ namespace MainGame.SpriteHandlers
             return new PlayerSprites.PlayerIdleUpSprite(
                 TextureMap["LinkSprites"], SpriteBatch,
                 textureStartingY: 16,
+                layerDepth: DefaultSpriteLayerDepths.PlayerLayer,
                 scale: Constants.UniversalScale);
         }
-
 
         public static ISprite CreatePlayerIdleLeftSprite()
         {
             return new PlayerSprites.PlayerIdleLeftSprite(
                 TextureMap["LinkSprites"], SpriteBatch,
                 textureStartingY: 32,
+                layerDepth: DefaultSpriteLayerDepths.PlayerLayer,
                 scale: Constants.UniversalScale);
         }
-
 
         public static ISprite CreatePlayerIdleRightSprite()
         {
             return new PlayerSprites.PlayerIdleRightSprite(
                 TextureMap["LinkSprites"], SpriteBatch,
                 textureStartingY: 32,
+                layerDepth: DefaultSpriteLayerDepths.PlayerLayer,
                 scale: Constants.UniversalScale);
         }
     }
