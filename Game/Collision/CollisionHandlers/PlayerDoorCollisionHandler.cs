@@ -32,7 +32,7 @@ namespace MainGame.Collision.CollisionHandlers
             }
             else
             {
-                if (player.Inventory.Keys.Quantity > 0)
+                if (player.Inventory.Keys.Quantity > 0 && door.DoorType is SpriteHandlers.DoorTypes.KeyDoor)
                 {
                     player.Inventory.Keys.Use();
                     door.Unlock();

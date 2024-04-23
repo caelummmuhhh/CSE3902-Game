@@ -13,6 +13,8 @@ namespace MainGame.Doors
         private readonly int BottomXOffset = 0;
         private readonly int BottomYOffset = 0;
 
+        public DoorTypes DoorType { get; set; }
+
         public Vector2 Position { get; set; }
 
         public Rectangle HitBox{
@@ -99,10 +101,27 @@ namespace MainGame.Doors
 
         public void Unlock()
         {
-            //IsOpen = true;
+            IsOpen = true;
             DoorTypes doorType = SpriteFactory.DoorTypeFromString("OpenDoor");
-            spriteTop = SpriteFactory.CreateDoorTopNorthSouth(Direction.North, doorType);
-            spriteBottom = SpriteFactory.CreateDoorBottomNorthSouth(Direction.North, doorType);
+            if(Direction == Direction.North) 
+            {
+                spriteTop = SpriteFactory.CreateDoorTopNorthSouth(Direction.North, doorType);
+                spriteBottom = SpriteFactory.CreateDoorBottomNorthSouth(Direction.North, doorType);
+            }else if(Direction == Direction.South)
+            {
+                spriteTop = SpriteFactory.CreateDoorTopNorthSouth(Direction.South, doorType);
+                spriteBottom = SpriteFactory.CreateDoorBottomNorthSouth(Direction.South, doorType);
+            }
+            else if (Direction == Direction.East)
+            {
+                spriteTop = SpriteFactory.CreateDoorBottomWestEast(Direction.East, doorType);
+                spriteBottom = SpriteFactory.CreateDoorBottomWestEast(Direction.East, doorType);
+            }
+            else if (Direction == Direction.West)
+            {
+                spriteTop = SpriteFactory.CreateDoorBottomWestEast(Direction.West, doorType);
+                spriteBottom = SpriteFactory.CreateDoorBottomWestEast(Direction.West, doorType);
+            }
         }
     }
 
@@ -111,6 +130,7 @@ namespace MainGame.Doors
         public Direction Direction { get; set; }
         public Rectangle HitBox { get; set; }
         public bool IsOpen { get { return false; } set { } }
+        public DoorTypes DoorType { get; set; }
         public Vector2 Position { get; set; }
         // Nothing to do for a blank door
         public void Draw() { }

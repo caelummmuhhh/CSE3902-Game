@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using MainGame.SpriteHandlers;
+using Microsoft.Xna.Framework;
 
 namespace MainGame.Doors
 {
@@ -6,6 +7,7 @@ namespace MainGame.Doors
 	{
         public Rectangle HitBox { get; }
         public bool IsOpen { get; set; }
+		public DoorTypes DoorType { get; set; }
 		public Direction Direction { get; set; }
 
         public Vector2 Position{get; set;}

@@ -40,10 +40,7 @@ namespace MainGame.Collision
             items = new List<IPickupableItem>(currentRoom.RoomItems);
             enemies = new List<IEnemy>(currentRoom.RoomEnemies);
             playerProjectiles = currentRoom.PlayerProjectiles;
-            doors.Add(currentRoom.NorthDoor); 
-            doors.Add(currentRoom.SouthDoor);
-            doors.Add(currentRoom.EastDoor);
-            doors.Add(currentRoom.WestDoor);
+
 
             playerBorders = currentRoom.PlayerBorderHitBox;
             enemyBorder = currentRoom.EnemiesBorderHitBox;
@@ -61,6 +58,11 @@ namespace MainGame.Collision
             playerBorders = currentRoom.PlayerBorderHitBox;
             enemyBorder = currentRoom.EnemiesBorderHitBox;
             //enemyProjectiles = currentRoom.EnemyProjectiles;
+            doors.Clear();
+            doors.Add(currentRoom.NorthDoor);
+            doors.Add(currentRoom.SouthDoor);
+            doors.Add(currentRoom.EastDoor);
+            doors.Add(currentRoom.WestDoor);
             GetAllEnemyProjectiles();
 
             DetectAllCollisions();
