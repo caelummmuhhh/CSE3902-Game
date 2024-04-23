@@ -6,6 +6,7 @@ using MainGame.Rooms;
 using MainGame.Projectiles;
 using MainGame.Audio;
 using System;
+using System.Diagnostics;
 
 namespace MainGame.Players
 {
@@ -54,7 +55,7 @@ namespace MainGame.Players
 			CurrentState.Update();
             UpdateHitBoxes();
 
-			if (invulnerableTimer > 0)
+            if (invulnerableTimer > 0)
 			{
 				invulnerableTimer--;
 				FlashColors();

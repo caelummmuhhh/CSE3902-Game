@@ -6,6 +6,7 @@ using MainGame.Players;
 using System;
 using System.Diagnostics;
 using MainGame.Doors;
+using MainGame.Players.PlayerStates;
 
 namespace MainGame.Rooms
 {
@@ -101,7 +102,8 @@ namespace MainGame.Rooms
 			{
 				roomChangeVelo = new Vector2(Constants.RoomScrollingSpeed, 0);
 				secondaryGhostRoomStartPos = new Vector2(-game.GraphicsManager.PreferredBackBufferWidth, Constants.HudAndMenuHeight);
-			}else if (direction == Direction.East)
+            }
+            else if (direction == Direction.East)
 			{
                 roomChangeVelo = new Vector2(-Constants.RoomScrollingSpeed, 0);
                 secondaryGhostRoomStartPos = new Vector2(game.GraphicsManager.PreferredBackBufferWidth, Constants.HudAndMenuHeight);
@@ -127,7 +129,7 @@ namespace MainGame.Rooms
 		{
             roomChange = false; // End change
             game.SetPlayer(); // unhide player
-			CurrentRoom = allRooms[game.Dungeon.DungeonLayout[(int)currentRoomIndex.Y][(int)currentRoomIndex.X]];
+            CurrentRoom = allRooms[game.Dungeon.DungeonLayout[(int)currentRoomIndex.Y][(int)currentRoomIndex.X]];
 			roomChangeDebounce = 20;
         }
 
@@ -167,17 +169,15 @@ namespace MainGame.Rooms
             else if (direction == Direction.West)
             {
                 currentRoomIndex.X = currentRoomIndex.X - 1 < 0 ? 0 : currentRoomIndex.X - 1;
-                game.Player.Position = new Vector2(game.GraphicsManager.PreferredBackBufferWidth - 46 * Constants.UniversalScale, (game.GraphicsManager.PreferredBackBufferHeight + Constants.HudAndMenuHeight - 16 * Constants.UniversalScale) / 2);
+                game.Player.Position = new Vector2(game.GraphicsManager.PreferredBackBufferWidth - 50 * Constants.UniversalScale, (game.GraphicsManager.PreferredBackBufferHeight + Constants.HudAndMenuHeight - 16 * Constants.UniversalScale) / 2);
             }
             else if (direction == Direction.East)
             {
                 currentRoomIndex.X = currentRoomIndex.X + 1 >= game.Dungeon.DungeonSize - 1 ? game.Dungeon.DungeonSize - 1 : currentRoomIndex.X + 1;
-                game.Player.Position = new Vector2(32 * Constants.UniversalScale, (game.GraphicsManager.PreferredBackBufferHeight + Constants.HudAndMenuHeight - 16 * Constants.UniversalScale) / 2);
+                game.Player.Position = new Vector2(33 * Constants.UniversalScale, (game.GraphicsManager.PreferredBackBufferHeight + Constants.HudAndMenuHeight - 16 * Constants.UniversalScale) / 2);
             }
-
-            
-			CurrentRoom = allRooms[game.Dungeon.DungeonLayout[(int)currentRoomIndex.Y][(int)currentRoomIndex.X]];
-            //SwitchRoomsStart(direction);
+			game.Player.Update(); // needed to insure the player position is properly updated
+            SwitchRoomsStart(direction);
         }
     }
 }
