@@ -1,25 +1,17 @@
 ﻿using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Media;
 
 using MainGame.SpriteHandlers;
 using MainGame.Controllers;
 using MainGame.Players;
 using MainGame.Rooms;
-using MainGame.Doors;
-using MainGame.Blocks;
-using MainGame.WorldItems;
 using MainGame.HudAndMenu;
 using MainGame.Dungeons;
 using MainGame.Collision;
 using MainGame.Audio;
 using MainGame.SpriteHandlers.BlockSprites;
-using MainGame.Projectiles;
-using MainGame.Enemies;
-using System.IO;
 using System;
-using System.Threading;
 
 namespace MainGame;
 
@@ -40,9 +32,11 @@ public class Game1 : Game
     public Hud Hud;
     public Menu Menu;
 
-    public bool TogglePause;
-    int PauseDebounce;
-
+    public bool TogglePause { get; set; } = false;
+    public bool ToggleEntities { get; set; } = true; // whether or not to update and draw entities
+    public bool ToggleControls { get; set; } = true; // turn off controls
+    public bool FreezeAllEntities { get; set; } = false; // no update, but draw
+    private int PauseDebounce = 10;
 
     public Game1()
     {
@@ -66,9 +60,6 @@ public class Game1 : Game
 
     protected override void LoadContent()
     {
-        TogglePause = false;
-        PauseDebounce = 10;
-
         AudioManager.SetUp(this);
 
         spriteBatch = new SpriteBatch(GraphicsDevice);
@@ -80,7 +71,6 @@ public class Game1 : Game
         Dungeon = new Dungeon(this, dungeonName);
 
         RoomManager = new(this);
-
         Player = new Player(new Vector2(120 * Constants.UniversalScale, (128 * Constants.UniversalScale) + Constants.HudAndMenuHeight), RoomManager,
             Array.Empty<int>(), Dungeon.PlayerStartingHealth, Dungeon.PlayerStartingRupees, Dungeon.PlayerStartingKeys, Dungeon.PlayerStartingBombs);
 
@@ -101,29 +91,36 @@ public class Game1 : Game
     {
         TotalGameTime++;
 
-        if (PauseDebounce >= 10)
+        if (PauseDebounce >= 10 && ToggleControls)
         {
             for (int i = 0; i < controllers.Count; i++)
             {
                 controllers[i].Update();
             }
         }
+
         if (!TogglePause)
         {
-            ++PauseDebounce;
             RoomManager.Update();
-            Player.Update();
-            Collision.Update();
+            PauseDebounce++;
             Hud.TogglePauseDisplay(TogglePause);
-        } else
+
+            if (ToggleEntities && !FreezeAllEntities)
+            {
+                Player.Update();
+                Collision.Update(); // should be one of the last thing that updates
+            }
+        }
+        else
         {
             Hud.TogglePauseDisplay(TogglePause);
             Menu.Update();
-            ++PauseDebounce;
+            PauseDebounce++;
         }
-        Hud.Update();
+
         // Audio has to be outside to allow pause sounds, will cause bugs with delayed sounds playing on pause screen
         AudioManager.Update();
+        Hud.Update();
 
         base.Update(gameTime);
     }
@@ -131,16 +128,21 @@ public class Game1 : Game
     {
         TogglePause = !TogglePause;
         PauseDebounce = 0;
-
     }
+
+
     protected override void Draw(GameTime gameTime)
     {
         GraphicsDevice.Clear(Color.Black);
-        spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, SamplerState.PointClamp);
+        spriteBatch.Begin(SpriteSortMode.FrontToBack, BlendState.AlphaBlend, SamplerState.PointClamp);
+
         if (!TogglePause)
         {
             RoomManager.Draw();
-            Player.Draw();
+            if (ToggleEntities)
+            {
+                Player.Draw();
+            }
         }
         else
         {
@@ -149,7 +151,6 @@ public class Game1 : Game
 
         // Hud always drawn
         Hud.Draw();
-
         spriteBatch.End();
 
         base.Draw(gameTime);

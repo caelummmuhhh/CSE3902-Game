@@ -1,4 +1,4 @@
-﻿using System; 
+﻿using System;
 
 namespace MainGame.SpriteHandlers
 {
@@ -51,6 +51,7 @@ namespace MainGame.SpriteHandlers
             return new BlockSprites.BlockSprite(
                 TextureMap["BlocksSprites"], SpriteBatch,
                 textureStartingY: 0,
+                layerDepth: DefaultSpriteLayerDepths.BlocksLayer,
                 scale: Constants.UniversalScale);
         }
 
@@ -59,6 +60,7 @@ namespace MainGame.SpriteHandlers
             return new BlockSprites.BlockSprite(
                 TextureMap["BlocksSprites"], SpriteBatch,
                 textureStartingY: 16,
+                layerDepth: DefaultSpriteLayerDepths.BlocksLayer,
                 scale: Constants.UniversalScale);
         }
 
@@ -67,6 +69,7 @@ namespace MainGame.SpriteHandlers
             return new BlockSprites.BlockSprite(
                 TextureMap["BlocksSprites"], SpriteBatch,
                 textureStartingY: 32,
+                layerDepth: DefaultSpriteLayerDepths.BlocksLayer,
                 scale: Constants.UniversalScale);
         }
 
@@ -75,6 +78,7 @@ namespace MainGame.SpriteHandlers
             return new BlockSprites.BlockSprite(
                 TextureMap["BlocksSprites"], SpriteBatch,
                 textureStartingY: 48,
+                layerDepth: DefaultSpriteLayerDepths.BlocksLayer,
                 scale: Constants.UniversalScale);
         }
 
@@ -83,6 +87,7 @@ namespace MainGame.SpriteHandlers
             return new BlockSprites.BlockSprite(
                 TextureMap["BlocksSprites"], SpriteBatch,
                 textureStartingY: 64,
+                layerDepth: DefaultSpriteLayerDepths.BlocksLayer,
                 scale: Constants.UniversalScale);
         }
 
@@ -91,6 +96,7 @@ namespace MainGame.SpriteHandlers
             return new BlockSprites.BlockSprite(
                 TextureMap["BlocksSprites"], SpriteBatch,
                 textureStartingY: 80,
+                layerDepth: DefaultSpriteLayerDepths.BlocksLayer,
                 scale: Constants.UniversalScale);
         }
 
@@ -99,6 +105,7 @@ namespace MainGame.SpriteHandlers
             return new BlockSprites.BlockSprite(
                 TextureMap["BlocksSprites"], SpriteBatch,
                 textureStartingY: 96,
+                layerDepth: DefaultSpriteLayerDepths.BlocksLayer,
                 scale: Constants.UniversalScale);
         }
 
@@ -107,6 +114,7 @@ namespace MainGame.SpriteHandlers
             return new BlockSprites.BlockSprite(
                 TextureMap["BlocksSprites"], SpriteBatch,
                 textureStartingY: 112,
+                layerDepth: DefaultSpriteLayerDepths.BlocksLayer,
                 scale: Constants.UniversalScale);
         }
 
@@ -115,6 +123,7 @@ namespace MainGame.SpriteHandlers
             return new BlockSprites.BlockSprite(
                 TextureMap["BlocksSprites"], SpriteBatch,
                 textureStartingY: 128,
+                layerDepth: DefaultSpriteLayerDepths.BlocksLayer,
                 scale: Constants.UniversalScale);
         }
 
@@ -123,6 +132,7 @@ namespace MainGame.SpriteHandlers
             return new BlockSprites.BlockSprite(
                 TextureMap["BlocksSprites"], SpriteBatch,
                 textureStartingY: 144,
+                layerDepth: DefaultSpriteLayerDepths.BlocksLayer,
                 scale: Constants.UniversalScale);
         }
 
@@ -131,6 +141,7 @@ namespace MainGame.SpriteHandlers
             return new BlockSprites.BlockSprite(
                 TextureMap["BlocksSprites"], SpriteBatch,
                 textureStartingY: 160,
+                layerDepth: DefaultSpriteLayerDepths.BlocksLayer,
                 scale: Constants.UniversalScale);
         }
 
@@ -139,6 +150,7 @@ namespace MainGame.SpriteHandlers
             return new BlockSprites.BlockSprite(
                 TextureMap["BlocksSprites"], SpriteBatch,
                 textureStartingY: 176,
+                layerDepth: DefaultSpriteLayerDepths.BlocksLayer,
                 scale: Constants.UniversalScale);
         }
     }

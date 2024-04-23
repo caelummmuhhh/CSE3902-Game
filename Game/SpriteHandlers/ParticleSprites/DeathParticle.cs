@@ -11,6 +11,19 @@ namespace MainGame.SpriteHandlers.ParticleSprites
     
     public class DeathParticle : AnimatedSpriteWithOffset
     {
+        public override int AnimationFrameDuration
+        {
+            get
+            {
+                int totalDisplayTime = 0;
+                foreach (int displayTime in frameDisplayTimeMap.Values)
+                {
+                    totalDisplayTime += displayTime;
+                }
+                return totalDisplayTime;
+            }
+        }
+
         private readonly Dictionary<int, int> frameDisplayTimeMap;
         private readonly SpriteBatch spriteBatch;
         private int spriteDisplayTimeLapse;

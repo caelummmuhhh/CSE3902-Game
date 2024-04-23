@@ -11,7 +11,7 @@
                 numberOfFrames: 2,
                 frameHeight: 16,
                 frameWidth: 16,
-                scale: Constants.UniversalScale) ;
+                scale: Constants.UniversalScale);
         }
 
         public static ISprite CreateSwordBeamParticle(Direction facingDirection)
@@ -21,10 +21,11 @@
                 numRows: 1,
                 numColumns: 4,
                 numberOfFrames: 4,
-                textureStartingY: 18,               
+                textureStartingY: 18,
                 frameHeight: 10,
                 frameWidth: 8,
                 facingDirection: facingDirection,
+                layerDepth: DefaultSpriteLayerDepths.ParticlesLayer,
                 scale: Constants.UniversalScale);
         }
 
@@ -38,6 +39,7 @@
                  textureStartingY: 32,
                 frameHeight: 16,
                 frameWidth: 16,
+                layerDepth: DefaultSpriteLayerDepths.ParticlesLayer,
                 scale: Constants.UniversalScale);
         }
     }

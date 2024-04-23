@@ -51,6 +51,7 @@
     <None Remove="Players\Inventory\EquippableItems\" />
     <None Remove="Players\Inventory\PassiveItems\" />
     <None Remove="Commands\MenuCommands\" />
+    <None Remove="Doors\DungeonDoors\" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Icon.ico" />
@@ -83,8 +84,6 @@
     <Folder Include="Enemies\WallMasterEnemy\" />
     <Folder Include="Enemies\AquamentusEnemy\" />
     <Folder Include="Projectiles\AquamentusProjectile\" />
-    <Folder Include="Collision\" />
-    <Folder Include="Collision\CollisionHandlers\" />
     <Folder Include="Collision\NonSpriteHitBoxes\" />
     <Folder Include="GridUtils\" />
     <Folder Include="Blocks\" />
@@ -93,8 +92,18 @@
     <Folder Include="Players\Inventory\EquippableItems\" />
     <Folder Include="Players\Inventory\PassiveItems\" />
     <Folder Include="Commands\MenuCommands\" />
+    <Folder Include="Doors\DungeonDoors\" />
   </ItemGroup>
   <ItemGroup>
+    <None Update="Content\Dungeons\Dungeon_1.csv">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Dungeons\Dungeon_1_Debug.csv">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Rooms\Room_0.csv">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Update="Content\Rooms\Room_10.csv">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
@@ -158,6 +167,11 @@
     <None Update="Content\Rooms\Room_1.csv">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Condition=" '$(EnableDefaultCompileItems)' == 'true' " Update="Game1.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
   </ItemGroup>
   <Target Name="RestoreDotnetTools" BeforeTargets="Restore">
     <Message Text="Restoring dotnet tools" Importance="High" />
