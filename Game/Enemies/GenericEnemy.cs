@@ -14,6 +14,7 @@ namespace MainGame.Enemies
         public abstract int Health { get; protected set; }
         public abstract int Damage { get; }
         public virtual bool IsAlive => Health > 0;
+        public virtual bool Exists { get; set; } = true;
 
         public abstract int MovementCoolDownFrame {  get; protected set; }
 

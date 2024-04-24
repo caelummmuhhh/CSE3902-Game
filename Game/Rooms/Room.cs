@@ -1,6 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using System.Collections.Generic;
-
+using System.Linq;
 using MainGame.Doors;
 using MainGame.SpriteHandlers;
 using MainGame.Blocks;
@@ -74,7 +74,7 @@ namespace MainGame.Rooms
             for (int i = RoomEnemies.Count - 1; i >= 0; i--)
             {
                 RoomEnemies[i].Update();
-                if (!RoomEnemies[i].IsAlive) RoomEnemies.RemoveAt(i);
+                if (!RoomEnemies[i].Exists) RoomEnemies.RemoveAt(i);
             }
             for (int i = PlayerProjectiles.Count - 1; i >= 0; i--)
             {
@@ -87,7 +87,7 @@ namespace MainGame.Rooms
                 if (!EnemyProjectiles[i].IsActive) EnemyProjectiles.RemoveAt(i);
             }
 
-            if (RoomEnemies.Count <= 0)
+            if (!RoomEnemies.Any(enemy => enemy is not SpikeCrossEnemy))
             {
                 PushableBlock pushableBlock = GetPushableBlock();
                 pushableBlock?.MakePushable();
