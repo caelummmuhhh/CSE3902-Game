@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.IO;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,55 +8,25 @@ using System.Net.Mime;
 using System.Runtime.CompilerServices;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
+using MainGame.Rooms;
 
 namespace MainGame.RNG
 {
-    public static class RandomGeneration
+    public static class RandomRoomGeneration
     {
-        private static Game1 Game; // Might not need
-        private static readonly int DungeonSize = 8;
         private static Random Random = new(2001);
-        private static string[][] DungeonLayout;
-        private static string DungeonFile;
         private static int KeyCount = 0;
-        private static int RoomNumber = 1;
-        public static void GenerateDungeon(Game1 game, string baseFile, string generatedFile)
-        {
-            Game = game;
-            DungeonFile = generatedFile;
-            string dungeonBase = File.ReadAllText(baseFile);
-            File.WriteAllText(generatedFile, dungeonBase);
 
-            DungeonLayout = new string[DungeonSize][];
-            for (int i = 0; i < DungeonSize; i++)
-            {
-                DungeonLayout[i] = new string[DungeonSize];
-                for (int j = 0; j < DungeonSize; ++j)
-                {
-                    // Initialize Dungeon
-                    DungeonLayout[i][j] = "0";
-                }
-            }
-            int r = Random.Next(0, 7);
-            DungeonLayout[7][r] = "1"; // Set Spawn Room
-            RoomNumber++;
-            GenerateAndWriteSpawnRoom(r);
-            GenerateAdvanceRooms();
-            GenerateSideRooms();
-            GenerateTriforceRoom();
-            PrintDungeonToFile();
-            
-        }
-        private static void GenerateAdvanceRooms()
+        public static void GenerateAdvanceRooms(string[][] DungeonLayout, string DungeonFile, int RoomNumber, int DungeonSize)
         {
             int setsGenerated = 0;
             while (setsGenerated < 5) 
             {
-                List<Vector2> advanceLocations = FindRoom("A");
+                List<Vector2> advanceLocations = FindRoom("A", DungeonSize, DungeonLayout);
                 foreach (Vector2 location in advanceLocations) // Should only be one in here
                 {
                     char charDir = DungeonLayout[(int)location.Y][(int)location.X][1];
-                    List<Direction> validRooms = CheckAdjacentRooms(location);
+                    List<Direction> validRooms = CheckAdjacentRooms(location, DungeonLayout);
                     if (validRooms.Count == 0)
                     {
                         DungeonLayout[(int)location.Y][(int)location.X] = "T" + charDir;
@@ -72,15 +42,15 @@ namespace MainGame.RNG
                     if (validRooms.Count != 0)
                     {
                         nextSide = validRooms[Random.Next(0, validRooms.Count)];
-                        SetRoom(nextSide, location, "S");
+                        SetRoom(nextSide, location, "S", DungeonLayout);
                     }
 
-                    SetRoom(nextAdvance, location, "A");
+                    SetRoom(nextAdvance, location, "A", DungeonLayout);
 
                     // Dumb
-                    if (setsGenerated == 4) SetRoom(nextAdvance, location, "T");
+                    if (setsGenerated == 4) SetRoom(nextAdvance, location, "T", DungeonLayout);
 
-                    WriteAdvanceRoom(previousRoom, nextAdvance, nextSide);
+                    WriteAdvanceRoom(previousRoom, nextAdvance, nextSide, RoomNumber);
                     DungeonLayout[(int)location.Y][(int)location.X] = RoomNumber.ToString();
                     RoomNumber++;
 
@@ -90,9 +60,9 @@ namespace MainGame.RNG
                 setsGenerated++;
             }
         }
-        private static void GenerateSideRooms()
-        {
-                List<Vector2> sideLocations = FindRoom("S");
+        public static void GenerateSideRooms(string[][] DungeonLayout, string DungeonFile, int RoomNumber, int DungeonSize)
+                {
+                List<Vector2> sideLocations = FindRoom("S", DungeonSize, DungeonLayout);
                 foreach (Vector2 location in sideLocations)
                 {
                     char charDir = DungeonLayout[(int)location.Y][(int)location.X][1];
@@ -105,7 +75,7 @@ namespace MainGame.RNG
 
                     Direction previousRoom = Utils.CharToDirection(charDir);
 
-                    WriteSideRoom(previousRoom);
+                    WriteSideRoom(previousRoom, RoomNumber);
                     DungeonLayout[(int)location.Y][(int)location.X] = RoomNumber.ToString();
                     RoomNumber++;
                 }
@@ -114,21 +84,21 @@ namespace MainGame.RNG
         {
             // TO DO
         }
-        private static void GenerateTriforceRoom()
-        {
-            List<Vector2> triforceLocations = FindRoom("T");
+        public static void GenerateTriforceRoom(string[][] DungeonLayout, string DungeonFile, int RoomNumber, int DungeonSize)
+                {
+            List<Vector2> triforceLocations = FindRoom("T", DungeonSize, DungeonLayout);
             foreach (Vector2 location in triforceLocations)
             {
                 char charDir = DungeonLayout[(int)location.Y][(int)location.X][1];
 
                 Direction previousRoom = Utils.CharToDirection(charDir);
 
-                WriteTriforceRoom(previousRoom);
+                WriteTriforceRoom(previousRoom, RoomNumber);
                 DungeonLayout[(int)location.Y][(int)location.X] = RoomNumber.ToString();
                 RoomNumber++;
             }
         }
-        private static void SetRoom(Direction newRoom, Vector2 currentRoom, string roomType)
+        private static void SetRoom(Direction newRoom, Vector2 currentRoom, string roomType, string[][] DungeonLayout)
         {
             if (newRoom == Direction.North) 
             {
@@ -146,7 +116,7 @@ namespace MainGame.RNG
                 DungeonLayout[(int)currentRoom.Y][(int)currentRoom.X + 1] = roomType + "W";
             }
         }
-        private static List<Direction> CheckAdjacentRooms(Vector2 location)
+        private static List<Direction> CheckAdjacentRooms(Vector2 location, string[][] DungeonLayout)
         {
             List<Direction> validRooms = new();
             if (location.Y != 0 && DungeonLayout[(int)location.Y - 1][(int)location.X] == "0")
@@ -167,7 +137,7 @@ namespace MainGame.RNG
             }
             return validRooms;
         }
-        private static List<Vector2> FindRoom(string roomTypeChar)
+        private static List<Vector2> FindRoom(string roomTypeChar, int DungeonSize, string[][] DungeonLayout)
         {
             List<Vector2> locations = new();
             for (int i = 0; i < DungeonSize; i++)
@@ -179,26 +149,9 @@ namespace MainGame.RNG
             }
             return locations;
         }
-        private static void PrintDungeonToFile()
+        public static void GenerateAndWriteSpawnRoom(int pos, string[][] DungeonLayout, string DungeonFile, int RoomNumber, int DungeonSize)
         {
-            using (StreamWriter writer = new StreamWriter(DungeonFile, true))
-            {
-                writer.Write('\n');
-                for (int i = 0; i < DungeonSize; i++)
-                {
-                    for (int j = 0; j < DungeonSize; ++j)
-                    {
-                        writer.Write(DungeonLayout[i][j]);
-                        if (j < DungeonSize - 1) writer.Write(",");
-                    }
-                    writer.Write('\n');
-                }
-                writer.Write('\n');
-            }
-        }
-        private static void GenerateAndWriteSpawnRoom(int pos)
-        {
-            using (StreamWriter writer = new StreamWriter("Content/RandomRooms/Room_1.csv"))
+            using (StreamWriter writer = new StreamWriter("Content/Rooms/Room_1.csv"))
             {
                 writer.WriteLine("dungeonNormal,,,,,,,,,,,");
                 string doors = "keyDoor,openDoor,openDoor,openDoor,,,,,,,,";
@@ -235,9 +188,9 @@ namespace MainGame.RNG
                 writer.WriteLine("-,-,-,blueSand,blueSand,blueSand,blueSand,blueSand,blueSand,-,-,-");
             }
         }
-        private static void WriteAdvanceRoom(Direction previousRoom, Direction nextAdvance, Direction nextSide)
+        private static void WriteAdvanceRoom(Direction previousRoom, Direction nextAdvance, Direction nextSide, int RoomNumber)
         {
-            using (StreamWriter writer = new StreamWriter($"Content/RandomRooms/Room_{RoomNumber}.csv"))
+            using (StreamWriter writer = new StreamWriter($"Content/Rooms/Room_{RoomNumber}.csv"))
             {
                 writer.WriteLine("dungeonNormal,,,,,,,,,,,");
                 if (previousRoom == Direction.North || nextSide == Direction.North)
@@ -296,9 +249,9 @@ namespace MainGame.RNG
                 writer.WriteLine("-,-,-,-,-,-,-,-,key,-,-,-");
             }
         }
-        private static void WriteSideRoom(Direction previousRoom)
+        private static void WriteSideRoom(Direction previousRoom, int RoomNumber)
         {
-            using (StreamWriter writer = new StreamWriter($"Content/RandomRooms/Room_{RoomNumber}.csv"))
+            using (StreamWriter writer = new StreamWriter($"Content/Rooms/Room_{RoomNumber}.csv"))
             {
                 writer.WriteLine("dungeonNormal,,,,,,,,,,,");
                 if (previousRoom == Direction.North)
@@ -346,9 +299,9 @@ namespace MainGame.RNG
         {
             // TO DO
         }
-        private static void WriteTriforceRoom(Direction previousRoom)
+        private static void WriteTriforceRoom(Direction previousRoom, int RoomNumber)
         {
-            using (StreamWriter writer = new StreamWriter($"Content/RandomRooms/Room_{RoomNumber}.csv"))
+            using (StreamWriter writer = new StreamWriter($"Content/Rooms/Room_{RoomNumber}.csv"))
             {
                 writer.WriteLine("dungeonNormal,,,,,,,,,,,");
                 if (previousRoom == Direction.North)
