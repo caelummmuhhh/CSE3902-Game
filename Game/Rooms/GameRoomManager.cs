@@ -2,6 +2,8 @@
 using System.IO;
 using Microsoft.Xna.Framework;
 using MainGame.Players;
+using MainGame.Players.PlayerStates;
+using MainGame.Commands;
 
 namespace MainGame.Rooms
 {
@@ -50,6 +52,14 @@ namespace MainGame.Rooms
 
 		public void Update()
 		{
+			
+			if (game.Player.IsDead)
+			{
+				ICommand command = new ResetGameCommand(game);
+				command.Execute();
+				return;
+			} 
+
 			if(!roomChange) CurrentRoom.Update();
 			else
 			{

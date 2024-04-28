@@ -35,10 +35,10 @@ namespace MainGame.Rooms
             ParseDoors(lines[1], room);
             room.RoomPlayer = player;
 
-
-            for (int i = 2; i < lines.Length; i++)
+            string itemState = lines[9].Replace(",", "");
+            for (int i = 2; i < lines.Length - 1; i++)
             {
-                ParseItemsAndBlocks(ref lines[i], room, player, i - 2, roomManager);
+                ParseItemsAndBlocks(ref lines[i], room, player, i - 2, roomManager, itemState.Equals("Locked"));
                 ParseEnemies(lines[i], room, player, i - 2);
             }
 
@@ -188,7 +188,7 @@ namespace MainGame.Rooms
             }
         }
 
-        private static void ParseItemsAndBlocks(ref string line, IRoom room, IPlayer player, int yOffset, GameRoomManager roomManager)
+        private static void ParseItemsAndBlocks(ref string line, IRoom room, IPlayer player, int yOffset, GameRoomManager roomManager, bool lockedItems)
         {
             int wallOffsetX = 32 * Constants.UniversalScale;
             int wallOffsetY = 32 * Constants.UniversalScale + Constants.HudAndMenuHeight;
@@ -217,7 +217,15 @@ namespace MainGame.Rooms
                 IPickupableItem item = ItemFactory.CreateItem(objects[i], tilePosition, player, roomManager);
                 if (item is not null)
                 {
-                    room.RoomItems.Add(item);
+                    if (lockedItems) 
+                    { 
+                        room.WaitingRoomItems.Add(item); 
+                    } 
+                    else
+                    {
+                        room.RoomItems.Add(item);
+                    }
+                    
                     objects[i] = "-";
                 }
             }

@@ -10,6 +10,8 @@ namespace MainGame.WorldItems
         public Vector2 Position { get; set; }
         public Rectangle HitBox { get; }
 
+        public int SpawnCounter { get; set; }
+
         public void Update();
         public void Draw();
         public void PickUp();

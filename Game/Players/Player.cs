@@ -20,6 +20,7 @@ namespace MainGame.Players
 
         public int MaxHealth { get; protected set; }
         public int CurrentHealth { get; protected set; }
+        public bool IsDead { get; set; }
         public ILinkInventory Inventory { get; protected set; }
         public ISprite Sprite { get; set; }
         public IPlayerState CurrentState { get; set; }
@@ -38,13 +39,14 @@ namespace MainGame.Players
 		private IProjectile swordBeam;
 
         public Player(Vector2 spawnPosition, GameRoomManager roomManager, int[] startingItemIds,
-					  int maxHearts = 6, int rupees = 0, int keys = 0, int bombs = 0)
+					  int maxHealth = 6, int rupees = 0, int keys = 0, int bombs = 0)
 		{
 			Position = spawnPosition;
 			CurrentState = new PlayerIdleUpState(this);
 			SwordHitBox = new();
-			MaxHealth = maxHearts;
+			MaxHealth = maxHealth;
 			CurrentHealth = MaxHealth;
+			IsDead = false;
 			Inventory = new LinkInventory(this, roomManager, startingItemIds, rupees, keys, bombs);
 			this.roomManager = roomManager;
             UpdateHitBoxes();
