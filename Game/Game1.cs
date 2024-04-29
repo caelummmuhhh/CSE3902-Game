@@ -38,6 +38,9 @@ public class Game1 : Game
     public bool FreezeAllEntities { get; set; } = false; // no update, but draw
     private int PauseDebounce = 10;
 
+    private Effect crtEffect;
+    public RenderTarget2D RenderTarget;
+
     public Game1()
     {
         GraphicsManager = new GraphicsDeviceManager(this)
@@ -63,9 +66,14 @@ public class Game1 : Game
         AudioManager.SetUp(this);
 
         spriteBatch = new SpriteBatch(GraphicsDevice);
+        RenderTarget = new RenderTarget2D(
+            GraphicsDevice,
+            GraphicsManager.PreferredBackBufferWidth,
+            GraphicsManager.PreferredBackBufferHeight);
 
         SpriteFactory.LoadAllTextures(Content);
         SpriteFactory.SpriteBatch = spriteBatch;
+        crtEffect = Content.Load<Effect>("Shaders/CRT_2");
 
         string dungeonName = "Dungeon_1.csv";
         Dungeon = new Dungeon(this, dungeonName);
@@ -133,6 +141,7 @@ public class Game1 : Game
 
     protected override void Draw(GameTime gameTime)
     {
+        GraphicsDevice.SetRenderTarget(RenderTarget);
         GraphicsDevice.Clear(Color.Black);
         spriteBatch.Begin(SpriteSortMode.FrontToBack, BlendState.AlphaBlend, SamplerState.PointClamp);
 
@@ -148,9 +157,17 @@ public class Game1 : Game
         {
             Menu.Draw();
         }
-
         // Hud always drawn
         Hud.Draw();
+        spriteBatch.End();
+
+        GraphicsDevice.SetRenderTarget(null);
+        GraphicsDevice.Clear(Color.Black);
+
+        spriteBatch.Begin(samplerState: SamplerState.PointClamp, effect: crtEffect);
+
+        spriteBatch.Draw(RenderTarget, Vector2.Zero, Color.White);
+
         spriteBatch.End();
 
         base.Draw(gameTime);

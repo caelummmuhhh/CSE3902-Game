@@ -1,7 +1,7 @@
 
 #----------------------------- Global Properties ----------------------------#
 
-/outputDir:bin/$(Platform)
+/outputDir:bin/$(Platform)/Content
 /intermediateDir:obj/$(Platform)
 /platform:DesktopGL
 /config:
@@ -253,4 +253,22 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:RoomSprites.png
+
+#begin Shaders/CRT_1.fx
+/importer:EffectImporter
+/processor:EffectProcessor
+/processorParam:DebugMode=Auto
+/build:Shaders/CRT_1.fx
+
+#begin Shaders/CRT_2.fx
+/importer:EffectImporter
+/processor:EffectProcessor
+/processorParam:DebugMode=Auto
+/build:Shaders/CRT_2.fx
+
+#begin Shaders/CRT_3.fx
+/importer:EffectImporter
+/processor:EffectProcessor
+/processorParam:DebugMode=Auto
+/build:Shaders/CRT_3.fx
 
