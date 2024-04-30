@@ -36,7 +36,7 @@ namespace MainGame.Rooms
             room.RoomPlayer = player;
 
 
-            for (int i = 2; i < lines.Length; i++)
+            for (int i = 2; i < lines.Length - 1; i++)
             {
                 ParseItemsAndBlocks(ref lines[i], room, player, i - 2, roomManager);
                 ParseEnemies(lines[i], room, player, i - 2);
@@ -232,7 +232,7 @@ namespace MainGame.Rooms
 
             string[] objects = line.Split(',');
             
-            for (int i = 0; i < objects.Length; i++)
+            for (int i = 0; i < objects.Length - 1; i++)
             {
                 if (objects[i].Equals("-")) {
                     continue;

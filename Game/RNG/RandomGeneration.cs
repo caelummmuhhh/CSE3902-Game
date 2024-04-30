@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.IO;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,32 +8,62 @@ using System.Net.Mime;
 using System.Runtime.CompilerServices;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
-using MainGame.Rooms;
+using MainGame.Enemies;
+using System.ComponentModel.Design;
 
 namespace MainGame.RNG
 {
-    public static class RandomRoomGeneration
+    public static class RandomGeneration
     {
-        private static Random Random = new(2001);
-        private static int KeyCount = 0;
+        private static Game1 Game; // Might not need
+        private static readonly int DungeonSize = 8;
+        private static Random Random = new();
+        private static string[][] DungeonLayout;
+        private static string DungeonFile;
+        private static int RoomNumber = 1;
+        public static void GenerateDungeon(Game1 game, string baseFile, string generatedFile)
+        {
+            Game = game;
+            DungeonFile = generatedFile;
+            string dungeonBase = File.ReadAllText(baseFile);
+            File.WriteAllText(generatedFile, dungeonBase);
 
-        public static void GenerateAdvanceRooms(string[][] DungeonLayout, string DungeonFile, int RoomNumber, int DungeonSize)
+            DungeonLayout = new string[DungeonSize][];
+            for (int i = 0; i < DungeonSize; i++)
+            {
+                DungeonLayout[i] = new string[DungeonSize];
+                for (int j = 0; j < DungeonSize; ++j)
+                {
+                    // Initialize Dungeon
+                    DungeonLayout[i][j] = "0";
+                }
+            }
+            int r = Random.Next(0, 7);
+            DungeonLayout[7][r] = "1"; // Set Spawn Room
+            RoomNumber++;
+            GenerateAndWriteSpawnRoom(r);
+            GenerateAdvanceRooms();
+            GenerateSideRooms();
+            GenerateTriforceRoom();
+            PrintDungeonToFile();
+            
+        }
+        private static void GenerateAdvanceRooms()
         {
             int setsGenerated = 0;
             while (setsGenerated < 5) 
             {
-                List<Vector2> advanceLocations = FindRoom("A", DungeonSize, DungeonLayout);
+                List<Vector2> advanceLocations = FindRoom("A");
                 foreach (Vector2 location in advanceLocations) // Should only be one in here
                 {
                     char charDir = DungeonLayout[(int)location.Y][(int)location.X][1];
-                    List<Direction> validRooms = CheckAdjacentRooms(location, DungeonLayout);
+                    List<Direction> validRooms = CheckAdjacentRooms(location);
                     if (validRooms.Count == 0)
                     {
                         DungeonLayout[(int)location.Y][(int)location.X] = "T" + charDir;
                         return;
                     }
 
-                    int generateSideRoom = Random.Next(0, 3);
                     Direction previousRoom = Utils.CharToDirection(charDir);
 
                     Direction nextAdvance = validRooms[Random.Next(0, validRooms.Count)];
@@ -42,15 +72,15 @@ namespace MainGame.RNG
                     if (validRooms.Count != 0)
                     {
                         nextSide = validRooms[Random.Next(0, validRooms.Count)];
-                        SetRoom(nextSide, location, "S", DungeonLayout);
+                        SetRoom(nextSide, location, "S");
                     }
 
-                    SetRoom(nextAdvance, location, "A", DungeonLayout);
+                    SetRoom(nextAdvance, location, "A");
 
-                    // Dumb
-                    if (setsGenerated == 4) SetRoom(nextAdvance, location, "T", DungeonLayout);
+                    // This feels dumb like it should be outside the while loop but the variables go away so idk
+                    if (setsGenerated == 4) SetRoom(nextAdvance, location, "T");
 
-                    WriteAdvanceRoom(previousRoom, nextAdvance, nextSide, RoomNumber);
+                    WriteAdvanceRoom(previousRoom, nextAdvance, nextSide);
                     DungeonLayout[(int)location.Y][(int)location.X] = RoomNumber.ToString();
                     RoomNumber++;
 
@@ -60,9 +90,9 @@ namespace MainGame.RNG
                 setsGenerated++;
             }
         }
-        public static void GenerateSideRooms(string[][] DungeonLayout, string DungeonFile, int RoomNumber, int DungeonSize)
-                {
-                List<Vector2> sideLocations = FindRoom("S", DungeonSize, DungeonLayout);
+        private static void GenerateSideRooms()
+        {
+                List<Vector2> sideLocations = FindRoom("S");
                 foreach (Vector2 location in sideLocations)
                 {
                     char charDir = DungeonLayout[(int)location.Y][(int)location.X][1];
@@ -75,7 +105,7 @@ namespace MainGame.RNG
 
                     Direction previousRoom = Utils.CharToDirection(charDir);
 
-                    WriteSideRoom(previousRoom, RoomNumber);
+                    WriteSideRoom(previousRoom);
                     DungeonLayout[(int)location.Y][(int)location.X] = RoomNumber.ToString();
                     RoomNumber++;
                 }
@@ -84,21 +114,21 @@ namespace MainGame.RNG
         {
             // TO DO
         }
-        public static void GenerateTriforceRoom(string[][] DungeonLayout, string DungeonFile, int RoomNumber, int DungeonSize)
-                {
-            List<Vector2> triforceLocations = FindRoom("T", DungeonSize, DungeonLayout);
+        private static void GenerateTriforceRoom()
+        {
+            List<Vector2> triforceLocations = FindRoom("T");
             foreach (Vector2 location in triforceLocations)
             {
                 char charDir = DungeonLayout[(int)location.Y][(int)location.X][1];
 
                 Direction previousRoom = Utils.CharToDirection(charDir);
 
-                WriteTriforceRoom(previousRoom, RoomNumber);
+                WriteTriforceRoom(previousRoom);
                 DungeonLayout[(int)location.Y][(int)location.X] = RoomNumber.ToString();
                 RoomNumber++;
             }
         }
-        private static void SetRoom(Direction newRoom, Vector2 currentRoom, string roomType, string[][] DungeonLayout)
+        private static void SetRoom(Direction newRoom, Vector2 currentRoom, string roomType)
         {
             if (newRoom == Direction.North) 
             {
@@ -116,7 +146,7 @@ namespace MainGame.RNG
                 DungeonLayout[(int)currentRoom.Y][(int)currentRoom.X + 1] = roomType + "W";
             }
         }
-        private static List<Direction> CheckAdjacentRooms(Vector2 location, string[][] DungeonLayout)
+        private static List<Direction> CheckAdjacentRooms(Vector2 location)
         {
             List<Direction> validRooms = new();
             if (location.Y != 0 && DungeonLayout[(int)location.Y - 1][(int)location.X] == "0")
@@ -137,7 +167,7 @@ namespace MainGame.RNG
             }
             return validRooms;
         }
-        private static List<Vector2> FindRoom(string roomTypeChar, int DungeonSize, string[][] DungeonLayout)
+        private static List<Vector2> FindRoom(string roomTypeChar)
         {
             List<Vector2> locations = new();
             for (int i = 0; i < DungeonSize; i++)
@@ -149,9 +179,26 @@ namespace MainGame.RNG
             }
             return locations;
         }
-        public static void GenerateAndWriteSpawnRoom(int pos, string[][] DungeonLayout, string DungeonFile, int RoomNumber, int DungeonSize)
+        private static void PrintDungeonToFile()
         {
-            using (StreamWriter writer = new StreamWriter("Content/Rooms/Room_1.csv"))
+            using (StreamWriter writer = new StreamWriter(DungeonFile, true))
+            {
+                writer.Write('\n');
+                for (int i = 0; i < DungeonSize; i++)
+                {
+                    for (int j = 0; j < DungeonSize; ++j)
+                    {
+                        writer.Write(DungeonLayout[i][j]);
+                        if (j < DungeonSize - 1) writer.Write(",");
+                    }
+                    writer.Write('\n');
+                }
+                writer.Write('\n');
+            }
+        }
+        private static void GenerateAndWriteSpawnRoom(int pos)
+        {
+            using (StreamWriter writer = new StreamWriter("Content/RandomRooms/Room_1.csv"))
             {
                 writer.WriteLine("dungeonNormal,,,,,,,,,,,");
                 string doors = "keyDoor,openDoor,openDoor,openDoor,,,,,,,,";
@@ -161,7 +208,6 @@ namespace MainGame.RNG
                     int r = Random.Next(0, 1);
                     DungeonLayout[6][pos] = r == 1 ? "AS" : "SS";
                     DungeonLayout[7][pos + 1] = r == 1 ? "SW" : "AW";
-                    KeyCount = 1;
                 }
                 else if (pos == 7)
                 {
@@ -169,14 +215,12 @@ namespace MainGame.RNG
                     int r = Random.Next(0, 1);
                     DungeonLayout[6][pos] = r == 1 ? "AS" : "SS";
                     DungeonLayout[7][pos - 1] = r == 1 ? "SE" : "AE";
-                    KeyCount = 1;
                 }
                 else
                 {
                     DungeonLayout[6][pos] = "AS";
                     DungeonLayout[7][pos + 1] = "SW";
                     DungeonLayout[7][pos - 1] = "SE";
-                    KeyCount = 2;
                 }
                 writer.WriteLine(doors);
                 writer.WriteLine("-,-,-,-,-,-,-,-,-,-,-,-");
@@ -186,11 +230,12 @@ namespace MainGame.RNG
                 writer.WriteLine("-,-,-,-,-,blueSand,blueSand,-,-,-,-,-");
                 writer.WriteLine("-,statueOneEntrance ,-,blueSand,statueOneEntrance ,blueSand,blueSand,statueTwoEntrance ,blueSand,-,statueTwoEntrance ,-");
                 writer.WriteLine("-,-,-,blueSand,blueSand,blueSand,blueSand,blueSand,blueSand,-,-,-");
+                writer.Write("Unlocked,,,,,,,,,,,");
             }
         }
-        private static void WriteAdvanceRoom(Direction previousRoom, Direction nextAdvance, Direction nextSide, int RoomNumber)
+        private static void WriteAdvanceRoom(Direction previousRoom, Direction nextAdvance, Direction nextSide)
         {
-            using (StreamWriter writer = new StreamWriter($"Content/Rooms/Room_{RoomNumber}.csv"))
+            using (StreamWriter writer = new StreamWriter($"Content/RandomRooms/Room_{RoomNumber}.csv"))
             {
                 writer.WriteLine("dungeonNormal,,,,,,,,,,,");
                 if (previousRoom == Direction.North || nextSide == Direction.North)
@@ -211,6 +256,7 @@ namespace MainGame.RNG
                 else if (nextAdvance == Direction.South)
                 {
                     writer.Write("keyDoor,");
+
                 }
                 else
                 {
@@ -240,18 +286,41 @@ namespace MainGame.RNG
                 {
                     writer.Write("wallNormal,,,,,,,,");
                 }
-                writer.WriteLine("-,-,-,-,-,-,-,-,-,-,-,-");
-                writer.WriteLine("-,keese,-,-,-,-,-,-,-,-,-,-"); 
-                writer.WriteLine("-,-,-,keese,-,-,-,-,-,-,-,-");
-                writer.WriteLine("-,-,-,-,-,-,-,-,-,-,-,-"); 
-                writer.WriteLine("-,-,-,-,-,-,-,-,-,-,-,-");
-                writer.WriteLine("-,keese,-,-,-,-,-,-,-,-,-,-");
-                writer.WriteLine("-,-,-,-,-,-,-,-,key,-,-,-");
+          
+                string enemyType1 = Enum.GetName(typeof(EnemyTypes) ,EnemyUtils.GetRandomEnemy());
+                string enemyType2 = Enum.GetName(typeof(EnemyTypes), EnemyUtils.GetRandomEnemy());
+                writer.WriteLine($"\n-,-,-,-,-,-,-,-,-,-,-,-");
+                for (int i = 0; i < 5; i++)
+                {
+                    writer.Write("-,");
+                    for (int j = 0; j < 10; j++)
+                    {
+                        if (Random.Next(0, 20) == 0)
+                        {
+                            writer.Write(enemyType1 + ",");
+                        } 
+                        else if (Random.Next(0, 20) == 0)
+                        {
+                            writer.Write(enemyType2 + ",");
+                        }
+                        else if (Random.Next(0, 5) == 0)
+                        {
+                            writer.Write("squareBlock,");
+                        }
+                        else
+                        {
+                            writer.Write("-,");
+                        } 
+                    }
+                    writer.Write("-\n");
+                }
+                writer.WriteLine($"-,-,-,-,-,-,-,-,-,-,-,-");
+                writer.Write("Unlocked,,,,,,,,,,,");
             }
         }
-        private static void WriteSideRoom(Direction previousRoom, int RoomNumber)
+        private static void WriteSideRoom(Direction previousRoom)
         {
-            using (StreamWriter writer = new StreamWriter($"Content/Rooms/Room_{RoomNumber}.csv"))
+            using (StreamWriter writer = new StreamWriter($"Content/RandomRooms/Room_{RoomNumber}.csv"))
             {
                 writer.WriteLine("dungeonNormal,,,,,,,,,,,");
                 if (previousRoom == Direction.North)
@@ -286,22 +355,57 @@ namespace MainGame.RNG
                 {
                     writer.Write("wallNormal,,,,,,,,");
                 }
-                writer.WriteLine("-,-,-,-,-,-,-,-,-,-,-,-");
-                writer.WriteLine("-,keese,-,-,-,-,-,-,-,-,-,-");
-                writer.WriteLine("-,-,-,keese,-,-,-,-,-,-,-,-");
-                writer.WriteLine("-,-,-,-,-,-,-,-,-,-,-,-");
-                writer.WriteLine("-,-,-,-,-,-,-,-,-,-,-,-");
-                writer.WriteLine("-,keese,-,-,-,-,-,-,-,-,-,-");
-                writer.WriteLine("-,-,-,-,-,-,-,-,key,-,-,-");
+
+                string enemyType1 = Enum.GetName(typeof(EnemyTypes), EnemyUtils.GetRandomEnemy());
+                string enemyType2 = Enum.GetName(typeof(EnemyTypes), EnemyUtils.GetRandomEnemy());
+                string itemType = Enum.GetName(typeof(ItemTypes), Utils.GetRandomCollectableItem());
+                writer.WriteLine($"\n-,-,{itemType},-,-,-,-,-,-,-,-,-");
+                for (int i = 0; i < 5; i++)
+                {
+                    writer.Write("-,");
+                    for (int j = 0; j < 10; j++)
+                    {
+                        if (Random.Next(0, 25) == 0)
+                        {
+                            writer.Write(enemyType1 + ",");
+                        }
+                        else if (Random.Next(0, 25) == 0)
+                        {
+                            writer.Write(enemyType2 + ",");
+                        }
+                        else if (Random.Next(0, 4) == 0)
+                        {
+                            writer.Write("squareBlock,");
+                        }
+                        else if (Random.Next(0, 25) == 0)
+                        {
+                            writer.Write("heart,");
+                        }
+                        else
+                        {
+                            writer.Write("-,");
+                        }
+                    }
+                    writer.Write("-\n");
+                }
+                writer.WriteLine($"-,-,-,-,-,-,-,-,-,key,-,-");
+                if (enemyType1 == "OldMan" || enemyType1 == "SpikeCross" || enemyType2 == "OldMan" || enemyType2 == "SpikeCross")
+                {
+                    writer.Write("Unlocked,,,,,,,,,,,");
+                }
+                else
+                {
+                    writer.Write("Locked,,,,,,,,,,,");
+                }
             }
         }
         private static void WriteBossRoom()
         {
             // TO DO
         }
-        private static void WriteTriforceRoom(Direction previousRoom, int RoomNumber)
+        private static void WriteTriforceRoom(Direction previousRoom)
         {
-            using (StreamWriter writer = new StreamWriter($"Content/Rooms/Room_{RoomNumber}.csv"))
+            using (StreamWriter writer = new StreamWriter($"Content/RandomRooms/Room_{RoomNumber}.csv"))
             {
                 writer.WriteLine("dungeonNormal,,,,,,,,,,,");
                 if (previousRoom == Direction.North)
@@ -338,11 +442,12 @@ namespace MainGame.RNG
                 }
                 writer.WriteLine("\n-,-,-,-,-,-,-,-,-,-,-,-");
                 writer.WriteLine("-,squareBlock,squareBlock,squareBlock,squareBlock,squareBlock,squareBlock,squareBlock,squareBlock,squareBlock,squareBlock,-");
-                writer.WriteLine("-,squareBlock,-,-,statueOneEnd,-,-,statueTwoEnd,-,-,squareBlock,-");
-                writer.WriteLine("-,squareBlock,-,statueOneEnd,-,-,-,-,statueTwoEnd,-,squareBlock,-");
+                writer.WriteLine("-,squareBlock,fairy,fairy,statueOneEnd,fairy,fairy,statueTwoEnd,fairy,fairy,squareBlock,-");
+                writer.WriteLine("-,squareBlock,fairy,statueOneEnd,fairy,fairy,fairy,fairy,statueTwoEnd,-,squareBlock,-");
                 writer.WriteLine("-,squareBlock,-,-,-,-,-,-,-,-,squareBlock,-");
                 writer.WriteLine("-,squareBlock,squareBlock,squareBlock,squareBlock,-,-,squareBlock,squareBlock,squareBlock,squareBlock,-");
                 writer.WriteLine("-,-,-,-,-,-,-,-,-,-,-,-");
+                writer.Write("Unlocked,,,,,,,,,,,");
             }
         }
     }

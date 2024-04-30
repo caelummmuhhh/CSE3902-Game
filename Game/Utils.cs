@@ -3,6 +3,9 @@ using System.IO;
 using System.Data;
 using System.Linq;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Input;
+using static System.Net.WebRequestMethods;
+using System.Text;
 
 namespace MainGame
 {
@@ -156,6 +159,10 @@ namespace MainGame
         public static Direction GetRandomCardinalAndOrdinalDirection()
         {
             return Randomize(Enum.GetValues(typeof(Direction)).Cast<Direction>().ToArray());
+        }
+        public static ItemTypes GetRandomCollectableItem()
+        {
+            return Randomize(ItemTypes.HeartContainer, ItemTypes.Map, ItemTypes.Boomerang, ItemTypes.Bomb, ItemTypes.Bow, ItemTypes.Compass);
         }
         public static Direction CharToDirection(char dir)
         {

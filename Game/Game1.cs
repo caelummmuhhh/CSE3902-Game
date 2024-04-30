@@ -68,16 +68,19 @@ public class Game1 : Game
         SpriteFactory.LoadAllTextures(Content);
         SpriteFactory.SpriteBatch = spriteBatch;
 
-        RandomDungeonGeneration.GenerateDungeon(this, "Content/Dungeons/Dungeon_Base.csv", "Content/Dungeons/Dungeon_Random.csv");
+        RandomGeneration.GenerateDungeon(this, "Content/Dungeons/Dungeon_Base.csv", "Content/Dungeons/Dungeon_Random.csv");
 
-        string dungeonName = "Dungeon_1_Debug.csv";
+        // Set to random dungeon here
+        string dungeonName = "Dungeon_Random.csv";
+        string roomFolder = "Content/RandomRooms";
+
         Dungeon = new Dungeon(this, dungeonName);
 
         RoomManager = new(this);
         Player = new Player(new Vector2(120 * Constants.UniversalScale, (128 * Constants.UniversalScale) + Constants.HudAndMenuHeight), RoomManager,
             Dungeon.PlayerStartingItems, Dungeon.PlayerStartingHealth, Dungeon.PlayerStartingRupees, Dungeon.PlayerStartingKeys, Dungeon.PlayerStartingBombs);
 
-        RoomManager.LoadAllRooms(Player);
+        RoomManager.LoadAllRooms(Player, roomFolder);
 
         Collision = new(this);
 

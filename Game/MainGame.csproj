@@ -102,6 +102,9 @@
     <None Update="Content\Dungeons\Dungeon_1_Debug.csv">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Update="Content\RandomRooms\Room_0.csv">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Update="Content\Rooms\Room_0.csv">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
