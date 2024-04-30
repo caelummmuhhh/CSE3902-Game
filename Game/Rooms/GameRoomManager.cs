@@ -38,11 +38,11 @@ namespace MainGame.Rooms
 			this.game = game;
         }
 
-		public void LoadAllRooms(IPlayer player)
+		public void LoadAllRooms(IPlayer player, string folderPath)
 		{
 			for (int i = 0; i < game.Dungeon.DungeonRoomCount + 1; i++)
 			{
-				string filePath = Path.Combine("Content", "Rooms", $"Room_{i}.csv");
+				string filePath = Path.Combine(folderPath, $"Room_{i}.csv");
                 allRooms.Add(RoomFactory.GenerateRoom(filePath, player, this));
             }
 

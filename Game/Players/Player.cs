@@ -93,7 +93,7 @@ namespace MainGame.Players
 
 		public void Heal(int amount) => CurrentHealth = CurrentHealth + amount >= MaxHealth ? MaxHealth : CurrentHealth + amount;
         public void MakeInvulnerable(int duration) => invulnerableTimer = duration;
-        public void IncreaseMaxHP(int amount = 2) => MaxHealth += amount;
+        public void IncreaseMaxHP(int amount = 2) => MaxHealth = MaxHealth + amount >= 32 ? 32 : MaxHealth + amount;
 
         public void MoveUp() => CurrentState.MoveUp();
 		public void MoveDown() => CurrentState.MoveDown();

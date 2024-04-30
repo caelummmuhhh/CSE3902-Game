@@ -34,15 +34,16 @@ namespace MainGame.Players.Inventory
             PassiveItems.Add(Keys);
             PassiveItems.Add(Rupees);
 
+            startingItemIds[0] = 8;
             foreach (int itemId in startingItemIds)
             {
                 if (itemId == (int)ItemTypes.Bomb)
                 {
                     continue;
                 }
-                InventoryItemFactory.CreateInventoryItem(itemId, player, roomManager);
+                AddItem(itemId, 1);
             }
-		}
+        }
 
         public void Equip(int itemId)
         {

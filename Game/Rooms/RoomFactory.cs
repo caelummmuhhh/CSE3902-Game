@@ -240,7 +240,7 @@ namespace MainGame.Rooms
 
             string[] objects = line.Split(',');
             
-            for (int i = 0; i < objects.Length; i++)
+            for (int i = 0; i < objects.Length - 1; i++)
             {
                 if (objects[i].Equals("-")) {
                     continue;
