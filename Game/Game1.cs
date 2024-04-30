@@ -37,8 +37,6 @@ public class Game1 : Game
     public bool ToggleControls { get; set; } = true; // turn off controls
     public bool FreezeAllEntities { get; set; } = false; // no update, but draw
     private int PauseDebounce = 10;
-    public bool TogglePause;
-    int PauseDebounce;
     private DungeonLoadingScreen dungeonLoadingScreen;
 
 
@@ -146,9 +144,6 @@ public class Game1 : Game
     {
         GraphicsDevice.Clear(Color.Black);
         spriteBatch.Begin(SpriteSortMode.FrontToBack, BlendState.AlphaBlend, SamplerState.PointClamp);
-
-        if (!TogglePause)
-    spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, SamplerState.PointClamp);
 
     if (dungeonLoadingScreen.IsLoading)
     {
