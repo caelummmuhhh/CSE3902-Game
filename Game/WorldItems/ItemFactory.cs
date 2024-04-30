@@ -56,5 +56,48 @@ namespace MainGame.WorldItems
 
             return CreateItem(item, position, player, roomManager);
         }
+        public static IPickupableItem GenerateSmallEnemyDropItem(Vector2 position, IPlayer player)
+        {
+            Random random = new();
+            int value = random.Next(0, 63);
+            if (value <= 14)
+            {
+                return CreateItem(ItemTypes.Heart, position, player);
+            }
+            else if (value <= 29)
+            {
+                return CreateItem(ItemTypes.Rupee, position, player);
+            }
+            // Else spawn nothing, in original game small enemies spawn nothing always
+
+            return null;
+        }
+        public static IPickupableItem GenerateRegularEnemyDropItem(Vector2 position, IPlayer player)
+        {
+            Random random = new();
+            int value = random.Next(0, 63);
+            if (value <= 14)
+            {
+                return CreateItem(ItemTypes.Heart, position, player);
+            }
+            else if (value <= 29)
+            {
+                return CreateItem(ItemTypes.Rupee, position, player);
+            }
+            else if (value <= 33)
+            {
+                return CreateItem(ItemTypes.FiveRupees, position, player);
+            }
+            else if (value <= 36)
+            {
+                return CreateItem(ItemTypes.Fairy, position, player);
+            }
+            else if (value <= 39)
+            {
+                return CreateItem(ItemTypes.Bomb, position, player);
+            } // Else spawn nothing
+
+			return null;
+        }
     }
 }

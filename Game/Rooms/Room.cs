@@ -10,6 +10,7 @@ using MainGame.Players;
 using MainGame.Particles;
 using MainGame.Collision;
 using MainGame.Projectiles;
+using MainGame.Audio;
 
 namespace MainGame.Rooms
 {
@@ -21,6 +22,8 @@ namespace MainGame.Rooms
         public List<IEnemy> RoomEnemies { get; set; } = new();
         public List<IBlock> RoomBlocks { get; set; } = new();
         public List<IPickupableItem> RoomItems { get; set; } = new();
+        public List<IPickupableItem> WaitingRoomItems { get; set; } = new();
+
         public List<IParticle> RoomParticles { get; set; } = new();
         public List<IProjectile> PlayerProjectiles { get; private set; } = new();
         public List<IProjectile> EnemyProjectiles { get; private set; } = new();
@@ -67,6 +70,16 @@ namespace MainGame.Rooms
 
             foreach (IBlock block in RoomBlocks) block.Update();
 
+            if (RoomEnemies.Count == 0 && WaitingRoomItems.Count > 0)
+            {
+                for (int i = 0; i < WaitingRoomItems.Count; i++)
+                {
+                    RoomItems.Add(WaitingRoomItems[0]);
+                    WaitingRoomItems.RemoveAt(0);
+                }
+                AudioManager.PlaySFX("Item_Appear", 0);
+            }
+
             foreach (IPickupableItem item in RoomItems) item.Update();
 
             foreach (IParticle particle in RoomParticles) particle.Update();
@@ -74,7 +87,20 @@ namespace MainGame.Rooms
             for (int i = RoomEnemies.Count - 1; i >= 0; i--)
             {
                 RoomEnemies[i].Update();
-                if (!RoomEnemies[i].Exists) RoomEnemies.RemoveAt(i);
+                if (!RoomEnemies[i].Exists)
+                {
+                    if (RoomEnemies[i] is KeeseEnemy || RoomEnemies[i] is GelEnemy)
+                    {
+                        IPickupableItem item = ItemFactory.GenerateSmallEnemyDropItem(RoomEnemies[i].Position, RoomPlayer);
+                        if (item != null) RoomItems.Add(item);
+                    }
+                    else
+                    {
+                        IPickupableItem item = ItemFactory.GenerateRegularEnemyDropItem(RoomEnemies[i].Position, RoomPlayer);
+                        if (item != null) RoomItems.Add(item);
+                    }
+                    RoomEnemies.RemoveAt(i);
+                }
             }
             for (int i = PlayerProjectiles.Count - 1; i >= 0; i--)
             {
