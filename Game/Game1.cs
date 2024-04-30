@@ -122,6 +122,7 @@ public class Game1 : Game
         else
         {
             // Start screen updates
+            
         }
         
         // Audio has to be outside to allow pause sounds, will cause bugs with delayed sounds playing on pause screen
