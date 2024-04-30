@@ -58,6 +58,18 @@ namespace MainGame.SpriteHandlers
                 scale: Constants.UniversalScale);
         }
 
+        public static ISprite CreateDarkStalfosSprite()
+        {
+            return new EnemySprites.DarkStalfosSprite(
+                TextureMap["EnemiesSprites"], SpriteBatch,
+                numRows: 1,
+                numColumns: 1,
+                numberOfFrames: 1,
+                textureStartingY: 16,
+                layerDepth: DefaultSpriteLayerDepths.EnemiesLayer,
+                scale: Constants.UniversalScale);
+        }
+
         public static ISprite CreateGelSprite()
         {
             return new EnemySprites.GelSprite(

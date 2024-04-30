@@ -8,7 +8,7 @@ namespace MainGame.Enemies
 {
     public enum EnemyTypes
     {
-        Aquamentus, Gel, Goriya, Keese, OldMan, SpikeCross, Stalfos, WallMaster
+        Aquamentus, Gel, Goriya, Keese, OldMan, SpikeCross, Stalfos, DarkStalfos, WallMaster
     }
 
     public enum ItemBindedEnemyTypes
@@ -29,6 +29,7 @@ namespace MainGame.Enemies
                 EnemyTypes.OldMan => new OldManEnemy(position),
                 EnemyTypes.SpikeCross => new SpikeCrossEnemy(position, player),
                 EnemyTypes.Stalfos => new StalfosEnemy(position),
+                EnemyTypes.DarkStalfos => new DarkStalfosEnemy(position),
                 EnemyTypes.WallMaster => new WallMasterEnemy(position, player),
                 _ => null,
             };
@@ -81,7 +82,8 @@ namespace MainGame.Enemies
         }
         public static EnemyTypes GetRandomEnemy()
         {
-            return Utils.Randomize(EnemyTypes.Gel, EnemyTypes.Goriya, EnemyTypes.Keese, EnemyTypes.OldMan, EnemyTypes.SpikeCross, EnemyTypes.Stalfos, EnemyTypes.WallMaster);
+            return Utils.Randomize(EnemyTypes.Gel, EnemyTypes.Goriya, EnemyTypes.Keese, EnemyTypes.OldMan, EnemyTypes.SpikeCross, EnemyTypes.Stalfos, EnemyTypes.DarkStalfos, EnemyTypes.WallMaster);
+            
         }
     }
 }
