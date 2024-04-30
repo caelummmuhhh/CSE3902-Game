@@ -26,11 +26,11 @@ public class Game1 : Game
     public CollisionDetector Collision;
     public GameRoomManager RoomManager;
 
-    public BlockSprite testBlock; // TODO: DELETE ME
-
     public Dungeon Dungeon;
     public Hud Hud;
     public Menu Menu;
+
+    public bool StartScreen { get; set; } = true; // Whether to show start screen or game
 
     public bool TogglePause { get; set; } = false;
     public bool ToggleEntities { get; set; } = true; // whether or not to update and draw entities
@@ -81,8 +81,6 @@ public class Game1 : Game
         Hud = new Hud(Dungeon.DungeonId, Dungeon.UseItemKey, Dungeon.AttackKey, this);
         Menu = new Menu(Dungeon.UseItemKey, this);
 
-        testBlock = (BlockSprite)SpriteFactory.CreateBlackSquareSprite(); // TODO: DELETE ME
-
         controllers.Add(new KeyboardController(this, Player));
         controllers.Add(new MouseController(this, Player));
     }
@@ -99,25 +97,33 @@ public class Game1 : Game
             }
         }
 
-        if (!TogglePause)
+        if (!StartScreen)
         {
-            RoomManager.Update();
-            PauseDebounce++;
-            Hud.TogglePauseDisplay(TogglePause);
 
-            if (ToggleEntities && !FreezeAllEntities)
+            if (!TogglePause)
             {
-                Player.Update();
-                Collision.Update(); // should be one of the last thing that updates
+                RoomManager.Update();
+                PauseDebounce++;
+                Hud.TogglePauseDisplay(TogglePause);
+
+                if (ToggleEntities && !FreezeAllEntities)
+                {
+                    Player.Update();
+                    Collision.Update(); // should be one of the last thing that updates
+                }
+            }
+            else
+            {
+                Hud.TogglePauseDisplay(TogglePause);
+                Menu.Update();
+                PauseDebounce++;
             }
         }
         else
         {
-            Hud.TogglePauseDisplay(TogglePause);
-            Menu.Update();
-            PauseDebounce++;
+            // Start screen updates
         }
-
+        
         // Audio has to be outside to allow pause sounds, will cause bugs with delayed sounds playing on pause screen
         AudioManager.Update();
         Hud.Update();
@@ -136,21 +142,30 @@ public class Game1 : Game
         GraphicsDevice.Clear(Color.Black);
         spriteBatch.Begin(SpriteSortMode.FrontToBack, BlendState.AlphaBlend, SamplerState.PointClamp);
 
-        if (!TogglePause)
+        if (!StartScreen)
         {
-            RoomManager.Draw();
-            if (ToggleEntities)
+            if (!TogglePause)
             {
-                Player.Draw();
+                RoomManager.Draw();
+                if (ToggleEntities)
+                {
+                    Player.Draw();
+                }
             }
+            else
+            {
+                Menu.Draw();
+            }
+
+            // Hud always drawn
+            Hud.Draw();
+
         }
         else
         {
-            Menu.Draw();
+
         }
 
-        // Hud always drawn
-        Hud.Draw();
         spriteBatch.End();
 
         base.Draw(gameTime);
