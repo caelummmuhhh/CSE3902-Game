@@ -5,12 +5,12 @@
         public static ISprite CreateStartScreenSprite()
         {
             return new StartScreenSprites.StartScreenSprite(
-                TextureMap["StartScreenSpriteSheet"], SpriteBatch,
+                TextureMap["StartScreenSprites"], SpriteBatch,
                 numRows: 1,
                 numColumns: 2,
                 numberOfFrames: 2,
-                frameHeight: 16,
-                frameWidth: 16);
+                frameHeight: 200,
+                frameWidth: 255);
         }
     }
 }

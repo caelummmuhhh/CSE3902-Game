@@ -73,7 +73,7 @@ namespace MainGame.Controllers
             List<ICommand> unexecuteCommands = new();
 
             Dictionary<Keys, ICommand> detectKeys = game.TogglePause ? menuCommands : playCommands;
-            detectKeys = game.StartScreen ? startCommands : detectKeys;
+            detectKeys = game.StartScreenToggle ? startCommands : detectKeys;
 
             foreach (Keys key in detectKeys.Keys)
             {

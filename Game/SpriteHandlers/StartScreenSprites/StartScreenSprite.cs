@@ -34,8 +34,8 @@ namespace MainGame.SpriteHandlers.StartScreenSprites
             int numberOfFrames,
             int frameHeight,
             int frameWidth,
-            int textureStartingX = 0,
-            int textureStartingY = 0,
+            int textureStartingX = 1,
+            int textureStartingY = 11,
             int scale = 1,
             float layerDepth = 0.5f)
             : base(texture, numRows, numColumns, frameWidth, frameHeight, numberOfFrames,

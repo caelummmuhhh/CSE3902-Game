@@ -10,8 +10,8 @@ using MainGame.HudAndMenu;
 using MainGame.Dungeons;
 using MainGame.Collision;
 using MainGame.Audio;
-using MainGame.SpriteHandlers.BlockSprites;
-using System;
+using MainGame.StartScreen;
+    using System;
 
 namespace MainGame;
 
@@ -30,7 +30,9 @@ public class Game1 : Game
     public Hud Hud;
     public Menu Menu;
 
-    public bool StartScreen { get; set; } = true; // Whether to show start screen or game
+    public StartScreen.StartScreen StartScreen;
+
+    public bool StartScreenToggle { get; set; } = true; // Whether to show start screen or game
 
     public bool TogglePause { get; set; } = false;
     public bool ToggleEntities { get; set; } = true; // whether or not to update and draw entities
@@ -54,6 +56,8 @@ public class Game1 : Game
     protected override void Initialize()
     {
         controllers = new List<IController>();
+
+        AudioManager.MuteSong();
 
         base.Initialize();
     }
@@ -81,6 +85,8 @@ public class Game1 : Game
         Hud = new Hud(Dungeon.DungeonId, Dungeon.UseItemKey, Dungeon.AttackKey, this);
         Menu = new Menu(Dungeon.UseItemKey, this);
 
+        StartScreen = new StartScreen.StartScreen(this);
+
         controllers.Add(new KeyboardController(this, Player));
         controllers.Add(new MouseController(this, Player));
     }
@@ -97,7 +103,7 @@ public class Game1 : Game
             }
         }
 
-        if (!StartScreen)
+        if (!StartScreenToggle)
         {
 
             if (!TogglePause)
@@ -121,7 +127,7 @@ public class Game1 : Game
         }
         else
         {
-            // Start screen updates
+            StartScreen.Update();
             
         }
         
@@ -143,7 +149,7 @@ public class Game1 : Game
         GraphicsDevice.Clear(Color.Black);
         spriteBatch.Begin(SpriteSortMode.FrontToBack, BlendState.AlphaBlend, SamplerState.PointClamp);
 
-        if (!StartScreen)
+        if (!StartScreenToggle)
         {
             if (!TogglePause)
             {
@@ -164,7 +170,7 @@ public class Game1 : Game
         }
         else
         {
-
+            StartScreen.Draw();
         }
 
         spriteBatch.End();

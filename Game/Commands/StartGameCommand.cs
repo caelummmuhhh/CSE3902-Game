@@ -16,7 +16,7 @@ namespace MainGame.Commands
 
         public void Execute()
         {
-            game.StartScreen = false;
+            game.StartScreenToggle = false;
         }
 
         public void UnExecute(){ }
