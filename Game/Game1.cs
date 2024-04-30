@@ -71,8 +71,8 @@ public class Game1 : Game
         RandomGeneration.GenerateDungeon(this, "Content/Dungeons/Dungeon_Base.csv", "Content/Dungeons/Dungeon_Random.csv");
 
         // Set to random dungeon here
-        string dungeonName = "Dungeon_Random.csv";
-        string roomFolder = "Content/RandomRooms";
+        string dungeonName = "Dungeon_1.csv";
+        string roomFolder = "Content/Rooms";
 
         Dungeon = new Dungeon(this, dungeonName);
 

@@ -1,9 +1,9 @@
 dungeonNormal,,,,,,,,,,,
 wallNormal,wallNormal,openDoor,wallNormal,,,,,,,,
 -,-,-,-,-,-,-,-,-,-,-,-
--,-,-,-,-,-,-,-,-,-,stalfos,-
+-,-,-,-,-,darkStalfos,-,-,-,-,stalfos,-
 -,-,squareBlock,squareBlock,-,-,stalfos,-,squareBlock,squareBlock,-,-
 -,-,squareBlock,squareBlock,-,-,-,-,squareBlock,squareBlock,-,-
 -,-,squareBlock,squareBlock,-,-,stalfos,-,squareBlock,squareBlock,-,-
--,-,-,-,-,-,-,-,-,-,stalfos,-
+-,-,-,darkStalfos,-,-,-,-,-,-,stalfos,-
 -,-,-,keyStalfos,-,-,-,-,-,-,-,-
