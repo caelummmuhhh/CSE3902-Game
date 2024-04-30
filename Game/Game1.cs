@@ -38,13 +38,12 @@ public class Game1 : Game
     public bool FreezeAllEntities { get; set; } = false; // no update, but draw
     private int PauseDebounce = 10;
 
-    private Effect crtEffect;
+    private Effect ShaderEffect;
     private float timeOscillator = 0f;
-    private float oscillatorDirection = 1f;
-    public RenderTarget2D RenderTarget1;
-    public RenderTarget2D RenderTarget2;
-    public RenderTarget2D RenderTarget3;
-    public RenderTarget2D RenderTarget4;
+    //private float oscillatorDirection = 1f;
+
+    public RenderTarget2D[] RenderTargets;
+    public readonly int RenderTargetCount = 4;
 
     public Game1()
     {
@@ -53,7 +52,7 @@ public class Game1 : Game
             PreferredBackBufferWidth = 768,
             PreferredBackBufferHeight = 696
         };
-
+        RenderTargets = new RenderTarget2D[RenderTargetCount];
         //this.TargetElapsedTime = TimeSpan.FromSeconds(1d / 30d); //60);
         Content.RootDirectory = "Content";
         IsMouseVisible = true;
@@ -71,14 +70,15 @@ public class Game1 : Game
         AudioManager.SetUp(this);
 
         spriteBatch = new SpriteBatch(GraphicsDevice);
-        RenderTarget1 = new RenderTarget2D(GraphicsDevice, GraphicsManager.PreferredBackBufferWidth, GraphicsManager.PreferredBackBufferHeight);
-        RenderTarget2 = new RenderTarget2D(GraphicsDevice, GraphicsManager.PreferredBackBufferWidth, GraphicsManager.PreferredBackBufferHeight);
-        RenderTarget3 = new RenderTarget2D(GraphicsDevice, GraphicsManager.PreferredBackBufferWidth, GraphicsManager.PreferredBackBufferHeight);
-        //RenderTarget4 = new RenderTarget2D(GraphicsDevice, GraphicsManager.PreferredBackBufferWidth, GraphicsManager.PreferredBackBufferHeight);
+
+        for (int i = 0; i < RenderTargetCount; i++)
+        {
+            RenderTargets[i] = new RenderTarget2D(GraphicsDevice, GraphicsManager.PreferredBackBufferWidth, GraphicsManager.PreferredBackBufferHeight);
+        }
 
         SpriteFactory.LoadAllTextures(Content);
         SpriteFactory.SpriteBatch = spriteBatch;
-        crtEffect = Content.Load<Effect>("Shaders/VHS");
+        ShaderEffect = Content.Load<Effect>("Shaders/CRT_2");
 
         string dungeonName = "Dungeon_1.csv";
         Dungeon = new Dungeon(this, dungeonName);
@@ -106,7 +106,7 @@ public class Game1 : Game
         timeOscillator += (float)gameTime.ElapsedGameTime.TotalSeconds;// * oscillatorDirection;
         timeOscillator = timeOscillator > 10f ? 0 : timeOscillator;
         //oscillatorDirection = timeOscillator < 0f || timeOscillator > 1f ? -1f * oscillatorDirection : oscillatorDirection;
-        crtEffect.Parameters["TimePassage"].SetValue((float)new Random().NextDouble());
+        ShaderEffect.Parameters["TimePassage"]?.SetValue((float)new Random().NextDouble());
 
         if (PauseDebounce >= 10 && ToggleControls)
         {
@@ -149,7 +149,7 @@ public class Game1 : Game
 
     protected override void Draw(GameTime gameTime)
     {
-        GraphicsDevice.SetRenderTarget(RenderTarget1);
+        GraphicsDevice.SetRenderTarget(RenderTargets[0]);
         GraphicsDevice.Clear(Color.Black);
         spriteBatch.Begin(SpriteSortMode.FrontToBack, BlendState.AlphaBlend, SamplerState.PointClamp);
 
@@ -169,25 +169,24 @@ public class Game1 : Game
         Hud.Draw();
         spriteBatch.End();
 
-        GraphicsDevice.SetRenderTarget(RenderTarget2);
-        GraphicsDevice.Clear(Color.Black);
-        crtEffect.CurrentTechnique = crtEffect.Techniques[0];
-        spriteBatch.Begin(samplerState: SamplerState.PointClamp, effect: crtEffect);
-        spriteBatch.Draw(RenderTarget1, Vector2.Zero, Color.White);
-        spriteBatch.End();
+        int currentRenderTarget = 0;
+        for (int i = 0; i < ShaderEffect.Techniques.Count; i++)
+        {
+            if (i >= RenderTargetCount) break;
 
-        GraphicsDevice.SetRenderTarget(RenderTarget3);
-        GraphicsDevice.Clear(Color.Black);
-        crtEffect.CurrentTechnique = crtEffect.Techniques[1];
-        spriteBatch.Begin(samplerState: SamplerState.PointClamp, effect: crtEffect);
-        spriteBatch.Draw(RenderTarget2, Vector2.Zero, Color.White);
-        spriteBatch.End();
+            currentRenderTarget++;
+            GraphicsDevice.SetRenderTarget(RenderTargets[currentRenderTarget]);
+            GraphicsDevice.Clear(Color.Black);
+            ShaderEffect.CurrentTechnique = ShaderEffect.Techniques[i];
+            spriteBatch.Begin(samplerState: SamplerState.PointClamp, effect: ShaderEffect);
+            spriteBatch.Draw(RenderTargets[currentRenderTarget - 1], Vector2.Zero, Color.White);
+            spriteBatch.End();
+        }
 
         GraphicsDevice.SetRenderTarget(null);
         GraphicsDevice.Clear(Color.Black);
-        crtEffect.CurrentTechnique = crtEffect.Techniques[2];
-        spriteBatch.Begin(samplerState: SamplerState.PointClamp, effect: crtEffect);
-        spriteBatch.Draw(RenderTarget3, Vector2.Zero, Color.White);
+        spriteBatch.Begin(samplerState: SamplerState.PointClamp);
+        spriteBatch.Draw(RenderTargets[currentRenderTarget], Vector2.Zero, Color.White);
         spriteBatch.End();
 
         base.Draw(gameTime);

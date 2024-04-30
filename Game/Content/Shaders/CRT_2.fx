@@ -14,6 +14,8 @@
 #define BLUR_MULTIPLIER 1.05
 #define BLUR_STRENGTH 0.5
 
+float TimePassage;
+
 static const float3 LuminanceWeights = float3(0.299, 0.587, 0.114);
 static const float BlurWeights[9] = { 0.0, 0.092, 0.081, 0.071, 0.061, 0.051, 0.041, 0.031, 0.021 };
 
@@ -32,6 +34,20 @@ struct VertexShaderOutput
 	float4 Color : COLOR0;
 	float2 TextureCoordinates : TEXCOORD0;
 };
+
+float Rand1(float2 n)
+{ 
+    return frac(sin(dot(n, float2(12.9898, 4.1414) + TimePassage)) * 43758.545);
+}
+
+float Rand2(float2 n)
+{
+    float2 K1 = float2(
+		23.14069263277926, // e^pi
+		2.665144142690225 // 2^sqrt(2)
+    );
+    return frac(cos(dot(n, K1 + TimePassage)) * 12345.6789);
+}
 
 float2 CreateCurve(float2 uv) {
 	uv -= 0.5;
@@ -166,6 +182,28 @@ float4 AddApertureGrille(float4 colRgba, float2 uv)
 	return colRgba;
 }
 
+float GetNoiseFactor(float2 uv, float noiseScale)
+{
+	float2 p = uv * noiseScale;
+    float2 ip = floor(p);
+    float2 u = frac(p);
+    u = u * u * (3.0 - 2.0 * u);
+
+    float res = lerp(
+        lerp(Rand1(ip), Rand1(ip + float2(1.0, 0.0)), u.x),
+        lerp(Rand2(ip+float2(0.0,1.0)), Rand2(ip + float2(1.0,1.0)), u.x), u.y);
+    return res * res;
+}
+
+
+float3 ApplyNoise(float3 col, float2 uv)
+{
+	float noiseFactor = GetNoiseFactor(uv, 500);
+	col += noiseFactor * col;
+	return col;
+}
+
+
 float4 MainPS(VertexShaderOutput input) : COLOR
 {
 	
@@ -178,6 +216,7 @@ float4 MainPS(VertexShaderOutput input) : COLOR
 	col.rgb = AddBloom(col.rgb, transformedUV);
 	col.rgb = AddBlur(col.rgb, transformedUV);
 	col.rgb = SetSaturation(col.rgb, 0.8);
+	col.rgb = ApplyNoise(col.rgb, transformedUV);
     return col;
 }
 

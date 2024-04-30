@@ -13,6 +13,9 @@
 #define BLUR_OFFSET 0.005
 #define BLUR_MULTIPLIER 1.05
 #define BLUR_STRENGTH 0.5
+
+float TimePassage;
+
 static const float BlurWeights[9] = { 0.0, 0.092, 0.081, 0.071, 0.061, 0.051, 0.041, 0.031, 0.021 };
 static const float3 LuminanceWeights = float3(0.299, 0.587, 0.114);
 
@@ -31,6 +34,20 @@ struct VertexShaderOutput
 	float4 Color : COLOR0;
 	float2 TextureCoordinates : TEXCOORD0;
 };
+
+float Rand1(float2 n)
+{ 
+    return frac(sin(dot(n, float2(12.9898, 4.1414) + TimePassage)) * 43758.545);
+}
+
+float Rand2(float2 n)
+{
+    float2 K1 = float2(
+		23.14069263277926, // e^pi
+		2.665144142690225 // 2^sqrt(2)
+    );
+    return frac(cos(dot(n, K1 + TimePassage)) * 12345.6789);
+}
 
 float2 CreateCurve(float2 uv) {
 	uv -= 0.5;
@@ -159,10 +176,23 @@ float4 AddShadowMask(float4 colRgba, float2 uv)
 	}
 	else
 	{
-		colRgba.r = 0;
+		colRgba.r = SetSaturation(colRgba.rgb, 0.5).r;
 	}
 	return colRgba;
 }
+
+float3 ApplyDustStreak(float3 col, float2 uv)
+{
+	float randY = Rand2(float2(uv.y, uv.y));
+	float randX = Rand1(float2(uv.x, uv.y));
+
+	if (distance(randY, uv.y) < 0.01 && distance(randX, uv.x) < 0.1)
+	{
+		col += 4 * col;
+	}
+	return col;
+}
+
 
 float4 MainPS(VertexShaderOutput input) : COLOR
 {
@@ -177,6 +207,7 @@ float4 MainPS(VertexShaderOutput input) : COLOR
 	col.rgb = AddBloom(col.rgb, transformedUV);
 	col.rgba = AddShadowMask(col.rgba, transformedUV);
 	col.rgb = AddBlur(col.rgb, transformedUV);
+	col.rgb = ApplyDustStreak(col.rgb, input.TextureCoordinates);
     return col;
 }
 

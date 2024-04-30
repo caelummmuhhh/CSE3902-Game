@@ -32,8 +32,8 @@ float4 GaussianBlur(float2 uv, float size)
 {
 	float Pi = 6.28318530718; // Pi*2
     
-    float directions = 16.0; // BLUR DIRECTIONS (Default 16.0 - More is better but slower)
-    float quality = 3.0; // BLUR QUALITY (Default 4.0 - More is better but slower)
+    float directions = 16.0; // more is better but slow
+    float quality = 4.0; // more is better but slow
    
     float2 radius = size / RESOLUTION_X;
     
@@ -53,9 +53,6 @@ float4 GaussianBlur(float2 uv, float size)
 	return color;
 }
 
-
-//-----------------------------
-// Noise function
 float Rand1(float2 n)
 { 
     return frac(sin(dot(n, float2(12.9898, 4.1414) + TimePassage)) * 43758.545);
@@ -64,8 +61,8 @@ float Rand1(float2 n)
 float Rand2(float2 n)
 {
     float2 K1 = float2(
-		23.14069263277926, // e^pi (Gelfond's constant)
-		2.665144142690225 // 2^sqrt(2) (Gelfondâ€“Schneider constant)
+		23.14069263277926, // e^pi
+		2.665144142690225 // 2^sqrt(2)
     );
     return frac(cos(dot(n, K1 + TimePassage)) * 12345.6789);
 }
@@ -224,14 +221,14 @@ float4 FinalPS(VertexShaderOutput input) : COLOR
 {
 	float4 col = tex2D(SpriteTextureSampler, input.TextureCoordinates);
 
-	col.rgb = SetSaturation(col.rgb, 0.3).rgb;
+	col.rgb = SetSaturation(col.rgb, 0.4).rgb;
 
     col.r = floor(col.r * 7.99) * (1.0 / 8.0);
     col.g = floor(col.g * 7.99) * (1.0 / 8.0);
     col.b = floor(col.b * 3.99) * (1.0 / 3.0);
 	col.a = floor(col.a * 8) / 8;
 
-	col.rgb = AddColorNoise(col.rgb, input.TextureCoordinates, 0.35, 853);
+	col.rgb = AddColorNoise(col.rgb, input.TextureCoordinates, 0.25, 853);
 	col.rgb = ApplyDustStreak(col.rgb, input.TextureCoordinates);
 	return col;
 }
