@@ -10,8 +10,10 @@ using MainGame.HudAndMenu;
 using MainGame.Dungeons;
 using MainGame.Collision;
 using MainGame.Audio;
+using MainGame.RNG;
 using MainGame.SpriteHandlers.BlockSprites;
 using System;
+using MainGame.StartScreen;
 
 namespace MainGame;
 
@@ -26,11 +28,15 @@ public class Game1 : Game
     public CollisionDetector Collision;
     public GameRoomManager RoomManager;
 
-    public BlockSprite testBlock; // TODO: DELETE ME
-
     public Dungeon Dungeon;
     public Hud Hud;
     public Menu Menu;
+
+    public StartScreen.StartScreen StartScreen;
+    public GameSelectScreen GameSelectScreen;
+
+    public bool StartScreenToggle { get; set; } = true; // Whether to show start screen or game
+    public bool GameSelectScreenToggle { get; set; } = true;
 
     public bool TogglePause { get; set; } = false;
     public bool ToggleEntities { get; set; } = true; // whether or not to update and draw entities
@@ -42,11 +48,10 @@ public class Game1 : Game
     {
         GraphicsManager = new GraphicsDeviceManager(this)
         {
-            PreferredBackBufferWidth = 768,
-            PreferredBackBufferHeight = 696
+            PreferredBackBufferWidth = (int)Constants.ScreenSize.X,
+            PreferredBackBufferHeight = (int)Constants.ScreenSize.Y
         };
 
-        //this.TargetElapsedTime = TimeSpan.FromSeconds(1d / 30d); //60);
         Content.RootDirectory = "Content";
         IsMouseVisible = true;
     }
@@ -58,30 +63,45 @@ public class Game1 : Game
         base.Initialize();
     }
 
-    protected override void LoadContent()
+    public void LoadDungeon(string dungeonName, string roomFolder)
     {
-        AudioManager.SetUp(this);
-
-        spriteBatch = new SpriteBatch(GraphicsDevice);
-
-        SpriteFactory.LoadAllTextures(Content);
-        SpriteFactory.SpriteBatch = spriteBatch;
-
-        string dungeonName = "Dungeon_1.csv";
+        if (!GameSelectScreenToggle)
+        {
+            return;
+        }
         Dungeon = new Dungeon(this, dungeonName);
 
         RoomManager = new(this);
         Player = new Player(new Vector2(120 * Constants.UniversalScale, (128 * Constants.UniversalScale) + Constants.HudAndMenuHeight), RoomManager,
-            Array.Empty<int>(), Dungeon.PlayerStartingHealth, Dungeon.PlayerStartingRupees, Dungeon.PlayerStartingKeys, Dungeon.PlayerStartingBombs);
+            Dungeon.PlayerStartingItems, Dungeon.PlayerStartingHealth, Dungeon.PlayerStartingRupees, Dungeon.PlayerStartingKeys, Dungeon.PlayerStartingBombs);
 
-        RoomManager.LoadAllRooms(Player);
+        RoomManager.LoadAllRooms(Player, roomFolder);
 
         Collision = new(this);
 
         Hud = new Hud(Dungeon.DungeonId, Dungeon.UseItemKey, Dungeon.AttackKey, this);
         Menu = new Menu(Dungeon.UseItemKey, this);
 
-        testBlock = (BlockSprite)SpriteFactory.CreateBlackSquareSprite(); // TODO: DELETE ME
+        controllers.Clear();
+        controllers.Add(new KeyboardController(this, Player));
+        controllers.Add(new MouseController(this, Player));
+    }
+
+
+    protected override void LoadContent()
+    {
+        AudioManager.SetUp(this);
+        RandomGeneration.GenerateDungeon(this, "Content/Dungeons/Dungeon_Base.csv", "Content/Dungeons/Dungeon_Random.csv");
+
+        spriteBatch = new SpriteBatch(GraphicsDevice);
+
+        SpriteFactory.LoadAllTextures(Content);
+        SpriteFactory.SpriteBatch = spriteBatch;
+        LoadDungeon("Dungeon_1.csv", "Content/Rooms"); // initnally load normal room
+
+        StartScreen = new StartScreen.StartScreen(this);
+
+        GameSelectScreen = new GameSelectScreen(this);
 
         controllers.Add(new KeyboardController(this, Player));
         controllers.Add(new MouseController(this, Player));
@@ -99,25 +119,37 @@ public class Game1 : Game
             }
         }
 
-        if (!TogglePause)
+        if (!StartScreenToggle && !GameSelectScreenToggle)
         {
-            RoomManager.Update();
-            PauseDebounce++;
-            Hud.TogglePauseDisplay(TogglePause);
 
-            if (ToggleEntities && !FreezeAllEntities)
+            if (!TogglePause)
             {
-                Player.Update();
-                Collision.Update(); // should be one of the last thing that updates
+                RoomManager.Update();
+                PauseDebounce++;
+                Hud.TogglePauseDisplay(TogglePause);
+
+                if (ToggleEntities && !FreezeAllEntities)
+                {
+                    Player.Update();
+                    Collision.Update(); // should be one of the last thing that updates
+                }
             }
+            else
+            {
+                Hud.TogglePauseDisplay(TogglePause);
+                Menu.Update();
+                PauseDebounce++;
+            }
+        }
+        else if(!StartScreenToggle)
+        {
+            GameSelectScreen.Update();
         }
         else
         {
-            Hud.TogglePauseDisplay(TogglePause);
-            Menu.Update();
-            PauseDebounce++;
+            StartScreen.Update();
         }
-
+        
         // Audio has to be outside to allow pause sounds, will cause bugs with delayed sounds playing on pause screen
         AudioManager.Update();
         Hud.Update();
@@ -136,21 +168,34 @@ public class Game1 : Game
         GraphicsDevice.Clear(Color.Black);
         spriteBatch.Begin(SpriteSortMode.FrontToBack, BlendState.AlphaBlend, SamplerState.PointClamp);
 
-        if (!TogglePause)
+        if (!StartScreenToggle && !GameSelectScreenToggle)
         {
-            RoomManager.Draw();
-            if (ToggleEntities)
+            if (!TogglePause)
             {
-                Player.Draw();
+                RoomManager.Draw();
+                if (ToggleEntities)
+                {
+                    Player.Draw();
+                }
             }
+            else
+            {
+                Menu.Draw();
+            }
+
+            // Hud always drawn
+            Hud.Draw();
+
+        }
+        else if (!StartScreenToggle)
+        {
+            GameSelectScreen.Draw();
         }
         else
         {
-            Menu.Draw();
+            StartScreen.Draw();
         }
 
-        // Hud always drawn
-        Hud.Draw();
         spriteBatch.End();
 
         base.Draw(gameTime);

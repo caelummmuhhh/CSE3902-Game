@@ -2,6 +2,7 @@
 using MainGame.WorldItems;
 using MainGame.Players;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Input;
 
 namespace MainGame.Enemies
 {
@@ -77,6 +78,10 @@ namespace MainGame.Enemies
             }
 
             return CreateItemBindedEnemy(enemy, position, out itemHolder, player);
+        }
+        public static EnemyTypes GetRandomEnemy()
+        {
+            return Utils.Randomize(EnemyTypes.Gel, EnemyTypes.Goriya, EnemyTypes.Keese, EnemyTypes.OldMan, EnemyTypes.SpikeCross, EnemyTypes.Stalfos, EnemyTypes.WallMaster);
         }
     }
 }

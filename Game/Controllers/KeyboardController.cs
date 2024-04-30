@@ -7,6 +7,8 @@ using MainGame.Commands.PlayerCommands;
 using MainGame.Commands.MenuCommands;
 using MainGame.Players;
 using System;
+using MainGame.Commands.DungeonSelectCommands;
+using System.Diagnostics;
 
 namespace MainGame.Controllers
 {
@@ -14,15 +16,25 @@ namespace MainGame.Controllers
 	{
         private readonly Dictionary<Keys, ICommand> playCommands;
         private readonly Dictionary<Keys, ICommand> menuCommands;
+        private readonly Dictionary<Keys, ICommand> startCommands;
         private readonly List<ICommand> executingCommands;
 		private readonly IPlayer player;
 		private readonly Game1 game;
-
+        
         public KeyboardController(Game1 game, IPlayer player)
 		{
 			this.game = game;
 			this.player = player;
             executingCommands = new();
+
+            startCommands = new()
+            {
+                { Keys.Enter, new StartGameCommand(game) },
+                { Keys.Q, new QuitGameCommand(game) },
+                { Keys.D1, new NormalDungeonCommand(game) },
+                { Keys.D2, new RandomDungeonCommand(game) },
+            };
+
             playCommands = new()
             {
                 { Keys.Q, new QuitGameCommand(game) },
@@ -36,8 +48,6 @@ namespace MainGame.Controllers
                 { Keys.K, new PlayerUseSwordCommand(player) },
                 { Keys.J, new PlayerUseItemCommand(player) },
 
-                { Keys.E, new PlayerDamageCommand(game) }, // TODO: delete in final
-
                 { Keys.D1, new PlayerObtainBoomerangCommand(player) },
                 { Keys.D2, new PlayerObtainBombCommand(player) },
                 { Keys.D3, new PlayerObtainArrowCommand(player) },
@@ -45,8 +55,6 @@ namespace MainGame.Controllers
                 { Keys.D5, new PlayerObtainCandleCommand(player) },
                 { Keys.D6, new PlayerObtainRupeesCommand(player) },
                 { Keys.D7, new PlayerMaxHealthCommand(player) },
-
-                //{ Keys.Up, new NextRoomCommand(game) },
 
                 { Keys.P, new PauseMenuCommand(game) },
                 { Keys.M, new MuteMusicCommand(game) },
@@ -68,6 +76,7 @@ namespace MainGame.Controllers
             List<ICommand> unexecuteCommands = new();
 
             Dictionary<Keys, ICommand> detectKeys = game.TogglePause ? menuCommands : playCommands;
+            detectKeys = game.StartScreenToggle || game.GameSelectScreenToggle ? startCommands : detectKeys;
 
             foreach (Keys key in detectKeys.Keys)
             {

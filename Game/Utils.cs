@@ -1,7 +1,11 @@
 ﻿using System;
+using System.IO;
 using System.Data;
 using System.Linq;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Input;
+using static System.Net.WebRequestMethods;
+using System.Text;
 
 namespace MainGame
 {
@@ -44,6 +48,8 @@ namespace MainGame
         public static readonly int HudAndMenuHeight = 56 * UniversalScale;
 
         public static readonly int RoomScrollingSpeed = 5;
+
+        public static readonly Vector2 ScreenSize = new Vector2(768, 696);
     }
 
     public static class Utils
@@ -156,6 +162,26 @@ namespace MainGame
         {
             return Randomize(Enum.GetValues(typeof(Direction)).Cast<Direction>().ToArray());
         }
+        public static ItemTypes GetRandomCollectableItem()
+        {
+            return Randomize(ItemTypes.HeartContainer, ItemTypes.Map, ItemTypes.Boomerang, ItemTypes.Bomb, ItemTypes.Bow, ItemTypes.Compass);
+        }
+        public static Direction CharToDirection(char dir)
+        {
+            switch (dir)
+            {
+                case 'N':
+                    return Direction.North;
+                case 'S':
+                    return Direction.South;
+                case 'W':
+                    return Direction.West;
+                case 'E':
+                    return Direction.East;
+                default:
+                    throw new IOException("Invalid input char");
+            }
+        }
 
         public static T Randomize<T>(params T[] values)
         {
@@ -163,6 +189,7 @@ namespace MainGame
             int randomIndex = random.Next(values.Length);
             return values[randomIndex];
         }
+
     }
 }
 
