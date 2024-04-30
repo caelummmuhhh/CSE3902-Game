@@ -10,8 +10,6 @@ using MainGame.WorldItems;
 using MainGame.Enemies;
 using MainGame.Players;
 using MainGame.Collision;
-using MainGame.Audio;
-using MainGame.Dungeons;
 using MainGame.Particles;
 
 namespace MainGame.Rooms
@@ -103,29 +101,37 @@ namespace MainGame.Rooms
          */
         private static IRoom ParseRoomType(string roomName)
         {
+            IRoom createdRoom; 
             switch (roomName)
             {
                 case "dungeonNormal":
-                    return new Room(
+                    createdRoom =  new Room(
                         SpriteFactory.CreateRoomOuterBorderSprite(),
                         SpriteFactory.CreateRoomInnerBorderSprite(),
                         SpriteFactory.CreateDungeonTilesSprite()
                         );
+                    createdRoom.PlayerBorderHitBox.Add(new AllDoorWallHitBox());
+                    break;
                 case "undergroundRoom":
-                    return new Room(
+                    createdRoom = new Room(
                         SpriteFactory.CreateEmptyRoomSprite(),
                         SpriteFactory.CreateEmptyRoomSprite(),
                         SpriteFactory.CreateUndergroundRoomSprite()
                         );
+                    createdRoom.PlayerBorderHitBox.Add(new AllFullWallHitBox());
+                    break;
                 case "dungeonOldMan":
-                    return new Room(
+                    createdRoom = new Room(
                         SpriteFactory.CreateRoomOuterBorderSprite(),
                         SpriteFactory.CreateRoomInnerBorderSprite(),
                         SpriteFactory.CreateEmptyRoomSprite()
                         );
+                    createdRoom.PlayerBorderHitBox.Add(new AllDoorWallHitBox());
+                    break;
                 default:
                     throw new FormatException($"Unable to read room type from format, unknown room type \"{roomName}\"");
             }
+            return createdRoom;
         }
 
         /* 
@@ -140,97 +146,45 @@ namespace MainGame.Rooms
             if (!doors[0].Equals("-"))
             {
                 DoorTypes doorType = SpriteFactory.DoorTypeFromString(doors[0]);
-                room.NorthDoor = new Door(
-                     new Vector2(112 * Constants.UniversalScale, Constants.HudAndMenuHeight),
-                     SpriteFactory.CreateDoorTopNorthSouth(Direction.North, doorType),
-                     SpriteFactory.CreateDoorBottomNorthSouth(Direction.North, doorType),
-                     Direction.North
-                 );
-                if (doorType is DoorTypes.OpenDoor || doorType is DoorTypes.DestroyedWall)
-                {
-                    room.PlayerBorderHitBox.Add(new TopHorizontalDoorWallHitBox());
-                }
-                else
-                {
-                    room.PlayerBorderHitBox.Add(new TopFullHorizontalWallHitBox());
-                }
+                Vector2 doorPos = new(112 * Constants.UniversalScale, Constants.HudAndMenuHeight);
+                room.NorthDoor = DoorUtils.CreateDungeonDoor(doorPos, Direction.North, doorType);
             }
             else
             {
                 room.NorthDoor = new BlankDoor();
-                room.PlayerBorderHitBox.Add(new TopFullHorizontalWallHitBox());
             }
 
             if (!doors[1].Equals("-"))
             {
                 DoorTypes doorType = SpriteFactory.DoorTypeFromString(doors[1]);
-                room.SouthDoor = new Door(
-                new Vector2(112 * Constants.UniversalScale, 160 * Constants.UniversalScale + Constants.HudAndMenuHeight),
-                SpriteFactory.CreateDoorTopNorthSouth(Direction.South, doorType),
-                SpriteFactory.CreateDoorBottomNorthSouth(Direction.South, doorType),
-                Direction.South
-                );
-                if (doorType is DoorTypes.OpenDoor || doorType is DoorTypes.DestroyedWall)
-                {
-                    room.PlayerBorderHitBox.Add(new BottomHorizontalDoorWallHitBox());
-                }
-                else
-                {
-                    room.PlayerBorderHitBox.Add(new BottomFullHorizontalWallHitBox());
-                }
+                Vector2 doorPos = new(112 * Constants.UniversalScale, 160 * Constants.UniversalScale + Constants.HudAndMenuHeight);
+                room.SouthDoor = DoorUtils.CreateDungeonDoor(doorPos, Direction.South, doorType);
             }
             else
             {
                 room.SouthDoor = new BlankDoor();
-                room.PlayerBorderHitBox.Add(new BottomFullHorizontalWallHitBox());
             }
 
             if (!doors[2].Equals("-"))
             {
                 DoorTypes doorType = SpriteFactory.DoorTypeFromString(doors[2]);
-                room.EastDoor = new Door(
-                new Vector2(0 * Constants.UniversalScale, 72 * Constants.UniversalScale + Constants.HudAndMenuHeight),
-                SpriteFactory.CreateDoorTopWestEast(Direction.West, doorType),
-                SpriteFactory.CreateDoorBottomWestEast(Direction.West, doorType),
-                Direction.West
-                );
-                if (doorType is DoorTypes.OpenDoor || doorType is DoorTypes.DestroyedWall)
-                {
-                    room.PlayerBorderHitBox.Add(new LeftVerticalDoorWallHitBox());
-                }
-                else
-                {
-                    room.PlayerBorderHitBox.Add(new LeftFullVerticalWallHitBox());
-                }
+                Vector2 doorPos = new(0 * Constants.UniversalScale, 72 * Constants.UniversalScale + Constants.HudAndMenuHeight);
+                room.WestDoor = DoorUtils.CreateDungeonDoor(doorPos, Direction.West, doorType);
             }
             else
             {
-                room.EastDoor = new BlankDoor();
-                room.PlayerBorderHitBox.Add(new LeftFullVerticalWallHitBox());
+                room.WestDoor = new BlankDoor();
             }
 
             if (!doors[3].Equals("-"))
             {
                 DoorTypes doorType = SpriteFactory.DoorTypeFromString(doors[3]);
-                room.WestDoor = new Door(
-                new Vector2(240 * Constants.UniversalScale, 72 * Constants.UniversalScale + Constants.HudAndMenuHeight),
-                SpriteFactory.CreateDoorTopWestEast(Direction.East, doorType),
-                SpriteFactory.CreateDoorBottomWestEast(Direction.East, doorType),
-                Direction.East
-                );
-                if (doorType is DoorTypes.OpenDoor || doorType is DoorTypes.DestroyedWall)
-                {
-                    room.PlayerBorderHitBox.Add(new RightVerticalDoorWallHitBox());
-                }
-                else
-                {
-                    room.PlayerBorderHitBox.Add(new RightFullVerticalWallHitBox());
-                }
+                Vector2 doorPos = new(240 * Constants.UniversalScale, 72 * Constants.UniversalScale + Constants.HudAndMenuHeight);
+                room.EastDoor = DoorUtils.CreateDungeonDoor(doorPos, Direction.East, doorType);
             }
             else
             {
-                room.WestDoor = new BlankDoor();
-                room.PlayerBorderHitBox.Add(new RightFullVerticalWallHitBox());
+                room.EastDoor = new BlankDoor();
             }
         }
 

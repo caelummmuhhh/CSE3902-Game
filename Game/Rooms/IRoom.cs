@@ -38,6 +38,9 @@ namespace MainGame.Rooms
         public ISprite InnerBorderSprite { get; set; }
         public ISprite TilesSprite { get; set; }
 
+        public Vector2 Position { get; set; }
+
+
         public void Update();
         public void Draw();
     }

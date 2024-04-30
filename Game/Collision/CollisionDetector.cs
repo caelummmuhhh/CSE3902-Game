@@ -10,6 +10,9 @@ using MainGame.Projectiles;
 using MainGame.Rooms;
 using MainGame.Collision.CollisionHandlers;
 using System.Reflection;
+using MainGame.Doors;
+using System;
+using System.Diagnostics;
 
 namespace MainGame.Collision
 {
@@ -20,6 +23,7 @@ namespace MainGame.Collision
 		private List<IEnemy> enemies;
 		private List<IProjectile> playerProjectiles = new();
 		private List<IProjectile> enemyProjectiles = new();
+        private List<IDoor> doors = new();
         private IHitBox enemyBorder;
         private IHitBox playerBorders;
 
@@ -37,6 +41,7 @@ namespace MainGame.Collision
             enemies = new List<IEnemy>(currentRoom.RoomEnemies);
             playerProjectiles = currentRoom.PlayerProjectiles;
 
+
             playerBorders = currentRoom.PlayerBorderHitBox;
             enemyBorder = currentRoom.EnemiesBorderHitBox;
             //enemyProjectiles = currentRoom.EnemyProjectiles;
@@ -53,6 +58,11 @@ namespace MainGame.Collision
             playerBorders = currentRoom.PlayerBorderHitBox;
             enemyBorder = currentRoom.EnemiesBorderHitBox;
             //enemyProjectiles = currentRoom.EnemyProjectiles;
+            doors.Clear();
+            doors.Add(currentRoom.NorthDoor);
+            doors.Add(currentRoom.SouthDoor);
+            doors.Add(currentRoom.EastDoor);
+            doors.Add(currentRoom.WestDoor);
             GetAllEnemyProjectiles();
 
             DetectAllCollisions();
@@ -66,6 +76,19 @@ namespace MainGame.Collision
             DetectBlockCollisions();
             DetectBorderCollisions();
             DetectItemCollisions();
+            DetectDoorCollisions();
+        }
+
+        public void DetectDoorCollisions()
+        {
+            foreach(IDoor door in doors)
+            {
+                Rectangle overlap = Rectangle.Intersect(player.MainHitbox, door.HitBox);
+                if (!overlap.IsEmpty)
+                {
+                    new PlayerDoorCollisionHandler(player, door, game).HandleCollision();
+                }
+            }
         }
 
 		public void DetectEnemyCollisions()
@@ -140,6 +163,14 @@ namespace MainGame.Collision
                     if (!overlap.IsEmpty)
                     {
                         new ProjectileBorderCollisionHandler(playerProjectile, borderHitBox).HandleCollision();
+                    }
+                }
+
+                foreach (IDoor door in doors) {
+                    Rectangle overlap = Rectangle.Intersect(door.HitBox, playerProjectile.HitBox);
+                    if (!overlap.IsEmpty)
+                    {
+                        new DoorPlayerProjectileCollisionHandler(playerProjectile, door, game).HandleCollision();
                     }
                 }
 

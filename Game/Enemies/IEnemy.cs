@@ -8,6 +8,7 @@ namespace MainGame.Enemies
         public int Health { get; }
         public int Damage { get; }
         public bool IsAlive { get; }
+        public bool Exists { get; set; }
 
         public Vector2 Position { get; set; }
         public Vector2 PreviousPosition { get; set; }

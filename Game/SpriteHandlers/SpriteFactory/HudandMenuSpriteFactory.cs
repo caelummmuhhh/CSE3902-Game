@@ -13,6 +13,7 @@ namespace MainGame.SpriteHandlers
             return new EmptyMenuSprite(
                 TextureMap["HudAndMenuSprites"], SpriteBatch,
                 textureStartingY: 0,
+                layerDepth: DefaultSpriteLayerDepths.MenuLayer,
                 scale: Constants.UniversalScale
                 );
         }
@@ -21,6 +22,7 @@ namespace MainGame.SpriteHandlers
             return new EmptyHudSprite(
                 TextureMap["HudAndMenuSprites"], SpriteBatch,
                 textureStartingY: 184,
+                layerDepth: DefaultSpriteLayerDepths.HudLayer,
                 scale: Constants.UniversalScale
                 );
         }
@@ -29,6 +31,7 @@ namespace MainGame.SpriteHandlers
             return new HeartDisplaySprite(
                 TextureMap["HudAndMenuSprites"], SpriteBatch,
                 textureStartingY: 240,
+                layerDepth: DefaultSpriteLayerDepths.HudLayer + 0.01f,
                 scale: Constants.UniversalScale
                 );
         }
@@ -37,6 +40,7 @@ namespace MainGame.SpriteHandlers
             return new HeartDisplaySprite(
                 TextureMap["HudAndMenuSprites"], SpriteBatch,
                 textureStartingY: 248,
+                layerDepth: DefaultSpriteLayerDepths.HudLayer + 0.01f,
                 scale: Constants.UniversalScale
                 );
         }
@@ -45,6 +49,7 @@ namespace MainGame.SpriteHandlers
             return new HeartDisplaySprite(
                 TextureMap["HudAndMenuSprites"], SpriteBatch,
                 textureStartingY: 256,
+                layerDepth: DefaultSpriteLayerDepths.HudLayer + 0.01f,
                 scale: Constants.UniversalScale
                 );
         }
@@ -53,6 +58,7 @@ namespace MainGame.SpriteHandlers
             return new MapLayoutPieceSprite(
                 TextureMap["HudAndMenuSprites"], SpriteBatch,
                 textureStartingY: 264,
+                layerDepth: DefaultSpriteLayerDepths.HudLayer + 0.01f,
                 scale: Constants.UniversalScale
                 );
         }
@@ -61,6 +67,7 @@ namespace MainGame.SpriteHandlers
             return new MapLayoutTrackerSprite(
                 TextureMap["HudAndMenuSprites"], SpriteBatch,
                 textureStartingY: 268,
+                layerDepth: DefaultSpriteLayerDepths.HudLayer + 0.03f,
                 scale: Constants.UniversalScale
                 );
         }
@@ -69,6 +76,7 @@ namespace MainGame.SpriteHandlers
             return new MapLayoutTrackerSprite(
                 TextureMap["HudAndMenuSprites"], SpriteBatch,
                 textureStartingY: 271,
+                layerDepth: DefaultSpriteLayerDepths.HudLayer + 0.02f,
                 scale: Constants.UniversalScale
                 );
         }
@@ -80,8 +88,8 @@ namespace MainGame.SpriteHandlers
                 numRows: 1,
                 numColumns: 2,
                 numberOfFrames: 2,
+                layerDepth: DefaultSpriteLayerDepths.MenuLayer + 0.01f,
                 scale: Constants.UniversalScale);
         }
-
     }
 }

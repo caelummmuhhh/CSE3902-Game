@@ -29,11 +29,11 @@ namespace MainGame.SpriteHandlers
         private readonly SpriteFont font;
         protected float layer;
 
-		public TextSprite(SpriteBatch spriteBatch, SpriteFont font, string text)
+		public TextSprite(SpriteBatch spriteBatch, SpriteFont font, string text, float layerDepth = 0.5f)
 		{
             this.spriteBatch = spriteBatch;
             this.font = font;
-            layer = 0.5f;
+            layer = layerDepth;
             Text = text;
 		}
 
@@ -42,7 +42,7 @@ namespace MainGame.SpriteHandlers
         public void Draw(float x, float y, Color color)
         {
             DestinationRectangle = new((int)x, (int)y, 0, 0);
-            spriteBatch.DrawString(font, Text, new Vector2(x, y), color);
+            spriteBatch.DrawString(font, Text, new Vector2(x, y), color, 0f, new(0, 0), 1f, SpriteEffects.None, layer);
         }
 
     }

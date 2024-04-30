@@ -3,7 +3,7 @@ using MainGame.Projectiles;
 
 namespace MainGame.Collision.CollisionHandlers
 {
-	public class EnemyPlayerProjectileCollisionHandler: ICollisionHandler
+	public class EnemyPlayerProjectileCollisionHandler : ICollisionHandler
     {
         private readonly IEnemy enemy;
         private readonly IProjectile projectile;

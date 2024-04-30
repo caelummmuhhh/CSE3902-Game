@@ -1,13 +1,8 @@
-﻿using System.Collections.Generic;
-using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Content;
-using MainGame.SpriteHandlers.ItemSprites;
+﻿using MainGame.SpriteHandlers.ItemSprites;
 using System;
 
 namespace MainGame.SpriteHandlers
 {
-    public enum DoorTypes { WallNormal, OpenDoor, KeyDoor, DiamondDoor, DestroyedWall, WallDestructible = 0 };
-
     public static partial class SpriteFactory
     {
         public static ISprite CreateDoorTopNorthSouth(Direction direction, DoorTypes doorType)
@@ -17,6 +12,7 @@ namespace MainGame.SpriteHandlers
                 TextureMap["RoomSprites"], SpriteBatch,
                 textureStartingY: 704 + 32 * dirNum,
                 textureStartingX: 32 * (int)doorType,
+                layerDepth: DefaultSpriteLayerDepths.PlayerLayer + 0.01f,
                 scale: Constants.UniversalScale
                 );
         }
@@ -28,6 +24,7 @@ namespace MainGame.SpriteHandlers
                 TextureMap["RoomSprites"], SpriteBatch,
                 textureStartingY: 704 + 16 + 32 * dirNum,
                 textureStartingX: 32 * (int)doorType,
+                layerDepth: DefaultSpriteLayerDepths.RoomBaseLayer,
                 scale: Constants.UniversalScale
                 );
         }
@@ -39,6 +36,7 @@ namespace MainGame.SpriteHandlers
                 TextureMap["RoomSprites"], SpriteBatch,
                 textureStartingY: 704 + 32 * dirNum,
                 textureStartingX: 32 * (int)doorType,
+                layerDepth: DefaultSpriteLayerDepths.PlayerLayer + 0.01f,
                 scale: Constants.UniversalScale
                 );
         }
@@ -50,6 +48,7 @@ namespace MainGame.SpriteHandlers
                 TextureMap["RoomSprites"], SpriteBatch,
                 textureStartingY: 704 + 32 * dirNum,
                 textureStartingX: 16 + 32 * (int)doorType,
+                layerDepth: DefaultSpriteLayerDepths.RoomBaseLayer,
                 scale: Constants.UniversalScale
                 );
         }
