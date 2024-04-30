@@ -14,6 +14,7 @@ namespace MainGame.Controllers
 	{
         private readonly Dictionary<Keys, ICommand> playCommands;
         private readonly Dictionary<Keys, ICommand> menuCommands;
+        private readonly Dictionary<Keys, ICommand> startCommands;
         private readonly List<ICommand> executingCommands;
 		private readonly IPlayer player;
 		private readonly Game1 game;
@@ -23,6 +24,12 @@ namespace MainGame.Controllers
 			this.game = game;
 			this.player = player;
             executingCommands = new();
+
+            startCommands = new()
+            {
+                { Keys.Enter, new StartGameCommand(game) },
+            };
+
             playCommands = new()
             {
                 { Keys.Q, new QuitGameCommand(game) },
@@ -46,8 +53,6 @@ namespace MainGame.Controllers
                 { Keys.D6, new PlayerObtainRupeesCommand(player) },
                 { Keys.D7, new PlayerMaxHealthCommand(player) },
 
-                //{ Keys.Up, new NextRoomCommand(game) },
-
                 { Keys.P, new PauseMenuCommand(game) },
                 { Keys.M, new MuteMusicCommand(game) },
             };
@@ -68,6 +73,7 @@ namespace MainGame.Controllers
             List<ICommand> unexecuteCommands = new();
 
             Dictionary<Keys, ICommand> detectKeys = game.TogglePause ? menuCommands : playCommands;
+            detectKeys = game.StartScreen ? startCommands : detectKeys;
 
             foreach (Keys key in detectKeys.Keys)
             {
