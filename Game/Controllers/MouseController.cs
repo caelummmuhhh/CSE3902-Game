@@ -35,7 +35,6 @@ namespace MainGame.Controllers
             commandDebounce++;
             if (mouseState.LeftButton == ButtonState.Pressed)
             {
-                Debug.WriteLine(commandDebounce);
                 if(commandDebounce < 50) { return; }
                 if(!game.GameSelectScreenToggle && !game.StartScreenToggle)
                 {

@@ -35,7 +35,7 @@ public class Game1 : Game
     public StartScreen.StartScreen StartScreen;
     public GameSelectScreen GameSelectScreen;
 
-    public bool StartScreenToggle { get; set; } = false; // Whether to show start screen or game
+    public bool StartScreenToggle { get; set; } = true; // Whether to show start screen or game
     public bool GameSelectScreenToggle { get; set; } = true;
 
     public bool TogglePause { get; set; } = false;
