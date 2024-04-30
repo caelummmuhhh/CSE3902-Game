@@ -7,6 +7,8 @@ using MainGame.Commands.PlayerCommands;
 using MainGame.Commands.MenuCommands;
 using MainGame.Players;
 using System;
+using MainGame.Commands.DungeonSelectCommands;
+using System.Diagnostics;
 
 namespace MainGame.Controllers
 {
@@ -18,7 +20,7 @@ namespace MainGame.Controllers
         private readonly List<ICommand> executingCommands;
 		private readonly IPlayer player;
 		private readonly Game1 game;
-
+        
         public KeyboardController(Game1 game, IPlayer player)
 		{
 			this.game = game;
@@ -29,6 +31,7 @@ namespace MainGame.Controllers
             {
                 { Keys.Enter, new StartGameCommand(game) },
                 { Keys.Q, new QuitGameCommand(game) },
+                { Keys.D1, new NormalDungeonCommand(game) },
             };
 
             playCommands = new()
@@ -43,8 +46,6 @@ namespace MainGame.Controllers
 
                 { Keys.K, new PlayerUseSwordCommand(player) },
                 { Keys.J, new PlayerUseItemCommand(player) },
-
-                { Keys.E, new PlayerDamageCommand(game) }, // TODO: delete in final
 
                 { Keys.D1, new PlayerObtainBoomerangCommand(player) },
                 { Keys.D2, new PlayerObtainBombCommand(player) },
@@ -74,7 +75,7 @@ namespace MainGame.Controllers
             List<ICommand> unexecuteCommands = new();
 
             Dictionary<Keys, ICommand> detectKeys = game.TogglePause ? menuCommands : playCommands;
-            detectKeys = game.StartScreenToggle ? startCommands : detectKeys;
+            detectKeys = game.StartScreenToggle || game.GameSelectScreenToggle ? startCommands : detectKeys;
 
             foreach (Keys key in detectKeys.Keys)
             {

@@ -31,8 +31,12 @@ public class Game1 : Game
     public Menu Menu;
 
     public StartScreen.StartScreen StartScreen;
+    public GameSelectScreen GameSelectScreen;
 
-    public bool StartScreenToggle { get; set; } = true; // Whether to show start screen or game
+
+    public bool StartScreenToggle { get; set; } = false; // Whether to show start screen or game
+    public bool GameSelectScreenToggle { get; set; } = true;
+
 
     public bool TogglePause { get; set; } = false;
     public bool ToggleEntities { get; set; } = true; // whether or not to update and draw entities
@@ -87,6 +91,8 @@ public class Game1 : Game
 
         StartScreen = new StartScreen.StartScreen(this);
 
+        GameSelectScreen = new GameSelectScreen(this);
+
         controllers.Add(new KeyboardController(this, Player));
         controllers.Add(new MouseController(this, Player));
     }
@@ -103,7 +109,7 @@ public class Game1 : Game
             }
         }
 
-        if (!StartScreenToggle)
+        if (!StartScreenToggle && !GameSelectScreenToggle)
         {
 
             if (!TogglePause)
@@ -125,10 +131,13 @@ public class Game1 : Game
                 PauseDebounce++;
             }
         }
+        else if(!StartScreenToggle)
+        {
+            GameSelectScreen.Update();
+        }
         else
         {
             StartScreen.Update();
-            
         }
         
         // Audio has to be outside to allow pause sounds, will cause bugs with delayed sounds playing on pause screen
@@ -149,7 +158,7 @@ public class Game1 : Game
         GraphicsDevice.Clear(Color.Black);
         spriteBatch.Begin(SpriteSortMode.FrontToBack, BlendState.AlphaBlend, SamplerState.PointClamp);
 
-        if (!StartScreenToggle)
+        if (!StartScreenToggle && !GameSelectScreenToggle)
         {
             if (!TogglePause)
             {
@@ -167,6 +176,10 @@ public class Game1 : Game
             // Hud always drawn
             Hud.Draw();
 
+        }
+        else if (!StartScreenToggle)
+        {
+            GameSelectScreen.Draw();
         }
         else
         {
