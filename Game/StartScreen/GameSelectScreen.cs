@@ -13,13 +13,16 @@ namespace MainGame.StartScreen
     {
         private Game1 game;
         private ISprite TopText;
+        private ISprite RandomDungeonText;
         private ISprite NormalDungeonText;
 
         public GameSelectScreen(Game1 game) 
         { 
             this.game = game;
             TopText = SpriteFactory.CreateTextSprite("Dungeon Selector");
+            RandomDungeonText = SpriteFactory.CreateTextSprite("Random Dungeon");
             NormalDungeonText = SpriteFactory.CreateTextSprite("Normal Dungeon");
+
 
         }
 
@@ -27,10 +30,13 @@ namespace MainGame.StartScreen
         {
             
         }
+
         public void Draw()
         {
             TopText.Draw(Constants.ScreenSize.X / 2 - 120, 0, Color.White);
-            NormalDungeonText.Draw(0, 100, Color.White);
+
+            
+            
         }
     }
 }

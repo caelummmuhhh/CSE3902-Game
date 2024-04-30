@@ -1,6 +1,5 @@
-﻿using MainGame.Dungeons;
+﻿using Microsoft.Xna.Framework;
 using System;
-using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Text;
@@ -8,21 +7,26 @@ using System.Threading.Tasks;
 
 namespace MainGame.Commands.DungeonSelectCommands
 {
-    public class NormalDungeonCommand : ICommand
+    public class MouseDungeonSelect : ICommand
     {
         Game1 game;
-        public NormalDungeonCommand(Game1 game)
+        Vector2 mousePosition;
+
+        public MouseDungeonSelect(Game1 game, Vector2 MousePosition) 
         {
             this.game = game;
+            this.mousePosition = MousePosition;
         }
-        public void Execute()
+
+        public void Execute() 
         {
-            game.LoadDungeon("Dungeon_1.csv", "Content/Rooms");
-            game.GameSelectScreenToggle = false;
+            Debug.WriteLine(mousePosition);
         }
+
         public void UnExecute()
         {
 
         }
+
     }
 }

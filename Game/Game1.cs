@@ -13,6 +13,7 @@ using MainGame.Audio;
 using MainGame.RNG;
 using MainGame.SpriteHandlers.BlockSprites;
 using System;
+using MainGame.StartScreen;
 
 namespace MainGame;
 
@@ -34,10 +35,8 @@ public class Game1 : Game
     public StartScreen.StartScreen StartScreen;
     public GameSelectScreen GameSelectScreen;
 
-
     public bool StartScreenToggle { get; set; } = false; // Whether to show start screen or game
     public bool GameSelectScreenToggle { get; set; } = true;
-
 
     public bool TogglePause { get; set; } = false;
     public bool ToggleEntities { get; set; } = true; // whether or not to update and draw entities
@@ -53,7 +52,6 @@ public class Game1 : Game
             PreferredBackBufferHeight = (int)Constants.ScreenSize.Y
         };
 
-        //this.TargetElapsedTime = TimeSpan.FromSeconds(1d / 30d); //60);
         Content.RootDirectory = "Content";
         IsMouseVisible = true;
     }
@@ -67,21 +65,12 @@ public class Game1 : Game
         base.Initialize();
     }
 
-    protected override void LoadContent()
+    public void LoadDungeon(string dungeonName, string roomFolder)
     {
-        AudioManager.SetUp(this);
-
-        spriteBatch = new SpriteBatch(GraphicsDevice);
-
-        SpriteFactory.LoadAllTextures(Content);
-        SpriteFactory.SpriteBatch = spriteBatch;
-
-        RandomGeneration.GenerateDungeon(this, "Content/Dungeons/Dungeon_Base.csv", "Content/Dungeons/Dungeon_Random.csv");
-
-        // Set to random dungeon here
-        string dungeonName = "Dungeon_Random.csv";
-        string roomFolder = "Content/RandomRooms";
-
+        if (!GameSelectScreenToggle)
+        {
+            return;
+        }
         Dungeon = new Dungeon(this, dungeonName);
 
         RoomManager = new(this);
@@ -94,6 +83,22 @@ public class Game1 : Game
 
         Hud = new Hud(Dungeon.DungeonId, Dungeon.UseItemKey, Dungeon.AttackKey, this);
         Menu = new Menu(Dungeon.UseItemKey, this);
+
+        controllers.Clear();
+        controllers.Add(new KeyboardController(this, Player));
+        controllers.Add(new MouseController(this, Player));
+    }
+
+
+    protected override void LoadContent()
+    {
+        AudioManager.SetUp(this);
+
+        spriteBatch = new SpriteBatch(GraphicsDevice);
+
+        SpriteFactory.LoadAllTextures(Content);
+        SpriteFactory.SpriteBatch = spriteBatch;
+        LoadDungeon("Dungeon_1.csv", "Content/Rooms"); // initnally load normal room
 
         StartScreen = new StartScreen.StartScreen(this);
 

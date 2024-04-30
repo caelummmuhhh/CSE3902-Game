@@ -32,6 +32,7 @@ namespace MainGame.Controllers
                 { Keys.Enter, new StartGameCommand(game) },
                 { Keys.Q, new QuitGameCommand(game) },
                 { Keys.D1, new NormalDungeonCommand(game) },
+                { Keys.D2, new RandomDungeonCommand(game) },
             };
 
             playCommands = new()
