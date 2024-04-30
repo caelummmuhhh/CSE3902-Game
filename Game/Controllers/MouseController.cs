@@ -32,6 +32,8 @@ namespace MainGame.Controllers
             ICommand command;
             if (mouseState.LeftButton == ButtonState.Pressed)
             {
+                if (mouseState.X < 0 || mouseState.Y < Constants.HudAndMenuHeight || mouseState.X > screenWidth || mouseState.Y > screenHeight) return;
+
                 if (mouseState.X < 2 * Constants.BlockSize)
                 {
                     command = new ChangeRoomWestCommand(game);

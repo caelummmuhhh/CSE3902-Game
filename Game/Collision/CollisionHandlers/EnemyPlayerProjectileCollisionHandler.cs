@@ -1,4 +1,5 @@
-﻿using MainGame.Enemies;
+﻿using MainGame.Audio;
+using MainGame.Enemies;
 using MainGame.Projectiles;
 
 namespace MainGame.Collision.CollisionHandlers
@@ -17,7 +18,12 @@ namespace MainGame.Collision.CollisionHandlers
         public void HandleCollision()
         {
             projectile.Collide();
-            if (!(enemy is GelEnemy || enemy is KeeseEnemy) && projectile is PlayerBoomerangProjectile)
+            if (enemy is AquamentusEnemy && projectile is PlayerBoomerangProjectile)
+            {
+                AudioManager.PlaySFX("Projectile_Deflect", 0);
+                return;
+            } 
+            else if (!(enemy is GelEnemy || enemy is KeeseEnemy) && projectile is PlayerBoomerangProjectile)
             {
                 enemy.Stun(100);
                 return;

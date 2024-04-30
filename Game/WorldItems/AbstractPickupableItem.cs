@@ -27,20 +27,24 @@ namespace MainGame.WorldItems
 		protected abstract ItemTypes ItemType { get; set; }
 		protected virtual IPlayer Player { get; set; }
 
+        public virtual int SpawnCounter { get; set; }
+
         public AbstractPickupableItem(Vector2 position, IPlayer player)
 		{
-			Position = position;
+            SpawnCounter = 32;
+            Position = position;
 			Player = player;
         }
 
 		public virtual void Update()
 		{
 			Sprite.Update();
+			SpawnCounter = SpawnCounter - 1 < 0 ? 0 : SpawnCounter - 1;
 		}
 
 		public virtual void Draw()
 		{
-			if (IsPickedUp)
+			if (IsPickedUp || SpawnCounter % 4 >= 3)
 			{
 				return;
 			}

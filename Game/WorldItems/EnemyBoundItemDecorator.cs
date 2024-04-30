@@ -10,11 +10,14 @@ namespace MainGame.WorldItems
         public string Name => item.Name;
         public int Id => item.Id;
 
+        public int SpawnCounter { get; set; }
+
         private readonly IPickupableItem item;
         private readonly IEnemy entity;
 
         public EnemyBoundItemDecorator(IEnemy enemy, IPickupableItem item)
         {
+            SpawnCounter = 0;
             this.item = item;
             entity = enemy;
         }

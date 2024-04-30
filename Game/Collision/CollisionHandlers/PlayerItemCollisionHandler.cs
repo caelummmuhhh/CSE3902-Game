@@ -17,8 +17,11 @@ namespace MainGame.Collision.CollisionHandlers
 
 		public void HandleCollision()
 		{
-			item.PickUp();
-			Console.WriteLine($"Picked up {item.Name}");
+            if (item.SpawnCounter <= 0)
+            {
+                item.PickUp();
+                Console.WriteLine($"Picked up {item.Name}");
+            }
 		}
 	}
 }

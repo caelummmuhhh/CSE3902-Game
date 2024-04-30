@@ -20,7 +20,10 @@ namespace MainGame.Enemies
             {
                 deathParticle.Update();
             }
-
+			else
+			{
+				entity.Exists = false;
+			}
         }
 
         public void Draw()

@@ -22,7 +22,12 @@ namespace MainGame.Audio
 
             LoadAllSFX();
         }
-
+        public static void ResetSong()
+        {
+            MediaPlayer.Stop();
+            MediaPlayer.IsMuted = false;
+            MediaPlayer.Play(Song);
+        }
         public static void MuteSong()
         {
             if (MuteDebounce <= 0)

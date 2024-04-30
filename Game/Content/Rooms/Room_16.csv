@@ -1,9 +1,10 @@
 dungeonNormal,,,,,,,,,,,
 keyDoor,wallNormal,openDoor,wallNormal,,,,,,,,
--,-,-,-,wallMaster,wallMaster,wallMaster,wallMaster,-,-,-,-
+-,-,-,-,-,-,-,wallMaster,-,-,-,-
 -,squareBlock,-,squareBlock,-,squareBlock,squareBlock,-,squareBlock,-,squareBlock,-
 -,-,-,-,-,-,-,-,-,-,-,-
 -,squareBlock,-,squareBlock,-,squareBlock,squareBlock,-,squareBlock,-,squareBlock,-
 -,-,-,-,-,-,-,-,-,-,-,-
 -,squareBlock,-,squareBlock,-,squareBlock,squareBlock,-,squareBlock,-,squareBlock,-
--,-,-,-,wallMaster,wallMaster,wallMaster,wallMaster,key,-,-,-
+-,-,-,-,-,-,-,-,key,-,-,-
+Unlocked,,,,,,,,,,,

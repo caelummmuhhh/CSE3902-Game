@@ -22,6 +22,7 @@ namespace MainGame.Rooms
         public List<IEnemy> RoomEnemies { get; set; } = new();
         public List<IBlock> RoomBlocks { get; set; } = new();
         public List<IPickupableItem> RoomItems { get; set; } = new();
+        public List<IPickupableItem> WaitingRoomItems { get; set; } = new();
         public List<IParticle> RoomParticles { get; set; } = new();
         public List<IProjectile> PlayerProjectiles { get; private set; } = new();
         public List<IProjectile> EnemyProjectiles { get; private set; } = new();

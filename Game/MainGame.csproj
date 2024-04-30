@@ -82,7 +82,6 @@
     <Folder Include="Enemies\GoriyaEnemy\" />
     <Folder Include="Enemies\SpikeCrossEnemy\" />
     <Folder Include="Enemies\OldManEnemy\" />
-    <Folder Include="Enemies\WallMasterEnemy\" />
     <Folder Include="Enemies\AquamentusEnemy\" />
     <Folder Include="Projectiles\AquamentusProjectile\" />
     <Folder Include="Collision\NonSpriteHitBoxes\" />

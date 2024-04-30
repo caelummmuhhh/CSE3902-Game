@@ -55,6 +55,9 @@ namespace MainGame.Players.PlayerStates
                     deathParticle.Update();
                     currentDeathState = deathParticle.IsActive ? currentDeathState : DeathState.Complete;
                     break;
+                case DeathState.Complete:
+                    if (counter > 256) player.IsDead = true;
+                    break;
             }
         }
 
