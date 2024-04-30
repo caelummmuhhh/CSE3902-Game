@@ -44,6 +44,8 @@ namespace MainGame
         public static readonly int HudAndMenuHeight = 56 * UniversalScale;
 
         public static readonly int RoomScrollingSpeed = 5;
+
+        public static readonly Vector2 ScreenSize = new Vector2(768, 696);
     }
 
     public static class Utils
@@ -163,6 +165,7 @@ namespace MainGame
             int randomIndex = random.Next(values.Length);
             return values[randomIndex];
         }
+
     }
 }
 

@@ -44,8 +44,8 @@ public class Game1 : Game
     {
         GraphicsManager = new GraphicsDeviceManager(this)
         {
-            PreferredBackBufferWidth = 768,
-            PreferredBackBufferHeight = 696
+            PreferredBackBufferWidth = (int)Constants.ScreenSize.X,
+            PreferredBackBufferHeight = (int)Constants.ScreenSize.Y
         };
 
         //this.TargetElapsedTime = TimeSpan.FromSeconds(1d / 30d); //60);
