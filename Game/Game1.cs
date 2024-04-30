@@ -10,6 +10,7 @@ using MainGame.HudAndMenu;
 using MainGame.Dungeons;
 using MainGame.Collision;
 using MainGame.Audio;
+using MainGame.RNG;
 using MainGame.SpriteHandlers.BlockSprites;
 using System;
 
@@ -80,14 +81,19 @@ public class Game1 : Game
         SpriteFactory.SpriteBatch = spriteBatch;
         ShaderEffect = Content.Load<Effect>("Shaders/CRT_2");
 
+        RandomGeneration.GenerateDungeon(this, "Content/Dungeons/Dungeon_Base.csv", "Content/Dungeons/Dungeon_Random.csv");
+
+        // Set to random dungeon here
         string dungeonName = "Dungeon_1.csv";
+        string roomFolder = "Content/Rooms";
+
         Dungeon = new Dungeon(this, dungeonName);
 
         RoomManager = new(this);
         Player = new Player(new Vector2(120 * Constants.UniversalScale, (128 * Constants.UniversalScale) + Constants.HudAndMenuHeight), RoomManager,
-            Array.Empty<int>(), Dungeon.PlayerStartingHealth, Dungeon.PlayerStartingRupees, Dungeon.PlayerStartingKeys, Dungeon.PlayerStartingBombs);
+            Dungeon.PlayerStartingItems, Dungeon.PlayerStartingHealth, Dungeon.PlayerStartingRupees, Dungeon.PlayerStartingKeys, Dungeon.PlayerStartingBombs);
 
-        RoomManager.LoadAllRooms(Player);
+        RoomManager.LoadAllRooms(Player, roomFolder);
 
         Collision = new(this);
 

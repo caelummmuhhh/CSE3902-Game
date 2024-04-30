@@ -5,18 +5,19 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace MainGame.SpriteHandlers.EnemySprites
 {
-    public class GoriyaWalkingUpSprite : AnimatedSpriteWithOffset
+    public class DarkStalfosSprite : AnimatedSpriteWithOffset
     {
         /// <summary>
-        /// The key is the current frame (starting at 0) and corresponds with currentFrame.
+        /// The key is the current animationframe (starting at 0).
         /// The value is how many game seconds the frame should be displayed.
         /// </summary>
         private readonly Dictionary<int, int> frameDisplayTimeMap;
         private readonly SpriteBatch spriteBatch;
         private int spriteDisplayTimeLapse;
-        bool spriteFlip;
+        private bool spriteFlip;
+        public override int AnimationFrameDuration => frameDisplayTimeMap.Count;
 
-        public GoriyaWalkingUpSprite(
+        public DarkStalfosSprite(
             Texture2D texture,
             SpriteBatch spriteBatch,
             int numRows,
@@ -36,8 +37,8 @@ namespace MainGame.SpriteHandlers.EnemySprites
             spriteFlip = false;
             frameDisplayTimeMap = new()
             {
-                { 0, 6 },
-                { 1, 6 },
+                { 0, 8 },
+                { 1, 8 },
             };
         }
 
@@ -54,11 +55,12 @@ namespace MainGame.SpriteHandlers.EnemySprites
 
         public override void Draw(float x, float y, Color color)
         {
-            SpriteEffects spriteEffect = spriteFlip ? SpriteEffects.FlipHorizontally : SpriteEffects.None;
+           // SpriteEffects spriteEffect = spriteFlip ? SpriteEffects.FlipHorizontally : SpriteEffects.None;
+            SpriteEffects spriteEffect = SpriteEffects.None;
             Rectangle srcRectangle = GetSourceRectangle();
             Rectangle destRectangle = GetDestinationRectangle(x, y);
 
-            spriteBatch.Draw(Texture, destRectangle, srcRectangle, color, rotation, origin, spriteEffect, layer);
+            spriteBatch.Draw(Texture, destRectangle, srcRectangle, Color.Black, rotation, origin, spriteEffect, layer);
         }
     }
 }

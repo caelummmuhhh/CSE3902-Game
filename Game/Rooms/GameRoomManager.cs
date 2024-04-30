@@ -2,6 +2,8 @@
 using System.IO;
 using Microsoft.Xna.Framework;
 using MainGame.Players;
+using MainGame.Players.PlayerStates;
+using MainGame.Commands;
 
 namespace MainGame.Rooms
 {
@@ -36,11 +38,11 @@ namespace MainGame.Rooms
 			this.game = game;
         }
 
-		public void LoadAllRooms(IPlayer player)
+		public void LoadAllRooms(IPlayer player, string folderPath)
 		{
 			for (int i = 0; i < game.Dungeon.DungeonRoomCount + 1; i++)
 			{
-				string filePath = Path.Combine("Content", "Rooms", $"Room_{i}.csv");
+				string filePath = Path.Combine(folderPath, $"Room_{i}.csv");
                 allRooms.Add(RoomFactory.GenerateRoom(filePath, player, this));
             }
 
@@ -50,6 +52,14 @@ namespace MainGame.Rooms
 
 		public void Update()
 		{
+			
+			if (game.Player.IsDead)
+			{
+				ICommand command = new ResetGameCommand(game);
+				command.Execute();
+				return;
+			} 
+
 			if(!roomChange) CurrentRoom.Update();
 			else
 			{

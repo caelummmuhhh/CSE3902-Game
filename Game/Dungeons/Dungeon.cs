@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 using MainGame.SpriteHandlers;
 using Microsoft.Xna.Framework;
 
@@ -13,7 +14,7 @@ namespace MainGame.Dungeons
         public int PlayerStartingRupees { get; set; }
         public int PlayerStartingKeys { get; set; }
         public int PlayerStartingBombs { get; set; }
-        public string[] PlayerStartingItems { get; set; }
+        public int[] PlayerStartingItems { get; set; }
 
         public int[][] DungeonLayout { get; set; }
         public int UnderGroundRoom { get; set; }
@@ -96,7 +97,14 @@ namespace MainGame.Dungeons
             PlayerStartingKeys = int.Parse(playerValues[2]);
             PlayerStartingBombs = int.Parse(playerValues[3]);
 
-            PlayerStartingItems = Lines[2].Split(',');
+            string[] startingItems = Lines[2].Split(',');
+            PlayerStartingItems = new int[startingItems.Length];
+
+            for (int i = 0;i < startingItems.Length; ++i)
+            {
+                if (string.IsNullOrEmpty(startingItems[i])) continue;
+                PlayerStartingItems[i] = (int)(ItemTypes)Enum.Parse(typeof(ItemTypes), startingItems[i]);
+            }
 
             string[][] dungeonLayout = new string[DungeonSize][];
 
@@ -109,8 +117,8 @@ namespace MainGame.Dungeons
                 } 
 
             }
-
-            UnderGroundRoom = int.Parse(Lines[11].Split(",")[0]);
+            string[] undergroundRooms = Lines[11].Split(",");
+            if (int.TryParse(undergroundRooms[0], out int roomID)) UnderGroundRoom = roomID;
 
         }
         public void Update()
