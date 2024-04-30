@@ -21,7 +21,7 @@ namespace MainGame.Dungeons
 		public int PlayerStartingRupees { get; set; }
 		public int PlayerStartingKeys { get; set; }
         public int PlayerStartingBombs { get; set; }
-		public string[] PlayerStartingItems { get; set; }
+		public int[] PlayerStartingItems { get; set; }
 
         public int[][] DungeonLayout { get; set; }
         public int UnderGroundRoom { get; set; }
