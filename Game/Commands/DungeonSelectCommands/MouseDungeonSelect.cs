@@ -20,7 +20,8 @@ namespace MainGame.Commands.DungeonSelectCommands
 
         public void Execute() 
         {
-            Debug.WriteLine(mousePosition);
+            if (game.GameSelectScreen.NormalDungeonHitBox.Contains(mousePosition.X, mousePosition.Y)) { new NormalDungeonCommand(game).Execute(); }
+            if (game.GameSelectScreen.RandomDungeonHitBox.Contains(mousePosition.X, mousePosition.Y)) { new RandomDungeonCommand(game).Execute(); }
         }
 
         public void UnExecute()

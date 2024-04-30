@@ -20,7 +20,7 @@ namespace MainGame.Commands.DungeonSelectCommands
         }
         public void Execute() 
         {
-            RandomGeneration.GenerateDungeon(game, "Content/Dungeons/Dungeon_Base.csv", "Content/Dungeons/Dungeon_Random.csv");
+            
             game.LoadDungeon("Dungeon_Random.csv", "Content/Rooms");
             game.GameSelectScreenToggle = false;
         }

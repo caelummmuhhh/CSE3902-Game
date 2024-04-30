@@ -60,8 +60,6 @@ public class Game1 : Game
     {
         controllers = new List<IController>();
 
-        AudioManager.MuteSong();
-
         base.Initialize();
     }
 
@@ -93,6 +91,7 @@ public class Game1 : Game
     protected override void LoadContent()
     {
         AudioManager.SetUp(this);
+        RandomGeneration.GenerateDungeon(this, "Content/Dungeons/Dungeon_Base.csv", "Content/Dungeons/Dungeon_Random.csv");
 
         spriteBatch = new SpriteBatch(GraphicsDevice);
 
