@@ -23,7 +23,7 @@ namespace MainGame.StartScreen
 
         public void Update()
         {
-
+            sprite.Update();
         }
 
         public void Draw()

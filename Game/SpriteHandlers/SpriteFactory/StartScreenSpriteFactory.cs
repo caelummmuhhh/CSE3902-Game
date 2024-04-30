@@ -10,7 +10,7 @@
                 numColumns: 2,
                 numberOfFrames: 2,
                 frameHeight: 200,
-                frameWidth: 255);
+                frameWidth: 256);
         }
     }
 }

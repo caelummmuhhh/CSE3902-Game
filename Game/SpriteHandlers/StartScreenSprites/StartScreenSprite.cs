@@ -45,17 +45,17 @@ namespace MainGame.SpriteHandlers.StartScreenSprites
             spriteDisplayTimeLapse = 0;
             frameDisplayTimeMap = new()
             {
-                { 0, 1 },
-                { 1, 1 },
+                { 0, 100 },
+                { 1, 100 },
             };
         }
 
         public override void Draw(float x, float y, Color color)
         {
             Rectangle srcRectangle = GetSourceRectangle();
-            Rectangle destRectangle = GetDestinationRectangle(x, y);
 
-            spriteBatch.Draw(Texture, destRectangle, srcRectangle, color, rotation, origin, SpriteEffects.None, layer);
+            spriteBatch.Draw(Texture, new Rectangle((int)x, (int)y, (int)Constants.ScreenSize.X, (int)Constants.ScreenSize.Y), 
+                srcRectangle, color, rotation, origin, SpriteEffects.None, layer);
         }
 
         public override void Update()
