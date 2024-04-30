@@ -2,8 +2,8 @@
 {
 	public class MoveItemSelectRightCommand : ICommand
     {
-		private readonly Game1 game;
-        public MoveItemSelectRightCommand(Game1 game)
+		private readonly PlayGameState game;
+        public MoveItemSelectRightCommand(PlayGameState game)
 		{
 			this.game = game;
 		}

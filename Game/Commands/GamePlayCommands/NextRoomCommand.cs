@@ -1,17 +1,17 @@
 ﻿namespace MainGame.Commands
 {
-    public class ChangeRoomEastCommand : ICommand
+    public class NextRoomCommand : ICommand
     {
-        private Game1 game;
+        private PlayGameState game;
 
-        public ChangeRoomEastCommand(Game1 game)
+        public NextRoomCommand(PlayGameState game)
         {
             this.game = game;
         }
 
         public void Execute()
         {
-            game.RoomManager.NextRoom(Direction.East);
+            game.RoomManager.NextRoom(Direction.North);
         }
 
         public void UnExecute()

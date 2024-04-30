@@ -4,8 +4,8 @@ namespace MainGame.Commands.PlayerCommands
 {
     public class PlayerDamageCommand : ICommand
     {
-        private readonly Game1 game;
-        public PlayerDamageCommand(Game1 game)
+        private readonly PlayGameState game;
+        public PlayerDamageCommand(PlayGameState game)
         {
             this.game = game;
         }

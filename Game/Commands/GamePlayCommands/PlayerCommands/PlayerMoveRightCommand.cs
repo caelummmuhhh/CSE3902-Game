@@ -4,8 +4,8 @@ namespace MainGame.Commands.PlayerCommands
 {
     public class PlayerMoveRightCommand : ICommand
     {
-        private readonly Game1 game;
-        public PlayerMoveRightCommand(Game1 game)
+        private readonly PlayGameState game;
+        public PlayerMoveRightCommand(PlayGameState game)
         {
             this.game = game;
         }

@@ -63,6 +63,7 @@
     <PackageReference Include="MonoGame.Content.Builder.Task" Version="3.8.1.303" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Commands/GamePlayCommands/" />
     <Folder Include="Content\RandomRooms\" />
     <Folder Include="Controllers\" />
     <Folder Include="Players\" />

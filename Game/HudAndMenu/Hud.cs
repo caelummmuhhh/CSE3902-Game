@@ -11,7 +11,7 @@ namespace MainGame.HudAndMenu
         private int pauseShift;
 
         public Vector2 Position;
-        private readonly Game1 game;
+        private readonly PlayGameState game;
 
         private readonly BlockSprite background; // TODO: make an actual sprite that can do this...
         private readonly ISprite textLevel;
@@ -32,7 +32,7 @@ namespace MainGame.HudAndMenu
         private Vector2 triforceRoomLoc;
         private readonly float textLayer = DefaultSpriteLayerDepths.HudLayer + 0.05f;
 
-        public Hud(string dungeonID, string itemKey, string attackKey, Game1 game) 
+        public Hud(string dungeonID, string itemKey, string attackKey, PlayGameState game) 
         {
             this.game = game;
             background = (BlockSprite)SpriteFactory.CreateBlackSquareSprite();

@@ -10,18 +10,17 @@ using System;
 
 namespace MainGame.Controllers
 {
-	public class KeyboardController : IController
+	public class PlayKeyboardController : IController
 	{
         private readonly Dictionary<Keys, ICommand> playCommands;
         private readonly Dictionary<Keys, ICommand> menuCommands;
         private readonly List<ICommand> executingCommands;
-		private readonly IPlayer player;
-		private readonly Game1 game;
+		private readonly PlayGameState gameState;
+        private int openMenuDebounce = 15;
 
-        public KeyboardController(Game1 game, IPlayer player)
+        public PlayKeyboardController(Game1 game, PlayGameState gameState, IPlayer player)
 		{
-			this.game = game;
-			this.player = player;
+			this.gameState = gameState;
             executingCommands = new();
             playCommands = new()
             {
@@ -29,14 +28,14 @@ namespace MainGame.Controllers
                 { Keys.R, new ResetGameCommand(game) },
 
                 { Keys.W, new PlayerMoveUpCommand(player) },
-                { Keys.A, new PlayerMoveLeftCommand(game) },
+                { Keys.A, new PlayerMoveLeftCommand(gameState) },
                 { Keys.S, new PlayerMoveDownCommand(player) },
-                { Keys.D, new PlayerMoveRightCommand(game) },
+                { Keys.D, new PlayerMoveRightCommand(gameState) },
 
                 { Keys.K, new PlayerUseSwordCommand(player) },
                 { Keys.J, new PlayerUseItemCommand(player) },
 
-                { Keys.E, new PlayerDamageCommand(game) }, // TODO: delete in final
+                { Keys.E, new PlayerDamageCommand(gameState) }, // TODO: delete in final
 
                 { Keys.D1, new PlayerObtainBoomerangCommand(player) },
                 { Keys.D2, new PlayerObtainBombCommand(player) },
@@ -46,29 +45,44 @@ namespace MainGame.Controllers
                 { Keys.D6, new PlayerObtainRupeesCommand(player) },
                 { Keys.D7, new PlayerMaxHealthCommand(player) },
 
-                { Keys.P, new PauseMenuCommand(game) },
+                { Keys.P, new PauseMenuCommand(gameState) },
                 { Keys.M, new MuteMusicCommand(game) },
+                { Keys.Escape, new SwitchToMenuStateCommand(game) }
             };
 
             menuCommands = new()
             {
                 { Keys.Q, playCommands[Keys.Q] },
-                { Keys.A, new MoveItemSelectLeftCommand(game) },
-                { Keys.D, new MoveItemSelectRightCommand(game) },
+                { Keys.A, new MoveItemSelectLeftCommand(gameState) },
+                { Keys.D, new MoveItemSelectRightCommand(gameState) },
                 { Keys.P, playCommands[Keys.P] },
-                { Keys.M, playCommands[Keys.M] }
+                { Keys.M, playCommands[Keys.M] },
+                { Keys.Escape, playCommands[Keys.Escape] }
             };
         }
 
         public void Update()
 		{
+            openMenuDebounce = openMenuDebounce > 0 ? openMenuDebounce - 1 : 0;
+
             KeyboardState keyState = Keyboard.GetState();
             List<ICommand> unexecuteCommands = new();
 
-            Dictionary<Keys, ICommand> detectKeys = game.TogglePause ? menuCommands : playCommands;
+            Dictionary<Keys, ICommand> detectKeys = gameState.TogglePause ? menuCommands : playCommands;
 
             foreach (Keys key in detectKeys.Keys)
             {
+                if (key is Keys.Escape)
+                {
+                    if (keyState.IsKeyDown(key) && openMenuDebounce <= 0)
+                    {
+                        openMenuDebounce = 15;
+                        Console.WriteLine("In play state. Switching to menu.");
+                        detectKeys[key].Execute();
+                    }
+                    continue;
+                }
+
                 if (keyState.IsKeyDown(key) && !executingCommands.Contains(detectKeys[key]))
                 {
                     executingCommands.Add(detectKeys[key]);

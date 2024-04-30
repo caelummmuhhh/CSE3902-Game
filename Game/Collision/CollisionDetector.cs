@@ -27,10 +27,10 @@ namespace MainGame.Collision
         private IHitBox enemyBorder;
         private IHitBox playerBorders;
 
-        private readonly Game1 game;
+        private readonly PlayGameState game;
         private readonly Player player;
 
-		public CollisionDetector(Game1 game)
+		public CollisionDetector(PlayGameState game)
 		{
             this.game = game;
             player = (Player)game.Player;

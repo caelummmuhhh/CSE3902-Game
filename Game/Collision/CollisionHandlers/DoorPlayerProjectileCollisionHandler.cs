@@ -9,9 +9,9 @@ namespace MainGame.Collision.CollisionHandlers
     {
         private readonly IDoor door;
         private readonly IProjectile projectile;
-        private readonly Game1 game;
+        private readonly PlayGameState game;
 
-        public DoorPlayerProjectileCollisionHandler(IProjectile projectile, IDoor door, Game1 game)
+        public DoorPlayerProjectileCollisionHandler(IProjectile projectile, IDoor door, PlayGameState game)
         {
             this.door = door;
             this.game = game;

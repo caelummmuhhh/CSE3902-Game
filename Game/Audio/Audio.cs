@@ -18,7 +18,7 @@ namespace MainGame.Audio
             Game = game;
             Song = game.Content.Load<Song>("Audio/Dungeon_BGM");
             MediaPlayer.IsRepeating = true;
-            //MediaPlayer.Play(Song);
+            MediaPlayer.Play(Song);
 
             LoadAllSFX();
         }

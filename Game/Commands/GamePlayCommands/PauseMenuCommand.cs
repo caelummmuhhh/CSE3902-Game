@@ -1,20 +1,19 @@
-﻿using MainGame.Audio;
-using MainGame.HudAndMenu;
+﻿using MainGame.HudAndMenu;
 
 namespace MainGame.Commands
 {
-    public class MuteMusicCommand : ICommand
+    public class PauseMenuCommand : ICommand
     {
-        private Game1 game;
+        private PlayGameState game;
 
-        public MuteMusicCommand(Game1 game)
+        public PauseMenuCommand(PlayGameState game)
         {
             this.game = game;
         }
 
         public void Execute()
         {
-            AudioManager.MuteSong();
+            game.SetPause();
         }
 
         public void UnExecute()

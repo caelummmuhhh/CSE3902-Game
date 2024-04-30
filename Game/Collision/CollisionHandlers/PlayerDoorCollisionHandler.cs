@@ -7,10 +7,10 @@ namespace MainGame.Collision.CollisionHandlers
     public class PlayerDoorCollisionHandler : ICollisionHandler
     {
         private readonly IDoor door;
-        private readonly Game1 game;
+        private readonly PlayGameState game;
         private readonly IPlayer player;
 
-        public PlayerDoorCollisionHandler(IPlayer player, IDoor door, Game1 game) 
+        public PlayerDoorCollisionHandler(IPlayer player, IDoor door, PlayGameState game) 
         {
             this.door = door;
             this.game = game;

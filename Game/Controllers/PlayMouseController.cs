@@ -10,16 +10,18 @@ using MainGame.SpriteHandlers;
 
 namespace MainGame.Controllers
 {
-	public class MouseController : IController
+	public class PlayMouseController : IController
 	{
         private readonly IPlayer player;
         private readonly Game1 game;
+        private readonly PlayGameState gameState;
         private readonly int screenWidth;
         private readonly int screenHeight;
         
-        public MouseController(Game1 game, IPlayer player)
+        public PlayMouseController(Game1 game, PlayGameState gameState, IPlayer player)
 		{
             this.game = game;
+            this.gameState = gameState;
             this.player = player;
 
             screenWidth = game.GraphicsDevice.Viewport.Width;
@@ -36,22 +38,22 @@ namespace MainGame.Controllers
 
                 if (mouseState.X < 2 * Constants.BlockSize)
                 {
-                    command = new ChangeRoomWestCommand(game);
+                    command = new ChangeRoomWestCommand(gameState);
                     command.Execute();
                 }
                 if (mouseState.X > 14 * Constants.BlockSize)
                 {
-                    command = new ChangeRoomEastCommand(game);
+                    command = new ChangeRoomEastCommand(gameState);
                     command.Execute();
                 }
                 if (mouseState.Y < 2 * Constants.BlockSize + Constants.HudAndMenuHeight)
                 {
-                    command = new ChangeRoomNorthCommand(game);
+                    command = new ChangeRoomNorthCommand(gameState);
                     command.Execute();
                 }
                 if (mouseState.Y > 9 * Constants.BlockSize + Constants.HudAndMenuHeight)
                 {
-                    command = new ChangeRoomSouthCommand(game);
+                    command = new ChangeRoomSouthCommand(gameState);
                     command.Execute();
                 }
             } 

@@ -13,8 +13,6 @@ namespace MainGame.Enemies
         public override int MovementCoolDownFrame { get; protected set; } = 2;
 
         private int still;
-		private readonly int maxMoveDuration = 32;
-
 		public DarkStalfosEnemy(Vector2 startingPosition)
 		{
 			Position = startingPosition;

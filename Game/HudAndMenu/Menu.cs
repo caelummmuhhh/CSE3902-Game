@@ -12,7 +12,7 @@ namespace MainGame.HudAndMenu
         public ISprite MenuBase;
 
         public Vector2 Position;
-        private readonly Game1 game;
+        private readonly PlayGameState game;
 
         private readonly ISprite textInventory;
         private readonly ISprite textInstructions;
@@ -44,7 +44,7 @@ namespace MainGame.HudAndMenu
         private int itemSelectDebounce = 10;
         private readonly float textLayer = DefaultSpriteLayerDepths.MenuLayer + 0.05f;
 
-        public Menu(string itemKey, Game1 game) 
+        public Menu(string itemKey, PlayGameState game) 
         {
             this.game = game;
             itemSelectDebounce = maxItemSelectDebounce;
