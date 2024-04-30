@@ -45,8 +45,8 @@ namespace MainGame.SpriteHandlers.StartScreenSprites
             spriteDisplayTimeLapse = 0;
             frameDisplayTimeMap = new()
             {
-                { 0, 100 },
-                { 1, 100 },
+                { 0, 10 },
+                { 1, 10 },
             };
         }
 

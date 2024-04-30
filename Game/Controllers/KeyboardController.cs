@@ -28,6 +28,7 @@ namespace MainGame.Controllers
             startCommands = new()
             {
                 { Keys.Enter, new StartGameCommand(game) },
+                { Keys.Q, new QuitGameCommand(game) },
             };
 
             playCommands = new()
