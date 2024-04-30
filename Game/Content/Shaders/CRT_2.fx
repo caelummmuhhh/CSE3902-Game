@@ -15,7 +15,7 @@
 #define BLUR_STRENGTH 0.5
 
 static const float3 LuminanceWeights = float3(0.299, 0.587, 0.114);
-static const float BlurWeights[9]={0.0, 0.092, 0.081, 0.071, 0.061, 0.051, 0.041, 0.031, 0.021};
+static const float BlurWeights[9] = { 0.0, 0.092, 0.081, 0.071, 0.061, 0.051, 0.041, 0.031, 0.021 };
 
 matrix WorldViewProjection;
 Texture2D SpriteTexture;

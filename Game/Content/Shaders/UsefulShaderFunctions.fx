@@ -32,3 +32,58 @@ float3 HSVtoRGB(in float3 HSV)
 	float3 RGB = HUEtoRGB(HSV.x);
 	return ((RGB - 1) * HSV.y + 1) * HSV.z;
 }
+
+
+
+float4 ApplyRedChannelBlur(float4 col, float2 uv)
+{
+
+	const float convolution[5][5] = 
+	{
+		{0.0030, 0.0133, 0.0219, 0.0133, 0.0030},
+		{0.0133, 0.0596, 0.0983, 0.0596, 0.0133},
+		{0.0219, 0.0983, 0.1621, 0.0983, 0.0219},
+		{0.0133, 0.0596, 0.0983, 0.0596, 0.0133},
+		{0.0030, 0.0133, 0.0219, 0.0133, 0.0030}
+	};
+
+	const int n = 5;
+	const int2 center = int2(2, 2);
+	col.r *= convolution[center.x][center.y];
+
+	for (int row = 0; row < n; row++)
+	{
+		for (int colm = 0; colm < n; colm++)
+		{
+			if (row == center.y && colm == center.x) continue;
+			float guassKernel = convolution[row][colm];
+			float2 pos = float2(row, colm);
+
+			//col.r += tex2D(SpriteTextureSampler, uv + float2(pos.y / RESOLUTION_X, pos.x / RESOLUTION_Y)).r * guassKernel * 2;
+		}
+	}
+
+
+	/*
+	const float offsets[] = { 0.0, 1.0, 2.0, 3.0, 4.0 };
+	const float weights[] = {
+		0.2270270270, 0.1945945946, 0.1216216216,
+		0.0540540541, 0.0162162162
+	};
+	const float2 onesVector = float2(1, 1);
+
+	col.r *= weights[0];
+
+	for (int i = 1; i < 5; i++)
+	{
+        col.r += tex2D(SpriteTextureSampler, uv + float2(0.0, offsets[i] / RESOLUTION_Y)).r * weights[i] / 2.0;
+        col.r += tex2D(SpriteTextureSampler, uv - float2(0.0, offsets[i] / RESOLUTION_Y)).r * weights[i] / 2.0;
+
+		col.r += tex2D(SpriteTextureSampler, uv + float2(offsets[i] / RESOLUTION_Y, 0.0)).r * weights[i] / 2.0;
+        col.r += tex2D(SpriteTextureSampler, uv - float2(offsets[i] / RESOLUTION_Y, 0.0)).r * weights[i] / 2.0;
+		
+	}*/
+
+	return col;
+}
+
